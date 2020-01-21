@@ -1,1 +1,1 @@
-Test for terminal
+Sample Text
