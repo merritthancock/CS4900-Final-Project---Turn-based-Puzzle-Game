@@ -16,7 +16,11 @@ var cubeGeometry = new THREE.CubeGeometry(15,15, 15);
 var cubeMaterial = new THREE.MeshLambertMaterial({ color: 0xddaa66});
 var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
  
- 
+var size = 100;
+var divisions = 20;
+
+var gridHelper = new THREE.GridHelper( size, divisions );
+scene.add( gridHelper );
 
 // create perspective camera
 var camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 10000);
