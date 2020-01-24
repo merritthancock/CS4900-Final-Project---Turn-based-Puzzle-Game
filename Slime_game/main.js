@@ -36,13 +36,22 @@ pointLight.position.set(10, 16, 16);
 scene.add(pointLight);
 scene.add(player);
 
+//Set up the ground
+grassland = new THREE.Mesh(new THREE.PlaneGeometry(200,200),
+            new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('grass.jpg')}) //placeholder texture for visulize only
+);
+grassland.rotation.x -= Math.PI / 2;
+grassland.position.set(0, 0, 0);
+
+//grassland.position.set(0,0,0);
+scene.add(grassland);
 
 //Set up grid
 function setGrid(size, divisions){
     this.size = size;
     this.divisions = divisions;
     this.startPos = startPos;
-    var gridHelper = new THREE.GridHelper( size, divisions );
+    var gridHelper = new THREE.GridHelper( size, divisions);
     scene.add( gridHelper );
     
 }
@@ -52,14 +61,48 @@ var skyboxMaterial = new THREE.MeshBasicMaterial({  map: THREE.ImageUtils.loadTe
 var skybox = new THREE.Mesh(skyboxGeometry, skyboxMaterial);
 scene.add(skybox);
 
- 
 renderer.render(scene, camera);
 
+var keyInput = {};
+function pressed(event){
+    keyInput[event.keyCode] = true;
+}
+
+function released(event){
+    keyInput[event.keyCode] = false;
+}
+
+window.addEventListener("keydown", pressed);
+window.addEventListener("keyup", released);
 
 function render() {
     renderer.render(scene, camera);
     requestAnimationFrame(render);
     setGrid(100, 20);
+    //camera.translateX(0.2);
+    
+    if(keyInput[37]){ //left arrow
+        camera.translateX(-1.5);
+    }
+    if(keyInput[39]){ //right arrow
+        camera.translateX(1.5);
+    }
+    if(keyInput[38]){//up arrow
+        camera.translateY(-0.5);
+        camera.translateZ(-2);
+    }
+    if(keyInput[40]){//down arrow
+        camera.translateY(0.5);
+        camera.translateZ(2);
+    }
+    if(keyInput[81]){//q key
+        camera.lookAt(player.position);
+        camera.translateX(-3);
+    }
+    if(keyInput[69]){//e key
+        camera.lookAt(player.position);
+        camera.translateX(3);
+    }
 }
 render();
 
