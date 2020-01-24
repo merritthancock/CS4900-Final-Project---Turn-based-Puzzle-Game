@@ -63,46 +63,10 @@ scene.add(skybox);
 
 renderer.render(scene, camera);
 
-var keyInput = {};
-function pressed(event){
-    keyInput[event.keyCode] = true;
-}
-
-function released(event){
-    keyInput[event.keyCode] = false;
-}
-
-window.addEventListener("keydown", pressed);
-window.addEventListener("keyup", released);
-
 function render() {
     renderer.render(scene, camera);
     requestAnimationFrame(render);
     setGrid(100, 20);
-    //camera.translateX(0.2);
-    
-    if(keyInput[37]){ //left arrow
-        camera.translateX(-1.5);
-    }
-    if(keyInput[39]){ //right arrow
-        camera.translateX(1.5);
-    }
-    if(keyInput[38]){//up arrow
-        camera.translateY(-0.5);
-        camera.translateZ(-2);
-    }
-    if(keyInput[40]){//down arrow
-        camera.translateY(0.5);
-        camera.translateZ(2);
-    }
-    if(keyInput[81]){//q key
-        camera.lookAt(player.position);
-        camera.translateX(-3);
-    }
-    if(keyInput[69]){//e key
-        camera.lookAt(player.position);
-        camera.translateX(3);
-    }
 }
 render();
 
