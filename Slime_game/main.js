@@ -68,6 +68,7 @@ function pressed(event){
 }
 
 function released(event){
+    console.log("UP")
     keyInput[event.keyCode] = false;
 }
 
@@ -95,12 +96,12 @@ function render() {
         camera.translateZ(2);
     }
     if(keyInput[81]){//q key
-        camera.lookAt(player.position);
         camera.translateX(-3);
+        camera.lookAt(player.position);
     }
     if(keyInput[69]){//e key
-        camera.lookAt(player.position);
         camera.translateX(3);
+        camera.lookAt(player.position);
     }
 }
 render();
