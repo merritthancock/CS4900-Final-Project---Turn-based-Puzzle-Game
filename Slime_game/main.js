@@ -16,8 +16,9 @@ var cubeMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTex
 //var cubeMaterial = new THREE.MeshLambertMaterial({ color: 0xddaa66});
 var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
  
-var size = 100;
-var divisions = 20;
+var size ;
+var divisions;
+var startPos;
 
 var gridHelper = new THREE.GridHelper( size, divisions );
 scene.add( gridHelper );
@@ -39,8 +40,15 @@ scene.add(pointLight);
 scene.add(cube);
 
 
-
-
+//Set up grid
+function setGrid(startPos, size, divisions){
+    this.size = size;
+    this.divisions = divisions;
+    this.startPos = startPos;
+    var gridHelper = new THREE.GridHelper( size, divisions );
+    scene.add( gridHelper );
+    
+}
 
 var skyboxGeometry = new THREE.CubeGeometry(10000, 10000, 10000);
 var skyboxMaterial = new THREE.MeshBasicMaterial({  map: THREE.ImageUtils.loadTexture('sky.jpg'), side: THREE.DoubleSide });
@@ -54,8 +62,11 @@ renderer.render(scene, camera);
 function render() {
     renderer.render(scene, camera);
     requestAnimationFrame(render);
+    setGrid([100,100,0], 100, 2);
     //cube.rotation.y += 0.01;
-	
+    //cube.translateZ(-0.05);
+    camera.lookAt(cube.position);
+    //camera.position.z -= (0.05);
 }
 render();
 
