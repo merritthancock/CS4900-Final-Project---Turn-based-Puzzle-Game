@@ -1,4 +1,3 @@
-
 var width = window.innerWidth;
 var height = window.innerHeight;
 
@@ -69,4 +68,3 @@ function render() {
     setGrid(100, 20);
 }
 render();
-
