@@ -115,7 +115,6 @@ function render() {
     renderer.render(scene, camera);
     requestAnimationFrame(render);
   
-    cube.rotation.y += 0.01;
 	if( k37 || k39){
 
 		if(k37){
