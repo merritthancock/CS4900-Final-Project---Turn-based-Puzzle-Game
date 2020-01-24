@@ -9,6 +9,49 @@ document.body.appendChild(renderer.domElement);
 // create scene object
 var scene = new THREE.Scene;
 
+var k37 = false;
+var k38 = false;
+var k39 = false;
+var k40 = false;
+
+function doKeyDown(event) {
+		var code = event.keyCode;
+	switch(code) {
+	case 37: // <
+			k37 = true;
+			break;
+		case 39: // >
+			k39=true;
+			break;
+		case 38: // ^
+			k38 = true;
+			break;
+		case 40: // v
+			k40 = true;
+			break;
+	
+	}
+	
+}
+
+function doKeyUp(event) {
+		var code = event.keyCode;
+	switch(code) {
+	case 37: // <
+			k37 = false;
+			break;
+		case 39: // >
+			k39=false;
+			break;
+		case 38: // ^
+			k38 = false;
+			break;
+		case 40: // v
+			k40 = false;
+			break;
+	}	
+}
+
 //used to determine player start position for the level
 var startPos = [0, 7.5, 0]; // -90, 7.5, -90 will put cube in back left corner of size 100, div 20 grid
 
@@ -60,48 +103,55 @@ var skyboxMaterial = new THREE.MeshBasicMaterial({  map: THREE.ImageUtils.loadTe
 var skybox = new THREE.Mesh(skyboxGeometry, skyboxMaterial);
 scene.add(skybox);
 
+document.addEventListener('keyup', doKeyUp, false);
+document.addEventListener('keydown', doKeyDown, false);
 renderer.render(scene, camera);
 
-var keyInput = {};
-function pressed(event){
-    keyInput[event.keyCode] = true;
-}
-
-function released(event){
-    console.log("UP")
-    keyInput[event.keyCode] = false;
-}
-
-window.addEventListener("keydown", pressed);
-window.addEventListener("keyup", released);
+renderer.render(scene, camera);
 
 function render() {
+	var rotSpeed = 0.03;
+	var x = camera.position.x, y = camera.position.y, z = camera.position.z;
     renderer.render(scene, camera);
     requestAnimationFrame(render);
-    setGrid(100, 20);
-    //camera.translateX(0.2);
-    
-    if(keyInput[37]){ //left arrow
-        camera.translateX(-1.5);
-    }
-    if(keyInput[39]){ //right arrow
-        camera.translateX(1.5);
-    }
-    if(keyInput[38]){//up arrow
-        camera.translateY(-0.5);
-        camera.translateZ(-2);
-    }
-    if(keyInput[40]){//down arrow
-        camera.translateY(0.5);
-        camera.translateZ(2);
-    }
-    if(keyInput[81]){//q key
-        camera.translateX(-3);
-        camera.lookAt(player.position);
-    }
-    if(keyInput[69]){//e key
-        camera.translateX(3);
-        camera.lookAt(player.position);
-    }
+  
+    cube.rotation.y += 0.01;
+	if( k37 || k39){
+
+		if(k37){
+	camera.position.x = x * Math.cos(rotSpeed) + z * Math.sin(rotSpeed);
+    camera.position.z = z * Math.cos(rotSpeed) - x * Math.sin(rotSpeed);
+    camera.lookAt(scene.position);
+
+
+		}
+		if(k39){
+    camera.position.x = x * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
+    camera.position.z = z * Math.cos(rotSpeed) + x * Math.sin(rotSpeed);
+    camera.lookAt(scene.position);
+
+
+		}
+
+
+	}
+	if( k38 || k40){
+
+		if(k38){
+	camera.position.z = z * Math.cos(rotSpeed) + y * Math.sin(rotSpeed);
+    camera.position.y = y * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
+    camera.lookAt(scene.position);
+
+
+		}
+		if(k40){
+    camera.position.z = z * Math.cos(rotSpeed) - y * Math.sin(rotSpeed);
+    camera.position.y = y * Math.cos(rotSpeed) + z * Math.sin(rotSpeed);
+    camera.lookAt(scene.position);
+		}
+
+
+	}
+  setGrid(100, 20);
 }
 render();
