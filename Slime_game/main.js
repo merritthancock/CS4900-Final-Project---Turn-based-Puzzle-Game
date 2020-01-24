@@ -80,7 +80,7 @@ scene.add(player);
 
 //Set up the ground
 grassland = new THREE.Mesh(new THREE.PlaneGeometry(200,200),
-            new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('grass.jpg')}) //placeholder texture for visulize only
+            new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true})
 );
 grassland.rotation.x -= Math.PI / 2;
 grassland.position.set(0, 0, 0);
@@ -99,7 +99,7 @@ function setGrid(size, divisions){
 }
 
 var skyboxGeometry = new THREE.CubeGeometry(10000, 10000, 10000);
-var skyboxMaterial = new THREE.MeshBasicMaterial({  map: THREE.ImageUtils.loadTexture('sky.jpg'), side: THREE.DoubleSide });
+var skyboxMaterial = new THREE.MeshBasicMaterial({  color: 0xffffff, side: THREE.DoubleSide });
 var skybox = new THREE.Mesh(skyboxGeometry, skyboxMaterial);
 scene.add(skybox);
 
@@ -107,7 +107,7 @@ document.addEventListener('keyup', doKeyUp, false);
 document.addEventListener('keydown', doKeyDown, false);
 renderer.render(scene, camera);
 
-renderer.render(scene, camera);
+test();
 
 function render() {
 	var rotSpeed = 0.03;
