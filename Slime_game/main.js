@@ -25,7 +25,7 @@ camera.position.y = 10;
 camera.position.z = 10;
 // add to scene and renderer
 scene.add(camera); 
-renderer.render(scene, camera);
+//renderer.render(scene, camera);
 // create the view matrix
 camera.lookAt(player.position);
 
@@ -51,7 +51,9 @@ function setGrid(size, divisions){
     var gridHelper = new THREE.GridHelper( size, divisions);
     scene.add( gridHelper );
 }
+setGrid(100, 20);
 
+//Set up the skybox
 var skyboxGeometry = new THREE.CubeGeometry(1000, 1000, 1000);
 var skyboxMaterial = new THREE.MeshBasicMaterial({  color: 0xffffff, side: THREE.DoubleSide });
 var skybox = new THREE.Mesh(skyboxGeometry, skyboxMaterial);
@@ -87,6 +89,5 @@ function render() {
 		camera.position.y = y * Math.cos(rotSpeed) + z * Math.sin(rotSpeed);
 		camera.lookAt(scene.position);
 	}
-    setGrid(100, 20);
 }
 render();
