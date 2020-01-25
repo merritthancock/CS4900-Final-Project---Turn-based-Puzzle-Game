@@ -53,8 +53,8 @@ function doKeyUp(event) {
 }
 
 //used to determine player start position for the level
-var startPos = [0, 7.5, 0]; // -90, 7.5, -90 will put cube in back left corner of size 100, div 20 grid
-
+//var startPos = [-10, 7.5, 0]; // -90, 7.5, -90 will put cube in back left corner of size 100, div 20 grid
+var startPos = [-10, 7.5, 20];
 // create player and add to scene
 var cubeGeometry = new THREE.CubeGeometry(15,15,15);
 var cubeMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture('slime.jpg')});
