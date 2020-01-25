@@ -52,16 +52,6 @@ function doKeyUp(event) {
 	}	
 }
 
-//used to determine player start position for the level
-var startPos = [1, 0.5, 1]; // -90, 7.5, -90 will put cube in back left corner of size 100, div 20 grid
-
-// create player and add to scene
-var cubeGeometry = new THREE.CubeGeometry(1,1,1);
-var cubeMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture('slime.jpg')});
-var player = new THREE.Mesh(cubeGeometry, cubeMaterial);
-player.position.set(startPos[0], startPos[1], startPos[2]);
-console.log(player.position);
-
 // create perspective camera
 var camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 10000);
 camera.position.y = 10;
@@ -76,7 +66,11 @@ camera.lookAt(player.position);
 var pointLight = new THREE.PointLight(0xaabbcc);
 pointLight.position.set(10, 16, 16);
 scene.add(pointLight);
+
+
+//add player to scene and set start position
 scene.add(player);
+resetPosition();
 
 //Set up the ground
 //grassland = new THREE.Mesh(new THREE.PlaneGeometry(200,200),
