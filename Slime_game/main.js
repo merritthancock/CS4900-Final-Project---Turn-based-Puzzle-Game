@@ -53,10 +53,10 @@ function doKeyUp(event) {
 }
 
 //used to determine player start position for the level
-var startPos = [0, 7.5, 0]; // -90, 7.5, -90 will put cube in back left corner of size 100, div 20 grid
+var startPos = [1, 0.5, 1]; // -90, 7.5, -90 will put cube in back left corner of size 100, div 20 grid
 
 // create player and add to scene
-var cubeGeometry = new THREE.CubeGeometry(15,15,15);
+var cubeGeometry = new THREE.CubeGeometry(1,1,1);
 var cubeMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture('slime.jpg')});
 var player = new THREE.Mesh(cubeGeometry, cubeMaterial);
 player.position.set(startPos[0], startPos[1], startPos[2]);
@@ -64,8 +64,8 @@ console.log(player.position);
 
 // create perspective camera
 var camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 10000);
-camera.position.y = 45;
-camera.position.z = 50;
+camera.position.y = 10;
+camera.position.z = 10;
 // add to scene and renderer
 scene.add(camera); 
 renderer.render(scene, camera);
@@ -79,14 +79,12 @@ scene.add(pointLight);
 scene.add(player);
 
 //Set up the ground
-grassland = new THREE.Mesh(new THREE.PlaneGeometry(200,200),
-            new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true})
-);
-grassland.rotation.x -= Math.PI / 2;
-grassland.position.set(0, 0, 0);
-
-//grassland.position.set(0,0,0);
-scene.add(grassland);
+//grassland = new THREE.Mesh(new THREE.PlaneGeometry(200,200),
+//            new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true})
+//);
+//grassland.rotation.x -= Math.PI / 2;
+//grassland.position.set(0, 0, 0);
+//scene.add(grassland);
 
 //Set up grid
 function setGrid(size, divisions){
@@ -97,7 +95,7 @@ function setGrid(size, divisions){
     scene.add( gridHelper );
 }
 
-var skyboxGeometry = new THREE.CubeGeometry(10000, 10000, 10000);
+var skyboxGeometry = new THREE.CubeGeometry(1000, 1000, 1000);
 var skyboxMaterial = new THREE.MeshBasicMaterial({  color: 0xffffff, side: THREE.DoubleSide });
 var skybox = new THREE.Mesh(skyboxGeometry, skyboxMaterial);
 scene.add(skybox);
@@ -106,7 +104,7 @@ document.addEventListener('keyup', doKeyUp, false);
 document.addEventListener('keydown', doKeyDown, false);
 renderer.render(scene, camera);
 
-test();
+createGrid1();
 
 function render() {
 	var rotSpeed = 0.03;
@@ -138,6 +136,7 @@ function render() {
 			camera.lookAt(scene.position);
 		}
 	}
-    setGrid(100, 20);
+  //setGrid(100, 20);
+  createGrid1();
 }
 render();
