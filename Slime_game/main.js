@@ -104,14 +104,10 @@ scene.add(skybox);
 
 document.addEventListener('keyup', doKeyUp, false);
 document.addEventListener('keydown', doKeyDown, false);
-renderer.render(scene, camera);
 
-renderer.render(scene, camera);
-
-function render() {
+function animate() {
 	var rotSpeed = 0.03;
 	var x = camera.position.x, y = camera.position.y, z = camera.position.z;
-    renderer.render(scene, camera);
     requestAnimationFrame(render);
   
 	if( k37 || k39){
@@ -138,6 +134,13 @@ function render() {
 			camera.lookAt(scene.position);
 		}
 	}
-    setGrid(100, 20);
+	setGrid(100, 20);
+	
+	render();
 }
-render();
+
+function render(){
+	renderer.render( scene, camera );
+}
+
+animate();
