@@ -1,16 +1,18 @@
-//Define variables to store status of each used key
-var leftArrow = false;
-var upArrow = false;
-var rightArrow = false;
-var downArrow = false;
+//Define a dictionary to store status of each bound key
+var keyStatus = {
+    "leftArrow" : false,
+    "rightArrow" : false,
+    "upArrow" : false,
+    "downArrow" : false,
 
-var qKey = false;
-var eKey = false;
+    "qKey" : false,
+    "eKey" : false,
 
-var wKey = false;
-var aKey = false;
-var sKey = false;
-var dKey = false;
+    "wKey" : false,
+    "aKey" : false,
+    "sKey" : false,
+    "dKey" : false
+}
 
 function doKeyDown(event) {
 	var code = event.keyCode;
@@ -18,38 +20,38 @@ function doKeyDown(event) {
 	switch(code) {
         //Cases for the arrow keys, currently bound to camera controls
         case 37: // <
-			leftArrow = true;
+			keyStatus["leftArrow"] = true;
 			break;
 		case 39: // >
-			rightArrow = true;
+			keyStatus["rightArrow"] = true;
 			break;
 		case 38: // ^
-			upArrow = true;
+			keyStatus["upArrow"] = true;
 			break;
 		case 40: // v
-			downArrow = true;
+			keyStatus["downArrow"] = true;
             break;
             
         //Cases for the q and e keys
         case 81: //q
-            qKey = true;
+            keyStatus["qKey"] = true;
             break;
         case 69: //e
-            eKey = true;
+            keyStatus["eKey"] = true;
             break;
 
         //Cases for WASD keys
         case 87: //w
-            wKey = true;
+            keyStatus["wKey"] = true;
             break;
         case 65: //a
-            aKey = true;
+            keyStatus["aKey"] = true;
             break;
         case 83: //s
-            sKey = true;
+            keyStatus["sKey"] = true;
             break;
         case 68: //d
-            dKey = true;
+            keyStatus["dKey"] = true;
             break;
 	}
 }
@@ -60,38 +62,38 @@ function doKeyUp(event) {
 	switch(code) {
         //Cases for the arrow keys, currently bound to camera controls
         case 37: // <
-			leftArrow = false;
+			keyStatus["leftArrow"] = false;
 			break;
 		case 39: // >
-			rightArrow = false;
+			keyStatus["rightArrow"] = false;
 			break;
 		case 38: // ^
-			upArrow = false;
+			keyStatus["upArrow"] = false;
 			break;
 		case 40: // v
-			downArrow = false;
+			keyStatus["downArrow"] = false;
             break;
             
         //Cases for the q and e keys
         case 81: //q
-            qKey = false;
+            keyStatus["qKey"] = false;
             break;
         case 69: //e
-            eKey = false;
+            keyStatus["eKey"] = false;
             break;
 
         //Cases for WASD keys
         case 87: //w
-            wKey = false;
+            keyStatus["wKey"] = false;
             break;
         case 65: //a
-            aKey = false;
+            keyStatus["aKey"] = false;
             break;
         case 83: //s
-            sKey = false;
+            keyStatus["sKey"] = false;
             break;
         case 68: //d
-            dKey = false;
+            keyStatus["dKey"] = false;
             break;
 	}
 }
