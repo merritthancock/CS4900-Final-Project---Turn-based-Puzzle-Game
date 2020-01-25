@@ -15,7 +15,8 @@ var k39 = false;
 var k40 = false;
 
 function doKeyDown(event) {
-		var code = event.keyCode;
+	var code = event.keyCode;
+
 	switch(code) {
 	case 37: // <
 			k37 = true;
@@ -29,13 +30,12 @@ function doKeyDown(event) {
 		case 40: // v
 			k40 = true;
 			break;
-	
 	}
-	
 }
 
 function doKeyUp(event) {
-		var code = event.keyCode;
+	var code = event.keyCode;
+
 	switch(code) {
 	case 37: // <
 			k37 = false;
@@ -93,7 +93,6 @@ function setGrid(size, divisions){
     this.startPos = startPos;
     var gridHelper = new THREE.GridHelper( size, divisions);
     scene.add( gridHelper );
-    
 }
 
 var skyboxGeometry = new THREE.CubeGeometry(1000, 1000, 1000);
@@ -114,40 +113,28 @@ function render() {
     requestAnimationFrame(render);
   
 	if( k37 || k39){
-
 		if(k37){
-	camera.position.x = x * Math.cos(rotSpeed) + z * Math.sin(rotSpeed);
-    camera.position.z = z * Math.cos(rotSpeed) - x * Math.sin(rotSpeed);
-    camera.lookAt(scene.position);
-
-
+			camera.position.x = x * Math.cos(rotSpeed) + z * Math.sin(rotSpeed);
+			camera.position.z = z * Math.cos(rotSpeed) - x * Math.sin(rotSpeed);
+			camera.lookAt(scene.position);
 		}
 		if(k39){
-    camera.position.x = x * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
-    camera.position.z = z * Math.cos(rotSpeed) + x * Math.sin(rotSpeed);
-    camera.lookAt(scene.position);
-
-
+			camera.position.x = x * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
+			camera.position.z = z * Math.cos(rotSpeed) + x * Math.sin(rotSpeed);
+			camera.lookAt(scene.position);
 		}
-
-
 	}
 	if( k38 || k40){
-
 		if(k38){
-	camera.position.z = z * Math.cos(rotSpeed) + y * Math.sin(rotSpeed);
-    camera.position.y = y * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
-    camera.lookAt(scene.position);
-
-
+			camera.position.z = z * Math.cos(rotSpeed) + y * Math.sin(rotSpeed);
+			camera.position.y = y * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
+			camera.lookAt(scene.position);
 		}
 		if(k40){
-    camera.position.z = z * Math.cos(rotSpeed) - y * Math.sin(rotSpeed);
-    camera.position.y = y * Math.cos(rotSpeed) + z * Math.sin(rotSpeed);
-    camera.lookAt(scene.position);
+			camera.position.z = z * Math.cos(rotSpeed) - y * Math.sin(rotSpeed);
+			camera.position.y = y * Math.cos(rotSpeed) + z * Math.sin(rotSpeed);
+			camera.lookAt(scene.position);
 		}
-
-
 	}
   //setGrid(100, 20);
   createGrid1();
