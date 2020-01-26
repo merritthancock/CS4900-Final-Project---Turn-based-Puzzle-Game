@@ -24,6 +24,9 @@ function createGrid1(){ //object function to create the grid for level 1
             if (grid[r][c] == 1){
                 uTerrain(r,c);
             }
+            if (grid[r][c] == 2){
+                wTerrain(r,c);
+            }
         }
 
     }
@@ -36,8 +39,8 @@ function createGrid2(){ //object function to create the grid for level 2
         [-1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
         [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
         [1, 0, 0, 0, 1, 1, 0, 0, 0, 1, -1, -1, -1, 0, 0 ],
-        [1, 0, 0, 1, -1, -1, 1, 0, 0, 1, -1, -1, -1, 0, 0, 0 ],
-        [1, 0, 0, 1, -1, -1, 1, 0, 0, 1, -1, -1, -1, 0, 0, 0 ],
+        [1, 0, 0, 1, 2, 2, 1, 0, 0, 1, -1, -1, -1, 0, 0, 0 ],
+        [1, 0, 0, 1, 2, 2, 1, 0, 0, 1, -1, -1, -1, 0, 0, 0 ],
         [1, 0, 0, 0, 1, 1, 0, 0, 0, 1, -1, -1, -1, 0, 0 ],
         [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
         [-1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -54,6 +57,9 @@ function createGrid2(){ //object function to create the grid for level 2
             }
             if (grid[r][c] == 1){
                 uTerrain(r,c);
+            }
+            if (grid[r][c] ==2){
+                wTerrain(r,c);
             }
         }
 
