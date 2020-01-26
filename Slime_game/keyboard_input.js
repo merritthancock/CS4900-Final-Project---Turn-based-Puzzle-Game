@@ -6,6 +6,7 @@ var keyStatus = {
     "downArrow" : false,
 
     "qKey" : false,
+    "rKey" : false,
     "eKey" : false,
 
     "wKey" : false,
@@ -32,9 +33,12 @@ function doKeyDown(event) {
 			keyStatus["downArrow"] = true;
             break;
             
-        //Cases for the q and e keys
+        //Cases for the q r and e keys
         case 81: //q
             keyStatus["qKey"] = true;
+            break;
+        case 82: //r
+            keyStatus["rKey"] = true;
             break;
         case 69: //e
             keyStatus["eKey"] = true;
@@ -74,9 +78,12 @@ function doKeyUp(event) {
 			keyStatus["downArrow"] = false;
             break;
             
-        //Cases for the q and e keys
+        //Cases for the q r and e keys
         case 81: //q
             keyStatus["qKey"] = false;
+            break;
+        case 82: //r
+            keyStatus["rKey"] = false;
             break;
         case 69: //e
             keyStatus["eKey"] = false;
