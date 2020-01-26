@@ -36,7 +36,8 @@ grassland.position.set(0, 0, 0);
 scene.add(grassland);
 
 //Set up grid
-createGrid1();
+//createGrid1();
+createGrid2();
 /*
 function setGrid(size, divisions){
     this.size = size;
@@ -50,7 +51,7 @@ setGrid(100, 20);*/
 
 //Set up the skybox
 var skyboxGeometry = new THREE.CubeGeometry(1000, 1000, 1000);
-var skyboxMaterial = new THREE.MeshBasicMaterial({  color: 0xffffff, side: THREE.DoubleSide });
+var skyboxMaterial = new THREE.MeshBasicMaterial({  color: 0x7EC0EE, side: THREE.DoubleSide });
 var skybox = new THREE.Mesh(skyboxGeometry, skyboxMaterial);
 scene.add(skybox);
 
