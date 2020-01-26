@@ -14,7 +14,7 @@ function moveForward(){
 }
 
 //Move Backwards
-function moveBackwards(){
+function moveBackward(){
     currentPos[2] -= 1;
     player.position.set(currentPos[0], currentPos[1], currentPos[2]);
 }
