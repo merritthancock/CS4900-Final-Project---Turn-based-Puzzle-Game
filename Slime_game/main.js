@@ -33,7 +33,11 @@ camera.lookAt(player.position);
 var pointLight = new THREE.PointLight(0xaabbcc);
 pointLight.position.set(10, 16, 16);
 scene.add(pointLight);
+
+
+//add player to scene and set start position
 scene.add(player);
+resetPosition();
 
 //Set up the ground
 grassland = new THREE.Mesh(new THREE.PlaneGeometry(200,200),
