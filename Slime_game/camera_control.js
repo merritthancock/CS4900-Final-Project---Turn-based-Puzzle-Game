@@ -1,42 +1,42 @@
 //rotate the camera about center of scene when called
 function rotateCamera(){
-    if(leftArrow){
+    if(qKey){
         camera.position.x = x * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
-        camera.position.z = z * Math.cos(rotSpeed) + x * Math.sin(rotSpeed);
-        camera.lookAt(scene.position);
+		camera.position.z = z * Math.cos(rotSpeed) + x * Math.sin(rotSpeed);
+		camera.lookAt(scene.position);
+    }
+    if(eKey){
+        camera.position.x = x * Math.cos(rotSpeed) + z * Math.sin(rotSpeed);
+		camera.position.z = z * Math.cos(rotSpeed) - x * Math.sin(rotSpeed);
+		camera.lookAt(scene.position);       
+    }    
+}
+function moveCamera(){
+    if(leftArrow){
+        camera.translateX(-0.1);	
     }
     if(rightArrow){
-        camera.position.x = x * Math.cos(rotSpeed) + z * Math.sin(rotSpeed);
-        camera.position.z = z * Math.cos(rotSpeed) - x * Math.sin(rotSpeed);
-        camera.lookAt(scene.position);        
+        camera.translateX(0.1);	        
     }
     if(upArrow){
-        camera.position.z = z * Math.cos(rotSpeed) - y * Math.sin(rotSpeed);
-        camera.position.y = y * Math.cos(rotSpeed) + z * Math.sin(rotSpeed);
-        camera.lookAt(scene.position);
+        camera.translateY(0.1);	
     }
     if(downArrow){
-        camera.position.z = z * Math.cos(rotSpeed) + y * Math.sin(rotSpeed);
-        camera.position.y = y * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
-        camera.lookAt(scene.position);       
+        camera.translateX(-0.1);	
     }
 }
 function zoomCamera(){
-    if(qKey){
-        camera.fov += 1;
-        camera.lookAt(scene.position);
+    if(oKey){
+        camera.translateZ(-0.1);     
     }
-    if(eKey){
-        camera.fov -= 1;
-        camera.lookAt(scene.position);        
+    if(pKey){
+        camera.translateZ(-0.1);            
     }
 }
 function resetCamera(){
     if(rKey){
-        camera.position.x = 0;
-		camera.position.y = 10;
-		camera.position.z = 10;
-		camera.fov = 45;
+        camera.position.y = 10;
+        camera.position.z = 10;
         camera.lookAt(player.position);
     }
 }
