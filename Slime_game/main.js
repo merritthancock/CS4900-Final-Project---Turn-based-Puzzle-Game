@@ -1,7 +1,6 @@
 var width = window.innerWidth;
 var height = window.innerHeight;
 
-
 var renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(width, height);
 document.body.appendChild(renderer.domElement);
@@ -9,78 +8,36 @@ document.body.appendChild(renderer.domElement);
 // create scene object
 var scene = new THREE.Scene;
 
-var k37 = false;
-var k38 = false;
-var k39 = false;
-var k40 = false;
-
-function doKeyDown(event) {
-	var code = event.keyCode;
-
-	switch(code) {
-	case 37: // <
-			k37 = true;
-			break;
-		case 39: // >
-			k39=true;
-			break;
-		case 38: // ^
-			k38 = true;
-			break;
-		case 40: // v
-			k40 = true;
-			break;
-	}
-}
-
-function doKeyUp(event) {
-	var code = event.keyCode;
-
-	switch(code) {
-	case 37: // <
-			k37 = false;
-			break;
-		case 39: // >
-			k39=false;
-			break;
-		case 38: // ^
-			k38 = false;
-			break;
-		case 40: // v
-			k40 = false;
-			break;
-	}	
-}
-
 // create perspective camera
 var camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 10000);
 camera.position.y = 10;
 camera.position.z = 10;
 // add to scene and renderer
 scene.add(camera); 
-renderer.render(scene, camera);
+//renderer.render(scene, camera);
 // create the view matrix
 camera.lookAt(player.position);
 
-// add lighting and add to scene 
+// create lighting and add to scene 
 var pointLight = new THREE.PointLight(0xaabbcc);
 pointLight.position.set(10, 16, 16);
 scene.add(pointLight);
-
 
 //add player to scene and set start position
 scene.add(player);
 resetPosition();
 
 //Set up the ground
-//grassland = new THREE.Mesh(new THREE.PlaneGeometry(200,200),
-//            new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true})
-//);
-//grassland.rotation.x -= Math.PI / 2;
-//grassland.position.set(0, 0, 0);
-//scene.add(grassland);
+grassland = new THREE.Mesh(new THREE.PlaneGeometry(200,200),
+            new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true})
+);
+grassland.rotation.x -= Math.PI / 2;
+grassland.position.set(0, 0, 0);
+scene.add(grassland);
 
 //Set up grid
+createGrid1();
+/*
 function setGrid(size, divisions){
     this.size = size;
     this.divisions = divisions;
@@ -88,17 +45,19 @@ function setGrid(size, divisions){
     var gridHelper = new THREE.GridHelper( size, divisions);
     scene.add( gridHelper );
 }
+setGrid(100, 20);*/
 
+
+//Set up the skybox
 var skyboxGeometry = new THREE.CubeGeometry(1000, 1000, 1000);
 var skyboxMaterial = new THREE.MeshBasicMaterial({  color: 0xffffff, side: THREE.DoubleSide });
 var skybox = new THREE.Mesh(skyboxGeometry, skyboxMaterial);
 scene.add(skybox);
 
+//Add event listeners
 document.addEventListener('keyup', doKeyUp, false);
 document.addEventListener('keydown', doKeyDown, false);
 renderer.render(scene, camera);
-
-createGrid1();
 
 function render() {
 	var rotSpeed = 0.03;
@@ -106,31 +65,25 @@ function render() {
     renderer.render(scene, camera);
     requestAnimationFrame(render);
   
-	if( k37 || k39){
-		if(k37){
-			camera.position.x = x * Math.cos(rotSpeed) + z * Math.sin(rotSpeed);
-			camera.position.z = z * Math.cos(rotSpeed) - x * Math.sin(rotSpeed);
-			camera.lookAt(scene.position);
-		}
-		if(k39){
-			camera.position.x = x * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
-			camera.position.z = z * Math.cos(rotSpeed) + x * Math.sin(rotSpeed);
-			camera.lookAt(scene.position);
-		}
+	if(keyStatus["leftArrow"]){
+		camera.position.x = x * Math.cos(rotSpeed) + z * Math.sin(rotSpeed);
+		camera.position.z = z * Math.cos(rotSpeed) - x * Math.sin(rotSpeed);
+		camera.lookAt(scene.position);
 	}
-	if( k38 || k40){
-		if(k38){
-			camera.position.z = z * Math.cos(rotSpeed) + y * Math.sin(rotSpeed);
-			camera.position.y = y * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
-			camera.lookAt(scene.position);
-		}
-		if(k40){
-			camera.position.z = z * Math.cos(rotSpeed) - y * Math.sin(rotSpeed);
-			camera.position.y = y * Math.cos(rotSpeed) + z * Math.sin(rotSpeed);
-			camera.lookAt(scene.position);
-		}
+	if(keyStatus["rightArrow"]){
+		camera.position.x = x * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
+		camera.position.z = z * Math.cos(rotSpeed) + x * Math.sin(rotSpeed);
+		camera.lookAt(scene.position);
 	}
-  //setGrid(100, 20);
-  createGrid1();
+	if(keyStatus["upArrow"]){
+		camera.position.z = z * Math.cos(rotSpeed) + y * Math.sin(rotSpeed);
+		camera.position.y = y * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
+		camera.lookAt(scene.position);
+	}
+	if(keyStatus["downArrow"]){
+		camera.position.z = z * Math.cos(rotSpeed) - y * Math.sin(rotSpeed);
+		camera.position.y = y * Math.cos(rotSpeed) + z * Math.sin(rotSpeed);
+		camera.lookAt(scene.position);
+	}
 }
 render();
