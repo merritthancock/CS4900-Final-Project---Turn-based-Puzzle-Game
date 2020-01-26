@@ -9,6 +9,9 @@ var keyStatus = {
     "rKey" : false,
     "eKey" : false,
 
+    "PKey" : false,
+    "oKey" : false,
+
     "wKey" : false,
     "aKey" : false,
     "sKey" : false,
@@ -42,6 +45,14 @@ function doKeyDown(event) {
             break;
         case 69: //e
             keyStatus["eKey"] = true;
+            break;
+
+        //Cases for O and P
+        case 79: //O
+            keyStatus["oKey"] = true;
+            break;
+        case 80: //r
+            keyStatus["pKey"] = true;
             break;
 
         //Cases for WASD keys
@@ -87,6 +98,14 @@ function doKeyUp(event) {
             break;
         case 69: //e
             keyStatus["eKey"] = false;
+            break;
+
+        //Cases for O and P
+        case 79: //O
+            keyStatus["oKey"] = false;
+            break;
+        case 80: //r
+            keyStatus["pKey"] = false;
             break;
 
         //Cases for WASD keys
