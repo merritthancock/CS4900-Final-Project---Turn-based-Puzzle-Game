@@ -70,39 +70,37 @@ function render() {
     requestAnimationFrame(render);
   
 	if(keyStatus["leftArrow"]){
-		camera.position.x = x * Math.cos(rotSpeed) + z * Math.sin(rotSpeed);
-		camera.position.z = z * Math.cos(rotSpeed) - x * Math.sin(rotSpeed);
-		camera.lookAt(scene.position);
+	camera.translateX(-0.1);	
 	}
 	if(keyStatus["rightArrow"]){
+		camera.translateX(0.1);
+	}
+	if(keyStatus["upArrow"]){
+		camera.translateY(0.1);
+	}
+	if(keyStatus["downArrow"]){
+		camera.translateY(-0.1);
+	}
+	if(keyStatus["qKey"]){
 		camera.position.x = x * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
 		camera.position.z = z * Math.cos(rotSpeed) + x * Math.sin(rotSpeed);
 		camera.lookAt(scene.position);
-	}
-	if(keyStatus["upArrow"]){
-		camera.position.z = z * Math.cos(rotSpeed) + y * Math.sin(rotSpeed);
-		camera.position.y = y * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
-		camera.lookAt(scene.position);
-	}
-	if(keyStatus["downArrow"]){
-		camera.position.z = z * Math.cos(rotSpeed) - y * Math.sin(rotSpeed);
-		camera.position.y = y * Math.cos(rotSpeed) + z * Math.sin(rotSpeed);
-		camera.lookAt(scene.position);
+    }
+    if(keyStatus["eKey"]){
+    	camera.position.x = x * Math.cos(rotSpeed) + z * Math.sin(rotSpeed);
+		camera.position.z = z * Math.cos(rotSpeed) - x * Math.sin(rotSpeed);
+		camera.lookAt(scene.position);      
 	}
 	if(keyStatus["qKey"]){
-		camera.fov += 1;
-        	camera.lookAt(scene.position);
-    	}
-    	if(keyStatus["eKey"]){
-        	camera.fov -= 1;
-        	camera.lookAt(scene.position);         
+		camera.position.x = x * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
+		camera.position.z = z * Math.cos(rotSpeed) + x * Math.sin(rotSpeed);
+		camera.lookAt(scene.position);
+    }
+    if(keyStatus["oKey"]){
+    	camera.translateZ(-0.1);     
 	}
-	if(keyStatus["rKey"]){
-		camera.position.x = 0;
-		camera.position.y = 10;
-		camera.position.z = 10;
-		camera.fov = 45;
-       		camera.lookAt(player.position);
+	if(keyStatus["pKey"]){
+		camera.translateZ(0.1);
     }
 }
 render();
