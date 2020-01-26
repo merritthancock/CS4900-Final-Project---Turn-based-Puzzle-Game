@@ -58,6 +58,7 @@ scene.add(skybox);
 //Add event listeners
 document.addEventListener('keyup', doKeyUp, false);
 document.addEventListener('keydown', doKeyDown, false);
+//document.addEventListener('keypress', doKeyPress);
 renderer.render(scene, camera);
 
 function render() {
@@ -86,5 +87,18 @@ function render() {
 		camera.position.y = y * Math.cos(rotSpeed) + z * Math.sin(rotSpeed);
 		camera.lookAt(scene.position);
 	}
+	if(keyStatus["wKey"]){
+		moveForward();
+	}
+	if(keyStatus["aKey"]){
+		moveLeft();
+	}
+	if(keyStatus["sKey"]){
+		moveBackward();
+	}
+	if(keyStatus["dKey"]){
+		moveRight();
+	}
+	
 }
 render();
