@@ -89,5 +89,20 @@ function render() {
 		camera.position.y = y * Math.cos(rotSpeed) + z * Math.sin(rotSpeed);
 		camera.lookAt(scene.position);
 	}
+	if(keyStatus["qKey"]){
+		camera.fov += 1;
+        	camera.lookAt(scene.position);
+    	}
+    	if(keyStatus["eKey"]){
+        	camera.fov -= 1;
+        	camera.lookAt(scene.position);         
+	}
+	if(keyStatus["rKey"]){
+		camera.position.x = 0;
+		camera.position.y = 10;
+		camera.position.z = 10;
+		camera.fov = 45;
+       		camera.lookAt(player.position);
+    }
 }
 render();
