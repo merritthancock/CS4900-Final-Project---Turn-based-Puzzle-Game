@@ -14,7 +14,7 @@ camera.position.y = 10;
 camera.position.z = 10;
 
 // add to scene and renderer
-scene.add(camera); //
+scene.add(camera); ////
 
 // create the view matrix
 camera.lookAt(player.position);
