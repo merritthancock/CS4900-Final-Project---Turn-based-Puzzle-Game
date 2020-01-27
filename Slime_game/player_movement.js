@@ -1,6 +1,9 @@
 var startPos = [1, 0.5, 1];
 var currentPos = [1, 0.5, 1];
 
+//movementUnlocked boolean allows restriction of only one movement at a time
+var movementUnlocked = true;
+
 //Set Position
 function setPosition(x, y, z){
     currentPos = [x, y, z];
@@ -9,26 +12,38 @@ function setPosition(x, y, z){
 
 //Move Forward
 function moveForward(){
-    currentPos[2] += 1
-    player.position.set(currentPos[0], currentPos[1], currentPos[2]);
+    if(movementUnlocked){
+        movementUnlocked = false;
+        currentPos[2] += 1
+        player.position.set(currentPos[0], currentPos[1], currentPos[2]);
+    }
 }
 
 //Move Backwards
-function moveBackwards(){
-    currentPos[2] -= 1;
-    player.position.set(currentPos[0], currentPos[1], currentPos[2]);
+function moveBackward(){
+    if(movementUnlocked){
+        movementUnlocked = false;
+        currentPos[2] -= 1;
+        player.position.set(currentPos[0], currentPos[1], currentPos[2]);
+    }
 }
 
 //Move Left
 function moveLeft(){
-    currentPos[0] += 1;
-    player.position.set(currentPos[0], currentPos[1], currentPos[2]);
+    if(movementUnlocked){
+        movementUnlocked = false;
+        currentPos[0] += 1;
+        player.position.set(currentPos[0], currentPos[1], currentPos[2]);
+    }
 }
 
 //Move Right
 function moveRight(){
-    currentPos[0] -= 1;
-    player.position.set(currentPos[0], startPos[1], startPos[2]);
+    if(movementUnlocked){
+        movementUnlocked = false;
+        currentPos[0] -= 1;
+        player.position.set(currentPos[0], currentPos[1], currentPos[2]);
+    }
 }
 
 //ResetPosition
