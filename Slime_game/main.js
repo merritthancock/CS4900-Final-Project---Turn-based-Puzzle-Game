@@ -1,7 +1,6 @@
 var width = window.innerWidth;
 var height = window.innerHeight;
 
-
 var renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(width, height);
 document.body.appendChild(renderer.domElement);
@@ -20,12 +19,12 @@ player.position.set(startPos[0], startPos[1], startPos[2]);
 console.log(player.position);
 
 // create perspective camera
-var camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 10000);
 camera.position.y = 10;
 camera.position.z = 10;
+
 // add to scene and renderer
 scene.add(camera); 
-//renderer.render(scene, camera);
+
 // create the view matrix
 camera.lookAt(player.position);
 
@@ -48,7 +47,7 @@ function setGrid(size, divisions){
     this.size = size;
     this.divisions = divisions;
     this.startPos = startPos;
-    var gridHelper = new THREE.GridHelper( size, divisions);
+    var gridHelper = new THREE.GridHelper(size, divisions);
     scene.add( gridHelper );
 }
 setGrid(100, 20);
@@ -59,35 +58,21 @@ var skyboxMaterial = new THREE.MeshBasicMaterial({  color: 0xffffff, side: THREE
 var skybox = new THREE.Mesh(skyboxGeometry, skyboxMaterial);
 scene.add(skybox);
 
+//set listener for window resizing
+window.addEventListener('resize', () => {
+	renderer.setSize(window.innerWidth,window.innerHeight);
+	camera.aspect = window.innerWidth / window.innerHeight;
+
+	camera.updateProjectionMatrix();
+});
+
+//set listeners for keyboard presses
 document.addEventListener('keyup', doKeyUp, false);
 document.addEventListener('keydown', doKeyDown, false);
 renderer.render(scene, camera);
 
 function render() {
-	var rotSpeed = 0.03;
-	var x = camera.position.x, y = camera.position.y, z = camera.position.z;
     renderer.render(scene, camera);
     requestAnimationFrame(render);
-  
-	if(keyStatus["leftArrow"]){
-		camera.position.x = x * Math.cos(rotSpeed) + z * Math.sin(rotSpeed);
-		camera.position.z = z * Math.cos(rotSpeed) - x * Math.sin(rotSpeed);
-		camera.lookAt(scene.position);
-	}
-	if(keyStatus["rightArrow"]){
-		camera.position.x = x * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
-		camera.position.z = z * Math.cos(rotSpeed) + x * Math.sin(rotSpeed);
-		camera.lookAt(scene.position);
-	}
-	if(keyStatus["upArrow"]){
-		camera.position.z = z * Math.cos(rotSpeed) + y * Math.sin(rotSpeed);
-		camera.position.y = y * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
-		camera.lookAt(scene.position);
-	}
-	if(keyStatus["downArrow"]){
-		camera.position.z = z * Math.cos(rotSpeed) - y * Math.sin(rotSpeed);
-		camera.position.y = y * Math.cos(rotSpeed) + z * Math.sin(rotSpeed);
-		camera.lookAt(scene.position);
-	}
 }
 render();
