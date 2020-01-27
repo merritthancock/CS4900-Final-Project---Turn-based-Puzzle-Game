@@ -9,12 +9,12 @@ document.body.appendChild(renderer.domElement);
 var scene = new THREE.Scene;
 
 // create perspective camera
-var camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 10000);
 camera.position.y = 10;
 camera.position.z = 10;
+
 // add to scene and renderer
 scene.add(camera); 
-//renderer.render(scene, camera);
+
 // create the view matrix
 camera.lookAt(player.position);
 
@@ -43,7 +43,7 @@ function setGrid(size, divisions){
     this.size = size;
     this.divisions = divisions;
     this.startPos = startPos;
-    var gridHelper = new THREE.GridHelper( size, divisions);
+    var gridHelper = new THREE.GridHelper(size, divisions);
     scene.add( gridHelper );
 }
 setGrid(100, 20);*/
@@ -56,17 +56,24 @@ var skybox = new THREE.Mesh(skyboxGeometry, skyboxMaterial);
 scene.add(skybox);
 
 //Add event listeners
+//set listener for window resizing
+window.addEventListener('resize', () => {
+	renderer.setSize(window.innerWidth,window.innerHeight);
+	camera.aspect = window.innerWidth / window.innerHeight;
+
+	camera.updateProjectionMatrix();
+});
+
+//set listeners for keyboard presses
 document.addEventListener('keyup', doKeyUp, false);
 document.addEventListener('keydown', doKeyDown, false);
 //document.addEventListener('keypress', doKeyPress);
 renderer.render(scene, camera);
 
 function render() {
-	var rotSpeed = 0.03;
-	var x = camera.position.x, y = camera.position.y, z = camera.position.z;
     renderer.render(scene, camera);
     requestAnimationFrame(render);
-  
+
 	if(keyStatus["leftArrow"]){
 	camera.translateX(-0.1);	
 	}
@@ -114,7 +121,5 @@ function render() {
 	if(keyStatus["dKey"]){
 		moveRight();
 	}
-	
-
 }
 render();
