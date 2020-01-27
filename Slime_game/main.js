@@ -108,17 +108,22 @@ function render() {
 		camera.translateZ(0.3);
     }
 
-	if(keyStatus["wKey"]){
-		moveForward();
-	}
-	if(keyStatus["aKey"]){
-		moveLeft();
-	}
-	if(keyStatus["sKey"]){
-		moveBackward();
-	}
-	if(keyStatus["dKey"]){
-		moveRight();
-	}
+
+    if(movementUnlocked){
+        if(keyStatus["wKey"]){
+            moveForward();
+        }
+        if(keyStatus["aKey"]){
+            moveLeft();
+        }
+        if(keyStatus["sKey"]){
+            moveBackward();
+        }
+        if(keyStatus["dKey"]){
+            moveRight();
+        }
+    }
+
+
 }
 render();
