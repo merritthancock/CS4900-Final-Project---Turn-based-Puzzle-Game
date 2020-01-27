@@ -72,6 +72,8 @@ document.addEventListener('keydown', doKeyDown, false);
 renderer.render(scene, camera);
 
 function render() {
+	var rotSpeed = 0.09;
+	var x = camera.position.x, y = camera.position.y, z = camera.position.z;
     renderer.render(scene, camera);
     requestAnimationFrame(render);
 
@@ -83,9 +85,11 @@ function render() {
 	}
 	if(keyStatus["upArrow"]){
 		camera.translateY(0.1);
+		camera.translateZ(-0.3);  
 	}
 	if(keyStatus["downArrow"]){
 		camera.translateY(-0.1);
+		camera.translateZ(0.3);
 	}
 	if(keyStatus["qKey"]){
 		camera.position.x = x * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
@@ -102,7 +106,7 @@ function render() {
 		camera.position.z = z * Math.cos(rotSpeed) + x * Math.sin(rotSpeed);
 		camera.lookAt(scene.position);
     }
-    if(keyStatus["oKey"]){
+	if(keyStatus["oKey"]){
     	camera.translateZ(-0.1);     
 	}
 
