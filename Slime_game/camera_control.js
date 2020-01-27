@@ -1,23 +1,53 @@
 //rotate the camera about center of scene when called
+var width = window.innerWidth;
+var height = window.innerHeight;
+
+var camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 10000);;
+
+camera.position.x = 10;
+camera.position.y = 10;
+camera.position.z = 10;
+
+var rotSpeed = 0.03;
+
 function rotateCamera(){
-    if(leftArrow){
+    if(qKey){
+        camera.position.x = x * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
+		camera.position.z = z * Math.cos(rotSpeed) + x * Math.sin(rotSpeed);
+		camera.lookAt(scene.position);
+    }
+    if(eKey){
         camera.position.x = x * Math.cos(rotSpeed) + z * Math.sin(rotSpeed);
-        camera.position.z = z * Math.cos(rotSpeed) - x * Math.sin(rotSpeed);
-        camera.lookAt(scene.position);
+		camera.position.z = z * Math.cos(rotSpeed) - x * Math.sin(rotSpeed);
+		camera.lookAt(scene.position);       
+    }    
+}
+function moveCamera(){
+    if(leftArrow){
+        camera.translateX(-0.1);	
     }
     if(rightArrow){
-        camera.position.x = x * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
-        camera.position.z = z * Math.cos(rotSpeed) + x * Math.sin(rotSpeed);
-        camera.lookAt(scene.position);
+        camera.translateX(0.1);	        
     }
     if(upArrow){
-        camera.position.z = z * Math.cos(rotSpeed) + y * Math.sin(rotSpeed);
-        camera.position.y = y * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
-        camera.lookAt(scene.position);
+        camera.translateY(0.1);	
     }
     if(downArrow){
-        camera.position.z = z * Math.cos(rotSpeed) - y * Math.sin(rotSpeed);
-        camera.position.y = y * Math.cos(rotSpeed) + z * Math.sin(rotSpeed);
-        camera.lookAt(scene.position);
+        camera.translateX(-0.1);	
+    }
+}
+function zoomCamera(){
+    if(oKey){
+        camera.translateZ(-0.1);     
+    }
+    if(pKey){
+        camera.translateZ(-0.1);            
+    }
+}
+function resetCamera(){
+    if(rKey){
+        camera.position.y = 10;
+        camera.position.z = 10;
+        camera.lookAt(player.position);
     }
 }
