@@ -8,7 +8,10 @@ document.body.appendChild(renderer.domElement);
 // create scene object
 var scene = new THREE.Scene;
 
+var camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 10000);
+
 // create perspective camera
+var camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 10000);
 camera.position.y = 10;
 camera.position.z = 10;
 
@@ -108,17 +111,22 @@ function render() {
 		camera.translateZ(0.3);
     }
 
-	if(keyStatus["wKey"]){
-		moveForward();
-	}
-	if(keyStatus["aKey"]){
-		moveLeft();
-	}
-	if(keyStatus["sKey"]){
-		moveBackward();
-	}
-	if(keyStatus["dKey"]){
-		moveRight();
-	}
+
+    if(movementUnlocked){
+        if(keyStatus["wKey"]){
+            moveForward();
+        }
+        if(keyStatus["aKey"]){
+            moveLeft();
+        }
+        if(keyStatus["sKey"]){
+            moveBackward();
+        }
+        if(keyStatus["dKey"]){
+            moveRight();
+        }
+    }
+
+
 }
 render();
