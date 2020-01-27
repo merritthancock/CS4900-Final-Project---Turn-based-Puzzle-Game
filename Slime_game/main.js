@@ -9,12 +9,12 @@ document.body.appendChild(renderer.domElement);
 var scene = new THREE.Scene;
 
 // create perspective camera
-var camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 10000);
 camera.position.y = 10;
 camera.position.z = 10;
+
 // add to scene and renderer
 scene.add(camera); 
-//renderer.render(scene, camera);
+
 // create the view matrix
 camera.lookAt(player.position);
 
@@ -28,11 +28,11 @@ scene.add(player);
 resetPosition();
 
 //Set up the ground
-grassland = new THREE.Mesh(new THREE.PlaneGeometry(200,200),
-            new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true})
+grassland = new THREE.Mesh(new THREE.PlaneGeometry(50,100),
+            new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('./assets/mountain.jpg')})
 );
 grassland.rotation.x -= Math.PI / 2;
-grassland.position.set(0, 0, 0);
+grassland.position.set(0, -5, 0);
 scene.add(grassland);
 
 //Set up grid
@@ -43,7 +43,7 @@ function setGrid(size, divisions){
     this.size = size;
     this.divisions = divisions;
     this.startPos = startPos;
-    var gridHelper = new THREE.GridHelper( size, divisions);
+    var gridHelper = new THREE.GridHelper(size, divisions);
     scene.add( gridHelper );
 }
 setGrid(100, 20);*/
@@ -51,11 +51,20 @@ setGrid(100, 20);*/
 
 //Set up the skybox
 var skyboxGeometry = new THREE.CubeGeometry(1000, 1000, 1000);
-var skyboxMaterial = new THREE.MeshBasicMaterial({  color: 0x7EC0EE, side: THREE.DoubleSide });
+var skyboxMaterial = new THREE.MeshBasicMaterial({  map: THREE.ImageUtils.loadTexture('./assets/sky.jpg'), side: THREE.BackSide });
 var skybox = new THREE.Mesh(skyboxGeometry, skyboxMaterial);
 scene.add(skybox);
 
 //Add event listeners
+//set listener for window resizing
+window.addEventListener('resize', () => {
+	renderer.setSize(window.innerWidth,window.innerHeight);
+	camera.aspect = window.innerWidth / window.innerHeight;
+
+	camera.updateProjectionMatrix();
+});
+
+//set listeners for keyboard presses
 document.addEventListener('keyup', doKeyUp, false);
 document.addEventListener('keydown', doKeyDown, false);
 //document.addEventListener('keypress', doKeyPress);
@@ -66,7 +75,7 @@ function render() {
 	var x = camera.position.x, y = camera.position.y, z = camera.position.z;
     renderer.render(scene, camera);
     requestAnimationFrame(render);
-  
+
 	if(keyStatus["leftArrow"]){
 	camera.translateX(-0.3);	
 	}
@@ -111,7 +120,5 @@ function render() {
 	if(keyStatus["dKey"]){
 		moveRight();
 	}
-	
-
 }
 render();
