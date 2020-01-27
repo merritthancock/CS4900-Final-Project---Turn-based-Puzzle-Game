@@ -1,6 +1,9 @@
 var startPos = [1, 0.5, 1];
 var currentPos = [1, 0.5, 1];
 
+//movementUnlocked boolean allows restriction of only one movement at a time
+var movementUnlocked = true;
+
 //Set Position
 function setPosition(x, y, z){
     currentPos = [x, y, z];
