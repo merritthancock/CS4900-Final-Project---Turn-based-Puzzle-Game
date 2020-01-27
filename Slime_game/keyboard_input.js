@@ -51,7 +51,7 @@ function doKeyDown(event) {
         case 79: //O
             keyStatus["oKey"] = true;
             break;
-        case 80: //r
+        case 80: //p
             keyStatus["pKey"] = true;
             break;
 
@@ -63,7 +63,7 @@ function doKeyDown(event) {
             keyStatus["aKey"] = true;
             break;
         case 83: //s
-            keyStatus["sKey"] = true;
+            keyStatus["sKey"] = ture;
             break;
         case 68: //d
             keyStatus["dKey"] = true;
@@ -99,27 +99,53 @@ function doKeyUp(event) {
         case 69: //e
             keyStatus["eKey"] = false;
             break;
-
+        
         //Cases for O and P
         case 79: //O
             keyStatus["oKey"] = false;
             break;
-        case 80: //r
+        case 80: //p
             keyStatus["pKey"] = false;
             break;
+        
+        //Cases for WASD keys
+        case 87: //w
+          keyStatus["wKey"] = false;
+          break;
+         case 65: //a
+          keyStatus["aKey"] = false;
+          break;
+          case 83: //s
+          keyStatus["sKey"] = false;
+          break;
+         case 68: //d
+          keyStatus["dKey"] = false;
+          break;
+          
+    }
+}
+/*
+function doKeyPress(event){
+    var code = event.keyCode;
+
+    switch(code){
 
         //Cases for WASD keys
         case 87: //w
-            keyStatus["wKey"] = false;
-            break;
+            moveForward();
+            
         case 65: //a
-            keyStatus["aKey"] = false;
-            break;
+            moveLeft();
+        
         case 83: //s
-            keyStatus["sKey"] = false;
-            break;
+            moveBackward();
+        
         case 68: //d
-            keyStatus["dKey"] = false;
-            break;
-	}
+
+            moveRight();
+        
+    }
+    
 }
+*/
+
