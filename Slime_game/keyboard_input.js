@@ -28,7 +28,15 @@ function doKeyDown(event) {
         //Cases for the arrow keys, currently bound to camera controls
         case 37: // <
             keyStatus["leftArrow"] = true;
-            rotateCamera();
+            break;
+        case 39: // >
+            keyStatus["rightArrow"] = true;
+            break;
+        case 38: // ^
+            keyStatus["upArrow"] = true;
+            break;
+        case 40: // v
+            keyStatus["downArrow"] = true;
             break;
             
         //Cases for the q r and e keys
