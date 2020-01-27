@@ -12,26 +12,38 @@ function setPosition(x, y, z){
 
 //Move Forward
 function moveForward(){
-    currentPos[2] += 1
-    player.position.set(currentPos[0], currentPos[1], currentPos[2]);
+    if(movementUnlocked){
+        movementUnlocked = false;
+        currentPos[2] += 1
+        player.position.set(currentPos[0], currentPos[1], currentPos[2]);
+    }
 }
 
 //Move Backwards
 function moveBackward(){
-    currentPos[2] -= 1;
-    player.position.set(currentPos[0], currentPos[1], currentPos[2]);
+    if(movementUnlocked){
+        movementUnlocked = false;
+        currentPos[2] -= 1;
+        player.position.set(currentPos[0], currentPos[1], currentPos[2]);
+    }
 }
 
 //Move Left
 function moveLeft(){
-    currentPos[0] += 1;
-    player.position.set(currentPos[0], currentPos[1], currentPos[2]);
+    if(movementUnlocked){
+        movementUnlocked = false;
+        currentPos[0] += 1;
+        player.position.set(currentPos[0], currentPos[1], currentPos[2]);
+    }
 }
 
 //Move Right
 function moveRight(){
-    currentPos[0] -= 1;
-    player.position.set(currentPos[0], startPos[1], startPos[2]);
+    if(movementUnlocked){
+        movementUnlocked = false;
+        currentPos[0] -= 1;
+        player.position.set(currentPos[0], startPos[1], startPos[2]);
+    }
 }
 
 //ResetPosition

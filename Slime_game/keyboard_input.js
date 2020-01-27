@@ -111,15 +111,19 @@ function doKeyUp(event) {
         //Cases for WASD keys
         case 87: //w
             keyStatus["wKey"] = false;
+            movementUnlocked = true;
             break;
         case 65: //a
             keyStatus["aKey"] = false;
+            movementUnlocked = true;
             break;
         case 83: //s
             keyStatus["sKey"] = false;
+            movementUnlocked = true;
             break;
         case 68: //d
             keyStatus["dKey"] = false;
+            movementUnlocked = true;
             break;
     }
 }
