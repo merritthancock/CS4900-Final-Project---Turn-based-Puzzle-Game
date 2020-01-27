@@ -8,7 +8,10 @@ document.body.appendChild(renderer.domElement);
 // create scene object
 var scene = new THREE.Scene;
 
+var camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 10000);
+
 // create perspective camera
+var camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 10000);
 camera.position.y = 10;
 camera.position.z = 10;
 
