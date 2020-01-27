@@ -58,7 +58,7 @@ function doKeyDown(event) {
             keyStatus["aKey"] = true;
             break;
         case 83: //s
-            keyStatus["sKey"] = ture;
+            keyStatus["sKey"] = true;
             break;
         case 68: //d
             keyStatus["dKey"] = true;
@@ -147,18 +147,21 @@ function doKeyUp(event) {
         
         //Cases for WASD keys
         case 87: //w
-          keyStatus["wKey"] = false;
-          break;
-         case 65: //a
-          keyStatus["aKey"] = false;
-          break;
-          case 83: //s
-          keyStatus["sKey"] = false;
-          break;
-         case 68: //d
-          keyStatus["dKey"] = false;
-          break;
-          
+            keyStatus["wKey"] = false;
+            movementUnlocked = true;
+            break;
+        case 65: //a
+            keyStatus["aKey"] = false;
+            movementUnlocked = true;
+            break;
+        case 83: //s
+            keyStatus["sKey"] = false;
+            movementUnlocked = true;
+            break;
+        case 68: //d
+            keyStatus["dKey"] = false;
+            movementUnlocked = true;
+            break;
     }
 }
 /*
