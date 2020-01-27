@@ -42,7 +42,7 @@ function moveRight(){
     if(movementUnlocked){
         movementUnlocked = false;
         currentPos[0] -= 1;
-        player.position.set(currentPos[0], startPos[1], startPos[2]);
+        player.position.set(currentPos[0], currentPos[1], currentPos[2]);
     }
 }
 
