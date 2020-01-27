@@ -16,7 +16,7 @@ function nTerrain(x, z){ //Normal terrain (no restrictions)
 function uTerrain(x, z){ //Untraversable rocky terrain
     var id = 1;
     rocksU = new THREE.Mesh(new THREE.PlaneGeometry(1,1), //a tile of normal that appears as rocky mountains
-             new THREE.MeshBasicMaterial({ color: 0xDEB887, wireframe: false})
+             new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('./assets/mountain.jpg')})
     );
     rocksU.rotation.x -= Math.PI / 2;
     rocksU.position.set(x, 0, z);
