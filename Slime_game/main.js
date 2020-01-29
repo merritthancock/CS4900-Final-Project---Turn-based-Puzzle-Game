@@ -30,6 +30,10 @@ scene.add(pointLight);
 scene.add(player);
 resetPosition();
 
+//add cursor to scene
+scene.add(cursor);
+cursor.position.set(cursor_startPos[0], cursor_startPos[1], cursor_startPos[2]);
+
 //Set up the ground
 grassland = new THREE.Mesh(new THREE.PlaneGeometry(50,100),
             new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('./assets/mountain.jpg')})
