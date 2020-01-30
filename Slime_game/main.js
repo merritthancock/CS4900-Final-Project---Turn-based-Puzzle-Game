@@ -118,16 +118,16 @@ function render() {
 
     if(movementUnlocked){
         if(keyStatus["wKey"]){
-            moveForward();
+            cursorForward();
         }
         if(keyStatus["aKey"]){
-            moveLeft();
+            cursorLeft();
         }
         if(keyStatus["sKey"]){
-            moveBackward();
+            cursorBackward();
         }
         if(keyStatus["dKey"]){
-            moveRight();
+            cursorRight();
         }
     }
 

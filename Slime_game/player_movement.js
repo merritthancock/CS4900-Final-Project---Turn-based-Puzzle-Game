@@ -15,7 +15,7 @@ function moveForward(){
     if(movementUnlocked){
         movementUnlocked = false;
         currentPos[2] += 1
-        player.position.set(currentPos[0], currentPos[1], currentPos[2]);
+        player.position.set([0], currentPos[1], currentPos[2]);
     }
 }
 
