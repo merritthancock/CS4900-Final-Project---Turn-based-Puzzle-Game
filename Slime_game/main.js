@@ -58,7 +58,7 @@ setGrid(100, 20);*/
 
 //Set up the skybox
 var skyboxGeometry = new THREE.CubeGeometry(1000, 1000, 1000);
-var skyboxMaterial = new THREE.MeshBasicMaterial({  map: THREE.ImageUtils.loadTexture('./assets/sky.jpg'), side: THREE.BackSide });
+var skyboxMaterial = new THREE.MeshBasicMaterial({  map: THREE.ImageUtils.loadTexture('./assets/Slimegamesky.jpg'), side: THREE.BackSide });
 var skybox = new THREE.Mesh(skyboxGeometry, skyboxMaterial);
 scene.add(skybox);
 
