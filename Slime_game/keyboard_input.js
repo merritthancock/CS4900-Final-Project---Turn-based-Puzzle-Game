@@ -91,7 +91,6 @@ function doKeyDown(event) {
             //Cases for WASD keys
             case 87: //w
                 keyStatus["wKey"] = true;
-                moveForward();
                 break;
             case 65: //a
                 keyStatus["aKey"] = true;
