@@ -62,3 +62,8 @@ function moveDown(){
     currentPos[1] -= 1;
     player.position.set(startPos[0], startPos[1], startPos[2]);
 }
+
+//Move to cursor position
+function followCursor(){
+    setPosition(cursor_currentPos[0], cursor_currentPos[1], cursor_currentPos[2]);
+}

@@ -18,7 +18,9 @@ var keyStatus = {
     "wKey" : false,
     "aKey" : false,
     "sKey" : false,
-    "dKey" : false
+    "dKey" : false,
+
+    "space" : false
 }
 
 function doKeyDown(event) {
@@ -71,6 +73,11 @@ function doKeyDown(event) {
         case 68: //d
             keyStatus["dKey"] = true;
             break;
+
+        //Case for Spacebar
+        case 32: //space
+            keyStatus["space"] = true;
+            break;
     }
 
     //If unlocked, lock the boolean and then process input.
@@ -100,6 +107,11 @@ function doKeyDown(event) {
                 break;
             case 68: //d
                 keyStatus["dKey"] = true;
+                break;
+            
+            //Case for Spacebar
+            case 32: //spacebar
+                keyStatus["space"] = true;
                 break;
         }
         
@@ -167,6 +179,12 @@ function doKeyUp(event) {
             break;
         case 68: //d
             keyStatus["dKey"] = false;
+            movementUnlocked = true;
+            break;
+
+        //Case for Spacebar
+        case 32: //space
+            keyStatus["space"] = false;
             movementUnlocked = true;
             break;
     }
