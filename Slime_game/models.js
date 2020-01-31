@@ -14,4 +14,5 @@ var player = new THREE.Mesh(cubeGeometry, cubeMaterial);
 var cursor_geometry = new THREE.RingGeometry( 0, 0.4, 32);//1,5,32
 var cursor_material = new THREE.MeshBasicMaterial( { color: 0xffff00, side: THREE.DoubleSide } );
 var cursor = new THREE.Mesh( cursor_geometry, cursor_material );
+cursor.rotation.x -= Math.PI / 2;
 scene.add(cursor);

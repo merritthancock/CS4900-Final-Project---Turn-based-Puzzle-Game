@@ -130,10 +130,8 @@ function render() {
             cursorRight();
 		}
 		if(keyStatus["space"]){
-			moveForward();
+			followCursor();
 		}
     }
-
-
 }
 render();
