@@ -128,7 +128,10 @@ function render() {
         }
         if(keyStatus["dKey"]){
             cursorRight();
-        }
+		}
+		if(keyStatus["space"]){
+			moveForward();
+		}
     }
 
 
