@@ -103,4 +103,3 @@ function setGridOverlay(x, z){
     gridHelper.setColors(0x000000, 0x003366);
     
 }
-
