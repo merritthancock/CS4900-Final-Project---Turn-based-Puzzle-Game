@@ -20,7 +20,8 @@ var keyStatus = {
     "sKey" : false,
     "dKey" : false,
 
-    "space" : false
+    "space" : false,
+    "enter" : false
 }
 
 function doKeyDown(event) {
@@ -74,9 +75,12 @@ function doKeyDown(event) {
             keyStatus["dKey"] = true;
             break;
 
-        //Case for Spacebar
+        //Case for Spacebar and enter
         case 32: //space
             keyStatus["space"] = true;
+            break;
+        case 13: //enter
+            keyStatus["enter"] = true;
             break;
     }
 
@@ -109,9 +113,12 @@ function doKeyDown(event) {
                 keyStatus["dKey"] = true;
                 break;
             
-            //Case for Spacebar
+            //Case for Spacebar and enter
             case 32: //spacebar
                 keyStatus["space"] = true;
+                break;
+            case 13: //enter
+                keyStatus["enter"] = true;
                 break;
         }
         
@@ -182,35 +189,16 @@ function doKeyUp(event) {
             movementUnlocked = true;
             break;
 
-        //Case for Spacebar
+        //Case for Spacebar and enter
         case 32: //space
             keyStatus["space"] = false;
             movementUnlocked = true;
             break;
+
+        case 13: //enter
+            keyStatus["enter"] = false;
+            movementUnlocked = true;
+            break;
     }
 }
-/*
-function doKeyPress(event){
-    var code = event.keyCode;
-
-    switch(code){
-
-        //Cases for WASD keys
-        case 87: //w
-            moveForward();
-            
-        case 65: //a
-            moveLeft();
-        
-        case 83: //s
-            moveBackward();
-        
-        case 68: //d
-
-            moveRight();
-        
-    }
-    
-}
-*/
 
