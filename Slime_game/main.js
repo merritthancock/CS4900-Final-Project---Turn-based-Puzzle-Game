@@ -121,7 +121,7 @@ function render() {
         if(keyStatus["dKey"]){
             cursorRight();
 		}
-		if(keyStatus["space"]){
+		if(keyStatus["enter"]){
 			followCursor();
 		}
     }
