@@ -37,15 +37,6 @@ cursor.position.set(cursor_startPos[0], cursor_startPos[1], cursor_startPos[2]);
 //Set up grid
 //createGrid1();
 createGrid2();
-/*
-function setGrid(size, divisions){
-    this.size = size;
-    this.divisions = divisions;
-    this.startPos = startPos;
-    var gridHelper = new THREE.GridHelper(size, divisions);
-    scene.add( gridHelper );
-}
-setGrid(100, 20);*/
 
 
 //Set up the skybox
