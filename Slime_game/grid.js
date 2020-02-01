@@ -1,3 +1,5 @@
+var grid = []; //this is the current level grid
+
 function createGrid1(){ //object function to create the grid for level 1
     //Grid represents the world. A 1 means untraversable, 0 means traversable, -1 means empty space(hole)
     grid = [ 
@@ -67,4 +69,22 @@ function createGrid2(){ //object function to create the grid for level 2
         }
 
     }
+}
+
+function checkGrid(posX, posZ){ //checks current position on grid to determine if spot is traversable or not
+    var rLen = grid[posX].length;
+    //alert(rLen);
+    var traversable = true;
+    if(posZ == rLen - 1 || grid[posX][posZ] == 1 || grid[posX][posZ] == -1 || posZ > rLen || posZ < 0){
+        traversable = false;
+    }
+    else if(grid[posX][posZ] == 2){
+       //some ability check method will be called here to tell if player has aquatic ability equipped before deciding traversability
+        traversable = false;
+    }
+    else{
+        traversable = true;
+    }
+    return traversable;
+
 }
