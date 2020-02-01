@@ -55,16 +55,20 @@ function createGrid2(){ //object function to create the grid for level 2
     for(r = 0; r< grid.length; r++){
         for(c = 0; c< grid[r].length; c++){
             if (grid[r][c] == 0){
-                nTerrain(r,c); //calls from tnorm.js
+                nTerrain(r,c); //calls from terrain.js
+                setGridOverlay(r,c);
             }
             if (grid[r][c] == 1){
                 uTerrain(r,c);
+                setGridOverlay(r,c);
             }
             if (grid[r][c] ==2){
                 wTerrain(r,c);
+                setGridOverlay(r,c);
             }
             if (grid[r][c] == -2){
                 gTerrain(r,c);
+                setGridOverlay(r,c);
             }
         }
 
@@ -87,4 +91,15 @@ function checkGrid(posX, posZ){ //checks current position on grid to determine i
     }
     return traversable;
 
+}
+
+function setGridOverlay(x, z){
+    size = 0.5;
+    divisions = 1;
+    //startPos = (x, 1, z);
+    var gridHelper = new THREE.GridHelper(size, divisions, '0x000000', '0x000000');
+	scene.add( gridHelper );
+	gridHelper.position.set(x, 0.2, z);
+    gridHelper.setColors(0x000000, 0x003366);
+    
 }
