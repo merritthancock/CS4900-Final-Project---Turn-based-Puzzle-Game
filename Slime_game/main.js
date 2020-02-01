@@ -34,14 +34,6 @@ resetPosition();
 scene.add(cursor);
 cursor.position.set(cursor_startPos[0], cursor_startPos[1], cursor_startPos[2]);
 
-//Set up the ground
-grassland = new THREE.Mesh(new THREE.PlaneGeometry(50,100),
-            new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('./assets/mountain.jpg')})
-);
-grassland.rotation.x -= Math.PI / 2;
-grassland.position.set(0, -5, 0);
-scene.add(grassland);
-
 //Set up grid
 //createGrid1();
 createGrid2();

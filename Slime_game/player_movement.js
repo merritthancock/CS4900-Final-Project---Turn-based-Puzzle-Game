@@ -65,5 +65,7 @@ function moveDown(){
 
 //Move to cursor position
 function followCursor(){
-    setPosition(cursor_currentPos[0], cursor_currentPos[1], cursor_currentPos[2]);
+    if(checkGrid(cursor_currentPos[0], cursor_currentPos[2]) == true){
+        setPosition(cursor_currentPos[0], cursor_currentPos[1], cursor_currentPos[2]);
+    }
 }
