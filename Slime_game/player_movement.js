@@ -68,4 +68,13 @@ function followCursor(){
     if(checkGrid(cursor_currentPos[0], cursor_currentPos[2]) == true){
         setPosition(cursor_currentPos[0], cursor_currentPos[1], cursor_currentPos[2]);
     }
+    if(idCheck(player.position.x, player.position.z) == -2){
+        var fall = 10000;
+        for(i = 100000; i> 0; i--){
+            currentPos[1] -= 0.0001; 
+            player.position.set(currentPos[0], currentPos[1], currentPos[2]);
+        }
+        
+    }
+
 }
