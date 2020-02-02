@@ -15,4 +15,9 @@ var cursor_geometry = new THREE.RingGeometry( 0, 0.4, 32);//1,5,32
 var cursor_material = new THREE.MeshBasicMaterial( { color: 0xffff00, side: THREE.DoubleSide } );
 var cursor = new THREE.Mesh( cursor_geometry, cursor_material );
 cursor.rotation.x -= Math.PI / 2;
-scene.add(cursor);
+
+
+//Create enemy cube
+var enemyGeometry = new THREE.CubeGeometry(1,1,1);
+var enemyMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture('./assets/skull.jpg')});
+var enemy = new THREE.Mesh(enemyGeometry, enemyMaterial);
