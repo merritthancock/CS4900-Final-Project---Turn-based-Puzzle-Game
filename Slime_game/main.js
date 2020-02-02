@@ -30,27 +30,18 @@ scene.add(pointLight);
 scene.add(player);
 resetPosition();
 
-//Set up the ground
-grassland = new THREE.Mesh(new THREE.PlaneGeometry(50,100),
-            new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('./assets/mountain.jpg')})
-);
-grassland.rotation.x -= Math.PI / 2;
-grassland.position.set(0, -5, 0);
-scene.add(grassland);
+
+//add enemy to scene
+scene.add(enemy);
+resetEnemy();
+
+//add cursor to scene
+scene.add(cursor);
+cursor.position.set(cursor_startPos[0], cursor_startPos[1], cursor_startPos[2]);
 
 //Set up grid
 //createGrid1();
 createGrid2();
-/*
-function setGrid(size, divisions){
-    this.size = size;
-    this.divisions = divisions;
-    this.startPos = startPos;
-    var gridHelper = new THREE.GridHelper(size, divisions);
-    scene.add( gridHelper );
-}
-setGrid(100, 20);*/
-
 
 //Set up the skybox
 var skyboxGeometry = new THREE.CubeGeometry(1000, 1000, 1000);
@@ -70,7 +61,6 @@ window.addEventListener('resize', () => {
 //set listeners for keyboard presses
 document.addEventListener('keyup', doKeyUp, false);
 document.addEventListener('keydown', doKeyDown, false);
-//document.addEventListener('keypress', doKeyPress);
 renderer.render(scene, camera);
 
 function render() {
@@ -79,54 +69,6 @@ function render() {
     renderer.render(scene, camera);
     requestAnimationFrame(render);
 
-	if(keyStatus["leftArrow"]){
-	camera.translateX(-0.3);	
-	}
-	if(keyStatus["rightArrow"]){
-		camera.translateX(0.3);
-	}
-	if(keyStatus["upArrow"]){
-		camera.translateY(0.3);
-		camera.translateZ(-0.3);  
-	}
-	if(keyStatus["downArrow"]){
-		camera.translateY(-0.3);
-		camera.translateZ(0.3);
-	}
-	if(keyStatus["qKey"]){
-		camera.position.x = x * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
-		camera.position.z = z * Math.cos(rotSpeed) + x * Math.sin(rotSpeed);
-		camera.lookAt(scene.position);
-    }
-    if(keyStatus["eKey"]){
-    	camera.position.x = x * Math.cos(rotSpeed) + z * Math.sin(rotSpeed);
-		camera.position.z = z * Math.cos(rotSpeed) - x * Math.sin(rotSpeed);
-		camera.lookAt(scene.position);      
-	}
-	if(keyStatus["oKey"]){
-    	camera.translateZ(-0.3);     
-	}
-
-	if(keyStatus["pKey"]){
-		camera.translateZ(0.3);
-    }
-
-
-    if(movementUnlocked){
-        if(keyStatus["wKey"]){
-            moveForward();
-        }
-        if(keyStatus["aKey"]){
-            moveLeft();
-        }
-        if(keyStatus["sKey"]){
-            moveBackward();
-        }
-        if(keyStatus["dKey"]){
-            moveRight();
-        }
-    }
-
-
+	updateRender();
 }
 render();

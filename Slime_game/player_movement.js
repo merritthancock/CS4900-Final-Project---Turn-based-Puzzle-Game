@@ -15,7 +15,7 @@ function moveForward(){
     if(movementUnlocked){
         movementUnlocked = false;
         currentPos[2] += 1
-        player.position.set(currentPos[0], currentPos[1], currentPos[2]);
+        player.position.set([0], currentPos[1], currentPos[2]);
     }
 }
 
@@ -54,11 +54,18 @@ function resetPosition(){
 //Move Up
 function moveUp(){
     currentPos[1] += 1;
-    player.position.set(startPos[0], startPos[1], startPos[2]);
+    player.position.set(currentPos[0], currentPos[1], currentPos[2]);
 }
 
 //Move Down
 function moveDown(){
     currentPos[1] -= 1;
-    player.position.set(startPos[0], startPos[1], startPos[2]);
+    player.position.set(currentPos[0], currentPos[1], currentPos[2]);
+}
+
+//Move to cursor position
+function followCursor(){
+    if(checkGrid(cursor_currentPos[0], cursor_currentPos[2]) == true){
+        setPosition(cursor_currentPos[0], cursor_currentPos[1], cursor_currentPos[2]);
+    }
 }
