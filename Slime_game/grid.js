@@ -86,6 +86,10 @@ function checkGrid(posX, posZ){ //checks current position on grid to determine i
        //some ability check method will be called here to tell if player has aquatic ability equipped before deciding traversability
         traversable = false;
     }
+    else if(grid[posX][posZ] == -2){
+        traversable = true;
+        //a check after for winged ability to determine death or not
+    }
     else{
         traversable = true;
     }
@@ -102,4 +106,8 @@ function setGridOverlay(x, z){
 	gridHelper.position.set(x, 0.2, z);
     gridHelper.setColors(0x000000, 0x003366);
     
+}
+
+function idCheck(x, z){//checks id
+    return grid[x][z];    
 }
