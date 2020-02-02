@@ -42,3 +42,22 @@ function enemyDown(){
     enemyCurrentPos[1] -= 1;
     enemy.position.set(enemyCurrentPos[0], enemyCurrentPos[1], enemyCurrentPos[2]);
 }
+
+//Move Enemy
+function moveEnemy(){
+    var eNum = Math.floor((Math.random() * 4) + 1);
+    switch(eNum){
+        case 1:
+            enemyForward();
+            break;
+        case 2:
+            enemyBackward();
+            break;
+        case 3:
+            enemyLeft();
+            break;
+        case 4:
+            enemyRight();
+            break;
+    }
+}

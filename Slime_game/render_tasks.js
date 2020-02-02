@@ -48,5 +48,8 @@ function updateRender(){
         if(keyStatus["enter"]){
             followCursor();
         }
+        if(keyStatus["space"]){
+            moveEnemy();
+        }
     }
 }
