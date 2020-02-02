@@ -54,13 +54,13 @@ function resetPosition(){
 //Move Up
 function moveUp(){
     currentPos[1] += 1;
-    player.position.set(startPos[0], startPos[1], startPos[2]);
+    player.position.set(currentPos[0], currentPos[1], currentPos[2]);
 }
 
 //Move Down
 function moveDown(){
     currentPos[1] -= 1;
-    player.position.set(startPos[0], startPos[1], startPos[2]);
+    player.position.set(currentPos[0], currentPos[1], currentPos[2]);
 }
 
 //Move to cursor position
