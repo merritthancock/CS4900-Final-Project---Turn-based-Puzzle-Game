@@ -1,5 +1,5 @@
-var enemyStartPos = [1, 0.5, 1];
-var enemyCurrentPos = [1, 0.5, 1];
+var enemyStartPos = [8, 0.5, 8];
+var enemyCurrentPos = [8, 0.5, 8];
 
 
 //Move Forward

@@ -30,6 +30,11 @@ scene.add(pointLight);
 scene.add(player);
 resetPosition();
 
+
+//add enemy to scene
+scene.add(enemy);
+resetEnemy();
+
 //add cursor to scene
 scene.add(cursor);
 cursor.position.set(cursor_startPos[0], cursor_startPos[1], cursor_startPos[2]);
