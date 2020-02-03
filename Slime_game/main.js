@@ -50,7 +50,7 @@ loader.load( './models/Level2.glb', function ( gltf ) {
 createGrid2();
 
 //Set up the skybox
-var skyboxGeometry = new THREE.CubeGeometry(1000, 1000, 1000);
+var skyboxGeometry = new THREE.SphereGeometry(100, 100, 100);
 var skyboxMaterial = new THREE.MeshBasicMaterial({  map: THREE.ImageUtils.loadTexture('./assets/Slimegamesky.jpg'), side: THREE.BackSide });
 var skybox = new THREE.Mesh(skyboxGeometry, skyboxMaterial);
 scene.add(skybox);
