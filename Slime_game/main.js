@@ -30,7 +30,6 @@ scene.add(pointLight);
 scene.add(player);
 resetPosition();
 
-
 //add enemy to scene
 scene.add(enemy);
 resetEnemy();
@@ -38,6 +37,13 @@ resetEnemy();
 //add cursor to scene
 scene.add(cursor);
 cursor.position.set(cursor_startPos[0], cursor_startPos[1], cursor_startPos[2]);
+
+var loader = new THREE.GLTFLoader();
+loader.load( './models/Level2.glb', function ( gltf ) {
+	//gltf.scene.position.set(10,10,10);
+	scene.add( gltf.scene );
+	render();
+} );
 
 //Set up grid
 //createGrid1();
