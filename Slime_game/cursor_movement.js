@@ -14,7 +14,7 @@ function cursorSet(x, y, z){
 function cursorMove(direction){
     //Check if movement of the cursor is locked
     if(movementUnlocked){
-        //If movement is unlocked, lock the movement so that other cursors
+        //If movement is unlocked, lock the movement so that the cursor is not useable while movement takes place
         movementUnlocked = false;
         
         switch(direction){
@@ -34,7 +34,7 @@ function cursorMove(direction){
         cursor.position.set(cursor_currentPos[0], cursor_currentPos[1], cursor_currentPos[2]);
     }
 }
-//Move Forward
+//Move Forward (deprecated)
 function cursorForward(){
     if(movementUnlocked){
         movementUnlocked = false;
@@ -43,7 +43,7 @@ function cursorForward(){
     }
 }
 
-//Move Backwards
+//Move Backwards (deprecated)
 function cursorBackward(){
     if(movementUnlocked){
         movementUnlocked = false;
@@ -52,7 +52,7 @@ function cursorBackward(){
     }
 }
 
-//Move Left
+//Move Left (deprecated)
 function cursorLeft(){
     if(movementUnlocked){
         movementUnlocked = false;
@@ -61,7 +61,7 @@ function cursorLeft(){
     }
 }
 
-//Move Right
+//Move Right (deprecated)
 function cursorRight(){
     if(movementUnlocked){
         movementUnlocked = false;
