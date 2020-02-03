@@ -42,8 +42,8 @@ function createGrid2(){ //object function to create the grid for level 2
         [-1,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1, -1, -1],
         [ 1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1, -1, -1],
         [ 1,  0,  0,  0,  1,  1,  0,  0,  0,  1,  1,  1,  1,  0,  0,  1, -1],
-        [ 1,  0,  0,  1,  2,  2,  1,  0,  0,  1, -2, -2,  1,  0,  0,  0,  1],
-        [ 1,  0,  0,  1,  2,  2,  1,  0,  0,  1, -2, -2,  1,  0,  0,  0,  1],
+        [ 1,  0,  0,  1,  2,  2,  1,  0,  0,  0, -2, -2,  1,  0,  0,  0,  1],
+        [ 1,  0,  0,  1,  2,  2,  1,  0,  0,  0, -2, -2,  1,  0,  0,  0,  1],
         [ 1,  0,  0,  0,  1,  1,  0,  0,  0,  1,  1,  1,  1,  0,  0,  1, -1],
         [ 1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1, -1, -1],
         [-1,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1, -1, -1],
@@ -75,9 +75,9 @@ function createGrid2(){ //object function to create the grid for level 2
     }
 }
 
-function checkGrid(posX, posZ){ //checks current position on grid to determine if spot is traversable or not
+/*function checkGrid(posX, posZ){ //checks current position on grid to determine if spot is traversable or not
     var rLen = grid[posX].length;
-    //alert(rLen);
+    
     var traversable = true;
     if(posZ == rLen - 1 || grid[posX][posZ] == 1 || grid[posX][posZ] == -1 || posZ > rLen || posZ < 0){
         traversable = false;
@@ -96,18 +96,36 @@ function checkGrid(posX, posZ){ //checks current position on grid to determine i
     return traversable;
 
 }
+*/
+
+function checkGrid(cPosition, pPosition, distance){ //checks current position on grid to determine if spot is traversable or not
+    //var rLen = grid[posX].length;
+
+    var traversable = false;
+    
+    if(cPosition[0] <= pPosition[0] + distance && cPosition[0] >= pPosition[0] - distance && 
+       cPosition[2] <= pPosition[2] + distance && cPosition[2] >= pPosition[2] - distance &&
+       grid[cPosition[0]][cPosition[2]] != 1 && grid[cPosition[0]][cPosition[2]] != -1){
+        traversable = true;
+    }
+    
+    return traversable;
+
+}
 
 function setGridOverlay(x, z){
     size = 0.5;
     divisions = 1;
-    //startPos = (x, 1, z);
-    var gridHelper = new THREE.GridHelper(size, divisions, '0x000000', '0x000000');
+    var gridHelper = new THREE.GridHelper(size, divisions, 0xffffff, 0xffffff);
 	scene.add( gridHelper );
-	gridHelper.position.set(x, 0.2, z);
-    gridHelper.setColors(0x000000, 0x003366);
-    
+	gridHelper.position.set(x, 0.2, z);    
 }
 
 function idCheck(x, z){//checks id
     return grid[x][z];    
+}
+
+function setMoves(distance){
+    
+    
 }
