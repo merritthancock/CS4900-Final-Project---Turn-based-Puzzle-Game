@@ -34,22 +34,23 @@ function createGrid1(){ //object function to create the grid for level 1
     }
 }
 
+//import { loader, loadLevel2 } from './imports.js';
 function createGrid2(){ //object function to create the grid for level 2
     //Grid represents the world. A 1 means untraversable, 0 means traversable, -1 means empty space(hole)
     grid = [ 
-        [-1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ],
-        [-1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 ],
-        [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 ],
-        [1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1 ],
-        [1, 0, 0, 1, 2, 2, 1, 0, 0, 1, -2, -2, 1, 0, 0, 0, 1 ],
-        [1, 0, 0, 1, 2, 2, 1, 0, 0, 1, -2, -2, 1, 0, 0, 0, 1 ],
-        [1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1 ],
-        [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 ],
-        [-1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 ],
-        [-1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ]
+        [-1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1],
+        [-1,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1, -1, -1],
+        [ 1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1, -1, -1],
+        [ 1,  0,  0,  0,  1,  1,  0,  0,  0,  1,  1,  1,  1,  0,  0,  1, -1],
+        [ 1,  0,  0,  1,  2,  2,  1,  0,  0,  1, -2, -2,  1,  0,  0,  0,  1],
+        [ 1,  0,  0,  1,  2,  2,  1,  0,  0,  1, -2, -2,  1,  0,  0,  0,  1],
+        [ 1,  0,  0,  0,  1,  1,  0,  0,  0,  1,  1,  1,  1,  0,  0,  1, -1],
+        [ 1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1, -1, -1],
+        [-1,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1, -1, -1],
+        [-1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1]
     ];
 
-    var start_pos = grid[1][1];
+    var start_pos = grid[2][2];
 
     //populates the grid with each terrain type
     for(r = 0; r< grid.length; r++){
@@ -71,7 +72,6 @@ function createGrid2(){ //object function to create the grid for level 2
                 setGridOverlay(r,c);
             }
         }
-
     }
 }
 
