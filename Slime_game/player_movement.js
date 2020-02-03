@@ -19,7 +19,7 @@ function moveForward(){
     }
 }
 
-//Move Backwards
+//Move Backwards (deprecated)
 function moveBackward(){
     if(movementUnlocked){
         movementUnlocked = false;
@@ -28,7 +28,7 @@ function moveBackward(){
     }
 }
 
-//Move Left
+//Move Left (deprecated)
 function moveLeft(){
     if(movementUnlocked){
         movementUnlocked = false;
@@ -37,7 +37,7 @@ function moveLeft(){
     }
 }
 
-//Move Right
+//Move Right (deprecated)
 function moveRight(){
     if(movementUnlocked){
         movementUnlocked = false;
@@ -46,18 +46,18 @@ function moveRight(){
     }
 }
 
-//ResetPosition
+//ResetPosition (deprecated)
 function resetPosition(){
     player.position.set(startPos[0], startPos[1], startPos[2]);
 }
 
-//Move Up
+//Move Up (deprecated)
 function moveUp(){
     currentPos[1] += 1;
     player.position.set(currentPos[0], currentPos[1], currentPos[2]);
 }
 
-//Move Down
+//Move Down (deprecated)
 function moveDown(){
     currentPos[1] -= 1;
     player.position.set(currentPos[0], currentPos[1], currentPos[2]);

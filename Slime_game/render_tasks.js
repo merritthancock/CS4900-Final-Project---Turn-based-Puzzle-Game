@@ -34,16 +34,20 @@ function updateRender(){
     
     if(movementUnlocked){
         if(keyStatus["wKey"]){
-            cursorForward();
+            //cursorForward();
+            cursorMove("forward");
         }
         if(keyStatus["aKey"]){
-            cursorLeft();
+            //cursorLeft();
+            cursorMove("left");
         }
         if(keyStatus["sKey"]){
-            cursorBackward();
+            //cursorBackward();
+            cursorMove("backward");
         }
         if(keyStatus["dKey"]){
-            cursorRight();
+            //cursorRight();
+            cursorMove("right");
         }
         if(keyStatus["enter"]){
             followCursor();

@@ -10,6 +10,30 @@ function cursorSet(x, y, z){
     cursor.position.set(x, y, z);
 }
 
+//Moves in desired direction (forward, backward, left, or right according to the xyz axis)
+function cursorMove(direction){
+    //Check if movement of the cursor is locked
+    if(movementUnlocked){
+        //If movement is unlocked, lock the movement so that other cursors
+        movementUnlocked = false;
+        
+        switch(direction){
+            case "forward":
+                cursor_currentPos[2] += 1
+                break;
+            case "backward":
+                cursor_currentPos[2] -= 1;
+                break;
+            case "left":
+                cursor_currentPos[0] += 1;
+                break;
+            case "right":
+                cursor_currentPos[0] -= 1;
+                break;
+        }
+        cursor.position.set(cursor_currentPos[0], cursor_currentPos[1], cursor_currentPos[2]);
+    }
+}
 //Move Forward
 function cursorForward(){
     if(movementUnlocked){
