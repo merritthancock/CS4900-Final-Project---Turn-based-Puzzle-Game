@@ -38,6 +38,8 @@ cursor.position.set(cursor_startPos[0], cursor_startPos[1], cursor_startPos[2]);
 
 var loader = new THREE.GLTFLoader();
 loader.load( './models/Level2.glb', function ( gltf ) {
+	//These modifiers are to position the board correctly to display.
+	//They should be removed after everything is scaled down.
 	gltf.scene.scale.x = 100;
 	gltf.scene.scale.y = 100;
 	gltf.scene.scale.z = 100;

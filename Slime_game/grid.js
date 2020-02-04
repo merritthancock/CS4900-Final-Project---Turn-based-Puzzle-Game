@@ -50,17 +50,31 @@ function createGrid2(){ //object function to create the grid for level 2
         [-1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1]
     ];
 
+    //Temporary heightmap until tile object implemented
+    heightMap = [
+        [-1, -1,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2, -1, -1, -1],
+        [-1,  2,  2,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  2, -1, -1],
+        [ 2,  2,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  2, -1, -1],
+        [ 2,  0,  0,  0,  2,  2,  0,  0,  0,  2,  2,  2,  2,  0,  0,  2, -1],
+        [ 2,  0,  0,  2,  2,  2,  2,  0,  0,  0, -2, -2,  2,  0,  0,  0,  2],
+        [ 2,  0,  0,  2,  2,  2,  2,  0,  0,  0, -2, -2,  2,  0,  0,  0,  2],
+        [ 2,  0,  0,  0,  2,  2,  0,  0,  0,  2,  2,  2,  2,  0,  0,  2, -1],
+        [ 2,  2,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  2, -1, -1],
+        [-1,  2,  2,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  2, -1, -1],
+        [-1, -1,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2, -1, -1, -1]
+    ]
+
     var start_pos = grid[2][2];
 
     //populates the grid with each terrain type
     for(r = 0; r< grid.length; r++){
         for(c = 0; c< grid[r].length; c++){
             if (grid[r][c] == 0){
-                nTerrain(r,c); //calls from terrain.js
+                //nTerrain(r,c); //calls from terrain.js
                 setGridOverlay(r,c);
             }
             if (grid[r][c] == 1){
-                uTerrain(r,c);
+                //uTerrain(r,c);
                 setGridOverlay(r,c);
             }
             if (grid[r][c] ==2){
