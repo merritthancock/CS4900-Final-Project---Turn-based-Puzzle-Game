@@ -50,17 +50,31 @@ function createGrid2(){ //object function to create the grid for level 2
         [-1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1]
     ];
 
+    //Temporary heightmap until tile object implemented
+    heightMap = [
+        [-1, -1,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2, -1, -1, -1],
+        [-1,  2,  2,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  2, -1, -1],
+        [ 2,  2,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  2, -1, -1],
+        [ 2,  0,  0,  0,  2,  2,  0,  0,  0,  2,  2,  2,  2,  0,  0,  2, -1],
+        [ 2,  0,  0,  2,  2,  2,  2,  0,  0,  0,  0,  0,  2,  0,  0,  0,  2],
+        [ 2,  0,  0,  2,  2,  2,  2,  0,  0,  0,  0,  0,  2,  0,  0,  0,  2],
+        [ 2,  0,  0,  0,  2,  2,  0,  0,  0,  2,  2,  2,  2,  0,  0,  2, -1],
+        [ 2,  2,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  2, -1, -1],
+        [-1,  2,  2,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  2, -1, -1],
+        [-1, -1,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2, -1, -1, -1]
+    ]
+
     var start_pos = grid[2][2];
 
     //populates the grid with each terrain type
     for(r = 0; r< grid.length; r++){
         for(c = 0; c< grid[r].length; c++){
             if (grid[r][c] == 0){
-                nTerrain(r,c); //calls from terrain.js
+                //nTerrain(r,c); //calls from terrain.js
                 setGridOverlay(r,c);
             }
             if (grid[r][c] == 1){
-                uTerrain(r,c);
+                //uTerrain(r,c);
                 setGridOverlay(r,c);
             }
             if (grid[r][c] ==2){
@@ -104,7 +118,8 @@ function checkGrid(cPosition, pPosition, distance){ //checks current position on
     
     if(cPosition[0] <= pPosition[0] + distance && cPosition[0] >= pPosition[0] - distance && 
        cPosition[2] <= pPosition[2] + distance && cPosition[2] >= pPosition[2] - distance &&
-       grid[cPosition[0]][cPosition[2]] != 1 && grid[cPosition[0]][cPosition[2]] != -1){
+       grid[cPosition[0]][cPosition[2]] != 1 && grid[cPosition[0]][cPosition[2]] != -1 &&
+       grid[cPosition[0]][cPosition[2]] != 2){
         //cursor.material.color.setHex(0x00ff00);
         traversable = true;
     }
@@ -119,11 +134,9 @@ function checkGrid(cPosition, pPosition, distance){ //checks current position on
 function readGrid(cPosition, pPosition, distance){ //changes cursor color based on traversability and range
     if(cPosition[0] <= pPosition[0] + distance && cPosition[0] >= pPosition[0] - distance && 
        cPosition[2] <= pPosition[2] + distance && cPosition[2] >= pPosition[2] - distance &&
-       grid[cPosition[0]][cPosition[2]] != 1 && grid[cPosition[0]][cPosition[2]] != -1){
+       grid[cPosition[0]][cPosition[2]] != 1 && grid[cPosition[0]][cPosition[2]] != -1 &&
+       grid[cPosition[0]][cPosition[2]] != 2){
         cursor.material.color.setHex(0x00ff00);
-    }
-    else if(grid[cPosition[0]][cPosition[2]] == 1 || grid[cPosition[0]][cPosition[2]] == -1){
-        cursor.material.color.setHex(0xffff00);
     }
     else{
         cursor.material.color.setHex(0xffff00);
@@ -131,13 +144,12 @@ function readGrid(cPosition, pPosition, distance){ //changes cursor color based 
 }
 
 
-
 function setGridOverlay(x, z){
     size = 0.5;
     divisions = 1;
     var gridHelper = new THREE.GridHelper(size, divisions, 0xffffff, 0xffffff);
 	scene.add( gridHelper );
-	gridHelper.position.set(x, 0.2, z);    
+	gridHelper.position.set(x, 0.2 + heightMap[x][z], z);    
 }
 
 function idCheck(x, z){//checks id

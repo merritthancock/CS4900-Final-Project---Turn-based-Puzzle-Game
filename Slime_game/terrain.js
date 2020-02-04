@@ -32,7 +32,7 @@ function wTerrain(x, z){ //Untraversable water terrain
              new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('./assets/water.jpg')})
     );
     waterU.rotation.x -= Math.PI / 2;
-    waterU.position.set(x, 0, z);
+    waterU.position.set(x, heightMap[x][z], z);
     scene.add(waterU);
 }
 
@@ -43,6 +43,6 @@ function gTerrain(x, z){ //Gap space that makes player fall (different from void
              new THREE.MeshBasicMaterial({ color: 0x000000})
     );
     gapT.rotation.x -= Math.PI / 2;
-    gapT.position.set(x, 0, z);
+    gapT.position.set(x, heightMap[x][z], z);
     scene.add(gapT);
 }

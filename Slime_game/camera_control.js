@@ -8,21 +8,38 @@ camera.position.x = 5;
 camera.position.y = 10;
 camera.position.z = 10;
 
-var rotSpeed = 0.03;
+var rotSpeed = 0.01;
 
-function rotateCamera(){
-    if(qKey){
-        camera.position.x = x * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
-		camera.position.z = z * Math.cos(rotSpeed) + x * Math.sin(rotSpeed);
+function rotateCamera(direction){
+    if(direction == 'counterclockwise'){
+        camera.position.x = camera.position.x * Math.cos(rotSpeed) - camera.position.z * Math.sin(rotSpeed);
+		camera.position.z = camera.position.z * Math.cos(rotSpeed) + camera.position.x * Math.sin(rotSpeed);
 		camera.lookAt(scene.position);
     }
-    if(eKey){
-        camera.position.x = x * Math.cos(rotSpeed) + z * Math.sin(rotSpeed);
-		camera.position.z = z * Math.cos(rotSpeed) - x * Math.sin(rotSpeed);
-		camera.lookAt(scene.position);       
+    if(direction == 'clockwise'){
+        camera.position.x = camera.position.x * Math.cos(rotSpeed) + camera.position.z * Math.sin(rotSpeed);
+		camera.position.z = camera.position.z * Math.cos(rotSpeed) - camera.position.x * Math.sin(rotSpeed);
+		camera.lookAt(scene.position);
     }    
 }
-function moveCamera(){
+function moveCamera(direction){
+    switch(direction){
+        case "left":
+            camera.translateX(-0.1);
+            break;
+        case "right":
+            camera.translateX(0.1);
+            break;
+        case "forward":
+            camera.translateY(0.1);
+            camera.translateZ(-0.1);	
+            break;
+        case "backward":
+            camera.translateY(-0.1);
+            camera.translateZ(0.1);
+            break;
+    }
+    /*
     if(leftArrow){
         camera.translateX(-0.1);	
     }
@@ -35,19 +52,21 @@ function moveCamera(){
     if(downArrow){
         camera.translateX(-0.1);	
     }
+    */
 }
-function zoomCamera(){
-    if(oKey){
-        camera.translateZ(-0.1);     
+function zoomCamera(direction){
+    if(direction == "forward"){
+        camera.translateZ(-0.3);     
     }
-    if(pKey){
-        camera.translateZ(-0.1);            
+    if(direction == "backward"){
+        camera.translateZ(0.3);            
     }
+
 }
 function resetCamera(){
-    if(rKey){
-        camera.position.y = 10;
-        camera.position.z = 10;
+    
+        camera.position.y = cursor.position + 10;
+        camera.position.z = cursor.position + 10;
         camera.lookAt(player.position);
-    }
+    
 }
