@@ -8,8 +8,6 @@ document.body.appendChild(renderer.domElement);
 // create scene object
 var scene = new THREE.Scene;
 
-var camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 10000);
-
 // create perspective camera
 var camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 10000);
 
@@ -42,7 +40,15 @@ cursor.position.set(cursor_startPos[0], cursor_startPos[1], cursor_startPos[2]);
 
 var loader = new THREE.GLTFLoader();
 loader.load( './models/Level2.glb', function ( gltf ) {
-	//gltf.scene.position.set(10,10,10);
+	//These modifiers are to position the board correctly to display.
+	//They should be removed after everything is scaled down.
+	gltf.scene.scale.x = 100;
+	gltf.scene.scale.y = 100;
+	gltf.scene.scale.z = 100;
+	gltf.scene.rotation.y = 3*Math.PI / 2;
+	gltf.scene.position.y = gltf.scene.position.y - 1;
+	gltf.scene.position.x = gltf.scene.position.x - 0.5;
+	gltf.scene.position.z = gltf.scene.position.z - 0.5;
 	scene.add( gltf.scene );
 	render();
 } );
