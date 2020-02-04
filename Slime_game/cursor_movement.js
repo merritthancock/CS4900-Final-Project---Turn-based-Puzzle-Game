@@ -1,5 +1,5 @@
-var cursor_startPos = [1, 1.1, 1];
-var cursor_currentPos = [1, 1.1, 1];
+var cursor_startPos = [2, 1.1, 2];
+var cursor_currentPos = [2, 1.1, 2];
 
 //movementUnlocked boolean allows restriction of only one movement at a time
 var movementUnlocked = true;

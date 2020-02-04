@@ -1,5 +1,5 @@
-var startPos = [1, 0.5, 1];
-var currentPos = [1, 0.5, 1];
+var startPos = [2, 0.5, 2];
+var currentPos = [2, 0.5, 2];
 var range = 1;
 
 //movementUnlocked boolean allows restriction of only one movement at a time
