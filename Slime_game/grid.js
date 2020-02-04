@@ -56,8 +56,8 @@ function createGrid2(){ //object function to create the grid for level 2
         [-1,  2,  2,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  2, -1, -1],
         [ 2,  2,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  2, -1, -1],
         [ 2,  0,  0,  0,  2,  2,  0,  0,  0,  2,  2,  2,  2,  0,  0,  2, -1],
-        [ 2,  0,  0,  2,  2,  2,  2,  0,  0,  0, -2, -2,  2,  0,  0,  0,  2],
-        [ 2,  0,  0,  2,  2,  2,  2,  0,  0,  0, -2, -2,  2,  0,  0,  0,  2],
+        [ 2,  0,  0,  2,  2,  2,  2,  0,  0,  0,  0,  0,  2,  0,  0,  0,  2],
+        [ 2,  0,  0,  2,  2,  2,  2,  0,  0,  0,  0,  0,  2,  0,  0,  0,  2],
         [ 2,  0,  0,  0,  2,  2,  0,  0,  0,  2,  2,  2,  2,  0,  0,  2, -1],
         [ 2,  2,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  2, -1, -1],
         [-1,  2,  2,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  2, -1, -1],
@@ -150,7 +150,7 @@ function setGridOverlay(x, z){
     divisions = 1;
     var gridHelper = new THREE.GridHelper(size, divisions, 0xffffff, 0xffffff);
 	scene.add( gridHelper );
-	gridHelper.position.set(x, 0.2, z);    
+	gridHelper.position.set(x, 0.2 + heightMap[x][z], z);    
 }
 
 function idCheck(x, z){//checks id
