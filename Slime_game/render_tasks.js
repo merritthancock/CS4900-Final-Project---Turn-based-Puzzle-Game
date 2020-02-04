@@ -1,5 +1,6 @@
 
 function updateRender(){
+    /*
     if(keyStatus["leftArrow"]){
         moveCameraLeft();
     }
@@ -12,6 +13,7 @@ function updateRender(){
     if(keyStatus["downArrow"]){
         moveCameraBackward();
     }
+    */
     if(keyStatus["qKey"]){
         rotateCameraLeft();
     }
