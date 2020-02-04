@@ -1,35 +1,37 @@
 
 function updateRender(){
     if(keyStatus["leftArrow"]){
-        camera.translateX(-0.3)	;
+        moveCamera("left");
+        //camera.translateX(-0.3);
     }
     if(keyStatus["rightArrow"]){
-        camera.translateX(0.3);
+        moveCamera("right");
+        //camera.translateX(0.3);
     }
     if(keyStatus["upArrow"]){
-        camera.translateY(0.3);
-        camera.translateZ(-0.3);  
+        moveCamera("forward");
+        //camera.translateY(0.3);
+        //camera.translateZ(-0.3);
     }
     if(keyStatus["downArrow"]){
-        camera.translateY(-0.3);
-        camera.translateZ(0.3);
+        moveCamera("backward");
+        //camera.translateY(-0.3);
+        //camera.translateZ(0.3);
     }
     if(keyStatus["qKey"]){
-        camera.position.x = x * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
-        camera.position.z = z * Math.cos(rotSpeed) + x * Math.sin(rotSpeed);
-        camera.lookAt(scene.position);
+        rotateCamera("counterclockwise");
     }
     if(keyStatus["eKey"]){
-        camera.position.x = x * Math.cos(rotSpeed) + z * Math.sin(rotSpeed);
-        camera.position.z = z * Math.cos(rotSpeed) - x * Math.sin(rotSpeed);
-        camera.lookAt(scene.position);      
+        rotateCamera("clockwise");
     }
     if(keyStatus["oKey"]){
-        camera.translateZ(-0.3);     
+        zoomCamera("forward");
+        //camera.translateZ(-0.3);     
     }
     
     if(keyStatus["pKey"]){
-        camera.translateZ(0.3);
+        zoomCamera("backward");
+        //camera.translateZ(0.3);
     }
     
     if(movementUnlocked){
