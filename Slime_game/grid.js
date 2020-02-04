@@ -131,7 +131,6 @@ function readGrid(cPosition, pPosition, distance){ //changes cursor color based 
 }
 
 
-
 function setGridOverlay(x, z){
     size = 0.5;
     divisions = 1;
