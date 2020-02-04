@@ -100,18 +100,37 @@ function createGrid2(){ //object function to create the grid for level 2
 
 function checkGrid(cPosition, pPosition, distance){ //checks current position on grid to determine if spot is traversable or not
     //var rLen = grid[posX].length;
-
     var traversable = false;
     
     if(cPosition[0] <= pPosition[0] + distance && cPosition[0] >= pPosition[0] - distance && 
        cPosition[2] <= pPosition[2] + distance && cPosition[2] >= pPosition[2] - distance &&
        grid[cPosition[0]][cPosition[2]] != 1 && grid[cPosition[0]][cPosition[2]] != -1){
+        //cursor.material.color.setHex(0x00ff00);
         traversable = true;
+    }
+    else{
+        //cursor.material.color.setHex(0xffff00);
     }
     
     return traversable;
 
 }
+
+function readGrid(cPosition, pPosition, distance){ //changes cursor color based on traversability
+    if(cPosition[0] <= pPosition[0] + distance && cPosition[0] >= pPosition[0] - distance && 
+       cPosition[2] <= pPosition[2] + distance && cPosition[2] >= pPosition[2] - distance &&
+       grid[cPosition[0]][cPosition[2]] != 1 && grid[cPosition[0]][cPosition[2]] != -1){
+        cursor.material.color.setHex(0x00ff00);
+    }
+    else if(grid[cPosition[0]][cPosition[2]] == 1 || grid[cPosition[0]][cPosition[2]] == -1){
+        cursor.material.color.setHex(0xffff00);
+    }
+    else{
+        cursor.material.color.setHex(0xffff00);
+    }
+}
+
+
 
 function setGridOverlay(x, z){
     size = 0.5;
@@ -123,9 +142,4 @@ function setGridOverlay(x, z){
 
 function idCheck(x, z){//checks id
     return grid[x][z];    
-}
-
-function setMoves(distance){
-    
-    
 }

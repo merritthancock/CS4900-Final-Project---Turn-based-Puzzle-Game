@@ -68,6 +68,7 @@ function moveDown(){
 function followCursor(){
     if(checkGrid(cursor_currentPos, currentPos, range) == true){
         setPosition(cursor_currentPos[0], cursor_currentPos[1], cursor_currentPos[2]);
+        
     }
     if(idCheck(player.position.x, player.position.z) == -2){
         var fall = 10000;
