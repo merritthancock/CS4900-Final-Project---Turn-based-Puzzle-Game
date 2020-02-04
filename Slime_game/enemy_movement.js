@@ -1,39 +1,22 @@
 var enemyStartPos = [8, 0.5, 8];
 var enemyCurrentPos = [8, 0.5, 8];
-var posVal = 0.0;
+
 //Moves in desired direction (forward, backward, left, or right according to the xyz axis)
 function enemyMove(direction){
     switch(direction){
         case "forward":
-            posVal = grid[enemyCurrentPos[0][enemyCurrentPos[2]+=1]];
-            if(posVal != 1 && posVal != -1){
-                enemyCurrentPos[2] += 1;
-                break; 
-            }
+            enemyCurrentPos[2] += 1;
         case "backward":
-            posVal = grid[enemyCurrentPos[0][enemyCurrentPos[2]-=1]];
-            if(posVal != 1 && posVal != -1){
-                enemyCurrentPos[2] -= 1;
-                break;
-            }
+            enemyCurrentPos[2] -= 1;
         case "left":
-            posVal = grid[enemyCurrentPos[0]+=1[enemyCurrentPos[2]]];
-            if(posVal != 1 && posVal != -1){
-                enemyCurrentPos[0] += 1;
-                break;
-            }
+            enemyCurrentPos[0] += 1;
         case "right":
-            posVal = grid[enemyCurrentPos[0]-=1[enemyCurrentPos[2]]];
-            if(posVal != 1 && posVal != -1){
-                enemyCurrentPos[0] -= 1;
-                break;
-            }
+            enemyCurrentPos[0] -= 1;
     }
-    posVal = 0;
     enemy.position.set(enemyCurrentPos[0], enemyCurrentPos[1], enemyCurrentPos[2]);
 }
 
-grid[cPosition[0]][cPosition[2]] != 1 && grid[cPosition[0]][cPosition[2]] != -1 
+//grid[cPosition[0]][cPosition[2]] != 1 && grid[cPosition[0]][cPosition[2]] != -1 
 
 //Move Forward (deprecated)
 function enemyForward(){

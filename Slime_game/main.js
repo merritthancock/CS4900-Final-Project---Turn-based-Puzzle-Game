@@ -74,7 +74,6 @@ function render() {
 	var x = camera.position.x, y = camera.position.y, z = camera.position.z;
     renderer.render(scene, camera);
     requestAnimationFrame(render);
-
 	updateRender();
 }
 render();

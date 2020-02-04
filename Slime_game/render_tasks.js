@@ -53,7 +53,7 @@ function updateRender(){
             followCursor();
         }
         if(keyStatus["space"]){
-            moveEnemy();
+            //moveEnemy();
         }
     }
     readGrid(currentPos, cursor_currentPos, range);
