@@ -1,37 +1,28 @@
 
 function updateRender(){
     if(keyStatus["leftArrow"]){
-        moveCamera("left");
-        //camera.translateX(-0.3);
+        moveCameraLeft();
     }
     if(keyStatus["rightArrow"]){
-        moveCamera("right");
-        //camera.translateX(0.3);
+        moveCameraRight();
     }
     if(keyStatus["upArrow"]){
-        moveCamera("forward");
-        //camera.translateY(0.3);
-        //camera.translateZ(-0.3);
+        moveCameraForward();
     }
     if(keyStatus["downArrow"]){
-        moveCamera("backward");
-        //camera.translateY(-0.3);
-        //camera.translateZ(0.3);
+        moveCameraBackward();
     }
     if(keyStatus["qKey"]){
-        rotateCamera("counterclockwise");
+        rotateCameraLeft();
     }
     if(keyStatus["eKey"]){
-        rotateCamera("clockwise");
+        rotateCameraRight();      
     }
     if(keyStatus["oKey"]){
-        zoomCamera("forward");
-        //camera.translateZ(-0.3);     
-    }
-    
+        zoomCameraIn();     
+    }    
     if(keyStatus["pKey"]){
-        zoomCamera("backward");
-        //camera.translateZ(0.3);
+        zoomCameraOut();
     }
     
     if(movementUnlocked){

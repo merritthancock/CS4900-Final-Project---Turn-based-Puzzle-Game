@@ -9,7 +9,9 @@ document.body.appendChild(renderer.domElement);
 var scene = new THREE.Scene;
 
 // create perspective camera
-//var camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 10000);
+var camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 10000);
+
+var controls = new THREE.OrbitControls( camera, renderer.domElement );
 camera.position.y = 10;
 camera.position.z = 10;
 
@@ -78,8 +80,9 @@ renderer.render(scene, camera);
 function render() {
 	var rotSpeed = 0.09;
 	var x = camera.position.x, y = camera.position.y, z = camera.position.z;
-    renderer.render(scene, camera);
-    requestAnimationFrame(render);
+	controls.update();
+    	renderer.render(scene, camera);
+    	requestAnimationFrame(render);
 	updateRender();
 }
 render();

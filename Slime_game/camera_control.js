@@ -61,11 +61,12 @@ function zoomCamera(direction){
     if(direction == "backward"){
         camera.translateZ(0.3);            
     }
+
 }
 function resetCamera(){
-    if(rKey){
-        camera.position.y = 10;
-        camera.position.z = 10;
+    
+        camera.position.y = cursor.position + 10;
+        camera.position.z = cursor.position + 10;
         camera.lookAt(player.position);
-    }
+    
 }
