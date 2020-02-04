@@ -105,13 +105,14 @@ function checkGrid(cPosition, pPosition, distance){ //checks current position on
     
     if(cPosition[0] <= pPosition[0] + distance && cPosition[0] >= pPosition[0] - distance && 
        cPosition[2] <= pPosition[2] + distance && cPosition[2] >= pPosition[2] - distance &&
-       grid[cPosition[0]][cPosition[2]] != 1 && grid[cPosition[0]][cPosition[2]] != -1){
+       grid[cPosition[0]][cPosition[2]] != 1 && grid[cPosition[0]][cPosition[2]] != -1 ){
         traversable = true;
     }
     
     return traversable;
 
 }
+
 
 function setGridOverlay(x, z){
     size = 0.5;
