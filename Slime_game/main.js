@@ -32,7 +32,6 @@ scene.add(pointLight);
 scene.add(player);
 resetPosition();
 
-
 //add enemy to scene
 scene.add(enemy);
 resetEnemy();
@@ -41,12 +40,19 @@ resetEnemy();
 scene.add(cursor);
 cursor.position.set(cursor_startPos[0], cursor_startPos[1], cursor_startPos[2]);
 
+var loader = new THREE.GLTFLoader();
+loader.load( './models/Level2.glb', function ( gltf ) {
+	//gltf.scene.position.set(10,10,10);
+	scene.add( gltf.scene );
+	render();
+} );
+
 //Set up grid
 //createGrid1();
 createGrid2();
 
 //Set up the skybox
-var skyboxGeometry = new THREE.CubeGeometry(1000, 1000, 1000);
+var skyboxGeometry = new THREE.SphereGeometry(100, 100, 100);
 var skyboxMaterial = new THREE.MeshBasicMaterial({  map: THREE.ImageUtils.loadTexture('./assets/Slimegamesky.jpg'), side: THREE.BackSide });
 var skybox = new THREE.Mesh(skyboxGeometry, skyboxMaterial);
 scene.add(skybox);
@@ -71,7 +77,6 @@ function render() {
 	controls.update();
     	renderer.render(scene, camera);
     	requestAnimationFrame(render);
-
 	updateRender();
 }
 render();

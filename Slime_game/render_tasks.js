@@ -25,22 +25,29 @@ function updateRender(){
         zoomCameraOut();
     }
     
-    
-        if(movementUnlocked){
-            if(keyStatus["wKey"]){
-                cursorForward();
-            }
-            if(keyStatus["aKey"]){
-                cursorLeft();
-            }
-            if(keyStatus["sKey"]){
-                cursorBackward();
-            }
-            if(keyStatus["dKey"]){
-                cursorRight();
-            }
-            if(keyStatus["enter"]){
-                followCursor();
-            }
+    if(movementUnlocked){
+        if(keyStatus["wKey"]){
+            //cursorForward();
+            cursorMove("forward");
         }
+        if(keyStatus["aKey"]){
+            //cursorLeft();
+            cursorMove("left");
+        }
+        if(keyStatus["sKey"]){
+            //cursorBackward();
+            cursorMove("backward");
+        }
+        if(keyStatus["dKey"]){
+            //cursorRight();
+            cursorMove("right");
+        }
+        if(keyStatus["enter"]){
+            followCursor();
+        }
+        if(keyStatus["space"]){
+            //moveEnemy();
+        }
+    }
+    readGrid(currentPos, cursor_currentPos, range);
 }

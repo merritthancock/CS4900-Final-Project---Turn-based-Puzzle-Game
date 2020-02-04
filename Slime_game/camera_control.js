@@ -2,7 +2,7 @@
 var width = window.innerWidth;
 var height = window.innerHeight;
 
-var camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 10000);;
+var camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 10000);
 
 camera.position.x = 5;
 camera.position.y = 10;
