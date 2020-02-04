@@ -1,5 +1,5 @@
-var cursor_startPos = [1, 0.5, 1];
-var cursor_currentPos = [1, 0.5, 1];
+var cursor_startPos = [1, 1.1, 1];
+var cursor_currentPos = [1, 1.1, 1];
 
 //movementUnlocked boolean allows restriction of only one movement at a time
 var movementUnlocked = true;
@@ -31,6 +31,7 @@ function cursorMove(direction){
                 cursor_currentPos[0] -= 1;
                 break;
         }
+        cursor_currentPos[1] = cursor_startPos[1] + heightMap[cursor_currentPos[0]][cursor_currentPos[2]];
         cursor.position.set(cursor_currentPos[0], cursor_currentPos[1], cursor_currentPos[2]);
     }
 }
