@@ -116,7 +116,7 @@ function checkGrid(cPosition, pPosition, distance){ //checks current position on
 
 }
 
-function readGrid(cPosition, pPosition, distance){ //changes cursor color based on traversability
+function readGrid(cPosition, pPosition, distance){ //changes cursor color based on traversability and range
     if(cPosition[0] <= pPosition[0] + distance && cPosition[0] >= pPosition[0] - distance && 
        cPosition[2] <= pPosition[2] + distance && cPosition[2] >= pPosition[2] - distance &&
        grid[cPosition[0]][cPosition[2]] != 1 && grid[cPosition[0]][cPosition[2]] != -1){
