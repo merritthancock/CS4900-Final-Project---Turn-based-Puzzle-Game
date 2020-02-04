@@ -134,11 +134,9 @@ function checkGrid(cPosition, pPosition, distance){ //checks current position on
 function readGrid(cPosition, pPosition, distance){ //changes cursor color based on traversability
     if(cPosition[0] <= pPosition[0] + distance && cPosition[0] >= pPosition[0] - distance && 
        cPosition[2] <= pPosition[2] + distance && cPosition[2] >= pPosition[2] - distance &&
-       grid[cPosition[0]][cPosition[2]] != 1 && grid[cPosition[0]][cPosition[2]] != -1){
+       grid[cPosition[0]][cPosition[2]] != 1 && grid[cPosition[0]][cPosition[2]] != -1 &&
+       grid[cPosition[0]][cPosition[2]] != 2){
         cursor.material.color.setHex(0x00ff00);
-    }
-    else if(grid[cPosition[0]][cPosition[2]] == 1 || grid[cPosition[0]][cPosition[2]] == -1){
-        cursor.material.color.setHex(0xffff00);
     }
     else{
         cursor.material.color.setHex(0xffff00);
