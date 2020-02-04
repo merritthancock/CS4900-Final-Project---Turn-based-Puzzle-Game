@@ -18,7 +18,10 @@ var keyStatus = {
     "wKey" : false,
     "aKey" : false,
     "sKey" : false,
-    "dKey" : false
+    "dKey" : false,
+
+    "space" : false,
+    "enter" : false
 }
 
 function doKeyDown(event) {
@@ -71,6 +74,14 @@ function doKeyDown(event) {
         case 68: //d
             keyStatus["dKey"] = true;
             break;
+
+        //Case for Spacebar and enter
+        case 32: //space
+            keyStatus["space"] = true;
+            break;
+        case 13: //enter
+            keyStatus["enter"] = true;
+            break;
     }
 
     //If unlocked, lock the boolean and then process input.
@@ -91,7 +102,6 @@ function doKeyDown(event) {
             //Cases for WASD keys
             case 87: //w
                 keyStatus["wKey"] = true;
-                moveForward();
                 break;
             case 65: //a
                 keyStatus["aKey"] = true;
@@ -101,6 +111,14 @@ function doKeyDown(event) {
                 break;
             case 68: //d
                 keyStatus["dKey"] = true;
+                break;
+            
+            //Case for Spacebar and enter
+            case 32: //spacebar
+                keyStatus["space"] = true;
+                break;
+            case 13: //enter
+                keyStatus["enter"] = true;
                 break;
         }
         
@@ -170,30 +188,17 @@ function doKeyUp(event) {
             keyStatus["dKey"] = false;
             movementUnlocked = true;
             break;
+
+        //Case for Spacebar and enter
+        case 32: //space
+            keyStatus["space"] = false;
+            movementUnlocked = true;
+            break;
+
+        case 13: //enter
+            keyStatus["enter"] = false;
+            movementUnlocked = true;
+            break;
     }
 }
-/*
-function doKeyPress(event){
-    var code = event.keyCode;
-
-    switch(code){
-
-        //Cases for WASD keys
-        case 87: //w
-            moveForward();
-            
-        case 65: //a
-            moveLeft();
-        
-        case 83: //s
-            moveBackward();
-        
-        case 68: //d
-
-            moveRight();
-        
-    }
-    
-}
-*/
 
