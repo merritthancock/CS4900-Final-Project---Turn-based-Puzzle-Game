@@ -24,26 +24,7 @@ function createLevel(){ //object function to create the grid for level 1
             if(id != -1){
                 makeTerrain(r, height, c, id);
                 setGridOverlay(r, height, c);
-            }
-           /*switch(id){
-                case 0:
-                    grassTerrain(r, height, c);
-                    setGridOverlay(r, height, c);
-                    break;
-                case 1:
-                    rockyTerrain(r, height, c);
-                    setGridOverlay(r, height, c);
-                    break;
-                case 2:
-                    waterTerrain(r, height, c);
-                    setGridOverlay(r, height, c);
-                    break;
-                case 3:
-                    gapTerrain(r, height, c);
-                    setGridOverlay(r, height, c);
-                    break;
-            }*/
-            
+            } 
         }
     }
 }
@@ -56,11 +37,10 @@ function checkGrid(cPosition, pPosition, distance){ //checks current position on
        cPosition[2] <= pPosition[2] + distance && cPosition[2] >= pPosition[2] - distance &&
        grid[cPosition[0]][cPosition[2]] != 1 && grid[cPosition[0]][cPosition[2]] != -1 &&
        grid[cPosition[0]][cPosition[2]] != 2){
-        //cursor.material.color.setHex(0x00ff00);
-        traversable = true;
+       traversable = true;
     }
     else{
-        //cursor.material.color.setHex(0xffff00);
+
     }
     
     return traversable;
