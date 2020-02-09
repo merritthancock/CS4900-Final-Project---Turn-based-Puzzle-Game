@@ -8,10 +8,10 @@ document.body.appendChild(renderer.domElement);
 // create scene object
 var scene = new THREE.Scene;
 
-// create perspective camera
 var camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 10000);
 
-var controls = new THREE.OrbitControls( camera, renderer.domElement );
+// create perspective camera
+var camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 10000);
 camera.position.y = 10;
 camera.position.z = 10;
 
@@ -30,6 +30,7 @@ scene.add(pointLight);
 scene.add(player);
 resetPosition();
 
+
 //add enemy to scene
 scene.add(enemy);
 resetEnemy();
@@ -38,27 +39,12 @@ resetEnemy();
 scene.add(cursor);
 cursor.position.set(cursor_startPos[0], cursor_startPos[1], cursor_startPos[2]);
 
-var loader = new THREE.GLTFLoader();
-loader.load( './models/Level2.glb', function ( gltf ) {
-	//These modifiers are to position the board correctly to display.
-	//They should be removed after everything is scaled down.
-	gltf.scene.scale.x = 100;
-	gltf.scene.scale.y = 100;
-	gltf.scene.scale.z = 100;
-	gltf.scene.rotation.y = 3*Math.PI / 2;
-	gltf.scene.position.y = gltf.scene.position.y - 1;
-	gltf.scene.position.x = gltf.scene.position.x - 0.5;
-	gltf.scene.position.z = gltf.scene.position.z - 0.5;
-	scene.add( gltf.scene );
-	render();
-} );
-
 //Set up grid
 //createGrid1();
 createGrid2();
 
 //Set up the skybox
-var skyboxGeometry = new THREE.SphereGeometry(100, 100, 100);
+var skyboxGeometry = new THREE.CubeGeometry(1000, 1000, 1000);
 var skyboxMaterial = new THREE.MeshBasicMaterial({  map: THREE.ImageUtils.loadTexture('./assets/Slimegamesky.jpg'), side: THREE.BackSide });
 var skybox = new THREE.Mesh(skyboxGeometry, skyboxMaterial);
 scene.add(skybox);
@@ -80,9 +66,9 @@ renderer.render(scene, camera);
 function render() {
 	var rotSpeed = 0.09;
 	var x = camera.position.x, y = camera.position.y, z = camera.position.z;
-	controls.update();
-    	renderer.render(scene, camera);
-    	requestAnimationFrame(render);
+    renderer.render(scene, camera);
+    requestAnimationFrame(render);
+
 	updateRender();
 }
 render();

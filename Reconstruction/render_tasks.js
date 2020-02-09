@@ -1,30 +1,35 @@
 
 function updateRender(){
-    /*
     if(keyStatus["leftArrow"]){
-        moveCameraLeft();
+        camera.translateX(-0.3)	;
     }
     if(keyStatus["rightArrow"]){
-        moveCameraRight();
+        camera.translateX(0.3);
     }
     if(keyStatus["upArrow"]){
-        moveCameraForward();
+        camera.translateY(0.3);
+        camera.translateZ(-0.3);  
     }
     if(keyStatus["downArrow"]){
-        moveCameraBackward();
+        camera.translateY(-0.3);
+        camera.translateZ(0.3);
     }
-    */
     if(keyStatus["qKey"]){
-        rotateCameraLeft();
+        camera.position.x = x * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
+        camera.position.z = z * Math.cos(rotSpeed) + x * Math.sin(rotSpeed);
+        camera.lookAt(scene.position);
     }
     if(keyStatus["eKey"]){
-        rotateCameraRight();      
+        camera.position.x = x * Math.cos(rotSpeed) + z * Math.sin(rotSpeed);
+        camera.position.z = z * Math.cos(rotSpeed) - x * Math.sin(rotSpeed);
+        camera.lookAt(scene.position);      
     }
     if(keyStatus["oKey"]){
-        zoomCameraIn();     
-    }    
+        camera.translateZ(-0.3);     
+    }
+    
     if(keyStatus["pKey"]){
-        zoomCameraOut();
+        camera.translateZ(0.3);
     }
     
     if(movementUnlocked){
@@ -48,8 +53,7 @@ function updateRender(){
             followCursor();
         }
         if(keyStatus["space"]){
-            //moveEnemy();
+            moveEnemy();
         }
     }
-    readGrid(cursor_currentPos, currentPos, range);
 }
