@@ -3,16 +3,16 @@ var grid = []; //this is the current level grid
 function createLevel(){ //object function to create the grid for level 1
     //Grid represents the world. A 1 means untraversable, 0 means traversable, -1 means empty space(hole)
     grid = [ 
-        [1.4, 1.4, 1.4, 1.4, 1.4, 1.4, 1.4, 1.4, 1.4, 1.4 ],
-        [1.4, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 1.4 ],
-        [1.4, 0.1, 0, 0, 0, 0, 0, 0, 0.1, 1.4 ],
-        [1.4, 0.1, 0, 0, 0, 0, 0, 0, 0.1, 1.4 ],
-        [1.4, 0.1, 0, 0, 3, 3, 0, 0, 0.1, 1.4 ],
-        [1.4, 0.1, 0, 0, 3, 3, 0, 0, 0.1, 1.4 ],
-        [1.4, 0.1, 0, 0, 0, 0, 0, 0, 0.1, 1.4 ],
-        [1.4, 0.1, 0, 0, 0, 0, 0, 0, 0.1, 1.4 ],
-        [1.4, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 1.4 ],
-        [1.4, 1.4, 1.4, 1.4, 1.4, 1.4, 1.4, 1.4, 1.4, 1.4 ]
+        [1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 1 ],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1 ],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1 ],
+        [1, 0, 0, 0, 0.1, 0.1, 0, 0, 0, 1 ],
+        [1, 0, 0, 0.1, 3.1, 3.1, 0.1, 0, 0, 1 ],
+        [1, 0, 0, 0.1, 3.1, 3.1, 0.1, 0, 0, 1 ],
+        [1, 0, 0, 0, 0.1, 0.1, 0, 0, 0, 1 ],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1 ],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1 ],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ]
     ];
 
     //populates the grid with each terrain type
@@ -20,6 +20,7 @@ function createLevel(){ //object function to create the grid for level 1
         for(c = 0; c< grid[r].length; c++){
             var height = (grid[r][c] % 1);
             var id = (height == 0 ? grid[r][c] : (grid[r][c] - height));
+            height *= 10;
             switch(id){
                 case 0:
                     grassTerrain(r, height, c);
