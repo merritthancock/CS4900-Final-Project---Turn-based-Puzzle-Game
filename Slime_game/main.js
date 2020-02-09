@@ -38,7 +38,7 @@ resetEnemy();
 scene.add(cursor);
 cursor.position.set(cursor_startPos[0], cursor_startPos[1], cursor_startPos[2]);
 
-var loader = new THREE.GLTFLoader();
+/*var loader = new THREE.GLTFLoader();
 loader.load( './models/Level2.glb', function ( gltf ) {
 	//These modifiers are to position the board correctly to display.
 	//They should be removed after everything is scaled down.
@@ -51,11 +51,12 @@ loader.load( './models/Level2.glb', function ( gltf ) {
 	gltf.scene.position.z = gltf.scene.position.z - 0.5;
 	scene.add( gltf.scene );
 	render();
-} );
+} );*/
 
 //Set up grid
-//createGrid1();
-createGrid2();
+createLevel();
+//createGrid2();
+//createL1();
 
 //Set up the skybox
 var skyboxGeometry = new THREE.SphereGeometry(100, 100, 100);
