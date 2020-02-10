@@ -1,1 +1,23 @@
-//Not entirely sure what use for this should be but an idea would be a place to call all our levels which are stored in grid.js
+class Board {
+    constructor(tiles, player, enemies){
+        this.tiles = tiles;
+        this.player = player;
+        this.enemies = enemies;
+    }
+
+
+}
+
+function createBoard(levelNum){
+    switch(levelNum){
+
+        case 100:
+            createTestLevel1();
+        case 1:
+            createLevel1();
+            break;
+        case 2:
+            createLevel2();
+
+    }
+}
