@@ -44,15 +44,29 @@ class Player extends Entity {
 //The Cursor is an object that will contain unique methods allowing player interaction
 class Cursor extends Entity {
     constructor(position, model, texture, id){
-        //Call entity
-        Entity.call(this, position, model, texture, id);
+        //Call entity constructor
+        super(position, model, texture, id);
+    }
 
-        //Moves cursor whenever called
-        this.moveCursor = function moveCursor(direction) {
-
-        };
-
-        /* deprecated method
+    moveCursor(direction){
+        switch(direction){
+            case "forward":
+                this.position[2] += 1
+                break;
+            case "backward":
+                this.position[2] -= 1;
+                break;
+            case "left":
+                this.position[0] += 1;
+                break;
+            case "right":
+                this.position[0] -= 1;
+                break;
+        }
+        //Set height equal to the height of the tile that the cursor was moved over.
+        this.position[1] = level.board[this.position[0]][this.position[2]].height;
+    }
+    /* deprecated method (for reference)
         function cursorMove(direction){
             //Check if movement of the cursor is locked
             if(movementUnlocked){
@@ -78,5 +92,4 @@ class Cursor extends Entity {
             }
         }
         */
-    }
 }
