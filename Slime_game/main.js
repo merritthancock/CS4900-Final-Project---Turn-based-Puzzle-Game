@@ -54,9 +54,10 @@ loader.load( './models/Level2.glb', function ( gltf ) {
 } );*/
 
 //Set up grid
-createLevel();
+//createLevel();
 //createGrid2();
 //createL1();
+createBoard(100);
 
 //Set up the skybox
 var skyboxGeometry = new THREE.SphereGeometry(100, 100, 100);
