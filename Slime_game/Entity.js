@@ -35,3 +35,6 @@ function Player(position, model, texture, id, startingMass){
         this.mass += enemy.mass;
     }
 }
+//Link Player to Entity for "inheritance"
+Player.prototype = new Entity();
+Player.prototype.constructor = Player;
