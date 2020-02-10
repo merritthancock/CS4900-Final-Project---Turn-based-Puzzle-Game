@@ -1,6 +1,6 @@
 var grid = []; //this is the current level grid
 
-function createLevel(){ //object function to create the grid for level 1
+function createTestLevel1(){ //object function to create the grid for level 1
     //Grid represents the world. A 1 means untraversable, 0 means traversable, -1 means empty space(hole)
     grid = [ 
         [1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 1.1 ],
@@ -14,7 +14,18 @@ function createLevel(){ //object function to create the grid for level 1
         [1.1, -1, -1, 0, 0, 0, 0, 0, 0, 1.1 ],
         [1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1 ]
     ];
+    spawnElements(grid);
+}
 
+function createLevel1(){
+    //this is where our working level 1 will go
+}
+
+function createLevel2(){
+    //this is where our working level 2 will go
+}
+
+function spawnElements(gridM){
     //populates the grid with each terrain type
     for(r = 0; r< grid.length; r++){
         for(c = 0; c< grid[r].length; c++){
@@ -22,7 +33,7 @@ function createLevel(){ //object function to create the grid for level 1
             var id = (height == 0 ? grid[r][c] : (grid[r][c] - height));
             height *= 10;
             if(id != -1){
-                makeTerrain(r, height, c, id);
+                makeTerrain(r, height, c, id);//from terrain
                 setGridOverlay(r, height, c);
             } 
         }
