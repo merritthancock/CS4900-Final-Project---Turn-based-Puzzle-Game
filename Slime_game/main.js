@@ -4,9 +4,13 @@ var height = window.innerHeight;
 var renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(width, height);
 document.body.appendChild(renderer.domElement);
- 
+
+//Construct board object
+board = new Board(testLevelTileMap, testLevelHeightMap, null, null);
+
 // create scene object
 var scene = new THREE.Scene;
+loadLevel(scene, board);
 
 // create perspective camera
 var camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 10000);
@@ -17,26 +21,30 @@ camera.position.z = 10;
 
 // add to scene and renderer
 scene.add(camera); 
-
-// create the view matrix
-camera.lookAt(player.position);
+camera.lookAt(board.board[0][0].position);
 
 // create lighting and add to scene 
 var pointLight = new THREE.PointLight(0xaabbcc);
 pointLight.position.set(10, 16, 16);
 scene.add(pointLight);
 
+//Set up the skybox
+var skyboxGeometry = new THREE.CubeGeometry(100, 100, 100);
+var skyboxMaterial = new THREE.MeshBasicMaterial({  map: THREE.ImageUtils.loadTexture('./assets/Slimegamesky.jpg'), side: THREE.BackSide });
+var skybox = new THREE.Mesh(skyboxGeometry, skyboxMaterial);
+scene.add(skybox);
+
 //add player to scene and set start position
-scene.add(player);
-resetPosition();
+//scene.add(player);
+//resetPosition();
 
 //add enemy to scene
-scene.add(enemy);
-resetEnemy();
+//scene.add(enemy);
+//resetEnemy();
 
 //add cursor to scene
-scene.add(cursor);
-cursor.position.set(cursor_startPos[0], cursor_startPos[1], cursor_startPos[2]);
+//scene.add(cursor);
+//cursor.position.set(cursor_startPos[0], cursor_startPos[1], cursor_startPos[2]);
 
 /*var loader = new THREE.GLTFLoader();
 loader.load( './models/Level2.glb', function ( gltf ) {
@@ -54,7 +62,7 @@ loader.load( './models/Level2.glb', function ( gltf ) {
 } );*/
 
 //Set up game board
-createBoard(100);
+//createBoard(100);
 
 //Set up the skybox
 var skyboxGeometry = new THREE.SphereGeometry(100, 100, 100);

@@ -1,0 +1,2 @@
+Researched A* algorithm Friday Feb 7 2:30 PM - 5 PM 
+Researched A* algorithm and Voxel Painter example code Sunday Feb 9 10:00 AM - 4:15 PM 
