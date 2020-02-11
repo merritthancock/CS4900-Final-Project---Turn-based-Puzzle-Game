@@ -26,13 +26,3 @@ function makeTerrain(x, height, z, id){//add new terrains here as needed
     scene.add(terrain);    
 
 }
-
-class Tile {
-    constructor(position, height, id){
-
-        this.position = position;
-        this.height = height;
-        this.id = id;
-    }
-    
-}
