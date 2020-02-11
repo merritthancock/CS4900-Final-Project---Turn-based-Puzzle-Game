@@ -6,18 +6,10 @@ class Board {
         this.enemies = enemies;
 
         this.board = [];
-        for(i = 0; i < tileMap; i++){
+        for(var i = 0; i < tileMap.length; i++){
             this.board[i] = []
-            for(j = 0; j < tileMap[0]; j++){
-                this.board[i][j] = new Tile([i, j, 1], heightMap[i][j], tileMap[i][j]);
-            }
-        }
-    }
-
-    loadLevel(scene) {
-        for(i = 0; i < this.tiles.length; i++){
-            for(j = 0; j < this.tiles[0].length; j++){
-                scene.add(tiles[i][j].terrain;
+            for(var j = 0; j < tileMap[0].length; j++){
+                this.board[i][j] = new Tile([i, heightMap[i][j] / 2, j], heightMap[i][j], tileMap[i][j]);
             }
         }
     }
@@ -32,15 +24,15 @@ class Tile {
         switch(type){
             case 0://grass
                 this.terrain = new THREE.Mesh(new THREE.BoxGeometry(1, height, 1),
-                          new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('../assets/grass.jpg')}));
+                          new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('./assets/grass.jpg')}));
                 break;
             case 1://rocky
                 this.terrain = new THREE.Mesh(new THREE.BoxGeometry(1, height, 1),
-                          new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('../assets/mountain.jpg')}));            
+                          new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('./assets/mountain.jpg')}));            
                 break;
             /*case 2://water
                 this.terrain = new THREE.Mesh(new THREE.BoxGeometry(1, height, 1),
-                          new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('../assets/water.jpg')}));;
+                          new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('./assets/water.jpg')}));;
                 break;*/
             case 3://gap
                 this.terrain = new THREE.Mesh(new THREE.BoxGeometry(1, .1, 1),
@@ -49,6 +41,11 @@ class Tile {
             default:
                 this.terrain = null;
                 break;
+        }
+        if(this.terrain != null){
+            this.terrain.position.x = this.position[0];
+            this.terrain.position.y = this.position[1];
+            this.terrain.position.z = this.position[2];
         }
     }   
 }
