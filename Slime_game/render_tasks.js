@@ -51,5 +51,6 @@ function updateRender(){
             //moveEnemy();
         }
     }
-    readGrid(cursor_currentPos, currentPos, range);
+
+    //readGrid(cursor_currentPos, currentPos, range);
 }
