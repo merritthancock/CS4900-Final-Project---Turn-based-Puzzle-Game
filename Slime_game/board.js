@@ -8,7 +8,7 @@ class Board {
 
 }
 
-function createBoard(levelNum){
+function createBoard(levelNum){//modify this to make a Board object once enemies are implemented
     switch(levelNum){
 
         case 100:

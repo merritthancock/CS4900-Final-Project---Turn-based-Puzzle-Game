@@ -1,3 +1,19 @@
+class Tile {
+    constructor(position, height, id){
+
+        this.position = position;
+        this.height = height;
+        this.id = id;
+    }
+    
+}
+
+function generateTiles(x, height, z, id){
+    let coord = (x, 0, z);
+    let tile = new Tile(coord, height, id);
+    
+}
+
 function makeTerrain(x, height, z, id){//add new terrains here as needed
     //var traversable = false;
     var terrain;
@@ -25,14 +41,4 @@ function makeTerrain(x, height, z, id){//add new terrains here as needed
     terrain.position.set(x, height/2, z);//height/2 because y position refers to the center of the box
     scene.add(terrain);    
 
-}
-
-class Tile {
-    constructor(position, height, id){
-
-        this.position = position;
-        this.height = height;
-        this.id = id;
-    }
-    
 }
