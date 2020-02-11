@@ -1,12 +1,4 @@
-class Board {
-    constructor(tiles, player, enemies){
-        this.tiles = tiles;
-        this.player = player;
-        this.enemies = enemies;
-    }
 
-
-}
 
 function createBoard(levelNum){
     switch(levelNum){
