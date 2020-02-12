@@ -29,23 +29,23 @@ function updateRender(){
     */
     if(movementUnlocked){
         if(keyStatus["wKey"]){
-            //cursorForward();
-            cursorMove("forward");
+           
+            //cursorMove("forward");
         }
         if(keyStatus["aKey"]){
-            //cursorLeft();
-            cursorMove("left");
+           
+            //cursorMove("left");
         }
         if(keyStatus["sKey"]){
-            //cursorBackward();
-            cursorMove("backward");
+       
+            //cursorMove("backward");
         }
         if(keyStatus["dKey"]){
-            //cursorRight();
-            cursorMove("right");
+            
+            //cursorMove("right");
         }
         if(keyStatus["enter"]){
-            followCursor();
+            //followCursor();
         }
         if(keyStatus["space"]){
             //moveEnemy();
