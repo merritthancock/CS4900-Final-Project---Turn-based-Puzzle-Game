@@ -128,8 +128,6 @@ function doKeyDown(event) {
 }
 
 function inputHandling() {
-    
-
     //Lastly, release the lock to allow other blocking calls to activate
     unlocked = true;
 }
