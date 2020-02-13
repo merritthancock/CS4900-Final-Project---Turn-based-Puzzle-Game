@@ -35,8 +35,8 @@ function init() {
     scene = new THREE.Scene;
     loadLevel(scene, board);
 
-    camera.position.y = 10;
-    camera.position.z = 10;
+    camera.position.y = 20;
+    camera.position.z = 20;
 
     // add to scene and renderer
     scene.add(camera); 
