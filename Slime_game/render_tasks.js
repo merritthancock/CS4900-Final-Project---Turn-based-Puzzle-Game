@@ -12,7 +12,6 @@ function updateRender(){
     if(keyStatus["pKey"]){
         zoomCameraOut();
     }
-    
     if(movementUnlocked){
         if(keyStatus["wKey"]){
             //cursorForward();
