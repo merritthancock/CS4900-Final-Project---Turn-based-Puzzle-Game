@@ -1,19 +1,5 @@
 
 function updateRender(){
-    /*
-    if(keyStatus["leftArrow"]){
-        moveCameraLeft();
-    }
-    if(keyStatus["rightArrow"]){
-        moveCameraRight();
-    }
-    if(keyStatus["upArrow"]){
-        moveCameraForward();
-    }
-    if(keyStatus["downArrow"]){
-        moveCameraBackward();
-    }
-    */
     if(keyStatus["qKey"]){
         rotateCameraLeft();
     }
@@ -51,5 +37,4 @@ function updateRender(){
             //moveEnemy();
         }
     }
-    //readGrid(cursor_currentPos, currentPos, range);
 }
