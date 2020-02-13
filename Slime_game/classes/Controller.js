@@ -29,7 +29,7 @@ function init() {
     });
 
     //Construct board object
-    board = new Board(testLevelTileMap, testLevelHeightMap, null, null);
+    board = createTestLevel();
 
     // create scene object
     scene = new THREE.Scene;
