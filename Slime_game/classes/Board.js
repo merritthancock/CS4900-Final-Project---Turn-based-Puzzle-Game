@@ -20,23 +20,29 @@ class Tile {
 
         this.position = position;
         this.height = height;
+
+        var grass = new THREE.TextureLoader().load( './assets/grass.jpg' );
+        var water = new THREE.TextureLoader().load( './assets/water.jpg' );
+        var rocks = new THREE.TextureLoader().load( './assets/mountain.jpg' );
+        var cave = new THREE.TextureLoader().load( './assets/cave.jpg' );
+
         
         switch(type){
             case 0://grass
                 this.terrain = new THREE.Mesh(new THREE.BoxGeometry(1, height, 1),
-                          new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('./assets/grass.jpg')}));
+                               new THREE.MeshBasicMaterial({ map: grass}));
                 break;
             case 1://rocky
                 this.terrain = new THREE.Mesh(new THREE.BoxGeometry(1, height, 1),
-                          new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('./assets/mountain.jpg')}));            
+                               new THREE.MeshBasicMaterial({ map: rocks}));            
                 break;
             /*case 2://water
                 this.terrain = new THREE.Mesh(new THREE.BoxGeometry(1, height, 1),
-                          new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('./assets/water.jpg')}));;
+                               new THREE.MeshBasicMaterial({ map: water }));;
                 break;*/
             case 3://gap
                 this.terrain = new THREE.Mesh(new THREE.BoxGeometry(1, .1, 1),
-                          new THREE.MeshBasicMaterial({ color: 0x000000}));
+                               new THREE.MeshBasicMaterial({ color: 0x000000}));
                 break;
             default:
                 this.terrain = null;
