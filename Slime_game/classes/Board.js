@@ -44,6 +44,14 @@ class Tile {
                 this.terrain = new THREE.Mesh(new THREE.BoxGeometry(1, .1, 1),
                                new THREE.MeshBasicMaterial({ color: 0x000000}));
                 break;
+            case 4://cave
+                this.terrain = new THREE.Mesh(new THREE.BoxGeometry(1, height, 1),
+                               new THREE.MeshBasicMaterial({ map: cave}));            
+                break;
+            case 8://exit
+                this.terrain = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1),
+                               new THREE.MeshBasicMaterial({ color: 0xFADADD}));
+                break;
             default:
                 this.terrain = null;
                 break;
