@@ -27,10 +27,10 @@ function createLevel2(){
 
 function spawnElements(gridM){
     //populates the grid with each terrain type
-    for(r = 0; r< grid.length; r++){
-        for(c = 0; c< grid[r].length; c++){
-            var height = (grid[r][c] % 1);
-            var id = (height == 0 ? grid[r][c] : (grid[r][c] - height));
+    for(r = 0; r< gridM.length; r++){
+        for(c = 0; c< gridM[r].length; c++){
+            var height = (gridM[r][c] % 1);
+            var id = (height == 0 ? gridM[r][c] : (gridM[r][c] - height));
             height *= 10;
             if(id != -1){
                 makeTerrain(r, height, c, id);//from terrain
