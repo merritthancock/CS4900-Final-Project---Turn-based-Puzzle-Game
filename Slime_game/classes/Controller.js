@@ -5,6 +5,8 @@ var camera;
 var cameraControls;
 var renderer;
 var scene;
+//just for renderTask to compile
+var movementUnlocked;
 
 function init() {
     //Renderer/Camera stuff
