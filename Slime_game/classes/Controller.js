@@ -35,8 +35,8 @@ function init() {
     scene = new THREE.Scene;
     loadLevel(scene, board);
 
-    camera.position.y = 10;
-    camera.position.z = 10;
+    camera.position.y = 20;
+    camera.position.z = 20;
 
     // add to scene and renderer
     scene.add(camera); 
@@ -67,8 +67,9 @@ function loadLevel(scene, board) {
     scene.add(pointLight);
 
     //Set up the skybox
+    var sky = new THREE.TextureLoader().load( './assets/Slimegamesky.jpg' );
     var skyboxGeometry = new THREE.CubeGeometry(100, 100, 100);
-    var skyboxMaterial = new THREE.MeshBasicMaterial({  map: THREE.ImageUtils.loadTexture('./assets/Slimegamesky.jpg'), side: THREE.BackSide });
+    var skyboxMaterial = new THREE.MeshBasicMaterial({  map: sky, side: THREE.BackSide });
     var skybox = new THREE.Mesh(skyboxGeometry, skyboxMaterial);
     scene.add(skybox);
 }
