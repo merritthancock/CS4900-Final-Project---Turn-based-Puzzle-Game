@@ -28,7 +28,7 @@ class Tile {
                 break;
             case 1://rocky
                 this.terrain = new THREE.Mesh(new THREE.BoxGeometry(1, height, 1),
-                          new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('./assets/mountain.jpg')}));            
+                          new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('./assets/mountain.jpg')}));         
                 break;
             /*case 2://water
                 this.terrain = new THREE.Mesh(new THREE.BoxGeometry(1, height, 1),
