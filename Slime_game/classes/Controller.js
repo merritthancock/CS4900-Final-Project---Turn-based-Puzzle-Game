@@ -80,7 +80,8 @@ function loadLevel(scene, board) {
     var playerPos = [[1], [5], [1]];
     var player = new Player(playerPos, playerBox, slime, "player", 1);
     player.moveEntity(playerPos[0], playerPos[1], playerPos[2]);
-    scene.add(player.mesh);
+    //add player to the scene
+    scene.add(board.player.mesh);
 }
 
 function render() {
