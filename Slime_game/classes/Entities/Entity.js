@@ -19,4 +19,19 @@ class Entity {
         this.position.y = y;
         this.position.z = z;
     }
+
+    movementOverlay(x, z, range, currentH){//uses the flood fill algorithm to creat overlay of all possible spaces to move
+        //tileHeight = 
+        if(range>=0){
+            overlay = new PlaneGeomery(1,1),
+                      new MeshLambertMaterial( {color: 0x0047AB, transparent: true});
+            overlay.opacity = 0.6;
+            overlay.position.set(x, currentH, z);
+            this.movementOverlay(x+1, z, range-1, currentH);//recursive call for surrounding spaces
+            this.movementOverlay(x, z+1, range-1, currentH);
+            this.movementOverlay(x-1, z, range-1, currentH);
+            this.movementOverlay(x, z-1, range-1, currentH);   
+                      
+        }
+    }
 }
