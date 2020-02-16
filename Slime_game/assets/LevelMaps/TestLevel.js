@@ -45,10 +45,16 @@ function createTestLevel(){
         [4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0],
         [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0]
     ];
-    var testLevelPlayer = [];
     var testLevelEnemies = [];
 
-    testBoard = new Board(testLevelTileMap, testLevelHeightMap, null, null);
+    //Create Player
+    var slime = new THREE.TextureLoader().load( './assets/slime.jpg' );
+    var playerBox = new THREE.BoxGeometry(1,1,1);
+    var playerPos = [[1], [1], [1]];
+    var player = new Player(playerPos, playerBox, slime, "player", 1);
+    player.moveEntity(playerPos[0], playerPos[1], playerPos[2]);
+
+    testBoard = new Board(testLevelTileMap, testLevelHeightMap, player, null);
 
     return testBoard;
 }

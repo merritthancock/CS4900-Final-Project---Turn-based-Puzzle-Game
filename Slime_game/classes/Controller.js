@@ -72,14 +72,9 @@ function loadLevel(scene, board) {
     var skybox = new THREE.Mesh(skyboxGeometry, skyboxMaterial);
     scene.add(skybox);
 
-    
-    var boxie = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1));
-    var slime = new THREE.TextureLoader().load( './assets/slime.jpg' );
-    var playerBox = new THREE.BoxGeometry(1,1,1);
-    var playerPos = [[1], [1], [1]];
-    var player = new Player(playerPos, playerBox, slime, "player", 1);
-    player.moveEntity(playerPos[0], playerPos[1], playerPos[2]);
-    scene.add(player.mesh);
+    //add player to the scene
+    scene.add(board.player.mesh);
+
 }
 
 function animate() {
