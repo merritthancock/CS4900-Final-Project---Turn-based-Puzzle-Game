@@ -29,11 +29,13 @@ class Tile {
         
         switch(type){
             case 0://grass
-                this.terrain = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, height, 4, height),
+
+                this.terrain = new THREE.Mesh(new THREE.CylinderGeometry(.71, .71, height, 4, (height+1), false, (Math.PI/4)),
                                new THREE.MeshBasicMaterial({ map: grass}));
                 break;
             case 1://rocky
-            this.terrain = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, height, 4, height, false, 0.5 * Math.PI),
+                this.terrain = new THREE.Mesh(new THREE.CylinderGeometry(.71, .71, height, 4, (height+1), false, (Math.PI/4)),
+
                                new THREE.MeshBasicMaterial({ map: rocks}));            
                 break;
             /*case 2://water
@@ -44,17 +46,18 @@ class Tile {
                 this.terrain = new THREE.Mesh(new THREE.BoxGeometry(1, .1, 1),
                                new THREE.MeshBasicMaterial({ color: 0x000000}));
                 break;
-<<<<<<< Updated upstream
-=======
+
             case 4://cave
-            this.terrain = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, height, 4, height),
+
+                this.terrain = new THREE.Mesh(new THREE.CylinderGeometry(0.71, 0.71, height, 4, (height+1), false, (Math.PI/4)),
+
                                new THREE.MeshBasicMaterial({ map: cave}));            
                 break;
             case 8://exit
-            this.terrain = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, height, 4, height),
+            this.terrain = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1),
                                new THREE.MeshBasicMaterial({ color: 0xFADADD}));
                 break;
->>>>>>> Stashed changes
+
             default:
                 this.terrain = null;
                 break;
