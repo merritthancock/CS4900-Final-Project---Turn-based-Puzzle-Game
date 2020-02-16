@@ -45,7 +45,6 @@ function init() {
     //set listeners for keyboard presses
     document.addEventListener('keyup', doKeyUp, false);
     document.addEventListener('keydown', doKeyDown, false);
-    //renderer.render(scene, camera);
 
     animate();
 }
@@ -85,12 +84,11 @@ function loadLevel(scene, board) {
 
 function animate() {
     requestAnimationFrame(animate);
-    cameraControls.update();
     render();
-    //updateRender();
 }
 
 function render() {
+    cameraControls.update();
     renderer.render(scene, camera);
 }
 
