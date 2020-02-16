@@ -12,8 +12,33 @@ class Player extends Entity {
         this.movementRange = 1;
     }
 
-    //Function absobs enemy, increases mass
+    //Function absorbs enemy, increases mass
     absorb(enemy){
         this.mass += enemy.mass;
+    };
+
+    //Function moves player
+    movePlayer(direction){
+        switch(direction){
+            case "forward":
+                this.position[2] += 1
+                break;
+            case "backward":
+                this.position[2] -= 1;
+                break;
+            case "left":
+                this.position[0] += 1;
+                break;
+            case "right":
+                this.position[0] -= 1;
+                break;
+        }   
+        player.mesh.position.set(player.position[0], player.position[1], player.position[2]);
+    };
+
+    //Function follows cursor
+    followCursor(cursor){
+        pos = cursor.position;
+        player.mesh.position.set(pos[0], pos[1], pos[2]);
     };
 }

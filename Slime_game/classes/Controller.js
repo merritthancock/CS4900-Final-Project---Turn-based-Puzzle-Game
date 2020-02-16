@@ -74,6 +74,8 @@ function loadLevel(scene, board) {
 
     //add player to the scene
     scene.add(board.player.mesh);
+    //add enemy to the scene
+    scene.add(board.enemies.mesh)
 
 }
 
