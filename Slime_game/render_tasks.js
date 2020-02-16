@@ -14,11 +14,11 @@ function updateRender(){
     }
     if(movementUnlocked){
         if(keyStatus["wKey"]){
-           
+            console.log("Moving cursor forward!");
             //cursorMove("forward");
         }
         if(keyStatus["aKey"]){
-           
+            console.log("Moving cursor left!");
             //cursorMove("left");
         }
         if(keyStatus["sKey"]){
