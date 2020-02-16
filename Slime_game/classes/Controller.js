@@ -72,8 +72,6 @@ function loadLevel(scene, board) {
     var skybox = new THREE.Mesh(skyboxGeometry, skyboxMaterial);
     scene.add(skybox);
 
-    
-    var boxie = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1));
     var slime = new THREE.TextureLoader().load( './assets/slime.jpg' );
     var playerBox = new THREE.BoxGeometry(1,1,1);
     var playerPos = [[1], [1], [1]];
