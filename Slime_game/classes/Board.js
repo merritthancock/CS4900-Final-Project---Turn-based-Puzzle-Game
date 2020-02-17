@@ -1,9 +1,10 @@
 class Board {
-    constructor(tileMap, heightMap, player, enemies){
+    constructor(tileMap, heightMap, player, enemies, cursor){
         this.tileMap = tileMap;
         this.heightMap = heightMap;
         this.player = player;
         this.enemies = enemies;
+        this.cursor = cursor;
 
         this.board = [];
         for(var i = 0; i < tileMap.length; i++){

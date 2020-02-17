@@ -74,6 +74,8 @@ function loadLevel(scene, board) {
 
     //add player to the scene
     scene.add(board.player.mesh);
+    //add cursor to the scene
+    scene.add(board.cursor.mesh);
     //add enemy to the scene
     scene.add(board.enemies.mesh)
 
@@ -87,6 +89,7 @@ function animate() {
 function render() {
     cameraControls.update();
     renderer.render(scene, camera);
+    updateRender(board);
 }
 
 init();

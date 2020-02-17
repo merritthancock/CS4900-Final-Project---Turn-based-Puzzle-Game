@@ -54,14 +54,28 @@ function createTestLevel(){
     var player = new Player(playerPos, playerBox, slime, "player", 1);
     player.moveEntity(playerPos[0], playerPos[1], playerPos[2], player);
 
+    //Create Cursor
+    
+    var cu = new THREE.TextureLoader().load( './assets/yellow.jpg' );
+    var cursorMod = new THREE.CircleBufferGeometry( 0.5, 30 );
+    var cursorPos = [1, 1, 2];
+    var cursor = new Cursor(cursorPos, cursorMod, cu, "cursor");
+    cursor.moveEntity(cursorPos[0], cursorPos[1], cursorPos[2], cursor);
+
     //Create Enemy
     var skull = new THREE.TextureLoader().load( './assets/skull.jpg' );
     var enemyBox = new THREE.BoxGeometry(1,1,1);
+<<<<<<< HEAD
     var enemyPos = [13, 1, 3];
+=======
+    var enemyPos = [[13], [1 ], [3]];
+>>>>>>> 7f05c4e338d54c600c46757365a2c920bfe175a5
     var enemy = new Enemy(enemyPos, enemyBox, skull, "enemy", 1);
     enemy.moveEntity(enemyPos[0], enemyPos[1], enemyPos[2], enemy);
 
-    testBoard = new Board(testLevelTileMap, testLevelHeightMap, player, enemy);
+
+
+    testBoard = new Board(testLevelTileMap, testLevelHeightMap, player, enemy, cursor);
 
     return testBoard;
 }
