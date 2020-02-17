@@ -1,35 +1,26 @@
 
-function updateRender(){
-    if(keyStatus["qKey"]){
-        rotateCameraLeft();
-    }
-    if(keyStatus["eKey"]){
-        rotateCameraRight();      
-    }
-    if(keyStatus["oKey"]){
-        zoomCameraIn();     
-    }    
-    if(keyStatus["pKey"]){
-        zoomCameraOut();
-    }
+function updateRender(board){
+    //console.log(board.cursor.id);
     if(movementUnlocked){
         if(keyStatus["wKey"]){
+            movementUnlocked = false;
             console.log("Moving cursor forward!");
-            //player.movePlayer("forward");
-            //cursorMove("forward");
+            board.cursor.moveCursor(board.cursor, "forward");
         }
         if(keyStatus["aKey"]){
+            movementUnlocked = false;
             console.log("Moving cursor left!");
-            //player.movePlayer("left");
-            //cursorMove("left");
+            board.cursor.moveCursor(board.cursor, "left");
         }
         if(keyStatus["sKey"]){
-            //player.movePlayer("backward");
-            //cursorMove("backward");
+            movementUnlocked = false;
+            console.log("Moving cursor backward!");
+            board.cursor.moveCursor(board.cursor, "backward");
         }
         if(keyStatus["dKey"]){
-           //player.movePlayer("right");
-            //cursorMove("right");
+            movementUnlocked = false;
+            console.log("Moving cursor right!");
+            board.cursor.moveCursor(board.cursor, "right");
         }
         if(keyStatus["enter"]){
             //followCursor();
