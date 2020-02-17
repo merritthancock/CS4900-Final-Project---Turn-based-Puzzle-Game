@@ -4,7 +4,7 @@ class Cursor extends Entity {
         //Call entity constructor
         super(position, model, texture, id);
     }
-
+/*
     moveCursor(direction){
         switch(direction){
             case "forward":
@@ -22,7 +22,7 @@ class Cursor extends Entity {
         }
         //Set height equal to the height of the tile that the cursor was moved over.
         this.position[1] = level.board[this.position[0]][this.position[2]].height;
-    }
+    }*/
     /* deprecated method (for reference)
         function cursorMove(direction){
             //Check if movement of the cursor is locked

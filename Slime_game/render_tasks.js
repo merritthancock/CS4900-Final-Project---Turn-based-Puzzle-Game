@@ -1,17 +1,5 @@
 
-function updateRender(){
-    if(keyStatus["qKey"]){
-        rotateCameraLeft();
-    }
-    if(keyStatus["eKey"]){
-        rotateCameraRight();      
-    }
-    if(keyStatus["oKey"]){
-        zoomCameraIn();     
-    }    
-    if(keyStatus["pKey"]){
-        zoomCameraOut();
-    }
+function updateRender(player){
     if(movementUnlocked){
         if(keyStatus["wKey"]){
             console.log("Moving cursor forward!");
@@ -24,10 +12,12 @@ function updateRender(){
             //cursorMove("left");
         }
         if(keyStatus["sKey"]){
+            console.log("Moving cursor backward!");
             //player.movePlayer("backward");
             //cursorMove("backward");
         }
         if(keyStatus["dKey"]){
+            console.log("Moving cursor right!");
            //player.movePlayer("right");
             //cursorMove("right");
         }
