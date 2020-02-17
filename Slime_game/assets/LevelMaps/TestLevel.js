@@ -59,9 +59,11 @@ function createTestLevel(){
     
     var cu = new THREE.TextureLoader().load( './assets/yellow.jpg' );
     var cursorMod = new THREE.CircleBufferGeometry( 0.5, 30 );
+    cursorMod.rotateX(-Math.PI/2);
     var cursorPos = [1, 1, 2];
     var cursor = new Cursor(cursorPos, cursorMod, cu, "cursor");
     cursor.moveEntity(cursorPos[0], cursorPos[1], cursorPos[2], cursor);
+
 
     //Create Enemy
     var skull = new THREE.TextureLoader().load( './assets/skull.jpg' );
