@@ -40,13 +40,16 @@ function hover(board){//initiates methods when cursor hovers over entities/tiles
     cPos = board.cursor.position;
     var type = board.tileMap[cPos[0]][cPos[2]];
     var height = board.heightMap[cPos[0]][cPos[2]];
+    var pPos = board.player.position;
+
     console.log("Type: ", typeList(type));
     console.log("Height: ", height);
+    console.log("Occupied by: ", occupied(board.player, pPos, cPos));
     //board.cursor.position = (cPos[0], height + 0.5, cPos[2]);
     //return type;
 }
 
-function typeList(type){
+function typeList(type){//Returns the terrain name for logging to console
     switch(type){
         
         case 0:
@@ -63,5 +66,18 @@ function typeList(type){
             return "Exit";
         case 9://may change as board gen changes
             return "Void";
+    }
+}
+
+function occupied(player, pPos, cPos){
+    //var occupied = false;
+    this.player = player;
+    if(pPos[0] == cPos[0] && pPos[2] == cPos[2]){
+        //occupied == true;
+        player.movementOverlay(pPos[0], pPos[2], player.movementRange, 1);//will need to read player height in future
+        return "Player";
+    }
+    else{
+        return "None";
     }
 }
