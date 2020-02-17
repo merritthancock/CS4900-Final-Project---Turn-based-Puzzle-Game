@@ -64,7 +64,6 @@ function createTestLevel(){
     var cursor = new Cursor(cursorPos, cursorMod, cu, "cursor");
     cursor.moveEntity(cursorPos[0], cursorPos[1], cursorPos[2], cursor);
 
-
     //Create Enemy
     var skull = new THREE.TextureLoader().load( './assets/skull.jpg' );
     var enemyBox = new THREE.BoxGeometry(1,1,1);
@@ -72,7 +71,7 @@ function createTestLevel(){
     var enemy = new Enemy(enemyPos, enemyBox, skull, "enemy", 1);
     enemy.moveEntity(enemyPos[0], enemyPos[1], enemyPos[2], enemy);
 
-
+    testLevelEnemies.push(enemy);
 
     testBoard = new Board(testLevelTileMap, testLevelHeightMap, player, enemy, cursor);
 
