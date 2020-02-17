@@ -33,15 +33,35 @@ function updateRender(board){
             //moveEnemy();
         }
     }
-    //hover(board);
+
 }
 
-function hover(board){
+function hover(board){//initiates methods when cursor hovers over entities/tiles
     cPos = board.cursor.position;
     var type = board.tileMap[cPos[0]][cPos[2]];
     var height = board.heightMap[cPos[0]][cPos[2]];
-    console.log(type);
-    console.log(height);
+    console.log("Type: ", typeList(type));
+    console.log("Height: ", height);
     //board.cursor.position = (cPos[0], height + 0.5, cPos[2]);
     //return type;
+}
+
+function typeList(type){
+    switch(type){
+        
+        case 0:
+            return "Grass";
+        case 1:
+            return "Rocky";
+        case 2:
+            return "Water";
+        case 3:
+            return "Gap";
+        case 4:
+            return "Cave";
+        case 8:
+            return "Exit";
+        case 9://may change as board gen changes
+            return "Void";
+    }
 }
