@@ -89,7 +89,7 @@ function animate() {
 function render() {
     cameraControls.update();
     renderer.render(scene, camera);
-    updateRender();
+    updateRender(board);
 }
 
 init();
