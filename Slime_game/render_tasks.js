@@ -41,7 +41,7 @@ function hover(board){//initiates methods when cursor hovers over entities/tiles
     var type = board.tileMap[cPos[0]][cPos[2]];
     var height = board.heightMap[cPos[0]][cPos[2]];
     var pPos = board.player.position;
-
+    //board.cursor.cursorHeight(height + 0.5);
     console.log("Type: ", typeList(type));
     console.log("Height: ", height);
     console.log("Occupied by: ", occupied(board.player, pPos, cPos));
