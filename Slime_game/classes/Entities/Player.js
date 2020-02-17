@@ -8,8 +8,8 @@ class Player extends Entity {
         this.mass = startingMass;
         //Set abilities to an empty set for starters
         this.abilities = {};
-        //Set default movement range to 1
-        this.movementRange = 1;
+        //Set default movement range to 2
+        this.movementRange = 2;
     }
 
     //Function absorbs enemy, increases mass
