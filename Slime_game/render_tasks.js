@@ -74,7 +74,7 @@ function occupied(player, pPos, cPos){
     this.player = player;
     if(pPos[0] == cPos[0] && pPos[2] == cPos[2]){
         //occupied == true;
-        player.movementOverlay(pPos[0], pPos[2], player.movementRange, 1);//will need to read player height in future
+        player.movementOverlayHelper(pPos[0], pPos[2], player.movementRange, 1);//will need to read player height in future
         return "Player";
     }
     else{
