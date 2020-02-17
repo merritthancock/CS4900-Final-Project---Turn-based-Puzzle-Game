@@ -45,9 +45,8 @@ function init() {
     //set listeners for keyboard presses
     document.addEventListener('keyup', doKeyUp, false);
     document.addEventListener('keydown', doKeyDown, false);
-    renderer.render(scene, camera);
 
-    render();
+    animate();
 }
 
 //loadLevel accepts a scene and board as parameters.
@@ -72,13 +71,25 @@ function loadLevel(scene, board) {
     var skyboxMaterial = new THREE.MeshBasicMaterial({  map: sky, side: THREE.BackSide });
     var skybox = new THREE.Mesh(skyboxGeometry, skyboxMaterial);
     scene.add(skybox);
+
+    //add player to the scene
+    scene.add(board.player.mesh);
+    //add cursor to the scene
+    scene.add(board.cursor.mesh);
+    //add enemy to the scene
+    scene.add(board.enemies.mesh)
+
+}
+
+function animate() {
+    requestAnimationFrame(animate);
+    render();
 }
 
 function render() {
     cameraControls.update();
     renderer.render(scene, camera);
-    updateRender();
-    requestAnimationFrame(render);
+    updateRender(board);
 }
 
 init();

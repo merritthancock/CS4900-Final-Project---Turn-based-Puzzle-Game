@@ -75,6 +75,8 @@ function doKeyDown(event) {
 }
 
 function inputHandling() {
+    //Call updateRender to process current input
+    updateRender();
     //Lastly, release the lock to allow other blocking calls to activate
     unlocked = true;
 }

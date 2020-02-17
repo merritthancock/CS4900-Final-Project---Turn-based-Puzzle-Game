@@ -1,9 +1,10 @@
 class Board {
-    constructor(tileMap, heightMap, player, enemies){
+    constructor(tileMap, heightMap, player, enemies, cursor){
         this.tileMap = tileMap;
         this.heightMap = heightMap;
         this.player = player;
         this.enemies = enemies;
+        this.cursor = cursor;
 
         this.board = [];
         for(var i = 0; i < tileMap.length; i++){
@@ -47,6 +48,7 @@ class Tile {
                                new THREE.MeshBasicMaterial({ color: 0x000000}));
                 break;
 
+
             case 4://cave
 
                 this.terrain = new THREE.Mesh(new THREE.CylinderGeometry(0.71, 0.71, height, 4, (height+1), false, (Math.PI/4)),
@@ -57,6 +59,7 @@ class Tile {
             this.terrain = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1),
                                new THREE.MeshBasicMaterial({ color: 0xFADADD}));
                 break;
+
 
             default:
                 this.terrain = null;
