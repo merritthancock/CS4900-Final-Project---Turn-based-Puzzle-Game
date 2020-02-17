@@ -53,6 +53,7 @@ function createTestLevel(){
     var playerPos = [[1], [1], [1]];
     var player = new Player(playerPos, playerBox, slime, "player", 1);
     player.moveEntity(playerPos[0], playerPos[1], playerPos[2], player);
+    ///player.movementOverlay(1, 1, 2, 1); //Not working
 
     //Create Enemy
     var skull = new THREE.TextureLoader().load( './assets/skull.jpg' );

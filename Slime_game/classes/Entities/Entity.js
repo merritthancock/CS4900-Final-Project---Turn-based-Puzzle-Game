@@ -23,17 +23,23 @@ class Entity {
         entity.mesh.position.set(x,y,z);
     }
 
-    movementOverlay(x, z, range, currentH){//uses the flood fill algorithm to creat overlay of all possible spaces to move
+    movementOverlay(x, z, range, currentH){//uses the flood fill algorithm to create overlay of all possible spaces to move
         //tileHeight = 
         if(range>=0){
-            overlay = new PlaneGeomery(1,1),
-                      new MeshLambertMaterial( {color: 0x0047AB, transparent: true});
-            overlay.opacity = 0.6;
-            overlay.position.set(x, currentH, z);
+            var overlay = new THREE.Mesh(new THREE.PlaneGeometry(1,1),
+                          new THREE.MeshBasicMaterial( {color: 0x0047AB, transparent: false}));
+            overlay.rotation.x -= Math.PI / 2;
+            //overlay.opacity = 0.6;
+            
+            overlay.position.x = x;
+            overlay.position.y = currentH + 0.5;
+            overlay.position.z = z;
+
+            //overlay.position.set(x, currentH + 1, z);
             this.movementOverlay(x+1, z, range-1, currentH);//recursive call for surrounding spaces
             this.movementOverlay(x, z+1, range-1, currentH);
             this.movementOverlay(x-1, z, range-1, currentH);
-            this.movementOverlay(x, z-1, range-1, currentH);   
+            this.movementOverlay(x, z-1, range-1, currentH); 
                       
         }
     }
