@@ -1,2 +1,6 @@
+
 Researched A* algorithm Friday Feb 7 2:30 PM - 5 PM 
-Researched A* algorithm and Voxel Painter example code Sunday Feb 9 10:00 AM - 4:15 PM 
+Researched A* algorithm and Voxel Painter example code, started Looking at Pathfinder.js Sunday Feb 9 10:00 AM - 4:15 PM 
+Reading more on Pathfinder.js Started looking up code base Monday Feb 10 10:30 PM - 11:10 PM
+Reading Pathfinder.js code Tuesday Feb 11 10:30 AM- 12:00PM
+
