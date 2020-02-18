@@ -1,3 +1,7 @@
+import {createTestLevel} from "../assets/LevelMaps/TestLevel.js";
+import {updateRender} from "../render_tasks.js";
+import {doKeyUp, doKeyDown} from "../keyboard_input.js";
+
 // declare variables
 var windowWidth;
 var windowHeight;
@@ -5,6 +9,7 @@ var camera;
 var cameraControls;
 var renderer;
 var scene;
+var board;
 //just for renderTask to compile
 var movementUnlocked;
 
@@ -29,14 +34,14 @@ function init() {
     });
 
     //Construct board object
-    board = new Board(testLevelTileMap, testLevelHeightMap, null, null);
+    board = createTestLevel();
 
     // create scene object
     scene = new THREE.Scene;
     loadLevel(scene, board);
 
-    camera.position.y = 10;
-    camera.position.z = 10;
+    camera.position.y = 20;
+    camera.position.z = 20;
 
     // add to scene and renderer
     scene.add(camera); 
@@ -45,9 +50,8 @@ function init() {
     //set listeners for keyboard presses
     document.addEventListener('keyup', doKeyUp, false);
     document.addEventListener('keydown', doKeyDown, false);
-    renderer.render(scene, camera);
 
-    render();
+    animate();
 }
 
 //loadLevel accepts a scene and board as parameters.
@@ -67,17 +71,33 @@ function loadLevel(scene, board) {
     scene.add(pointLight);
 
     //Set up the skybox
+    var sky = new THREE.TextureLoader().load( './assets/Slimegamesky.jpg' );
     var skyboxGeometry = new THREE.CubeGeometry(100, 100, 100);
-    var skyboxMaterial = new THREE.MeshBasicMaterial({  map: THREE.ImageUtils.loadTexture('./assets/Slimegamesky.jpg'), side: THREE.BackSide });
+    var skyboxMaterial = new THREE.MeshBasicMaterial({  map: sky, side: THREE.BackSide });
     var skybox = new THREE.Mesh(skyboxGeometry, skyboxMaterial);
     scene.add(skybox);
+
+    //add player to the scene
+    scene.add(board.player.mesh);
+    //add cursor to the scene
+    scene.add(board.cursor.mesh);
+    //add enemy to the scene
+    scene.add(board.enemies.mesh)
+
+}
+
+function animate() {
+    requestAnimationFrame(animate);
+    render();
 }
 
 function render() {
     cameraControls.update();
     renderer.render(scene, camera);
-    updateRender();
-    requestAnimationFrame(render);
+    updateRender(board);
 }
 
 init();
+
+export {movementUnlocked};
+export {scene};
