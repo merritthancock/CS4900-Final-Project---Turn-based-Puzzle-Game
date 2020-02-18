@@ -1,3 +1,5 @@
+import {Entity} from "./Entity.js";
+
 //The Enemy is an object that will contain unique methods allowing player interaction
 class Enemy extends Entity {
     constructor(position, model, texture, id, startingMass, startPriority){
@@ -38,3 +40,4 @@ class Enemy extends Entity {
         
     }
 }
+export {Enemy};

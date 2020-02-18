@@ -21,6 +21,8 @@ class Tile {
 
         this.position = position;
         this.height = height;
+        this.hCost = 999;
+        this.gCost = 999;
 
         var grass = new THREE.TextureLoader().load( './assets/grass.jpg' );
         var water = new THREE.TextureLoader().load( './assets/water.jpg' );
@@ -71,4 +73,10 @@ class Tile {
             this.terrain.position.z = this.position[2];
         }
     }   
+
+    getFCost() {
+        return this.hCost + this.gCost;
+    }
 }
+
+export {Board, Tile};

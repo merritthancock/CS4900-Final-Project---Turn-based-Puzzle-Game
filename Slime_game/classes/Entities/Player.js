@@ -1,3 +1,5 @@
+import {Entity} from "./Entity.js";
+
 //Players inherit from Entity
 class Player extends Entity {
     constructor(position, model, texture, id, startingMass){
@@ -42,3 +44,5 @@ class Player extends Entity {
         player.mesh.position.set(pos[0], pos[1], pos[2]);
     };
 }
+
+export {Player};
