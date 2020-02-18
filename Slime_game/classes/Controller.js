@@ -100,3 +100,4 @@ function render() {
 init();
 
 export {movementUnlocked};
+export {scene};

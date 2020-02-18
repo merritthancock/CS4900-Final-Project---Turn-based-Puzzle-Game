@@ -1,5 +1,6 @@
 import {unlocked, getLock} from "./Semaphore.js";
 import {keyStatus} from "./keyboard_input.js";
+import {scene} from "./classes/Controller.js";
 
 function updateRender(board){
     if(unlocked) {
@@ -76,7 +77,10 @@ function occupied(player, pPos, cPos){
     //var occupied = false;
     if(pPos[0] == cPos[0] && pPos[2] == cPos[2]){
         //occupied == true;
-        player.movementOverlayHelper(pPos[0], pPos[2], player.movementRange, 1);//will need to read player height in future
+        var overlayList = player.movementOverlayHelper(pPos[0], pPos[2], player.movementRange, 1);//will need to read player height in future
+        for(var i = 0; i < overlayList.length; i++){
+            scene.add(overlayList[i]);
+        }
         return "Player";
     }
     else{

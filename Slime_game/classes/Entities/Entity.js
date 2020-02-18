@@ -1,3 +1,5 @@
+import { Board } from "../Board";
+
 class Entity {
     constructor(position, model, texture, id){
         //Set position of entity
@@ -24,17 +26,14 @@ class Entity {
     }
 
     movementOverlay(x, z, range, currentH, overlayList){//uses the flood fill algorithm to create overlay of all possible spaces to move
-        //tileHeight = 
+        //tileHeight =
+         
         if(range>=0){
             var overlay = new THREE.Mesh(new THREE.PlaneGeometry(1,1),
-                          new THREE.MeshBasicMaterial( {color: 0x0047AB, transparent: false}));
+                          new THREE.MeshBasicMaterial( {color: 0x0047AB, transparent: true, opacity: 0.5}));
             overlay.rotateX(-Math.PI / 2);
-            //overlay.opacity = 0.6;
-            //overlay.position.x = x;
-            //overlay.position.y = currentH + 0.5;
-            //overlay.position.z = z;
-
-            overlay.position.set(x, currentH + 0.5, z);
+            
+            overlay.position.set(x, currentH, z);
 
             overlayList.push(overlay);
             this.movementOverlay(x+1, z, range-1, currentH, overlayList);//recursive call for surrounding spaces
