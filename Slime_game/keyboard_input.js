@@ -74,4 +74,4 @@ function doKeyUp(event) {
     }
 }
 
-export {doKeyDown, doKeyUp, keyStatus, unlocked, keyStatus};
+export {doKeyDown, doKeyUp, keyStatus, unlocked};
