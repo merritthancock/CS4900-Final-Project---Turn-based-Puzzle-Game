@@ -8,29 +8,33 @@ function updateRender(board){
             getLock();
             console.log("Moving cursor forward!");
             board.cursor.moveCursor(board.cursor, "forward");
+            board.cursor.cursorHeight(board.cursor, board.board[board.cursor.position[0]][board.cursor.position[2]].height);
             hover(board);
         }
         if(keyStatus["aKey"]){
             getLock();
             console.log("Moving cursor left!");
             board.cursor.moveCursor(board.cursor, "left");
+            board.cursor.cursorHeight(board.cursor, board.board[board.cursor.position[0]][board.cursor.position[2]].height);
             hover(board);
         }
         if(keyStatus["sKey"]){
             getLock();
             console.log("Moving cursor backward!");
             board.cursor.moveCursor(board.cursor, "backward");
+            board.cursor.cursorHeight(board.cursor, board.board[board.cursor.position[0]][board.cursor.position[2]].height);
             hover(board);
         }
         if(keyStatus["dKey"]){
             getLock();
             console.log("Moving cursor right!");
             board.cursor.moveCursor(board.cursor, "right");
+            board.cursor.cursorHeight(board.cursor, board.board[board.cursor.position[0]][board.cursor.position[2]].height);
             hover(board);
         }
         if(keyStatus["enter"]){
             getLock();
-            //followCursor();
+            board.player.followCursor(board.player, board.cursor);
         }
         if(keyStatus["space"]){
             getLock();
