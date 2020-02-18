@@ -1,3 +1,7 @@
+import {createTestLevel} from "../assets/LevelMaps/TestLevel.js";
+import {updateRender} from "../render_tasks.js";
+import {doKeyUp, doKeyDown} from "../keyboard_input.js";
+
 // declare variables
 var windowWidth;
 var windowHeight;
@@ -5,6 +9,7 @@ var camera;
 var cameraControls;
 var renderer;
 var scene;
+var board;
 //just for renderTask to compile
 var movementUnlocked;
 
@@ -93,3 +98,5 @@ function render() {
 }
 
 init();
+
+export {movementUnlocked};

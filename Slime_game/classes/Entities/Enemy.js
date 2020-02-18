@@ -40,3 +40,4 @@ class Enemy extends Entity {
         
     }
 }
+export {Enemy};

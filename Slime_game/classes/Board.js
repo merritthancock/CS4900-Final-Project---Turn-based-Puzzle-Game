@@ -78,3 +78,5 @@ class Tile {
         return this.hCost + this.gCost;
     }
 }
+
+export {Board, Tile};

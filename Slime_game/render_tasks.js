@@ -1,43 +1,46 @@
+import {unlocked, getLock} from "./Semaphore.js";
+import {keyStatus} from "./keyboard_input.js";
 
 function updateRender(board){
-    //console.log(board.cursor.id);
-    if(movementUnlocked){
+    if(unlocked) {
+        //console.log(board.cursor.id);
         if(keyStatus["wKey"]){
-            movementUnlocked = false;
+            getLock();
             console.log("Moving cursor forward!");
             board.cursor.moveCursor(board.cursor, "forward");
             hover(board);
         }
         if(keyStatus["aKey"]){
-            movementUnlocked = false;
+            getLock();
             console.log("Moving cursor left!");
             board.cursor.moveCursor(board.cursor, "left");
             hover(board);
         }
         if(keyStatus["sKey"]){
-            movementUnlocked = false;
+            getLock();
             console.log("Moving cursor backward!");
             board.cursor.moveCursor(board.cursor, "backward");
             hover(board);
         }
         if(keyStatus["dKey"]){
-            movementUnlocked = false;
+            getLock();
             console.log("Moving cursor right!");
             board.cursor.moveCursor(board.cursor, "right");
             hover(board);
         }
         if(keyStatus["enter"]){
+            getLock();
             //followCursor();
         }
         if(keyStatus["space"]){
+            getLock();
             //moveEnemy();
         }
     }
-
 }
 
 function hover(board){//initiates methods when cursor hovers over entities/tiles
-    cPos = board.cursor.position;
+    var cPos = board.cursor.position;
     var type = board.tileMap[cPos[0]][cPos[2]];
     var height = board.heightMap[cPos[0]][cPos[2]];
     var pPos = board.player.position;
@@ -71,7 +74,6 @@ function typeList(type){//Returns the terrain name for logging to console
 
 function occupied(player, pPos, cPos){
     //var occupied = false;
-    this.player = player;
     if(pPos[0] == cPos[0] && pPos[2] == cPos[2]){
         //occupied == true;
         player.movementOverlayHelper(pPos[0], pPos[2], player.movementRange, 1);//will need to read player height in future
@@ -81,3 +83,4 @@ function occupied(player, pPos, cPos){
         return "None";
     }
 }
+export {updateRender};

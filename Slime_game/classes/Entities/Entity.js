@@ -50,3 +50,5 @@ class Entity {
         return overlayList;
     }
 }
+
+export {Entity};
