@@ -34,7 +34,7 @@ class Entity {
             overlay.rotateX(-Math.PI / 2);
             
             overlay.position.set(x, currentH, z);
-
+            
             overlayList.push(overlay);
             this.movementOverlay(x+1, z, range-1, currentH, overlayList);//recursive call for surrounding spaces
             this.movementOverlay(x, z+1, range-1, currentH, overlayList);
