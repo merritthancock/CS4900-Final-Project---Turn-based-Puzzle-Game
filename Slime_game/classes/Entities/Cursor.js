@@ -27,8 +27,9 @@ class Cursor extends Entity {
         //Set height equal to the height of the tile that the cursor was moved over.
         //this.position[1] = level.board[this.position[0]][this.position[2]].height;
     }
-    cursorHeight(height){
-        this.position[1] = height;
+    cursorHeight(cursor, height){
+        cursor.mesh.position.set(this.position[0], height + 1, this.position[2]);
+        //this.position[1] = height;
     }
     /* deprecated method (for reference)
         function cursorMove(direction){
