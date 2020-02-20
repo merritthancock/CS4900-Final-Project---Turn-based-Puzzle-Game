@@ -101,3 +101,4 @@ init();
 
 export {movementUnlocked};
 export {scene};
+export {board};
