@@ -36,6 +36,7 @@ function updateRender(board){
         if(keyStatus["enter"]){
             getLock();
             board.player.followCursor(board.player, board.cursor);
+            //board.player.playerHeight(board.player, board.board[board.player.position[0]][board.player.position[2]].height);
         }
         if(keyStatus["space"]){
             getLock();
