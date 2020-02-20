@@ -1,6 +1,6 @@
 import {createTestLevel} from "../assets/LevelMaps/TestLevel.js";
-import {updateRender} from "../render_tasks.js";
-import {doKeyUp, doKeyDown} from "../keyboard_input.js";
+import {updateRender} from "../RenderTasks.js/index.js";
+import {doKeyUp, doKeyDown} from "../KeyboardInput.js";
 
 // declare variables
 var windowWidth;
