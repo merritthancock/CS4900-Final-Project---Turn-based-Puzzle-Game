@@ -37,7 +37,10 @@ class Player extends Entity {
         }   
         player.mesh.position.set(player.position[0], player.position[1], player.position[2]);
     };
-
+    playerHeight(player, height){
+        player.mesh.position.set(this.position[0], height + 1, this.position[2]);
+        //this.position[1] = height;
+    }
     //Function follows cursor
     followCursor(player, cursor){
         player.mesh.position.set(cursor.position[0], cursor.position[1], cursor.position[2]);
