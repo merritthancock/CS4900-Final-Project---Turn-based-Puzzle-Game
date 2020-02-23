@@ -1,5 +1,5 @@
 import {unlocked, getLock} from "./Semaphore.js";
-import {keyStatus} from "./keyboard_input.js";
+import {keyStatus} from "./KeyboardInput.js";
 import {scene} from "./classes/Controller.js";
 import {hover} from "./classes/Pathing.js";
 

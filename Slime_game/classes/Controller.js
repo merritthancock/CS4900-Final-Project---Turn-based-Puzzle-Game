@@ -1,5 +1,5 @@
 import {createTestLevel} from "../assets/LevelMaps/TestLevel.js";
-import {updateRender} from "../RenderTasks.js/index.js";
+import {updateRender} from "../RenderTasks.js";
 import {doKeyUp, doKeyDown} from "../KeyboardInput.js";
 
 // declare variables
