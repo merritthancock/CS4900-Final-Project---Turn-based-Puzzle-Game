@@ -61,6 +61,7 @@ function loadLevel(scene, board) {
         for(var j = 0; j < board.board[0].length; j++){
             if(board.board[i][j].terrain != null){
                 scene.add(board.board[i][j].terrain);
+                scene.add(board.overlayMap[i][j].overlay);
             }
         }
     }
@@ -82,7 +83,7 @@ function loadLevel(scene, board) {
     //add cursor to the scene
     scene.add(board.cursor.mesh);
     //add enemy to the scene
-    scene.add(board.enemies.mesh)
+    scene.add(board.enemies.mesh);
 
 }
 

@@ -1,3 +1,4 @@
+import {scene} from "./Controller.js";
 //board: the array Board that holds Tile objects
 //start: a list holding the [x,y] coordinates of the start position
 //destination: a list holding the [x,y] coordinates of the end position
@@ -49,3 +50,59 @@ function getNeighbors(board, currentNode, currentHeight, maxHeight) {
         }
     }
 }
+
+//FLOOD FILL IMPLEMENTATION
+function hover(board){//initiates methods when cursor hovers over entities/tiles
+    var cPos = board.cursor.position;
+    var type = board.tileMap[cPos[0]][cPos[2]];
+    var height = board.heightMap[cPos[0]][cPos[2]];
+    var pPos = board.player.position;
+
+    console.log(cPos);
+    console.log(pPos);
+
+    console.log("Type: ", typeList(type));
+    console.log("Height: ", height);
+    console.log("Occupied by: ", occupied(board));
+}
+
+function typeList(type){//Returns the terrain name for logging to console
+    switch(type){
+        
+        case 0:
+            return "Grass";
+        case 1:
+            return "Rocky";
+        case 2:
+            return "Water";
+        case 3:
+            return "Gap";
+        case 4:
+            return "Cave";
+        case 8:
+            return "Exit";
+        case 9://may change as board gen changes
+            return "Void";
+    }
+}
+
+function occupied(board){
+    if(board.player.position[0] == board.cursor.position[0] && board.player.position[2] == board.cursor.position[2]){
+        var overlayList = board.player.movementOverlayHelper(board);//will need to read player height in future
+        return "Player";
+    }
+    else{
+        wipeOverlay(board);
+        return "None";
+    }
+}
+
+function wipeOverlay(board){//this will return overlay visibility to false when player not occupying space
+    for(var r = 0; r < board.overlayMap.length; r++){
+        for(var c = 0; c < board.overlayMap[r].length; c++){
+            board.overlayMap[r][c].overlay.material.visible = false;
+        }
+    }
+}
+
+export {hover};
