@@ -57,12 +57,13 @@ function hover(board){//initiates methods when cursor hovers over entities/tiles
     var type = board.tileMap[cPos[0]][cPos[2]];
     var height = board.heightMap[cPos[0]][cPos[2]];
     var pPos = board.player.position;
-    //board.cursor.cursorHeight(height + 0.5);
+
+    console.log(cPos);
+    console.log(pPos);
+
     console.log("Type: ", typeList(type));
     console.log("Height: ", height);
-    console.log("Occupied by: ", occupied(board.player, pPos, cPos));
-    //board.cursor.position = (cPos[0], height + 0.5, cPos[2]);
-    //return type;
+    console.log("Occupied by: ", occupied(board));
 }
 
 function typeList(type){//Returns the terrain name for logging to console
@@ -85,18 +86,22 @@ function typeList(type){//Returns the terrain name for logging to console
     }
 }
 
-function occupied(player, pPos, cPos){
-    //var occupied = false;
-    if(pPos[0] == cPos[0] && pPos[2] == cPos[2]){
-        //occupied == true;
-        var overlayList = player.movementOverlayHelper(pPos[0], pPos[2], player.movementRange, 1);//will need to read player height in future
-        for(var i = 0; i < overlayList.length; i++){
-            scene.add(overlayList[i]);
-        }
+function occupied(board){
+    if(board.player.position[0] == board.cursor.position[0] && board.player.position[2] == board.cursor.position[2]){
+        var overlayList = board.player.movementOverlayHelper(board);//will need to read player height in future
         return "Player";
     }
     else{
+        wipeOverlay(board);
         return "None";
+    }
+}
+
+function wipeOverlay(board){//this will return overlay visibility to false when player not occupying space
+    for(var r = 0; r < board.overlayMap.length; r++){
+        for(var c = 0; c < board.overlayMap[r].length; c++){
+            board.overlayMap[r][c].overlay.material.visible = false;
+        }
     }
 }
 
