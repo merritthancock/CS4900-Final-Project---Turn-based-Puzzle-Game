@@ -36,7 +36,8 @@ function updateRender(board){
         }
         if(keyStatus["enter"]){
             getLock();
-            board.player.followCursor(board.player, board.cursor);
+            board.player.followCursor(board);
+            hover(board);
         }
         if(keyStatus["space"]){
             getLock();
