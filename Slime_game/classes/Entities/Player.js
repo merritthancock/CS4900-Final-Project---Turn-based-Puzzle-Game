@@ -1,3 +1,5 @@
+import {Entity} from "./Entity.js";
+
 //Players inherit from Entity
 class Player extends Entity {
     constructor(position, model, texture, id, startingMass){
@@ -8,8 +10,8 @@ class Player extends Entity {
         this.mass = startingMass;
         //Set abilities to an empty set for starters
         this.abilities = {};
-        //Set default movement range to 1
-        this.movementRange = 1;
+        //Set default movement range to 2
+        this.movementRange = 2;
     }
 
     //Function absorbs enemy, increases mass
@@ -37,8 +39,9 @@ class Player extends Entity {
     };
 
     //Function follows cursor
-    followCursor(cursor){
-        pos = cursor.position;
-        player.mesh.position.set(pos[0], pos[1], pos[2]);
+    followCursor(player, cursor){
+        player.mesh.position.set(cursor.position[0], cursor.position[1], cursor.position[2]);
     };
 }
+
+export {Player};

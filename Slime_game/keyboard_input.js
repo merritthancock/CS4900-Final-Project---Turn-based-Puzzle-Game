@@ -1,5 +1,4 @@
-//Define a lock mechanism to hold the input state until processing finishes
-var unlocked = true;
+import {unlocked, releaseLock} from "./Semaphore.js";
 
 //Define a dictionary to store status of each bound key
 var keyStatus = {
@@ -38,47 +37,6 @@ function doKeyDown(event) {
             keyStatus["enter"] = true;
             break;
     }
-
-    //If unlocked, lock the boolean and then process input.
-    //The lock will be released in inputHandling()
-    if(unlocked) {
-        unlocked = false;
-
-        //Seperate switch statement for blocking inputs
-        switch(code) {
-            //Cases for WASD keys
-            case 87: //w
-                keyStatus["wKey"] = true;
-                break;
-            case 65: //a
-                keyStatus["aKey"] = true;
-                break;
-            case 83: //s
-                keyStatus["sKey"] = true;
-                break;
-            case 68: //d
-                keyStatus["dKey"] = true;
-                break;
-            
-            //Case for Spacebar and enter
-            case 32: //spacebar
-                keyStatus["space"] = true;
-                break;
-            case 13: //enter
-                keyStatus["enter"] = true;
-                break;
-        }
-        
-        //Move to input_handler to finish processing
-        inputHandling();
-    }
-}
-
-function inputHandling() {
-    //Call updateRender to process current input
-    updateRender();
-    //Lastly, release the lock to allow other blocking calls to activate
-    unlocked = true;
 }
 
 function doKeyUp(event) {
@@ -88,31 +46,32 @@ function doKeyUp(event) {
         //Cases for WASD keys
         case 87: //w
             keyStatus["wKey"] = false;
-            movementUnlocked = true;
+            releaseLock();
             break;
         case 65: //a
             keyStatus["aKey"] = false;
-            movementUnlocked = true;
+            releaseLock();
             break;
         case 83: //s
             keyStatus["sKey"] = false;
-            movementUnlocked = true;
+            releaseLock();
             break;
         case 68: //d
             keyStatus["dKey"] = false;
-            movementUnlocked = true;
+            releaseLock();
             break;
 
         //Case for Spacebar and enter
         case 32: //space
             keyStatus["space"] = false;
-            movementUnlocked = true;
+            releaseLock();
             break;
 
         case 13: //enter
             keyStatus["enter"] = false;
-            movementUnlocked = true;
+            releaseLock();
             break;
     }
 }
 
+export {doKeyDown, doKeyUp, keyStatus, unlocked};
