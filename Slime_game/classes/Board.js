@@ -5,12 +5,15 @@ class Board {
         this.player = player;
         this.enemies = enemies;
         this.cursor = cursor;
+        this.overlayMap = [];
 
         this.board = [];
         for(var i = 0; i < tileMap.length; i++){
-            this.board[i] = []
+            this.board[i] = [];
+            this.overlayMap[i] = [];
             for(var j = 0; j < tileMap[0].length; j++){
                 this.board[i][j] = new Tile([i, heightMap[i][j] / 2, j], heightMap[i][j], tileMap[i][j]);
+                this.overlayMap[i][j] = new Overlay([i, heightMap[i][j] + 0.6, j]); 
             }
         }
     }
@@ -33,32 +36,32 @@ class Tile {
         switch(type){
             case 0://grass
 
-                this.terrain = new THREE.Mesh(new THREE.CylinderGeometry(.71, .71, height, 4, (height+1), false, (Math.PI/4)),
+                this.terrain = new THREE.Mesh(new THREE.CylinderBufferGeometry(.71, .71, height, 4, (height+1), false, (Math.PI/4)),
                                new THREE.MeshBasicMaterial({ map: grass}));
                 break;
             case 1://rocky
-                this.terrain = new THREE.Mesh(new THREE.CylinderGeometry(.71, .71, height, 4, (height+1), false, (Math.PI/4)),
+                this.terrain = new THREE.Mesh(new THREE.CylinderBufferGeometry(.71, .71, height, 4, (height+1), false, (Math.PI/4)),
 
                                new THREE.MeshBasicMaterial({ map: rocks}));            
                 break;
             /*case 2://water
-                this.terrain = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, height, 4, height),
+                this.terrain = new THREE.Mesh(new THREE.CylinderBufferGeometry(1, 1, height, 4, height),
                                new THREE.MeshBasicMaterial({ map: water }));;
                 break;*/
             case 3://gap
-                this.terrain = new THREE.Mesh(new THREE.BoxGeometry(1, .1, 1),
+                this.terrain = new THREE.Mesh(new THREE.BoxBufferGeometry(1, .1, 1),
                                new THREE.MeshBasicMaterial({ color: 0x000000}));
                 break;
 
 
             case 4://cave
 
-                this.terrain = new THREE.Mesh(new THREE.CylinderGeometry(0.71, 0.71, height, 4, (height+1), false, (Math.PI/4)),
+                this.terrain = new THREE.Mesh(new THREE.CylinderBufferGeometry(0.71, 0.71, height, 4, (height+1), false, (Math.PI/4)),
 
                                new THREE.MeshBasicMaterial({ map: cave}));            
                 break;
             case 8://exit
-            this.terrain = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1),
+            this.terrain = new THREE.Mesh(new THREE.BoxBufferGeometry(1, 1, 1),
                                new THREE.MeshBasicMaterial({ color: 0xFADADD}));
                 break;
 
@@ -76,6 +79,19 @@ class Tile {
 
     getFCost() {
         return this.hCost + this.gCost;
+    }
+}
+
+class Overlay {
+    constructor(pos){
+        this.pos = pos;
+        this.overlay = new THREE.Mesh(new THREE.PlaneBufferGeometry(1,1),
+                       new THREE.MeshBasicMaterial( {color: 0x0047AB, transparent: true, opacity: 0.5, visible: false}));
+        this.overlay.rotateX(-Math.PI / 2);      
+        this.overlay.position.x = this.pos[0];
+        this.overlay.position.y = this.pos[1];
+        this.overlay.position.z = this.pos[2];
+        
     }
 }
 
