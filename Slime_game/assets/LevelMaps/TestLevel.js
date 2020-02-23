@@ -53,7 +53,7 @@ function createTestLevel(){
     //Create Player
     var slime = new THREE.TextureLoader().load( './assets/slime.jpg' );
     var playerBox = new THREE.BoxGeometry(1,1,1);
-    var playerPos = [1, 1, 1];
+    var playerPos = [2, 1, 2];
     var player = new Player(playerPos, playerBox, slime, "player", 1);
     player.moveEntity(playerPos[0], playerPos[1], playerPos[2], player);
 
