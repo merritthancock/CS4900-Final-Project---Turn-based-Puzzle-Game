@@ -45,7 +45,14 @@ function init() {
 
     // add to scene and renderer
     scene.add(camera); 
-    camera.lookAt(board.tileArray[0][0].position);
+    camera.lookAt(board.tileArray[0][0].position);  
+
+    //Camera View Limitations
+    cameraControls.maxPolarAngle = Math.PI / 2.5;
+    cameraControls.minPolarAngle = Math.PI / 10;
+    cameraControls.minDistance = 10;
+    cameraControls.maxDistance = 75;
+    
 
     //set listeners for keyboard presses
     document.addEventListener('keyup', doKeyUp, false);
