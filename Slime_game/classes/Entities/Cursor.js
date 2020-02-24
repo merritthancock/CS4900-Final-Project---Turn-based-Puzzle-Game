@@ -9,7 +9,7 @@ class Cursor extends Entity {
     moveCursor(cursor, direction){
         switch(direction){
             case "forward":
-                this.position[2] += 1
+                this.position[2] += 1;
                 break;
             case "backward":
                 this.position[2] -= 1;
