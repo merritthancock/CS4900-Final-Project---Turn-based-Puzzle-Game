@@ -20,7 +20,7 @@ class Player extends Entity {
     };
 
     //Function moves player
-    movePlayer(direction){
+    /*movePlayer(direction, board){
         switch(direction){
             case "forward":
                 this.position[2] += 1
@@ -35,12 +35,17 @@ class Player extends Entity {
                 this.position[0] -= 1;
                 break;
         }   
-        player.mesh.position.set(player.position[0], player.position[1], player.position[2]);
-    };
+        player.position.set(player.position[0], player.position[1], player.position[2]);//removed .mesh
+    };*/
 
     //Function follows cursor
-    followCursor(player, cursor){
-        player.mesh.position.set(cursor.position[0], cursor.position[1], cursor.position[2]);
+    followCursor(board){
+        board.player.position[0] = board.cursor.position[0];
+        board.player.position[1] = board.cursor.position[1]; 
+        board.player.position[2] = board.cursor.position[2];
+        board.player.mesh.position.set(board.cursor.position[0], board.cursor.position[1], board.cursor.position[2]);
+
+        //console.log(board.player.position);
     };
 }
 
