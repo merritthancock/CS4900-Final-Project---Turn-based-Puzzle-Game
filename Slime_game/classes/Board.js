@@ -26,6 +26,7 @@ class Tile {
 
         this.position = position;
         this.height = height;
+        this.type = type;
 
         var grass = new THREE.TextureLoader().load( './assets/grass.jpg' );
         var water = new THREE.TextureLoader().load( './assets/water.jpg' );
