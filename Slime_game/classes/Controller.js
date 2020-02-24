@@ -96,9 +96,11 @@ function render() {
     cameraControls.update();
     renderer.render(scene, camera);
     updateRender(board);
+    //camera.position.z -= 1 ;
 }
 
 init();
 
 export {movementUnlocked};
 export {scene};
+export {camera};

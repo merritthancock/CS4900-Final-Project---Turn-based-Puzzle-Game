@@ -2,14 +2,15 @@ import {unlocked, getLock} from "./Semaphore.js";
 import {keyStatus} from "./KeyboardInput.js";
 import {scene} from "./classes/Controller.js";
 import {hover} from "./classes/Pathing.js";
+import {camera} from "./classes/Controller.js";
 
 function updateRender(board){
     if(unlocked) {
-        //console.log(board.cursor.id);
         if(keyStatus["wKey"]){
             getLock();
             console.log("Moving Cursor Forward!");
             board.cursor.moveCursor(board.cursor, "forward");
+            //camera.position.z += 1;
             board.cursor.cursorHeight(board.cursor, board.tileArray[board.cursor.position[0]][board.cursor.position[2]].height);
             hover(board);
         }
@@ -17,6 +18,7 @@ function updateRender(board){
             getLock();
             console.log("Moving Cursor Left!");
             board.cursor.moveCursor(board.cursor, "left");
+            //camera.position.x += 1;
             board.cursor.cursorHeight(board.cursor, board.tileArray[board.cursor.position[0]][board.cursor.position[2]].height);
             hover(board);
         }
@@ -24,6 +26,7 @@ function updateRender(board){
             getLock();
             console.log("Moving Cursor Backward!");
             board.cursor.moveCursor(board.cursor, "backward");
+            //camera.position.z -= 1;
             board.cursor.cursorHeight(board.cursor, board.tileArray[board.cursor.position[0]][board.cursor.position[2]].height);
             hover(board);
         }
@@ -31,6 +34,7 @@ function updateRender(board){
             getLock();
             console.log("Moving Cursor Right!");
             board.cursor.moveCursor(board.cursor, "right");
+            //camera.position.x -= 1;
             board.cursor.cursorHeight(board.cursor, board.tileArray[board.cursor.position[0]][board.cursor.position[2]].height);
             hover(board);
         }
