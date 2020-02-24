@@ -62,7 +62,7 @@ class Tile {
                 break;
             case 8://exit
             this.terrain = new THREE.Mesh(new THREE.BoxBufferGeometry(1, 1, 1),
-                               new THREE.MeshBasicMaterial({ color: 0xFADADD}));
+                               new THREE.MeshLambertMaterial({ color: 0xFADADD, emissive: 0XFF69B4}));
                 break;
 
 

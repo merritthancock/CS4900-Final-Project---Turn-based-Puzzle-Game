@@ -78,6 +78,13 @@ function loadLevel(scene, board) {
     var skybox = new THREE.Mesh(skyboxGeometry, skyboxMaterial);
     scene.add(skybox);
 
+    //placeholder code for sprite implementation which may prove useful later on
+    /*var spriteMap = new THREE.TextureLoader().load( "./assets/slime.jpg" );
+    var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
+    var sprite = new THREE.Sprite( spriteMaterial );
+    sprite.position.set (-5, 10, 1);
+    scene.add( sprite );*/
+
     //add player to the scene
     scene.add(board.player.mesh);
     //add cursor to the scene
