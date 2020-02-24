@@ -9,12 +9,12 @@ class Board {
         this.cursor = cursor;
         this.overlayMap = [];
 
-        this.board = [];
+        this.tileArray = [];
         for(var i = 0; i < tileMap.length; i++){
-            this.board[i] = [];
+            this.tileArray[i] = [];
             this.overlayMap[i] = [];
             for(var j = 0; j < tileMap[0].length; j++){
-                this.board[i][j] = new Tile([i, heightMap[i][j] / 2, j], heightMap[i][j], tileMap[i][j], entitiesMap[i][j], player, enemies);
+                this.tileArray[i][j] = new Tile([i, heightMap[i][j] / 2, j], heightMap[i][j], tileMap[i][j], entitiesMap[i][j], player, enemies);
                 this.overlayMap[i][j] = new Overlay([i, heightMap[i][j] + 0.6, j]); 
             }
         }
