@@ -1,6 +1,7 @@
 import {createTestLevel} from "../assets/LevelMaps/TestLevel.js";
 import {updateRender} from "../RenderTasks.js";
 import {doKeyUp, doKeyDown} from "../KeyboardInput.js";
+import {buildCamera} from "./Camera.js";
 
 // declare variables
 var windowWidth;
@@ -45,7 +46,8 @@ function init() {
 
     // add to scene and renderer
     scene.add(camera); 
-    camera.lookAt(board.tileArray[0][0].position);
+    camera.lookAt(board.tileArray[0][0].position);  
+    buildCamera();
 
     //set listeners for keyboard presses
     document.addEventListener('keyup', doKeyUp, false);
@@ -96,9 +98,12 @@ function render() {
     cameraControls.update();
     renderer.render(scene, camera);
     updateRender(board);
+    //camera.position.z -= 1 ;
 }
 
 init();
 
 export {movementUnlocked};
 export {scene};
+export {camera};
+export {cameraControls};
