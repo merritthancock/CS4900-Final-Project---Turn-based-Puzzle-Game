@@ -22,28 +22,7 @@ class Entity {
         this.position.x = x;
         this.position.y = y;
         this.position.z = z;
-        entity.mesh.position.set(x,y,z);
-    }
-
-    movementOverlay(x, z, range, board){//uses the flood fill algorithm to create overlay of all possible spaces to move
-        //console.log(board.overlayMap[x][z].overlay);
-        if(range>=0 && x >= 0 && x < board.overlayMap.length && z >=0 && z < board.overlayMap[x].length){
-           // Math.abs(board.player.position[2]) - board.heightMap[x][z] <= 1){//This will be modified later on when jump ability introduced
-            
-            board.overlayMap[x][z].overlay.material.visible = true;
-            this.movementOverlay(x+1, z, range-1, board);//recursive call for surrounding spaces
-            this.movementOverlay(x, z+1, range-1, board);
-            this.movementOverlay(x-1, z, range-1, board);
-            this.movementOverlay(x, z-1, range-1, board);             
-        }
-    }
-
-    movementOverlayHelper(board, entity){
-        this.board = board;
-        var entityPos = entity.position;//for player only
-        var range = entity.movementRange;
-        this.movementOverlay(entityPos[0], entityPos[2], range, this.board);
-        //return overlayList;
+        this.mesh.position.set(x,y,z);
     }
 }
 

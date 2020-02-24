@@ -12,6 +12,8 @@ class Player extends Entity {
         this.abilities = {};
         //Set default movement range to 2
         this.movementRange = 2;
+        //Set default jump height to 1
+        this.jumpHeight = 1;
     }
 
     //Function absorbs enemy, increases mass
