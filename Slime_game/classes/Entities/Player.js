@@ -12,6 +12,8 @@ class Player extends Entity {
         this.abilities = {};
         //Set default movement range to 2
         this.movementRange = 2;
+        //Set default jump height to 1
+        this.jumpHeight = 1;
     }
 
     //Function absorbs enemy, increases mass
@@ -20,7 +22,7 @@ class Player extends Entity {
     };
 
     //Function moves player
-    movePlayer(direction){
+    /*movePlayer(direction, board){
         switch(direction){
             case "forward":
                 this.position[2] += 1
@@ -35,15 +37,16 @@ class Player extends Entity {
                 this.position[0] -= 1;
                 break;
         }   
-        player.mesh.position.set(player.position[0], player.position[1], player.position[2]);
-    };
-    playerHeight(player, height){
-        player.mesh.position.set(player.position[0], height + 1, player.position[2]);
-    };
-    //Function follows cursor
-    followCursor(player, cursor){
-        player.mesh.position.set(cursor.position[0], cursor.position[1], cursor.position[2]);
+        player.position.set(player.position[0], player.position[1], player.position[2]);//removed .mesh
+    };*/
 
+    //Function follows cursor
+    followCursor(board){
+        board.tileArray[board.player.position[0]][board.player.position[2]].occupant = null;
+        board.player.position = [...board.cursor.position]
+        board.player.mesh.position.set(board.cursor.position[0], board.cursor.position[1], board.cursor.position[2]);
+        board.tileArray[board.player.position[0]][board.player.position[2]].occupant = board.player;
+        //console.log(board.player.position);
     };
 }
 
