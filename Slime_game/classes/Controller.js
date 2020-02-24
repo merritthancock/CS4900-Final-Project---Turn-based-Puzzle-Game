@@ -1,6 +1,7 @@
 import {createTestLevel} from "../assets/LevelMaps/TestLevel.js";
 import {updateRender} from "../RenderTasks.js";
 import {doKeyUp, doKeyDown} from "../KeyboardInput.js";
+import {buildCamera} from "./Camera.js";
 
 // declare variables
 var windowWidth;
@@ -46,13 +47,7 @@ function init() {
     // add to scene and renderer
     scene.add(camera); 
     camera.lookAt(board.tileArray[0][0].position);  
-
-    //Camera View Limitations
-    cameraControls.maxPolarAngle = Math.PI / 2.5;
-    cameraControls.minPolarAngle = Math.PI / 10;
-    cameraControls.minDistance = 10;
-    cameraControls.maxDistance = 75;
-    
+    buildCamera();
 
     //set listeners for keyboard presses
     document.addEventListener('keyup', doKeyUp, false);
@@ -111,3 +106,4 @@ init();
 export {movementUnlocked};
 export {scene};
 export {camera};
+export {cameraControls};
