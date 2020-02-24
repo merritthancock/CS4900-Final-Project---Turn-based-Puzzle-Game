@@ -89,7 +89,7 @@ function typeList(type){//Returns the terrain name for logging to console
 function occupied(board){
     var occupant = board.tileArray[board.cursor.position[0]][board.cursor.position[2]].occupant;
     if(occupant != null){
-        var overlayList = board.player.movementOverlayHelper(board);//will need to read player height in future
+        var overlayList = board.player.movementOverlayHelper(board, occupant);
         return occupant.id;
     }
     else{

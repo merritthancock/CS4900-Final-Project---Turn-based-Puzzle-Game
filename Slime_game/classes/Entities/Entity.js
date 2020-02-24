@@ -38,10 +38,10 @@ class Entity {
         }
     }
 
-    movementOverlayHelper(board){
+    movementOverlayHelper(board, entity){
         this.board = board;
-        var entityPos = this.board.player.position;//for player only
-        var range = this.board.player.movementRange;
+        var entityPos = entity.position;//for player only
+        var range = entity.movementRange;
         this.movementOverlay(entityPos[0], entityPos[2], range, this.board);
         //return overlayList;
     }
