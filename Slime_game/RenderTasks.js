@@ -3,6 +3,7 @@ import {keyStatus} from "./KeyboardInput.js";
 import {scene} from "./classes/Controller.js";
 import {hover} from "./classes/Pathing.js";
 import {camera} from "./classes/Controller.js";
+import {moveCamera} from "./classes/Camera.js";
 
 function updateRender(board){
     if(unlocked) {
@@ -10,7 +11,7 @@ function updateRender(board){
             getLock();
             console.log("Moving Cursor Forward!");
             board.cursor.moveCursor(board.cursor, "forward");
-            //camera.position.z += 1;
+            moveCamera(camera, "forward");
             board.cursor.cursorHeight(board.cursor, board.tileArray[board.cursor.position[0]][board.cursor.position[2]].height);
             hover(board);
         }
@@ -18,7 +19,7 @@ function updateRender(board){
             getLock();
             console.log("Moving Cursor Left!");
             board.cursor.moveCursor(board.cursor, "left");
-            //camera.position.x += 1;
+            moveCamera(camera, "backward");
             board.cursor.cursorHeight(board.cursor, board.tileArray[board.cursor.position[0]][board.cursor.position[2]].height);
             hover(board);
         }
@@ -26,7 +27,7 @@ function updateRender(board){
             getLock();
             console.log("Moving Cursor Backward!");
             board.cursor.moveCursor(board.cursor, "backward");
-            //camera.position.z -= 1;
+            moveCamera(camera, "left");
             board.cursor.cursorHeight(board.cursor, board.tileArray[board.cursor.position[0]][board.cursor.position[2]].height);
             hover(board);
         }
@@ -34,7 +35,7 @@ function updateRender(board){
             getLock();
             console.log("Moving Cursor Right!");
             board.cursor.moveCursor(board.cursor, "right");
-            //camera.position.x -= 1;
+            moveCamera(camera, "right");
             board.cursor.cursorHeight(board.cursor, board.tileArray[board.cursor.position[0]][board.cursor.position[2]].height);
             hover(board);
         }
@@ -45,7 +46,6 @@ function updateRender(board){
         }
         if(keyStatus["space"]){
             getLock();
-            //moveEnemy();
         }
     }
 }
