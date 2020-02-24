@@ -88,7 +88,7 @@ class Tile {
 class Overlay {
     constructor(pos){
         this.pos = pos;
-        this.overlay = new THREE.Mesh(new THREE.PlaneBufferGeometry(1,1),
+        this.overlay = new THREE.Mesh(new THREE.PlaneBufferGeometry(0.9,0.9),
                        new THREE.MeshBasicMaterial( {color: 0x0047AB, transparent: true, opacity: 0.5, visible: false}));
         this.overlay.rotateX(-Math.PI / 2);      
         this.overlay.position.x = this.pos[0];
