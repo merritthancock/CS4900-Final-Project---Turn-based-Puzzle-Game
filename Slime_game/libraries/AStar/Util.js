@@ -4,11 +4,13 @@
  * @param {Node} node End node
  * @return {Array<Array<number>>} the path
  */
+
+//Changed from returning a series of ordered pairs to return instead a series of nodes
 function backtrace(node) {
-    var path = [[node.x, node.y]];
+    var path = [node];
     while (node.parent) {
         node = node.parent;
-        path.push([node.x, node.y]);
+        path.push(node);
     }
     return path.reverse();
 }

@@ -1,41 +1,24 @@
-import {scene} from "./Controller.js";
-//board: the array Board that holds Tile objects
-//start: a list holding the [x,y] coordinates of the start position
-//destination: a list holding the [x,y] coordinates of the end position
-function aStar(board, start, destination, maxHeight) {
-    //Get tiles for start and end
-    startNode = board[start[0]][start[1]]
-    startNode.hCost = pythagorean(start, destination);
-    startNode.gCost = 0;
-    //list to hold route
-    route = [];
-    //Array for neighboring nodes
-    open = [startNode];
-    //Array to hold exhausted nodes
-    closed = [];
+import {AStarFinder} from "../libraries/AStar/AStarFinder.js";
 
-    //The meat of the algorithm
-    while(open.length > 0) {
-        //Move first element from open to closed
-        closed.unshift(open[0]);
-        open[0].pop();
-
-        currentHeight = closed[0].height;
-        //Get neighbors
-        getNeighbors(board, closed[0], )
+function aStar(startX, startY, endX, endY, board, entity) {
+    var finder = new AStarFinder();
+    //Get path
+    var foundPath = finder.findPath(startX, startY, endX, endY, board, entity);
+    if(foundPath.length == 0){
+        console.log("No path exists!");
     }
-}
+    else {
+        for(var i = 0; i < foundPath.length; i++){
+            board.tileArray[entity.position[0]][entity.position[2]].occupant = null;
+            entity.moveEntity(
+                foundPath[i].tile.position[0],
+                foundPath[i].tile.height + 1,
+                foundPath[i].tile.position[2]
+            );
+            board.tileArray[entity.position[0]][entity.position[2]].occupant = entity;
+        }
 
-//Utility function to pass to javascript's sort function to ensure the smallest fCost is at the front of the "open" list
-function sortCriterion(a, b) {
-    return a.getFCost() - b.getFCost();
-}
-
-//Utility function for pythagorean theorem
-function pythagorean(a, b) {
-    distance1 = Math.abs(a[0] - b[0]);
-    distance2 = Math.abs(a[1] - b[1]);
-    return Math.sqrt((distance1 * distance1) + (distance2 * distance2));
+    }
 }
 
 //Checks neighboring tiles. To be used by both Flood Fill and A*
@@ -48,6 +31,13 @@ function checkNeighbor(entity, sourceTile, destinationTile){
     
     //Make sure destinationTile exists
     if(destinationTile == null){
+        return false;
+    }
+    //Make sure the destination tile is within the movement range
+    //(this is taken care of in flood fill, but not in A*)
+    var xDistance = Math.abs(destinationTile.position[0] - entity.position[0]);
+    var zDistance = Math.abs(destinationTile.position[2] - entity.position[2]);
+    if(xDistance + zDistance > entity.movementRange){
         return false;
     }
     //Make sure maxHeight exceeds the height difference between the tiles
@@ -150,4 +140,4 @@ function wipeOverlay(board){//this will return overlay visibility to false when 
     }
 }
 
-export {hover};
+export {hover, checkNeighbor, aStar};
