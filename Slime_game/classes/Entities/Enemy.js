@@ -12,6 +12,8 @@ class Enemy extends Entity {
         this.abilities = {};
         //Set default movement range to 1
         this.movementRange = 1;
+        //Set jump height to 1
+        this.jumpHeight = 1;
         //Set the priority of the enemy
         this.priority = startPriority;
     }

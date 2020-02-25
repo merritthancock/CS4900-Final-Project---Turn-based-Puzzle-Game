@@ -5,7 +5,6 @@
 
   floor = Math.floor, min = Math.min;
 
-
   /*
   Default comparison function to be used
    */
@@ -19,7 +18,6 @@
     }
     return 0;
   };
-
 
   /*
   Insert item x in list a, and keep it sorted assuming a is sorted.
