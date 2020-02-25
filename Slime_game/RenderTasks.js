@@ -1,9 +1,6 @@
 import {unlocked, getLock} from "./Semaphore.js";
 import {keyStatus} from "./KeyboardInput.js";
-import {scene} from "./classes/Controller.js";
-import {hover} from "./classes/Pathing.js";
-import {camera} from "./classes/Controller.js";
-import {moveCamera} from "./classes/Camera.js";
+import {hover, aStar} from "./classes/Pathing.js";
 
 function updateRender(board){
     if(unlocked) {
@@ -41,7 +38,11 @@ function updateRender(board){
         }
         if(keyStatus["enter"]){
             getLock();
-            board.player.followCursor(board);
+            var goalX = board.cursor.position[0];
+            var goalY = board.cursor.position[2];
+            var currentX = board.player.position[0];
+            var currentY = board.player.position[2];
+            aStar(currentX, currentY, goalX, goalY, board, board.player);
             hover(board);
         }
         if(keyStatus["space"]){
