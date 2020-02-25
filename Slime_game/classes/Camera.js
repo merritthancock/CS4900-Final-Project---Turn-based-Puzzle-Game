@@ -24,6 +24,7 @@ function moveCamera(camera, direction){
             camera.position.x += 1;
             break;
     }
+    camera.lookAt(cursor.position);
 }
 
 export{moveCamera};
