@@ -105,7 +105,7 @@ function render() {
     cameraControls.update();
     renderer.render(scene, camera);
     updateRender(board);
-    //camera.position.z -= 1 ;
+    camera.lookAt(board.cursor.position);
 }
 
 init();

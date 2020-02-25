@@ -1,7 +1,7 @@
-var Util       = require('../core/Util');
-var Heuristic  = require('../core/Heuristic');
-var Node       = require('../core/Node');
-var DiagonalMovement = require('../core/DiagonalMovement');
+import Util from '../core/Util';
+import { manhattan, octile } from '../core/Heuristic';
+import Node from '../core/Node';
+import { Never, OnlyWhenNoObstacles, IfAtMostOneObstacle } from '../core/DiagonalMovement';
 
 /**
  * Iterative Deeping A Star (IDA*) path-finder.
@@ -36,29 +36,29 @@ function IDAStarFinder(opt) {
     this.allowDiagonal = opt.allowDiagonal;
     this.dontCrossCorners = opt.dontCrossCorners;
     this.diagonalMovement = opt.diagonalMovement;
-    this.heuristic = opt.heuristic || Heuristic.manhattan;
+    this.heuristic = opt.heuristic || manhattan;
     this.weight = opt.weight || 1;
     this.trackRecursion = opt.trackRecursion || false;
     this.timeLimit = opt.timeLimit || Infinity; // Default: no time limit.
 
     if (!this.diagonalMovement) {
         if (!this.allowDiagonal) {
-            this.diagonalMovement = DiagonalMovement.Never;
+            this.diagonalMovement = Never;
         } else {
             if (this.dontCrossCorners) {
-                this.diagonalMovement = DiagonalMovement.OnlyWhenNoObstacles;
+                this.diagonalMovement = OnlyWhenNoObstacles;
             } else {
-                this.diagonalMovement = DiagonalMovement.IfAtMostOneObstacle;
+                this.diagonalMovement = IfAtMostOneObstacle;
             }
         }
     }
 
     // When diagonal movement is allowed the manhattan heuristic is not
     // admissible, it should be octile instead
-    if (this.diagonalMovement === DiagonalMovement.Never) {
-        this.heuristic = opt.heuristic || Heuristic.manhattan;
+    if (this.diagonalMovement === Never) {
+        this.heuristic = opt.heuristic || manhattan;
     } else {
-        this.heuristic = opt.heuristic || Heuristic.octile;
+        this.heuristic = opt.heuristic || octile;
     }
 }
 
@@ -206,4 +206,4 @@ IDAStarFinder.prototype.findPath = function(startX, startY, endX, endY, grid) {
     return [];
 };
 
-module.exports = IDAStarFinder;
+export default IDAStarFinder;
