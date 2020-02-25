@@ -20,7 +20,7 @@ loader.load(
 		
 		var milcapSoldier = gltf.scene;
 		milcapSoldier.scale.set(.5, .5, .5);
-		milcapSoldier.position.set(3, 1, 3);
+		milcapSoldier.position.set(15, 1, 3);
 
 		//gltf.animations; // Array<THREE.AnimationClip>
 		//gltf.scene; // THREE.Scene
