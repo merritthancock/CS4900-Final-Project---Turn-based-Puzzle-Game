@@ -11,6 +11,8 @@ var cameraControls;
 var renderer;
 var scene;
 var board;
+var loadingDone = false;
+
 //just for renderTask to compile
 var movementUnlocked;
 
@@ -53,6 +55,7 @@ function init() {
     document.addEventListener('keyup', doKeyUp, false);
     document.addEventListener('keydown', doKeyDown, false);
 
+    cameraControls.update();
     animate();
 }
 
@@ -90,15 +93,19 @@ function loadLevel(scene, board) {
 }
 
 function animate() {
-    requestAnimationFrame(animate);
-    render();
+    if(loadingDone){
+       requestAnimationFrame(animate);
+       // loadLoadingScreen();
+    }
+    else{
+        requestAnimationFrame(animate);
+        render();
+    }
 }
 
 function render() {
-    cameraControls.update();
     renderer.render(scene, camera);
     updateRender(board);
-    camera.lookAt(board.cursor.position);
 }
 
 init();
