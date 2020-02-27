@@ -18,10 +18,10 @@ class Entity {
 
     //Function moves player to a given position. Only call after validation.
     //TODO: Play animations to move along path rather than jumping to set location.
-    moveEntity(x, y, z, entity) {
-        this.position.x = x;
-        this.position.y = y;
-        this.position.z = z;
+    moveEntity(x, y, z) {
+        this.position[0] = x;
+        this.position[1] = y;
+        this.position[2] = z;
         this.mesh.position.set(x,y,z);
     }
 }

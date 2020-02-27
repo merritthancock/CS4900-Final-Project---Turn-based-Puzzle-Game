@@ -1,8 +1,7 @@
-import {checkNeighbor} from "../../../../Slime_game/classes/Pathing.js";
-import Heap from 'heap';
-import { backtrace } from '../core/Util';
-import { manhattan, octile } from '../core/Heuristic';
-import { Never, OnlyWhenNoObstacles, IfAtMostOneObstacle } from '../core/DiagonalMovement';
+import {checkNeighbor} from "../../classes/Pathing.js";
+import {Heap} from '../heap.js';
+import { backtrace } from './Util.js';
+import {Vertex} from './Vertex.js';
 
 /**
  * A* path-finder. Based upon https://github.com/bgrins/javascript-astar
@@ -18,33 +17,12 @@ import { Never, OnlyWhenNoObstacles, IfAtMostOneObstacle } from '../core/Diagona
  * @param {number} opt.weight Weight to apply to the heuristic to allow for
  *     suboptimal paths, in order to speed up the search.
  */
-function AStarFinder(opt) {
-    opt = opt || {};
-    this.allowDiagonal = opt.allowDiagonal;
-    this.dontCrossCorners = opt.dontCrossCorners;
-    this.heuristic = opt.heuristic || manhattan;
-    this.weight = opt.weight || 1;
-    this.diagonalMovement = opt.diagonalMovement;
-
-    if (!this.diagonalMovement) {
-        if (!this.allowDiagonal) {
-            this.diagonalMovement = Never;
-        } else {
-            if (this.dontCrossCorners) {
-                this.diagonalMovement = OnlyWhenNoObstacles;
-            } else {
-                this.diagonalMovement = IfAtMostOneObstacle;
-            }
-        }
-    }
-
-    // When diagonal movement is allowed the manhattan heuristic is not
-    //admissible. It should be octile instead
-    if (this.diagonalMovement === Never) {
-        this.heuristic = opt.heuristic || manhattan;
-    } else {
-        this.heuristic = opt.heuristic || octile;
-    }
+function AStarFinder() {
+    this.heuristic = function(dx, dy) {
+        return dx + dy;
+    };
+    this.weight = 1;
+    this.nodeBoard = []
 }
 
 /**
@@ -55,19 +33,19 @@ function AStarFinder(opt) {
 AStarFinder.prototype.findPath = function(startX, startY, endX, endY, board, entity) {
     //MODIFICATION: Build board of nodes to avoid using
     //Grid.js
-    var nodeBoard = []
-    for(var i = 0; i < board.length; i++){
-        nodeBoard[i] = [];
-        for(var j = 0; j < board[0].length; j++){
-            nodeBoard[i][j] = new Node(board.tileArray[i][j]);
+    this.nodeBoard = []
+    for(var i = 0; i < board.tileArray.length; i++){
+        this.nodeBoard[i] = [];
+        for(var j = 0; j < board.tileArray[0].length; j++){
+            this.nodeBoard[i][j] = new Vertex(board.tileArray[i][j]);
         }
     }
     
     var openList = new Heap(function(nodeA, nodeB) {
             return nodeA.f - nodeB.f;
         }),
-        startNode = nodeBoard[startX][startY],
-        endNode = nodeBoard[endX][endY],
+        startNode = this.nodeBoard[startX][startY],
+        endNode = this.nodeBoard[endX][endY],
         heuristic = this.heuristic,
         weight = this.weight,
         abs = Math.abs, SQRT2 = Math.SQRT2,
@@ -95,7 +73,7 @@ AStarFinder.prototype.findPath = function(startX, startY, endX, endY, board, ent
         // get neigbours of the current node
         //MODIFICATION: getNeighbors moved to this file at the bottom,
         //rewritten to work with checkNeighbor in our pathing.js file
-        neighbors = getNeighbors(entity, nodeBoard, node);
+        neighbors = getNeighbors(entity, this.nodeBoard, node);
         for (i = 0, l = neighbors.length; i < l; ++i) {
             neighbor = neighbors[i];
 
@@ -136,13 +114,13 @@ AStarFinder.prototype.findPath = function(startX, startY, endX, endY, board, ent
 };
 
 function getNeighbors(entity, nodeBoard, pathNode){
-    sourceX = pathNode.x;
-    sourceY = pathNode.y;
-    neighbors = []
+    var sourceX = pathNode.x;
+    var sourceY = pathNode.y;
+    var neighbors = []
     if(checkNeighbor(entity, pathNode.tile, nodeBoard[sourceX][sourceY - 1].tile)){
         neighbors.push(nodeBoard[sourceX][sourceY - 1]);
     }
-    if(checkNeighbor(entity, pathNode.tile, nodeBoard[sourceX + 1][sourceY - 1].tile)){
+    if(checkNeighbor(entity, pathNode.tile, nodeBoard[sourceX + 1][sourceY].tile)){
         neighbors.push(nodeBoard[sourceX + 1][sourceY]);
     }
     if(checkNeighbor(entity, pathNode.tile, nodeBoard[sourceX][sourceY + 1].tile)){
@@ -155,4 +133,4 @@ function getNeighbors(entity, nodeBoard, pathNode){
     return neighbors;
 }
 
-export default AStarFinder;
+export {AStarFinder};
