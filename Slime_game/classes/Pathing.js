@@ -71,9 +71,8 @@ function hover(board){//initiates methods when cursor hovers over entities/tiles
 }
 
 function movementOverlay(x, z, range, board, entity){//uses the flood fill algorithm to create overlay of all possible spaces to move
-    //console.log(board.overlayMap[x][z].overlay);
     if(range>=0 && x >= 0 && x < board.overlayMap.length && z >=0 && z < board.overlayMap[x].length){
-        //Don't bother rendering an overlay tile that has an entity in it
+        //Do not render an overlay tile that has an entity in it
         if(board.tileArray[x][z].occupant == null){
             board.overlayMap[x][z].overlay.material.visible = true;
         }
