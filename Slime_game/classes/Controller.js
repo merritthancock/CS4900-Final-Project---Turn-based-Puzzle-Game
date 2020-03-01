@@ -2,6 +2,7 @@ import {createTestLevel} from "../assets/LevelMaps/TestLevel.js";
 import {updateRender} from "../RenderTasks.js";
 import {doKeyUp, doKeyDown} from "../KeyboardInput.js";
 import {buildCamera} from "./Camera.js";
+import {load} from "./Loading.js";
 
 // declare variables
 var windowWidth;
@@ -95,7 +96,7 @@ function loadLevel(scene, board) {
 function animate() {
     if(loadingDone){
        requestAnimationFrame(animate);
-       // loadLoadingScreen();
+       render.render(load.scene, load.camera);
     }
     else{
         requestAnimationFrame(animate);
@@ -114,3 +115,4 @@ export {movementUnlocked};
 export {scene};
 export {camera};
 export {cameraControls};
+export{loadingDone};
