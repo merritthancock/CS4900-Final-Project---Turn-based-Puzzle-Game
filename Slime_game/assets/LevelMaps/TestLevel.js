@@ -2,7 +2,7 @@ import {Cursor} from "../../classes/Entities/Cursor.js";
 import {Enemy} from "../../classes/Entities/Enemy.js";
 import {Player} from "../../classes/Entities/Player.js";
 import {Board} from "../../classes/Board.js";
-
+import {milcapSoldier} from "../../classes/Models.js";
 
 function createTestLevel(){
     var testLevelTileMap = [
@@ -96,9 +96,9 @@ function createTestLevel(){
 
     //Create Enemy
     var skull = new THREE.TextureLoader().load( './assets/skull.jpg' );
-    var enemyBox = new THREE.BoxGeometry(1,1,1);
+    //var enemyBox = new THREE.BoxGeometry(1,1,1);
     var enemyPos = [13, 1, 3];
-    var enemy = new Enemy(enemyPos, enemyBox, skull, "enemy", 1);
+    var enemy = new Enemy(enemyPos, milcapSoldier, skull, "enemy", 1);
     enemy.moveEntity(enemyPos[0], enemyPos[1], enemyPos[2], enemy);
 
     testLevelEnemies.push(enemy);
