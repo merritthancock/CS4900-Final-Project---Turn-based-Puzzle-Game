@@ -11,16 +11,26 @@ var loader = new THREE.GLTFLoader().setPath( '../../Slime_game/assets/GLTFModels
 
 loader.load(
 	// resource URL
-	'MilcapSoldier.glb',
+	'SlimeMain.glb',
 	// called when the resource is loaded
 	
 	function ( gltf ) {
+		if ( child.isMesh ) {
+
+			roughnessMipmapper.generateMipmaps( child.material );
+
+		}
+
+	});
 		scene.add(gltf.scene);
 
 		
 		var milcapSoldier = gltf.scene;
 		milcapSoldier.scale.set(.5, .5, .5);
 		milcapSoldier.position.set(3, 1, 3);
+		gltf.scene.traverse( function ( child ) {
+
+			
 
 		//gltf.animations; // Array<THREE.AnimationClip>
 		//gltf.scene; // THREE.Scene
