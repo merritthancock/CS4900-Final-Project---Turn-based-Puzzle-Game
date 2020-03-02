@@ -5,39 +5,32 @@ import {scene} from "../classes/Controller.js";
 
 var manager = new THREE.LoadingManager();
 
-var milcapSoldier;
-var slimePlayer;
+
 
 var loader = new THREE.GLTFLoader().setPath( '../../Slime_game/assets/GLTFModels/' );
 
-loader.load(
+var milcapSoldier = loader.load(
 	// resource URL
 	'MilcapSoldier.glb',
 	// called when the resource is loaded
 	
 	function ( gltf ) {
-		gltf.scene.traverse( function ( child ) {
-			if ( child.isMesh ) {
+		
 
-				roughnessMipmapper.generateMipmaps( child.material );
-
-		}
-
-	});
+	
 		scene.add(gltf.scene);
 
 		
-		milcapSoldier = gltf.scene;
-		milcapSoldier.scale.set(.5, .5, .5);
-		milcapSoldier.position.set(3, 1, 3);
+		gltf.scene.scale.set(.5, .5, .5);
+		gltf.scene.position.set(13, 1, 3);
 		
 			
 
-		//gltf.animations; // Array<THREE.AnimationClip>
-		//gltf.scene; // THREE.Scene
-		//gltf.scenes; // Array<THREE.Scene>
-		//gltf.cameras; // Array<THREE.Camera>
-		//gltf.asset; // Object
+		gltf.animations; // Array<THREE.AnimationClip>
+		gltf.scene; // THREE.Scene
+		gltf.scenes; // Array<THREE.Scene>
+		gltf.cameras; // Array<THREE.Camera>
+		gltf.asset; // Object
 	},
 	// called while loading is progressing
 	function ( xhr ) {
@@ -52,26 +45,19 @@ loader.load(
 
 	//}
 );
-loader.load(
+var slimePlayer = loader.load(
 	// resource URL
 	'SlimeMain.glb',
 	// called when the resource is loaded
 	
 	function ( gltf ) {
-		gltf.scene.traverse( function ( child ) {
-			if ( child.isMesh ) {
-
-				roughnessMipmapper.generateMipmaps( child.material );
-
-		}
-
-	});
+		
 		scene.add(gltf.scene);
 
 		
-		slimePlayer = gltf.scene;
-		slimePlayer.scale.set(.5, .5, .5);
-		//slimePlayer.position.set(3, 1, 3);
+		 
+		gltf.scene.scale.set(.5, .5, .5);
+		gltf.scene.position.set(2, 1, 2);
 		
 
 			
@@ -95,4 +81,4 @@ loader.load(
 
 	//}
 );
-export {milcapSoldier};
+export {milcapSoldier, slimePlayer};
