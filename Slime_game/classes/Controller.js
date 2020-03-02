@@ -102,10 +102,8 @@ function animate() {
 }
 
 function render() {
-    //cameraControls.update();
     renderer.render(scene, camera);
     updateRender(board);
-    camera.lookAt(board.cursor.position);
 }
 
 init();
