@@ -19,8 +19,10 @@ class Enemy extends Entity {
         //Set the priority of the enemy
         this.priority = startPriority;
         //Give the enemy a path to patrol (loop must be set to true if path is cyclical)
-        this.patrolPath = new Path();
-        
+        this.path = new Path();
+        this.path.add(position);
+        console.log(this.path);
+
     }
 
     moveEnemy(direction){
