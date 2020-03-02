@@ -36,6 +36,10 @@ function doKeyDown(event) {
         case 13: //enter
             keyStatus["enter"] = true;
             break;
+
+        case 77: //m key (For testing enemy pathing)
+            keyStatus["mKey"] = true;
+            break;
     }
 }
 

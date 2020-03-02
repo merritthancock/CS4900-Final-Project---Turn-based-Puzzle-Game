@@ -1,4 +1,6 @@
 import {Entity} from "./Entity.js";
+//import {FollowPathBehavior} from "../libraries/yuka-master/src/yuka.js";
+import {Path} from "../../libraries/yuka-master/src/yuka.js";
 
 //The Enemy is an object that will contain unique methods allowing player interaction
 class Enemy extends Entity {
@@ -16,6 +18,9 @@ class Enemy extends Entity {
         this.jumpHeight = 1;
         //Set the priority of the enemy
         this.priority = startPriority;
+        //Give the enemy a path to patrol (loop must be set to true if path is cyclical)
+        this.patrolPath = new Path();
+        
     }
 
     moveEnemy(direction){
@@ -40,6 +45,10 @@ class Enemy extends Entity {
 
     useAbility(){
         
+    }
+
+    moveEPath(){
+
     }
 }
 export {Enemy};
