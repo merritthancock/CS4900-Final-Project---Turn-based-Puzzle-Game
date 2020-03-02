@@ -13,47 +13,52 @@ var scene;
 var board;
 //just for renderTask to compile
 var movementUnlocked;
+//Game setup tasks-----------------------------------------------
+//Sets height and width for game window
+windowWidth = window.innerWidth;
+windowHeight = window.innerHeight;
 
+//Creates renderer and adds it to document body
+renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(windowWidth, windowHeight);
+document.body.appendChild(renderer.domElement);
+
+//set listener for window resizing. Allows resizing of game.
+window.addEventListener('resize', () => {
+    renderer.setSize(window.innerWidth,window.innerHeight);
+    camera.aspect = window.innerWidth / window.innerHeight;
+
+    camera.updateProjectionMatrix();
+});
+
+//Adds event listeners to document
+document.addEventListener('keyup', doKeyUp, false);
+document.addEventListener('keydown', doKeyDown, false);
+//----------------------------------------------------------------
+
+//These methods won't let me call them in animate for some reason
 function init() {
-    //Renderer/Camera stuff
-    windowWidth = window.innerWidth;
-    windowHeight = window.innerHeight;
+    setupLevel();
+    animate();
+}
 
-    renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(windowWidth, windowHeight);
-    document.body.appendChild(renderer.domElement);
-
+function setupLevel(){
     camera = new THREE.PerspectiveCamera(45, windowWidth / windowHeight, 0.1, 10000);
     cameraControls = new THREE.OrbitControls( camera, renderer.domElement );
-
-    //set listener for window resizing
-    window.addEventListener('resize', () => {
-        renderer.setSize(window.innerWidth,window.innerHeight);
-        camera.aspect = window.innerWidth / window.innerHeight;
-
-        camera.updateProjectionMatrix();
-    });
+    camera.position.y = 20;
+    camera.position.z = 20;
 
     //Construct board object
     board = createTestLevel();
-
+    
     // create scene object
     scene = new THREE.Scene;
     loadLevel(scene, board);
 
-    camera.position.y = 20;
-    camera.position.z = 20;
-
-    // add to scene and renderer
-    scene.add(camera); 
-    camera.lookAt(board.tileArray[0][0].position);  
-    buildCamera();
-
-    //set listeners for keyboard presses
-    document.addEventListener('keyup', doKeyUp, false);
-    document.addEventListener('keydown', doKeyDown, false);
-
-    animate();
+     // add to scene and renderer
+     scene.add(camera); 
+     camera.lookAt(board.tileArray[0][0].position);  
+     buildCamera();
 }
 
 //loadLevel accepts a scene and board as parameters.
@@ -89,16 +94,15 @@ function loadLevel(scene, board) {
 
 }
 
-function animate() {
-    requestAnimationFrame(animate);
-    render();
-}
-
-function render() {
+function renderLevel() {
     cameraControls.update();
     renderer.render(scene, camera);
     updateRender(board);
-    camera.lookAt(board.cursor.position);
+}
+
+function animate() {
+    requestAnimationFrame(animate);
+    renderLevel();
 }
 
 init();
