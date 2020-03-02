@@ -2,7 +2,6 @@ import {createTestLevel} from "../assets/LevelMaps/TestLevel.js";
 import {updateRender} from "../RenderTasks.js";
 import {doKeyUp, doKeyDown} from "../KeyboardInput.js";
 import {buildCamera} from "./Camera.js";
-import {load} from "./Loading.js";
 
 // declare variables
 var windowWidth;
@@ -12,8 +11,6 @@ var cameraControls;
 var renderer;
 var scene;
 var board;
-var loadingDone = false;
-
 //just for renderTask to compile
 var movementUnlocked;
 
@@ -56,7 +53,6 @@ function init() {
     document.addEventListener('keyup', doKeyUp, false);
     document.addEventListener('keydown', doKeyDown, false);
 
-    cameraControls.update();
     animate();
 }
 
@@ -94,19 +90,15 @@ function loadLevel(scene, board) {
 }
 
 function animate() {
-    if(loadingDone){
-       requestAnimationFrame(animate);
-       render.render(load.scene, load.camera);
-    }
-    else{
-        requestAnimationFrame(animate);
-        render();
-    }
+    requestAnimationFrame(animate);
+    render();
 }
 
 function render() {
+    cameraControls.update();
     renderer.render(scene, camera);
     updateRender(board);
+    camera.lookAt(board.cursor.position);
 }
 
 init();
@@ -115,4 +107,3 @@ export {movementUnlocked};
 export {scene};
 export {camera};
 export {cameraControls};
-export{loadingDone};
