@@ -81,9 +81,9 @@ function createTestLevel(){
 
     //Create Player
     var slime = new THREE.TextureLoader().load( './assets/slime.jpg' );
-    //var playerBox = new THREE.BoxGeometry(1, 1, 1);
+    var playerBox = new THREE.BoxGeometry(1, 1, 1);
     var playerPos = [2, 1, 2];
-    var player = new Player(playerPos, slimePlayer, slime, "player", 1);
+    var player = new Player(playerPos, playerBox, slime, "player", 1);
     player.moveEntity(playerPos[0], playerPos[1], playerPos[2], player);
 
     //Create Cursor
@@ -96,9 +96,9 @@ function createTestLevel(){
 
     //Create Enemy
     var skull = new THREE.TextureLoader().load( './assets/skull.jpg' );
-    //var enemyBox = new THREE.BoxGeometry(1,1,1);
+    var enemyBox = new THREE.BoxGeometry(1,1,1);
     var enemyPos = [13, 1, 3];
-    var enemy = new Enemy(enemyPos, milcapSoldier, skull, "enemy", 1);
+    var enemy = new Enemy(enemyPos, enemyBox, skull, "enemy", 1);
     enemy.moveEntity(enemyPos[0], enemyPos[1], enemyPos[2], enemy);
 
     //Adding waypoints for the enemy path [WILL NEED REWORKING. JUST FOR TESTING RN]
