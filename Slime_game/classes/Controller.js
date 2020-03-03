@@ -74,9 +74,8 @@ function loadLevel(scene, board) {
     }
 
     // create lighting and add to scene 
-    var pointLight = new THREE.PointLight(0xaabbcc);
-    pointLight.position.set(10, 16, 16);
-    scene.add(pointLight);
+    var light = new THREE.AmbientLight( 0xe0e0e0 ); // soft white light
+    scene.add(light);
 
     //Set up the skybox
     var sky = new THREE.TextureLoader().load( './assets/Slimegamesky.jpg' );
@@ -102,7 +101,7 @@ function renderLevel() {
 
 function animate() {
     requestAnimationFrame(animate);
-    render();
+    renderLevel();
 }
 
 init();
