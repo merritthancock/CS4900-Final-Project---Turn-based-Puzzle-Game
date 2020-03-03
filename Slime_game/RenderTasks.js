@@ -48,6 +48,10 @@ function updateRender(board){
         if(keyStatus["space"]){
             getLock();
         }
+        if(keyStatus["mKey"]){
+            getLock();
+            board.enemies.moveEPath("mKey");
+        }
     }
 }
 

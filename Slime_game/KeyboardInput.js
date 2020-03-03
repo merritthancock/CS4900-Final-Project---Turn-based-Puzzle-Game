@@ -36,6 +36,10 @@ function doKeyDown(event) {
         case 13: //enter
             keyStatus["enter"] = true;
             break;
+
+        case 77: //m key (For testing enemy pathing)
+            keyStatus["mKey"] = true;
+            break;
     }
 }
 
@@ -69,6 +73,11 @@ function doKeyUp(event) {
 
         case 13: //enter
             keyStatus["enter"] = false;
+            releaseLock();
+            break;
+        
+        case 77: //m key for testing enemy pathing
+            keyStatus["mKey"] = false;
             releaseLock();
             break;
     }

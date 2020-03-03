@@ -101,6 +101,42 @@ function createTestLevel(){
     var enemy = new Enemy(enemyPos, milcapSoldier, skull, "enemy", 1);
     enemy.moveEntity(enemyPos[0], enemyPos[1], enemyPos[2], enemy);
 
+    //Adding waypoints for the enemy path [WILL NEED REWORKING. JUST FOR TESTING RN]
+    enemy.path.loop = true;
+    enemy.path.add([13, 1, 4]); 
+    enemy.path.add([13, 1, 5]);
+    enemy.path.add([13, 1, 6]);
+    enemy.path.add([13, 1, 7]);
+    enemy.path.add([13, 1, 8]);
+    enemy.path.add([13, 1, 9]);
+    enemy.path.add([13, 1, 10]);
+    enemy.path.add([13, 1, 11]);
+    enemy.path.add([13, 1, 12]);
+    enemy.path.add([13, 1, 13]);
+    enemy.path.add([14, 2, 13]);
+    enemy.path.add([15, 2, 13]);
+    enemy.path.add([16, 2, 13]);
+    enemy.path.add([17, 1, 13]);
+    enemy.path.add([17, 1, 12]);
+    enemy.path.add([17, 1, 11]);
+    enemy.path.add([17, 1, 10]);
+    enemy.path.add([17, 1, 9]);
+    enemy.path.add([16, 1, 9]);
+    enemy.path.add([15, 1, 9]);
+    enemy.path.add([15, 1, 8]);
+    enemy.path.add([15, 1, 7]);
+    enemy.path.add([15, 1, 6]);
+    enemy.path.add([15, 1, 5]);
+    enemy.path.add([15, 1, 4]);
+    enemy.path.add([14, 1, 4]);//enemy appears to wait a turn before the loop happens. Not sure why atm
+    
+
+
+
+
+
+    console.log(enemy.path);
+
     testLevelEnemies.push(enemy);
 
     var testBoard = new Board(testLevelTileMap, testLevelHeightMap, testLevelEntitiesMap, player, enemy, cursor);
