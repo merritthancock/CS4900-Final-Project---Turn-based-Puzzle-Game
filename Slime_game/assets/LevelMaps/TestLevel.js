@@ -81,59 +81,33 @@ function createTestLevel(){
 
     //Create Player
     var slime = new THREE.TextureLoader().load( './assets/slime.jpg' );
-    //var playerBox = new THREE.BoxGeometry(1, 1, 1);
+    var playerBox = new THREE.BoxGeometry(1, 1, 1);
     var playerPos = [2, 1, 2];
-    var player = new Player(playerPos, slimePlayer, slime, "player", 1);
+    var player = new Player(playerPos, playerBox, slime, "player", 1);
     player.moveEntity(playerPos[0], playerPos[1], playerPos[2], player);
 
     //Create Cursor
     var cu = new THREE.TextureLoader().load( './assets/yellow.jpg' );
     var cursorMod = new THREE.CircleBufferGeometry( 0.5, 30 );
     cursorMod.rotateX(-Math.PI/2);
-    var cursorPos = [1, 1, 2];
+    var cursorPos = [1, 1.6, 2];
     var cursor = new Cursor(cursorPos, cursorMod, cu, "cursor");
     cursor.moveEntity(cursorPos[0], cursorPos[1], cursorPos[2], cursor);
 
     //Create Enemy
     var skull = new THREE.TextureLoader().load( './assets/skull.jpg' );
-    //var enemyBox = new THREE.BoxGeometry(1,1,1);
+    var enemyBox = new THREE.BoxGeometry(1,1,1);
     var enemyPos = [13, 1, 3];
-    var enemy = new Enemy(enemyPos, milcapSoldier, skull, "enemy", 1);
+    var enemy = new Enemy(enemyPos, enemyBox, skull, "enemy", 1);
     enemy.moveEntity(enemyPos[0], enemyPos[1], enemyPos[2], enemy);
 
     //Adding waypoints for the enemy path [WILL NEED REWORKING. JUST FOR TESTING RN]
     enemy.path.loop = true;
-    enemy.path.add([13, 1, 4]); 
-    enemy.path.add([13, 1, 5]);
-    enemy.path.add([13, 1, 6]);
-    enemy.path.add([13, 1, 7]);
-    enemy.path.add([13, 1, 8]);
-    enemy.path.add([13, 1, 9]);
-    enemy.path.add([13, 1, 10]);
-    enemy.path.add([13, 1, 11]);
-    enemy.path.add([13, 1, 12]);
     enemy.path.add([13, 1, 13]);
-    enemy.path.add([14, 2, 13]);
-    enemy.path.add([15, 2, 13]);
-    enemy.path.add([16, 2, 13]);
     enemy.path.add([17, 1, 13]);
-    enemy.path.add([17, 1, 12]);
-    enemy.path.add([17, 1, 11]);
-    enemy.path.add([17, 1, 10]);
-    enemy.path.add([17, 1, 9]);
-    enemy.path.add([16, 1, 9]);
-    enemy.path.add([15, 1, 9]);
-    enemy.path.add([15, 1, 8]);
-    enemy.path.add([15, 1, 7]);
-    enemy.path.add([15, 1, 6]);
-    enemy.path.add([15, 1, 5]);
     enemy.path.add([15, 1, 4]);
     enemy.path.add([14, 1, 4]);//enemy appears to wait a turn before the loop happens. Not sure why atm
-    
-
-
-
-
+    enemy.path.add([13, 1, 3]); 
 
     console.log(enemy.path);
 

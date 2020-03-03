@@ -1,3 +1,5 @@
+//Modified from Pathfinding.js https://github.com/qiao/PathFinding.js/
+
 /**
  * Backtrace according to the parent records and return the path.
  * (including both start and end nodes)
