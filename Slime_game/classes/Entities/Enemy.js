@@ -54,6 +54,7 @@ class Enemy extends Entity {
     //moves the enemy along a predetermined patrol path
     //TODO: add compatibility with enemy array for multiple enemies
     moveEPath(){
+        console.log("HI");
         //Remove Enemy from board
         board.tileArray[this.position[0]][this.position[2]].occupant = null;
 

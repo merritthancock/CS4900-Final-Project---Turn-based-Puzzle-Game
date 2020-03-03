@@ -91,7 +91,7 @@ function loadLevel(scene, board) {
     scene.add(board.player.mesh);
     //add cursor to the scene
     scene.add(board.cursor.mesh);
-    //add enemy to the scene
+    //add enemy to the scene //TODO: Add array compatibility for board
     scene.add(board.enemies.mesh);
 
 }

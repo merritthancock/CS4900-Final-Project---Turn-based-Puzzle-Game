@@ -2,15 +2,15 @@ import {AStarFinder} from "../libraries/AStar/AStarFinder.js";
 import {Enemy} from "./Entities/Enemy.js";
 
 function aStar(startX, startY, endX, endY, board, entity) {
-    var finder = new AStarFinder();
+    let finder = new AStarFinder();
     //Get path
-    var foundPath = finder.findPath(startX, startY, endX, endY, board, entity);
+    let foundPath = finder.findPath(startX, startY, endX, endY, board, entity);
     if(foundPath.length == 0){
         console.log("No path exists!");
     }
     else {
-        console.log(foundPath)
-        for(var i = 0; i <= entity.movementRange; i++){
+        let movesRemaining = entity.movementRange;
+        for(var i = 0; i < foundPath.length; i++){
             board.tileArray[entity.position[0]][entity.position[2]].occupant = null;
             entity.moveEntity(
                 foundPath[i].tile.position[0],
@@ -18,6 +18,12 @@ function aStar(startX, startY, endX, endY, board, entity) {
                 foundPath[i].tile.position[2]
             );
             board.tileArray[entity.position[0]][entity.position[2]].occupant = entity;
+
+            //ensure that movement range is not exceeded
+            movesRemaining--;
+            if(movesRemaining < 0){
+                break;
+            }
         }
     }
 }
