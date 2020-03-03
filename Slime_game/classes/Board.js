@@ -1,4 +1,5 @@
 //import { Enemy } from "./Entities/Enemy.js";
+import {movementOverlayHelper, wipeOverlay} from "./Pathing.js";
 
 class Board {
     constructor(tileMap, heightMap, entitiesMap, player, enemies, cursor){
@@ -7,6 +8,7 @@ class Board {
         this.player = player;
         this.enemies = enemies;
         this.cursor = cursor;
+        this.selected = null;
         this.overlayMap = [];
 
         this.tileArray = [];
@@ -17,6 +19,20 @@ class Board {
                 this.tileArray[i][j] = new Tile([i, heightMap[i][j] / 2, j], heightMap[i][j], tileMap[i][j], entitiesMap[i][j], player, enemies);
                 this.overlayMap[i][j] = new Overlay([i, heightMap[i][j] + 0.6, j]); 
             }
+        }
+    }
+
+    select(entity){
+        //if nothing is selected, go ahead and select, then expand overlay
+        if(this.selected == null){
+            this.selected = entity;
+            console.log(this.selected.id);
+            movementOverlayHelper(this, entity);
+        }
+        //if selecting the same entity a second time, deselect and wipe overlay
+        else if(entity.id == this.selected.id){
+            this.selected = null;
+            wipeOverlay(this);
         }
     }
 }
@@ -56,7 +72,7 @@ class Tile {
                 break;
             case 8://exit
             this.terrain = new THREE.Mesh(new THREE.BoxBufferGeometry(1, 1, 1),
-                               new THREE.MeshBasicMaterial({ color: 0xFADADD}));
+                               new THREE.MeshLambertMaterial({ color: 0xFADADD, emissive: 0XFF69B4}));
                 break;
             default:
                 this.terrain = null;

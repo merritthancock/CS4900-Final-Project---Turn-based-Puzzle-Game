@@ -36,6 +36,10 @@ function doKeyDown(event) {
         case 13: //enter
             keyStatus["enter"] = true;
             break;
+
+        case 77: //m key (For testing enemy pathing)
+            keyStatus["mKey"] = true;
+            break;
     }
 }
 
@@ -46,30 +50,35 @@ function doKeyUp(event) {
         //Cases for WASD keys
         case 87: //w
             keyStatus["wKey"] = false;
-            releaseLock();
+            releaseLock("inputHandler");
             break;
         case 65: //a
             keyStatus["aKey"] = false;
-            releaseLock();
+            releaseLock("inputHandler");
             break;
         case 83: //s
             keyStatus["sKey"] = false;
-            releaseLock();
+            releaseLock("inputHandler");
             break;
         case 68: //d
             keyStatus["dKey"] = false;
-            releaseLock();
+            releaseLock("inputHandler");
             break;
 
         //Case for Spacebar and enter
         case 32: //space
             keyStatus["space"] = false;
-            releaseLock();
+            releaseLock("inputHandler");
             break;
 
         case 13: //enter
             keyStatus["enter"] = false;
-            releaseLock();
+            releaseLock("inputHandler");
+            break;
+        
+        case 77: //m key for testing enemy pathing
+            keyStatus["mKey"] = false;
+            releaseLock("inputHandler");
             break;
     }
 }
