@@ -13,47 +13,52 @@ var scene;
 var board;
 //just for renderTask to compile
 var movementUnlocked;
+//Game setup tasks-----------------------------------------------
+//Sets height and width for game window
+windowWidth = window.innerWidth;
+windowHeight = window.innerHeight;
 
+//Creates renderer and adds it to document body
+renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(windowWidth, windowHeight);
+document.body.appendChild(renderer.domElement);
+
+//set listener for window resizing. Allows resizing of game.
+window.addEventListener('resize', () => {
+    renderer.setSize(window.innerWidth,window.innerHeight);
+    camera.aspect = window.innerWidth / window.innerHeight;
+
+    camera.updateProjectionMatrix();
+});
+
+//Adds event listeners to document
+document.addEventListener('keyup', doKeyUp, false);
+document.addEventListener('keydown', doKeyDown, false);
+//----------------------------------------------------------------
+
+//These methods won't let me call them in animate for some reason
 function init() {
-    //Renderer/Camera stuff
-    windowWidth = window.innerWidth;
-    windowHeight = window.innerHeight;
+    setupLevel();
+    animate();
+}
 
-    renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(windowWidth, windowHeight);
-    document.body.appendChild(renderer.domElement);
-
+function setupLevel(){
     camera = new THREE.PerspectiveCamera(45, windowWidth / windowHeight, 0.1, 10000);
     cameraControls = new THREE.OrbitControls( camera, renderer.domElement );
-    cameraControls.update();
-    //set listener for window resizing
-    window.addEventListener('resize', () => {
-        renderer.setSize(window.innerWidth,window.innerHeight);
-        camera.aspect = window.innerWidth / window.innerHeight;
-
-        camera.updateProjectionMatrix();
-    });
-
+    camera.position.y = 20;
+    camera.position.z = 20;
+  
     //Construct board object
     board = createTestLevel();
-
+    
     // create scene object
     scene = new THREE.Scene;
     loadLevel(scene, board);
-
-    camera.position.y = 20;
-    camera.position.z = 20;
-
-    // add to scene and renderer
-    scene.add(camera); 
-    camera.lookAt(board.tileArray[0][0].position);  
-    buildCamera();
-
-    //set listeners for keyboard presses
-    document.addEventListener('keyup', doKeyUp, false);
-    document.addEventListener('keydown', doKeyDown, false);
-    cameraControls.update();
-    animate();
+  
+     // add to scene and renderer
+     scene.add(camera); 
+     camera.lookAt(board.tileArray[0][0].position);  
+     buildCamera();
 }
 
 //loadLevel accepts a scene and board as parameters.
@@ -69,11 +74,10 @@ function loadLevel(scene, board) {
     }
 
     // create lighting and add to scene 
-    //var pointLight = new THREE.PointLight(0xaabbcc);
-    //pointLight.position.set(10, 16, 16);
-    //scene.add(pointLight);
-    var light = new THREE.AmbientLight( 0xf0f0f0 ); // soft white light
-    scene.add( light );
+
+    var light = new THREE.AmbientLight( 0xe0e0e0 ); // soft white light
+    scene.add(light);
+
 
     //Set up the skybox
     var sky = new THREE.TextureLoader().load( './assets/Slimegamesky.jpg' );
@@ -82,30 +86,24 @@ function loadLevel(scene, board) {
     var skybox = new THREE.Mesh(skyboxGeometry, skyboxMaterial);
     scene.add(skybox);
 
-    //placeholder code for sprite implementation which may prove useful later on
-    /*var spriteMap = new THREE.TextureLoader().load( "./assets/slime.jpg" );
-    var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
-    var sprite = new THREE.Sprite( spriteMaterial );
-    sprite.position.set (-5, 10, 1);
-    scene.add( sprite );*/
-
     //add player to the scene
     scene.add(board.player.mesh);
     //add cursor to the scene
     scene.add(board.cursor.mesh);
-    //add enemy to the scene
+    //add enemy to the scene //TODO: Add array compatibility for board
     scene.add(board.enemies.mesh);
 
 }
 
-function animate() {
-    requestAnimationFrame(animate);
-    render();
-}
-
-function render() {
+function renderLevel() {
+    cameraControls.update();
     renderer.render(scene, camera);
     updateRender(board);
+}
+
+function animate() {
+    requestAnimationFrame(animate);
+    renderLevel();
 }
 
 init();
@@ -114,3 +112,4 @@ export {movementUnlocked};
 export {scene};
 export {camera};
 export {cameraControls};
+export {board};

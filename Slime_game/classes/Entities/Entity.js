@@ -1,5 +1,3 @@
-import { Board } from "../Board.js";
-
 class Entity {
     constructor(position, model, texture, id){
         //Set position of entity
