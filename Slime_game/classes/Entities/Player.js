@@ -11,7 +11,7 @@ class Player extends Entity {
         //Set abilities to an empty set for starters
         this.abilities = {};
         //Set default movement range to 2
-        this.movementRange = 3;
+        this.movementRange = 2;
         //Set default jump height to 1
         this.jumpHeight = 1;
     }

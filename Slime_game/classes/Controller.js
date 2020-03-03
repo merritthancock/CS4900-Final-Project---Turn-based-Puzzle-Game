@@ -25,7 +25,7 @@ function init() {
 
     camera = new THREE.PerspectiveCamera(45, windowWidth / windowHeight, 0.1, 10000);
     cameraControls = new THREE.OrbitControls( camera, renderer.domElement );
-
+    cameraControls.update();
     //set listener for window resizing
     window.addEventListener('resize', () => {
         renderer.setSize(window.innerWidth,window.innerHeight);
@@ -52,7 +52,7 @@ function init() {
     //set listeners for keyboard presses
     document.addEventListener('keyup', doKeyUp, false);
     document.addEventListener('keydown', doKeyDown, false);
-
+    cameraControls.update();
     animate();
 }
 
@@ -80,6 +80,13 @@ function loadLevel(scene, board) {
     var skybox = new THREE.Mesh(skyboxGeometry, skyboxMaterial);
     scene.add(skybox);
 
+    //placeholder code for sprite implementation which may prove useful later on
+    /*var spriteMap = new THREE.TextureLoader().load( "./assets/slime.jpg" );
+    var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
+    var sprite = new THREE.Sprite( spriteMaterial );
+    sprite.position.set (-5, 10, 1);
+    scene.add( sprite );*/
+
     //add player to the scene
     scene.add(board.player.mesh);
     //add cursor to the scene
@@ -95,10 +102,8 @@ function animate() {
 }
 
 function render() {
-    cameraControls.update();
     renderer.render(scene, camera);
     updateRender(board);
-    camera.lookAt(board.cursor.position);
 }
 
 init();
