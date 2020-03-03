@@ -13,7 +13,7 @@ class Entity {
         //Build mesh from provided geometry and material, can add to scene in rest of code
         //this.mesh = THREE.Mesh(model, texture);
         this.mesh = new THREE.Mesh(model,
-                    new THREE.MeshStandardMaterial({ map: texture}));
+                    new THREE.MeshBasicMaterial({ map: texture}));
     }
 
     //Function moves player to a given position. Only call after validation.

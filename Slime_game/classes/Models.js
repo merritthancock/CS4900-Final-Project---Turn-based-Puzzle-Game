@@ -22,7 +22,7 @@ var milcapSoldier = loader.load(
 
 		
 		gltf.scene.scale.set(.5, .5, .5);
-		gltf.scene.position.set(13, 1, 3);
+		gltf.scene.position.set(15, 1, 3);
 		
 			
 
@@ -57,7 +57,7 @@ var slimePlayer = loader.load(
 		
 		 
 		gltf.scene.scale.set(.5, .5, .5);
-		gltf.scene.position.set(2, 1, 2);
+		gltf.scene.position.set(4, 1, 2);
 		
 
 			
