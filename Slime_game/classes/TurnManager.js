@@ -10,7 +10,6 @@ function passTurn(board){
     if(isPlayerTurn) {
         getLock("turnManager");
         isPlayerTurn = false;
-        console.log("Hi!");
         //TODO: Make this more robust for moving enemies, also move enemy movement logic and passTurn call to other file
         board.enemies.moveEPath();
         passTurn();

@@ -52,9 +52,17 @@ function updateRender(board){
                     board.select(board.player);
                 }
                 else{
-                    aStar(currentX, currentY, goalX, goalY, board, board.player);
-                    board.select(board.player);
-                    passTurn(board);
+                    let xDistance = Math.abs(goalX - currentX);
+                    let yDistance = Math.abs(goalY - currentY);
+                    //if cursor is within movementRange of player, move player and pass turn. Else, deselect.
+                    if(xDistance + yDistance <= board.player.movementRange){
+                        aStar(currentX, currentY, goalX, goalY, board, board.player);
+                        board.select(board.player);
+                        passTurn(board);
+                    }
+                    else{
+                        board.select(board.player);
+                    }
                 }
             }
             //if something other than player is selected, deselect

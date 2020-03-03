@@ -22,7 +22,7 @@ class Enemy extends Entity {
         this.priority = startPriority;
         //Give the enemy a path to patrol (loop must be set to true if path is cyclical)
         this.path = new Path();
-        this.path.add(position);
+        //this.path.add(position);
         console.log(this.path);
 
     }
@@ -54,17 +54,14 @@ class Enemy extends Entity {
     //moves the enemy along a predetermined patrol path
     //TODO: add compatibility with enemy array for multiple enemies
     moveEPath(){
-        console.log("HI");
-        //Remove Enemy from board
-        board.tileArray[this.position[0]][this.position[2]].occupant = null;
-
-        //Update position
-        this.path.advance();
         var pos = this.path.current();
-        this.moveEntity(pos[0], board.tileArray[pos[0]][pos[2]].height + 1, pos[2]);
+        aStar(this.position[0], this.position[2], pos[0], pos[2], board, this);
+        //this.moveEntity(pos[0], board.tileArray[pos[0]][pos[2]].height + 1, pos[2]);
 
-        //Update board position
-        board.tileArray[pos[0]][pos[2]].occupant = this;
+        //if made it to node, advance the node
+        if(this.position[0] == pos[0] && this.position[2] == pos[2]){
+            this.path.advance();
+        }
 
         console.log(this.path);
         console.log(this.mesh.position);
