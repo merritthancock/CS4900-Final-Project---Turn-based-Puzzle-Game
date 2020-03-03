@@ -47,10 +47,6 @@ class Player extends Entity {
         board.player.position = [...board.cursor.position]
         board.player.mesh.position.set(board.cursor.position[0], board.cursor.position[1], board.cursor.position[2]);
         board.tileArray[board.player.position[0]][board.player.position[2]].occupant = board.player;
-        //console.log(board.player.position);
-
-        //Pass turn
-        passTurn(board);
     };
 }
 
