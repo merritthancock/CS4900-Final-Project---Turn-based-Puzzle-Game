@@ -38,11 +38,32 @@ function updateRender(board){
         }
         if(keyStatus["enter"]){
             getLock("inputHandler");
-            var goalX = board.cursor.position[0];
-            var goalY = board.cursor.position[2];
-            var currentX = board.player.position[0];
-            var currentY = board.player.position[2];
-            aStar(currentX, currentY, goalX, goalY, board, board.player);
+
+            let goalX = board.cursor.position[0];
+            let goalY = board.cursor.position[2];
+
+            //Check if player is selected
+            if(board.selected != null && board.player.id == board.selected.id){
+                let currentX = board.player.position[0];
+                let currentY = board.player.position[2];
+                //if cursor is on player, deselect. Else, try to move player and then deselect.
+                if(currentX == goalX && currentY == goalY){
+                    board.select(board.player);
+                }
+                else{
+                    aStar(currentX, currentY, goalX, goalY, board, board.player);
+                    board.select(board.player)
+                }
+            }
+            //if something other than player is selected, deselect
+            else if(board.selected != null){
+                board.select(board.selected);
+            }
+            //if nothing is selected, select whatever's currently occupying
+            else if(board.tileArray[goalX][goalY].occupant != null){
+                board.select(board.tileArray[goalX][goalY].occupant);
+            }
+
             hover(board);
         }
         if(keyStatus["space"]){

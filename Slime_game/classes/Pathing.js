@@ -1,4 +1,5 @@
 import {AStarFinder} from "../libraries/AStar/AStarFinder.js";
+import {Enemy} from "./Entities/Enemy.js";
 
 function aStar(startX, startY, endX, endY, board, entity) {
     var finder = new AStarFinder();
@@ -8,7 +9,8 @@ function aStar(startX, startY, endX, endY, board, entity) {
         console.log("No path exists!");
     }
     else {
-        for(var i = 0; i < foundPath.length; i++){
+        console.log(foundPath)
+        for(var i = 0; i <= entity.movementRange; i++){
             board.tileArray[entity.position[0]][entity.position[2]].occupant = null;
             entity.moveEntity(
                 foundPath[i].tile.position[0],
@@ -17,7 +19,6 @@ function aStar(startX, startY, endX, endY, board, entity) {
             );
             board.tileArray[entity.position[0]][entity.position[2]].occupant = entity;
         }
-
     }
 }
 
@@ -35,10 +36,13 @@ function checkNeighbor(entity, sourceTile, destinationTile){
     }
     //Make sure the destination tile is within the movement range
     //(this is taken care of in flood fill, but not in A*)
-    var xDistance = Math.abs(destinationTile.position[0] - entity.position[0]);
-    var zDistance = Math.abs(destinationTile.position[2] - entity.position[2]);
-    if(xDistance + zDistance > entity.movementRange){
-        return false;
+    //Enemy doesn't do this, because enemy needs to have a destination beyond movement range in mind
+    if(!(entity instanceof Enemy)){
+        let xDistance = Math.abs(destinationTile.position[0] - entity.position[0]);
+        let zDistance = Math.abs(destinationTile.position[2] - entity.position[2]);
+        if(xDistance + zDistance > entity.movementRange){
+            return false;
+        }
     }
     //Make sure maxHeight exceeds the height difference between the tiles
     if(maxHeight < heightDifference){
@@ -122,8 +126,9 @@ function typeList(type){//Returns the terrain name for logging to console
 function occupied(board){//returns what occupies the tile and calls on flood fill overlay
     var occupant = board.tileArray[board.cursor.position[0]][board.cursor.position[2]].occupant;
     if(occupant != null){
-        wipeOverlay(board);
-        var overlayList = movementOverlayHelper(board, occupant);
+        //moving functionality to board
+        //wipeOverlay(board);
+        //var overlayList = movementOverlayHelper(board, occupant);
         return occupant.id;
     }
     else if(board.overlayMap[board.cursor.position[0]][board.cursor.position[2]].overlay.material.visible){
@@ -143,4 +148,4 @@ function wipeOverlay(board){//this will return overlay visibility to false when 
     }
 }
 
-export {hover, checkNeighbor, aStar};
+export {hover, checkNeighbor, aStar, wipeOverlay, movementOverlayHelper};
