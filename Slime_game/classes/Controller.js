@@ -72,9 +72,6 @@ function loadLevel(scene, board) {
     var pointLight = new THREE.PointLight(0xaabbcc);
     pointLight.position.set(10, 16, 16);
     scene.add(pointLight);
-    var dLight = new THREE.DirectionalLight(0xffffff);
-    dLight.position.set(10, 16, 16);
-    scene.add(dLight);
 
     //Set up the skybox
     var sky = new THREE.TextureLoader().load( './assets/Slimegamesky.jpg' );
@@ -94,7 +91,7 @@ function loadLevel(scene, board) {
     scene.add(board.player.mesh);
     //add cursor to the scene
     scene.add(board.cursor.mesh);
-    //add enemy to the scene
+    //add enemy to the scene //TODO: Add array compatibility for board
     scene.add(board.enemies.mesh);
 
 }
@@ -115,3 +112,4 @@ export {movementUnlocked};
 export {scene};
 export {camera};
 export {cameraControls};
+export {board};
