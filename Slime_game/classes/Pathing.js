@@ -119,12 +119,15 @@ function typeList(type){//Returns the terrain name for logging to console
     }
 }
 
-function occupied(board){
+function occupied(board){//returns what occupies the tile and calls on flood fill overlay
     var occupant = board.tileArray[board.cursor.position[0]][board.cursor.position[2]].occupant;
     if(occupant != null){
         wipeOverlay(board);
         var overlayList = movementOverlayHelper(board, occupant);
         return occupant.id;
+    }
+    else if(board.overlayMap[board.cursor.position[0]][board.cursor.position[2]].overlay.material.visible){
+        return "None";
     }
     else{
         wipeOverlay(board);
