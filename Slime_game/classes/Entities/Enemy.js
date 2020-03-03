@@ -1,3 +1,4 @@
+import {board} from "../Controller.js";
 import {Entity} from "./Entity.js";
 //import {FollowPathBehavior} from "../libraries/yuka-master/src/yuka.js";
 import {Path} from "../../libraries/yuka-master/src/yuka.js";
@@ -49,15 +50,22 @@ class Enemy extends Entity {
         
     }
 
-    moveEPath(move){//moves the enemy along a predetermined patrol path
-        switch(move){
-            case "mKey":
-                this.path.advance();
-                var pos = this.path.current();
-                this.moveEntity(pos[0],pos[1],pos[2]);
-                console.log(this.path);
-                console.log(this.mesh.position);
-        }
+    //moves the enemy along a predetermined patrol path
+    //TODO: add compatibility with enemy array for multiple enemies
+    moveEPath(){
+        //Remove Enemy from board
+        board.tileArray[this.position[0]][this.position[2]].occupant = null;
+
+        //Update position
+        this.path.advance();
+        var pos = this.path.current();
+        this.moveEntity(pos[0], board.tileArray[pos[0]][pos[2]].height + 1, pos[2]);
+
+        //Update board position
+        board.tileArray[pos[0]][pos[2]].occupant = this;
+
+        console.log(this.path);
+        console.log(this.mesh.position);
     }
 }
 export {Enemy};

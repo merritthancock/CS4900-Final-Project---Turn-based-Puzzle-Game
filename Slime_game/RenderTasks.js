@@ -50,7 +50,7 @@ function updateRender(board){
         }
         if(keyStatus["mKey"]){
             getLock("inputHandler");
-            board.enemies.moveEPath("mKey");
+            board.enemies.moveEPath();
         }
     }
 }

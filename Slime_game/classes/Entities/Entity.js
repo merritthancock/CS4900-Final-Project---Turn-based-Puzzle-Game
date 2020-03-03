@@ -1,4 +1,4 @@
-import { Board } from "../Board.js";
+import { board } from "../Controller.js";
 
 class Entity {
     constructor(position, model, texture, id){

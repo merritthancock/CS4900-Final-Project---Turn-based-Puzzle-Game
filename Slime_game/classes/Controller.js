@@ -112,3 +112,4 @@ export {movementUnlocked};
 export {scene};
 export {camera};
 export {cameraControls};
+export {board};
