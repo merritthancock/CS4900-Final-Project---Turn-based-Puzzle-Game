@@ -5,7 +5,7 @@ import {hover, aStar} from "./classes/Pathing.js";
 function updateRender(board){
     if(unlocked) {
         if(keyStatus["wKey"]){
-            getLock();
+            getLock("inputHandler");
             console.log("Moving Cursor Forward!");
             board.cursor.moveCursor(board.cursor, "forward");
             //moveCamera(camera, "forward");
@@ -13,7 +13,7 @@ function updateRender(board){
             hover(board);
         }
         if(keyStatus["aKey"]){
-            getLock();
+            getLock("inputHandler");
             console.log("Moving Cursor Left!");
             board.cursor.moveCursor(board.cursor, "left");
             //moveCamera(camera, "backward");
@@ -21,7 +21,7 @@ function updateRender(board){
             hover(board);
         }
         if(keyStatus["sKey"]){
-            getLock();
+            getLock("inputHandler");
             console.log("Moving Cursor Backward!");
             board.cursor.moveCursor(board.cursor, "backward");
             //moveCamera(camera, "left");
@@ -29,7 +29,7 @@ function updateRender(board){
             hover(board);
         }
         if(keyStatus["dKey"]){
-            getLock();
+            getLock("inputHandler");
             console.log("Moving Cursor Right!");
             board.cursor.moveCursor(board.cursor, "right");
             //moveCamera(camera, "right");
@@ -37,7 +37,7 @@ function updateRender(board){
             hover(board);
         }
         if(keyStatus["enter"]){
-            getLock();
+            getLock("inputHandler");
             var goalX = board.cursor.position[0];
             var goalY = board.cursor.position[2];
             var currentX = board.player.position[0];
@@ -46,10 +46,10 @@ function updateRender(board){
             hover(board);
         }
         if(keyStatus["space"]){
-            getLock();
+            getLock("inputHandler");
         }
         if(keyStatus["mKey"]){
-            getLock();
+            getLock("inputHandler");
             board.enemies.moveEPath("mKey");
         }
     }
