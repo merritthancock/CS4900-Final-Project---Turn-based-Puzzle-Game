@@ -71,9 +71,8 @@ function hover(board){//initiates methods when cursor hovers over entities/tiles
 }
 
 function movementOverlay(x, z, range, board, entity){//uses the flood fill algorithm to create overlay of all possible spaces to move
-    //console.log(board.overlayMap[x][z].overlay);
     if(range>=0 && x >= 0 && x < board.overlayMap.length && z >=0 && z < board.overlayMap[x].length){
-        //Don't bother rendering an overlay tile that has an entity in it
+        //Do not render an overlay tile that has an entity in it
         if(board.tileArray[x][z].occupant == null){
             board.overlayMap[x][z].overlay.material.visible = true;
         }
@@ -120,11 +119,15 @@ function typeList(type){//Returns the terrain name for logging to console
     }
 }
 
-function occupied(board){
+function occupied(board){//returns what occupies the tile and calls on flood fill overlay
     var occupant = board.tileArray[board.cursor.position[0]][board.cursor.position[2]].occupant;
     if(occupant != null){
+        wipeOverlay(board);
         var overlayList = movementOverlayHelper(board, occupant);
         return occupant.id;
+    }
+    else if(board.overlayMap[board.cursor.position[0]][board.cursor.position[2]].overlay.material.visible){
+        return "None";
     }
     else{
         wipeOverlay(board);
