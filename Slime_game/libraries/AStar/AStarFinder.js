@@ -4,6 +4,7 @@ import { backtrace } from './Util.js';
 import {Vertex} from './Vertex.js';
 
 /**
+ * Acquired from Pathfinding.js https://github.com/qiao/PathFinding.js/
  * A* path-finder. Based upon https://github.com/bgrins/javascript-astar
  * @constructor
  * @param {Object} opt

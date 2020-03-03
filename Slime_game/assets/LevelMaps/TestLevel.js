@@ -2,6 +2,7 @@ import {Cursor} from "../../classes/Entities/Cursor.js";
 import {Enemy} from "../../classes/Entities/Enemy.js";
 import {Player} from "../../classes/Entities/Player.js";
 import {Board} from "../../classes/Board.js";
+import {milcapSoldier, slimePlayer} from "../../classes/Models.js";
 
 function createTestLevel(){
     var testLevelTileMap = [
@@ -89,7 +90,7 @@ function createTestLevel(){
     var cu = new THREE.TextureLoader().load( './assets/yellow.jpg' );
     var cursorMod = new THREE.CircleBufferGeometry( 0.5, 30 );
     cursorMod.rotateX(-Math.PI/2);
-    var cursorPos = [1, 1, 2];
+    var cursorPos = [1, 1.6, 2];
     var cursor = new Cursor(cursorPos, cursorMod, cu, "cursor");
     cursor.moveEntity(cursorPos[0], cursorPos[1], cursorPos[2], cursor);
 
@@ -99,6 +100,16 @@ function createTestLevel(){
     var enemyPos = [13, 1, 3];
     var enemy = new Enemy(enemyPos, enemyBox, skull, "enemy", 1);
     enemy.moveEntity(enemyPos[0], enemyPos[1], enemyPos[2], enemy);
+
+    //Adding waypoints for the enemy path [WILL NEED REWORKING. JUST FOR TESTING RN]
+    enemy.path.loop = true;
+    enemy.path.add([13, 1, 13]);
+    enemy.path.add([17, 1, 13]);
+    enemy.path.add([15, 1, 4]);
+    enemy.path.add([14, 1, 4]);//enemy appears to wait a turn before the loop happens. Not sure why atm
+    enemy.path.add([13, 1, 3]); 
+
+    console.log(enemy.path);
 
     testLevelEnemies.push(enemy);
 

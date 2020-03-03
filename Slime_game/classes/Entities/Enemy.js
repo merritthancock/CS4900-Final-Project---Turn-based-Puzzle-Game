@@ -1,4 +1,8 @@
+import {board} from "../Controller.js";
 import {Entity} from "./Entity.js";
+//import {FollowPathBehavior} from "../libraries/yuka-master/src/yuka.js";
+import {Path} from "../../libraries/yuka-master/src/yuka.js";
+import {aStar} from "../Pathing.js";
 
 //The Enemy is an object that will contain unique methods allowing player interaction
 class Enemy extends Entity {
@@ -16,6 +20,11 @@ class Enemy extends Entity {
         this.jumpHeight = 1;
         //Set the priority of the enemy
         this.priority = startPriority;
+        //Give the enemy a path to patrol (loop must be set to true if path is cyclical)
+        this.path = new Path();
+        //this.path.add(position);
+        console.log(this.path);
+
     }
 
     moveEnemy(direction){
@@ -40,6 +49,22 @@ class Enemy extends Entity {
 
     useAbility(){
         
+    }
+
+    //moves the enemy along a predetermined patrol path
+    //TODO: add compatibility with enemy array for multiple enemies
+    moveEPath(){
+        var pos = this.path.current();
+        aStar(this.position[0], this.position[2], pos[0], pos[2], board, this);
+        //this.moveEntity(pos[0], board.tileArray[pos[0]][pos[2]].height + 1, pos[2]);
+
+        //if made it to node, advance the node
+        if(this.position[0] == pos[0] && this.position[2] == pos[2]){
+            this.path.advance();
+        }
+
+        console.log(this.path);
+        console.log(this.mesh.position);
     }
 }
 export {Enemy};

@@ -47,14 +47,14 @@ function setupLevel(){
     cameraControls = new THREE.OrbitControls( camera, renderer.domElement );
     camera.position.y = 20;
     camera.position.z = 20;
-
+  
     //Construct board object
     board = createTestLevel();
     
     // create scene object
     scene = new THREE.Scene;
     loadLevel(scene, board);
-
+  
      // add to scene and renderer
      scene.add(camera); 
      camera.lookAt(board.tileArray[0][0].position);  
@@ -89,7 +89,7 @@ function loadLevel(scene, board) {
     scene.add(board.player.mesh);
     //add cursor to the scene
     scene.add(board.cursor.mesh);
-    //add enemy to the scene
+    //add enemy to the scene //TODO: Add array compatibility for board
     scene.add(board.enemies.mesh);
 
 }
@@ -102,7 +102,7 @@ function renderLevel() {
 
 function animate() {
     requestAnimationFrame(animate);
-    renderLevel();
+    render();
 }
 
 init();
@@ -111,3 +111,4 @@ export {movementUnlocked};
 export {scene};
 export {camera};
 export {cameraControls};
+export {board};
