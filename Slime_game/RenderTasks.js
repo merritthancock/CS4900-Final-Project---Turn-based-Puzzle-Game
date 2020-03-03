@@ -49,7 +49,8 @@ function updateRender(board){
             getLock();
         }
         if(keyStatus["mKey"]){
-            moveEPath();
+            getLock();
+            board.enemies.moveEPath("mKey");
         }
     }
 }

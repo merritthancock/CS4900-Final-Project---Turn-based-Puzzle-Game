@@ -49,8 +49,15 @@ class Enemy extends Entity {
         
     }
 
-    moveEPath(){
-
+    moveEPath(move){//moves the enemy along a predetermined patrol path
+        switch(move){
+            case "mKey":
+                this.path.advance();
+                var pos = this.path.current();
+                this.moveEntity(pos[0],pos[1],pos[2]);
+                console.log(this.path);
+                console.log(this.mesh.position);
+        }
     }
 }
 export {Enemy};

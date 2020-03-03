@@ -75,6 +75,11 @@ function doKeyUp(event) {
             keyStatus["enter"] = false;
             releaseLock();
             break;
+        
+        case 77: //m key for testing enemy pathing
+            keyStatus["mKey"] = false;
+            releaseLock();
+            break;
     }
 }
 
