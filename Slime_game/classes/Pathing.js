@@ -131,13 +131,13 @@ function occupied(board){//returns what occupies the tile and calls on flood fil
         //var overlayList = movementOverlayHelper(board, occupant);
         return occupant.id;
     }
-    else if(board.overlayMap[board.cursor.position[0]][board.cursor.position[2]].overlay.material.visible){
+    else {//if(board.overlayMap[board.cursor.position[0]][board.cursor.position[2]].overlay.material.visible){
         return "None";
     }
-    else{
-        wipeOverlay(board);
-        return "None";
-    }
+    //else{
+    //    wipeOverlay(board);
+    //    return "None";
+    //}
 }
 
 function wipeOverlay(board){//this will return overlay visibility to false when player not occupying space
