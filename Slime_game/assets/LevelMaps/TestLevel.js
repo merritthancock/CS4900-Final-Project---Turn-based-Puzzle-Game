@@ -2,6 +2,7 @@ import {Cursor} from "../../classes/Entities/Cursor.js";
 import {Enemy} from "../../classes/Entities/Enemy.js";
 import {Player} from "../../classes/Entities/Player.js";
 import {Board} from "../../classes/Board.js";
+import {milcapSoldier, slimePlayer} from "../../classes/Models.js";
 
 function createTestLevel(){
     var testLevelTileMap = [
@@ -107,11 +108,6 @@ function createTestLevel(){
     enemy.path.add([15, 1, 4]);
     enemy.path.add([14, 1, 4]);//enemy appears to wait a turn before the loop happens. Not sure why atm
     enemy.path.add([13, 1, 3]); 
-    
-
-
-
-
 
     console.log(enemy.path);
 
