@@ -14,9 +14,7 @@ function buildCameraControls(){
     cameraControls.minPolarAngle = Math.PI / 10;
     cameraControls.minDistance = 10;
     cameraControls.maxDistance = 75;
-    //cameraControls.maxAzimuthAngle = Math.PI / 2.5;
-    //cameraControls.minAzimuthAngle = Math.PI / 10;
-    cameraControls.rotateSpeed = (0.5);
+    cameraControls.rotateSpeed = 0.5;
     cameraControls.panSpeed = 0.5;
     //Update Orbit controls
     cameraControls.update();
