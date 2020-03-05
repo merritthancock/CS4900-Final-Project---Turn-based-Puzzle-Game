@@ -18,24 +18,5 @@ function buildCameraControls(){
     cameraControls.update();
 }
 
-function moveCamera(camera, direction){
-    switch(direction){
-        case "forward":
-            camera.position.z += 1;
-            break;
-        case "backward":
-            camera.position.z -= 1;
-            break;
-        case "left":
-            camera.position.x -= 1;
-            break;
-        case "right":
-            camera.position.x += 1;
-            break;
-    }
-    camera.lookAt(cursor.position);
-}
-
-export{moveCamera};
 export{buildCamera};
 export{buildCameraControls}
