@@ -3,16 +3,16 @@ import {updateRender} from "../RenderTasks.js";
 import {doKeyUp, doKeyDown} from "../KeyboardInput.js";
 import {buildCamera} from "./Camera.js";
 
-// declare variables
-var windowWidth;
-var windowHeight;
-var camera;
-var cameraControls;
-var renderer;
-var scene;
-var board;
+// declare letiables
+let windowWidth;
+let windowHeight;
+let camera;
+let cameraControls;
+let renderer;
+let scene;
+let board;
 //just for renderTask to compile
-var movementUnlocked;
+let movementUnlocked;
 //Game setup tasks-----------------------------------------------
 //Sets height and width for game window
 windowWidth = window.innerWidth;
@@ -36,11 +36,6 @@ document.addEventListener('keyup', doKeyUp, false);
 document.addEventListener('keydown', doKeyDown, false);
 //----------------------------------------------------------------
 
-//These methods won't let me call them in animate for some reason
-function init() {
-    setupLevel();
-    animate();
-}
 
 function setupLevel(){
     camera = new THREE.PerspectiveCamera(45, windowWidth / windowHeight, 0.1, 10000);
@@ -59,13 +54,15 @@ function setupLevel(){
      scene.add(camera); 
      camera.lookAt(board.tileArray[0][0].position);  
      buildCamera();
+
+     animate();
 }
 
 //loadLevel accepts a scene and board as parameters.
 //It searches the board for all terrain, enemy, and player meshes and adds them to the scene.
 function loadLevel(scene, board) {
-    for(var i = 0; i < board.tileArray.length; i++){
-        for(var j = 0; j < board.tileArray[0].length; j++){
+    for(let i = 0; i < board.tileArray.length; i++){
+        for(let j = 0; j < board.tileArray[0].length; j++){
             if(board.tileArray[i][j].terrain != null){
                 scene.add(board.tileArray[i][j].terrain);
                 scene.add(board.overlayMap[i][j].overlay);
@@ -74,15 +71,14 @@ function loadLevel(scene, board) {
     }
 
     // create lighting and add to scene 
-    var pointLight = new THREE.PointLight(0xaabbcc);
-    pointLight.position.set(10, 16, 16);
-    scene.add(pointLight);
+    let light = new THREE.AmbientLight( 0xe0e0e0 ); // soft white light
+    scene.add(light);
 
     //Set up the skybox
-    var sky = new THREE.TextureLoader().load( './assets/Slimegamesky.jpg' );
-    var skyboxGeometry = new THREE.CubeGeometry(100, 100, 100);
-    var skyboxMaterial = new THREE.MeshBasicMaterial({  map: sky, side: THREE.BackSide });
-    var skybox = new THREE.Mesh(skyboxGeometry, skyboxMaterial);
+    let sky = new THREE.TextureLoader().load( './assets/Slimegamesky.jpg' );
+    let skyboxGeometry = new THREE.CubeGeometry(100, 100, 100);
+    let skyboxMaterial = new THREE.MeshBasicMaterial({  map: sky, side: THREE.BackSide });
+    let skybox = new THREE.Mesh(skyboxGeometry, skyboxMaterial);
     scene.add(skybox);
 
     //add player to the scene
@@ -102,10 +98,10 @@ function renderLevel() {
 
 function animate() {
     requestAnimationFrame(animate);
-    render();
+    renderLevel();
 }
 
-init();
+setupLevel();
 
 export {movementUnlocked};
 export {scene};
