@@ -1,7 +1,7 @@
 import {board} from "../Controller.js";
 import {Entity} from "./Entity.js";
 //import {FollowPathBehavior} from "../libraries/yuka-master/src/yuka.js";
-import {Path} from "../../libraries/yuka-master/src/yuka.js";
+import {Path, PursuitBehavior} from "../../libraries/yuka-master/src/yuka.js";
 import {aStar} from "../Pathing.js";
 
 //The Enemy is an object that will contain unique methods allowing player interaction
