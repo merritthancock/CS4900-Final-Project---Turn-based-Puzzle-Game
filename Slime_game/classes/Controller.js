@@ -12,8 +12,7 @@ let cameraControls;
 let renderer;
 let scene;
 let board;
-//just for renderTask to compile
-let movementUnlocked;
+
 //Game setup tasks-----------------------------------------------
 //Sets height and width for game window
 windowWidth = window.innerWidth;
@@ -84,7 +83,7 @@ function loadLevel(scene, board) {
 }
 
 function renderLevel() {
-    cameraControls.update();
+    //cameraControls.update();
     renderer.render(scene, camera);
     updateRender(board);
 }
@@ -96,7 +95,6 @@ function animate() {
 
 setupLevel();
 
-export {movementUnlocked};
 export {scene};
 export {camera};
 export {cameraControls};
