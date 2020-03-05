@@ -2,6 +2,7 @@ import {createTestLevel} from "../assets/LevelMaps/TestLevel.js";
 import {updateRender} from "../RenderTasks.js";
 import {doKeyUp, doKeyDown} from "../KeyboardInput.js";
 import {buildCamera} from "./Camera.js";
+import {buildCameraControls} from "./Camera.js";
 
 // declare letiables
 let windowWidth;
@@ -40,9 +41,10 @@ document.addEventListener('keydown', doKeyDown, false);
 function setupLevel(){
     scene = new THREE.Scene;
     camera = new THREE.PerspectiveCamera(45, windowWidth / windowHeight, 0.1, 10000);
+    buildCamera();
     scene.add(camera); 
     cameraControls = new THREE.OrbitControls( camera, renderer.domElement );
-    buildCamera();
+    buildCameraControls();
     //Construct board object
     board = createTestLevel();
     loadLevel(scene, board);
