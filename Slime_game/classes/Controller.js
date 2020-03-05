@@ -27,7 +27,6 @@ document.body.appendChild(renderer.domElement);
 window.addEventListener('resize', () => {
     renderer.setSize(window.innerWidth,window.innerHeight);
     camera.aspect = window.innerWidth / window.innerHeight;
-
     camera.updateProjectionMatrix();
 });
 
@@ -39,14 +38,17 @@ document.addEventListener('keydown', doKeyDown, false);
 
 function setupLevel(){
     scene = new THREE.Scene;
-    camera = new THREE.PerspectiveCamera(45, windowWidth / windowHeight, 0.1, 10000);
-    buildCamera();
-    scene.add(camera); 
-    cameraControls = new THREE.OrbitControls( camera, renderer.domElement );
-    buildCameraControls();
+
     //Construct board object
     board = createTestLevel();
     loadLevel(scene, board);
+
+    camera = new THREE.PerspectiveCamera(45, windowWidth / windowHeight, 0.1, 10000);
+    buildCamera();
+    scene.add(camera);
+    camera.updateProjectionMatrix();
+    cameraControls = new THREE.OrbitControls( camera, renderer.domElement );
+    buildCameraControls();
     animate();
 }
 
@@ -83,7 +85,6 @@ function loadLevel(scene, board) {
 }
 
 function renderLevel() {
-    //cameraControls.update();
     renderer.render(scene, camera);
     updateRender(board);
 }
