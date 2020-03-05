@@ -38,24 +38,15 @@ document.addEventListener('keydown', doKeyDown, false);
 
 
 function setupLevel(){
+    scene = new THREE.Scene;
     camera = new THREE.PerspectiveCamera(45, windowWidth / windowHeight, 0.1, 10000);
+    scene.add(camera); 
     cameraControls = new THREE.OrbitControls( camera, renderer.domElement );
-    camera.position.y = 20;
-    camera.position.z = 20;
-  
+    buildCamera();
     //Construct board object
     board = createTestLevel();
-    
-    // create scene object
-    scene = new THREE.Scene;
     loadLevel(scene, board);
-  
-     // add to scene and renderer
-     scene.add(camera); 
-     camera.lookAt(board.tileArray[0][0].position);  
-     buildCamera();
-
-     animate();
+    animate();
 }
 
 //loadLevel accepts a scene and board as parameters.

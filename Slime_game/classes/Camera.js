@@ -7,6 +7,11 @@ function buildCamera(){
     cameraControls.minPolarAngle = Math.PI / 10;
     cameraControls.minDistance = 10;
     cameraControls.maxDistance = 75;
+    //Camera Position
+    camera.position.y = 20;
+    camera.position.z = 20;
+    //Update Orbit controls
+    cameraControls.update();
 }
 
 function moveCamera(camera, direction){
