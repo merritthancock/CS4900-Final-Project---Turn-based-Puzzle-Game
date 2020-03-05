@@ -9,7 +9,6 @@ function updateRender(board){
             getLock("inputHandler");
             console.log("Moving Cursor Forward!");
             board.cursor.moveCursor(board.cursor, "forward");
-            //moveCamera(camera, "forward");
             board.cursor.cursorHeight(board.cursor, board.tileArray[board.cursor.position[0]][board.cursor.position[2]].height + .6);
             hover(board);
         }
@@ -17,7 +16,6 @@ function updateRender(board){
             getLock("inputHandler");
             console.log("Moving Cursor Left!");
             board.cursor.moveCursor(board.cursor, "left");
-            //moveCamera(camera, "backward");
             board.cursor.cursorHeight(board.cursor, board.tileArray[board.cursor.position[0]][board.cursor.position[2]].height + .6);
             hover(board);
         }
@@ -25,7 +23,6 @@ function updateRender(board){
             getLock("inputHandler");
             console.log("Moving Cursor Backward!");
             board.cursor.moveCursor(board.cursor, "backward");
-            //moveCamera(camera, "left");
             board.cursor.cursorHeight(board.cursor, board.tileArray[board.cursor.position[0]][board.cursor.position[2]].height + .6);
             hover(board);
         }
@@ -33,7 +30,6 @@ function updateRender(board){
             getLock("inputHandler");
             console.log("Moving Cursor Right!");
             board.cursor.moveCursor(board.cursor, "right");
-            //moveCamera(camera, "right");
             board.cursor.cursorHeight(board.cursor, board.tileArray[board.cursor.position[0]][board.cursor.position[2]].height + .6);
             hover(board);
         }
