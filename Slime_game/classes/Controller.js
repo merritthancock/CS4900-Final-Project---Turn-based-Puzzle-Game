@@ -4,7 +4,7 @@ import {doKeyUp, doKeyDown} from "../KeyboardInput.js";
 import {buildCamera} from "./Camera.js";
 import {buildCameraControls} from "./Camera.js";
 
-// declare letiables
+//Declare let variables
 let windowWidth;
 let windowHeight;
 let camera;
@@ -13,7 +13,8 @@ let renderer;
 let scene;
 let board;
 
-//Game setup tasks-----------------------------------------------
+//-----------------Game setup tasks------------------------------
+//---------------------------------------------------------------
 //Sets height and width for game window
 windowWidth = window.innerWidth;
 windowHeight = window.innerHeight;
@@ -33,7 +34,8 @@ window.addEventListener('resize', () => {
 //Adds event listeners to document
 document.addEventListener('keyup', doKeyUp, false);
 document.addEventListener('keydown', doKeyDown, false);
-//----------------------------------------------------------------
+//---------------------------------------------------------------
+//------------------End Setup Tasks------------------------------
 
 
 function setupLevel(){

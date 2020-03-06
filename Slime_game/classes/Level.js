@@ -16,7 +16,7 @@ class Level {
         this.player = player;
         //Sets start position
         this.startPos = startPos;
-    }
+    }   
 }
 
 export {Level};
