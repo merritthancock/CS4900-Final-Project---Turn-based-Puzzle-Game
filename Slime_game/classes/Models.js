@@ -47,7 +47,7 @@ var slimePlayer = loader.load(
 
 		gltf.scene.scale.set(.5, .5, .5);
 
-		gltf.scene.position.set(5, 1, 2);
+		gltf.scene.position.set(4, 1, 2);
 
 
 		gltf.animations; // Array<THREE.AnimationClip>
