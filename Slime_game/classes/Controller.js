@@ -4,7 +4,7 @@ import {doKeyUp, doKeyDown} from "../KeyboardInput.js";
 import {buildCamera} from "./Camera.js";
 import {buildCameraControls} from "./Camera.js";
 
-//Declare let variables
+// declare letiables
 let windowWidth;
 let windowHeight;
 let camera;
@@ -13,8 +13,7 @@ let renderer;
 let scene;
 let board;
 
-//-----------------Game setup tasks------------------------------
-//---------------------------------------------------------------
+//Game setup tasks-----------------------------------------------
 //Sets height and width for game window
 windowWidth = window.innerWidth;
 windowHeight = window.innerHeight;
@@ -28,29 +27,27 @@ document.body.appendChild(renderer.domElement);
 window.addEventListener('resize', () => {
     renderer.setSize(window.innerWidth,window.innerHeight);
     camera.aspect = window.innerWidth / window.innerHeight;
+
     camera.updateProjectionMatrix();
 });
 
 //Adds event listeners to document
 document.addEventListener('keyup', doKeyUp, false);
 document.addEventListener('keydown', doKeyDown, false);
-//---------------------------------------------------------------
-//------------------End Setup Tasks------------------------------
+//----------------------------------------------------------------
 
 
 function setupLevel(){
     scene = new THREE.Scene;
-
-    //Construct board object
-    board = createTestLevel();
-    loadLevel(scene, board);
-
     camera = new THREE.PerspectiveCamera(45, windowWidth / windowHeight, 0.1, 10000);
     buildCamera();
     scene.add(camera);
     renderer.compile(scene, camera);
     cameraControls = new THREE.OrbitControls( camera, renderer.domElement );
     buildCameraControls();
+    //Construct board object
+    board = createTestLevel();
+    loadLevel(scene, board);
     animate();
 }
 
@@ -90,11 +87,7 @@ function loadLevel(scene, board) {
 }
 
 function renderLevel() {
-<<<<<<< HEAD
-    renderer.render(scene, camera);
-=======
     //cameraControls.update();
->>>>>>> Testing
     updateRender(board);
     renderer.render(scene, camera);
 }

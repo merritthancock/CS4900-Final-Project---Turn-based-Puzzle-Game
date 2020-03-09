@@ -5,7 +5,6 @@ function buildCamera(){
      //Camera Position
      camera.position.y = 20;
      camera.position.z = 20;
-     camera.updateProjectionMatrix();
 }
 
 function buildCameraControls(){
@@ -14,8 +13,7 @@ function buildCameraControls(){
     cameraControls.minPolarAngle = Math.PI / 10;
     cameraControls.minDistance = 10;
     cameraControls.maxDistance = 75;
-    cameraControls.rotateSpeed = 0.5;
-    cameraControls.panSpeed = 0.5;
+
     //Update Orbit controls
     cameraControls.update();
 }
