@@ -79,7 +79,7 @@ enemy.moveEntity(enemyPos[0], enemyPos[1], enemyPos[2], enemy);
 let enemies = [enemy];
 
 //Create Level
-let testLevel = new Level(testLevelHeightMap, testLevelTileMap, player, enemies, cursor);
+let testLevel = new Level(testLevelHeightMap, testLevelTileMap, enemies, player, cursor);
 
 
 //Create Scene
