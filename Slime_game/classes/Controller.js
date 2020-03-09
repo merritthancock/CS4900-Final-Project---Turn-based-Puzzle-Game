@@ -41,7 +41,8 @@ function setupLevel(){
     scene = new THREE.Scene;
     camera = new THREE.PerspectiveCamera(45, windowWidth / windowHeight, 0.1, 10000);
     buildCamera();
-    scene.add(camera); 
+    scene.add(camera);
+    renderer.compile(scene, camera);
     cameraControls = new THREE.OrbitControls( camera, renderer.domElement );
     buildCameraControls();
     //Construct board object
@@ -87,8 +88,8 @@ function loadLevel(scene, board) {
 
 function renderLevel() {
     //cameraControls.update();
-    renderer.render(scene, camera);
     updateRender(board);
+    renderer.render(scene, camera);
 }
 
 function animate() {

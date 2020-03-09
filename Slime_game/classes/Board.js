@@ -44,10 +44,10 @@ class Tile {
         this.height = height;
         this.type = type;
 
-        var grass = new THREE.TextureLoader().load( './assets/grass.jpg' );
+        var grass = new THREE.TextureLoader().load( './assets/grass64.jpg' );
         var water = new THREE.TextureLoader().load( './assets/water.jpg' );
         var rocks = new THREE.TextureLoader().load( './assets/mountain.jpg' );
-        var cave = new THREE.TextureLoader().load( './assets/cave.jpg' );
+        var cave = new THREE.TextureLoader().load( './assets/cave64.jpg' );
 
         switch(type){
             case 0://grass
