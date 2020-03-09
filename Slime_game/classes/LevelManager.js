@@ -1,9 +1,8 @@
 import{Level} from "./Level.js";
-import {Board} from "./Board.js";
 import {Cursor} from "./Entities/Cursor.js";
 import {Enemy} from "./Entities/Enemy.js";
 import {Player} from "./Entities/Player.js";
-import {milcapSoldier, slimePlayer} from "..//Models.js";
+import {milcapSoldier, slimePlayer} from "./Models.js";
 
 //Create New Levels
 //Load Level
@@ -125,6 +124,7 @@ function loadBoard(scene, level) {
 }
 
 loadLevel(scene, testLevel);
+
 export {scene}
 export {testLevel}
 

@@ -1,4 +1,3 @@
-import {createTestLevel} from "../assets/LevelMaps/TestLevel.js";
 import {updateRender} from "../RenderTasks.js";
 import {doKeyUp, doKeyDown} from "../KeyboardInput.js";
 import {buildCamera} from "./Camera.js";
@@ -90,7 +89,7 @@ function setupLevel(){
 
 function renderLevel() {
     //cameraControls.update();
-    updateRender(test.Level.board);
+    updateRender(testLevel.board);
     renderer.render(scene, camera);
 }
 
