@@ -1,9 +1,10 @@
+//TO MAKE USE OF moveEnemy AND moveEPath FOR ALL ENEMIES
+
 import {board} from "../Controller.js";
 import {Entity} from "./Entity.js";
 //import {FollowPathBehavior} from "../libraries/yuka-master/src/yuka.js";
 import {Path, PursuitBehavior} from "../../libraries/yuka-master/src/yuka.js";
 import {aStar} from "../Pathing.js";
-//import {milcapSM} from "../States.js";
 
 //The Enemy is an object that will contain unique methods allowing player interaction
 class Enemy extends Entity {
@@ -51,6 +52,7 @@ class Enemy extends Entity {
     //moves the enemy along a predetermined patrol path
     moveEPath(){
         var pos = this.path.current();
+        console.log(pos);
         aStar(this.position[0], this.position[2], pos[0], pos[2], board, this);
 
         //if made it to node, advance the node

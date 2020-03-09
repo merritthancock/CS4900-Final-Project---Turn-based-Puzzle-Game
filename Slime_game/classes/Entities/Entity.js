@@ -4,7 +4,7 @@ class Entity extends GameEntity {
     constructor(position, model, texture, id){
         super();
         //Set position of entity
-        this.position = position;
+        this.position.set(position);
         //Set geometry of entity
         this.model = model;
         //Set material

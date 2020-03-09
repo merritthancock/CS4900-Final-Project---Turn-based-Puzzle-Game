@@ -1,15 +1,15 @@
 import {board} from "../../Controller.js";
 import {Entity} from "../Entity.js";
-import {Path, PursuitBehavior} from "../../../libraries/yuka-master/src/yuka.js";
+import {Path, PursuitBehavior, StateMachine} from "../../../libraries/yuka-master/src/yuka.js";
 import {aStar} from "../../Pathing.js";
-import {milcapSM} from "../../States.js";
 import { Enemy } from "../Enemy.js";
+import { PatrolState, PursueState } from "./MilcapStates.js";
 
 //The Enemy is an object that will contain unique methods allowing player interaction
 class Milcap extends Enemy {
     constructor(position, model, texture, id, startingMass, startPriority){
         //Call entity constructor
-        super(position, model, texture, id);
+        super(position, model, texture, id, startingMass, startPriority);
 
         //Set starting mass
         this.mass = startingMass;
@@ -23,13 +23,17 @@ class Milcap extends Enemy {
         this.priority = startPriority;
         //Give the enemy a path to patrol (loop must be set to true if path is cyclical)
         this.path = new Path();
-        //this.path.add(position);
         console.log(this.path);
         
-        this.stateMachine = milcapSM;
+        this.stateMachine = new StateMachine(this);
+
+        this.stateMachine.add('PATROL', new PatrolState());
+        this.stateMachine.add('PURSUE', new PursueState());
+
+        this.stateMachine.changeTo('PATROL');
 
     }
-
+    /*
     moveEnemy(direction){
         switch(direction){
             case "forward":
@@ -45,9 +49,7 @@ class Milcap extends Enemy {
                 this.position[0] -= 1;
                 break;
         }
-        //Set height equal to the height of the tile that the cursor was moved over.
-        /*this.position[1] = level.board[this.position[0]][this.position[2]].height;
-        this.position.set(cursor_currentPos[0], cursor_currentPos[1], cursor_currentPos[2]);*/
+        
     }
 
     //useAbility(){
@@ -68,6 +70,6 @@ class Milcap extends Enemy {
 
         console.log(this.path);
         console.log(this.mesh.position);
-    }
+    }*/
 }
 export {Milcap};

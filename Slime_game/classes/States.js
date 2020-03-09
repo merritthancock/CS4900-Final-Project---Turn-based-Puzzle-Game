@@ -1,3 +1,8 @@
+
+//----------------------------------------------------------------------
+//THIS FILE IS CURRENTLY USELESS AND SUBJECT TO NUKING
+//----------------------------------------------------------------------
+
 import {State, StateMachine} from "../libraries/yuka-master/src/yuka.js";
 
 //general states
