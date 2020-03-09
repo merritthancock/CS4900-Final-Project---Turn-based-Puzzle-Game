@@ -1,18 +1,16 @@
 import{Board} from"./Board.js";
 
 class Level{
-    constructor(heightMap, terrainMap, enemies, player, startPos){
+    constructor(heightMap, terrainMap, enemies, player, cursor){
 
-        //Set 2d heightMap
-        this.heightMap = heightMap;
-        //Set 2d terrainMap
-        this.terrainMap = terrainMap;
+        //Call a Board constructor using heightMap, terrainMap, enemies, and player
+        this.board = new Board(terrainMap, heightMap, player, enemies, cursor);
         //Set enemies array
         this.enemies = enemies;
         //Set player
         this.player = player;
-        //Set startPos
-        this.startPos = startPos;
+        //Sets cursor
+        this.cursor = cursor;
         
     }
 }

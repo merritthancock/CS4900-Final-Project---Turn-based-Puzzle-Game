@@ -3,6 +3,8 @@ import {updateRender} from "../RenderTasks.js";
 import {doKeyUp, doKeyDown} from "../KeyboardInput.js";
 import {buildCamera} from "./Camera.js";
 import {buildCameraControls} from "./Camera.js";
+import {scene} from "./LevelManager.js";
+import {testLevel} from "./LevelManager.js";
 
 // declare letiables
 let windowWidth;
@@ -10,8 +12,8 @@ let windowHeight;
 let camera;
 let cameraControls;
 let renderer;
-let scene;
-let board;
+//let scene;
+//let board;
 
 //Game setup tasks-----------------------------------------------
 //Sets height and width for game window
@@ -38,22 +40,22 @@ document.addEventListener('keydown', doKeyDown, false);
 
 
 function setupLevel(){
-    scene = new THREE.Scene;
+    //scene = new THREE.Scene;
     camera = new THREE.PerspectiveCamera(45, windowWidth / windowHeight, 0.1, 10000);
     buildCamera();
-    scene.add(camera);
+    scene.add(camera);//referenced scene from LevelManager
     renderer.compile(scene, camera);
     cameraControls = new THREE.OrbitControls( camera, renderer.domElement );
     buildCameraControls();
     //Construct board object
-    board = createTestLevel();
-    loadLevel(scene, board);
+    //board = createTestLevel();
+    //loadLevel(scene, board);
     animate();
 }
 
 //loadLevel accepts a scene and board as parameters.
 //It searches the board for all terrain, enemy, and player meshes and adds them to the scene.
-function loadLevel(scene, board) {
+/*function loadLevel(scene, board) {
     for(let i = 0; i < board.tileArray.length; i++){
         for(let j = 0; j < board.tileArray[0].length; j++){
             if(board.tileArray[i][j].terrain != null){
@@ -84,11 +86,11 @@ function loadLevel(scene, board) {
     //add enemy to the scene //TODO: Add array compatibility for board
     scene.add(board.enemies.mesh);
 
-}
+}*/
 
 function renderLevel() {
     //cameraControls.update();
-    updateRender(board);
+    updateRender(test.Level.board);
     renderer.render(scene, camera);
 }
 
@@ -99,7 +101,5 @@ function animate() {
 
 setupLevel();
 
-export {scene};
 export {camera};
 export {cameraControls};
-export {board};
