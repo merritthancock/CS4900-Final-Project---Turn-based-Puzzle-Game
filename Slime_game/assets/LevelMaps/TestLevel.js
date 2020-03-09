@@ -113,7 +113,7 @@ function createTestLevel(){
 
     testLevelEnemies.push(enemy);
 
-    var testBoard = new Board(testLevelTileMap, testLevelHeightMap, testLevelEntitiesMap, player, enemy, cursor);
+    var testBoard = new Board(testLevelTileMap, testLevelHeightMap, player, enemy, cursor);
 
     return testBoard;
 }

@@ -1,3 +1,4 @@
+import{Board} from"./Board.js";
 
 class Level{
     constructor(heightMap, terrainMap, enemies, player, startPos){
