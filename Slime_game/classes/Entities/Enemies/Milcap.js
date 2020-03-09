@@ -1,12 +1,12 @@
-import {board} from "../Controller.js";
-import {Entity} from "./Entity.js";
-//import {FollowPathBehavior} from "../libraries/yuka-master/src/yuka.js";
-import {Path, PursuitBehavior} from "../../libraries/yuka-master/src/yuka.js";
-import {aStar} from "../Pathing.js";
-//import {milcapSM} from "../States.js";
+import {board} from "../../Controller.js";
+import {Entity} from "../Entity.js";
+import {Path, PursuitBehavior} from "../../../libraries/yuka-master/src/yuka.js";
+import {aStar} from "../../Pathing.js";
+import {milcapSM} from "../../States.js";
+import { Enemy } from "../Enemy.js";
 
 //The Enemy is an object that will contain unique methods allowing player interaction
-class Enemy extends Entity {
+class Milcap extends Enemy {
     constructor(position, model, texture, id, startingMass, startPriority){
         //Call entity constructor
         super(position, model, texture, id);
@@ -23,7 +23,10 @@ class Enemy extends Entity {
         this.priority = startPriority;
         //Give the enemy a path to patrol (loop must be set to true if path is cyclical)
         this.path = new Path();
+        //this.path.add(position);
         console.log(this.path);
+        
+        this.stateMachine = milcapSM;
 
     }
 
@@ -42,16 +45,21 @@ class Enemy extends Entity {
                 this.position[0] -= 1;
                 break;
         }
+        //Set height equal to the height of the tile that the cursor was moved over.
+        /*this.position[1] = level.board[this.position[0]][this.position[2]].height;
+        this.position.set(cursor_currentPos[0], cursor_currentPos[1], cursor_currentPos[2]);*/
     }
 
-    useAbility(){
+    //useAbility(){
         
-    }
+   // }
 
     //moves the enemy along a predetermined patrol path
+    //TODO: add compatibility with enemy array for multiple enemies
     moveEPath(){
         var pos = this.path.current();
         aStar(this.position[0], this.position[2], pos[0], pos[2], board, this);
+        //this.moveEntity(pos[0], board.tileArray[pos[0]][pos[2]].height + 1, pos[2]);
 
         //if made it to node, advance the node
         if(this.position[0] == pos[0] && this.position[2] == pos[2]){
@@ -62,4 +70,4 @@ class Enemy extends Entity {
         console.log(this.mesh.position);
     }
 }
-export {Enemy};
+export {Milcap};
