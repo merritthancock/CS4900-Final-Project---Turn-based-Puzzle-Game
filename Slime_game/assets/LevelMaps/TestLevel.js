@@ -100,7 +100,7 @@ function createTestLevel(){
     var enemyPos = [13, 1, 3];
     var enemy = new Enemy(enemyPos, enemyBox, skull, "enemy", 1);
     enemy.moveEntity(enemyPos[0], enemyPos[1], enemyPos[2], enemy);
-
+    
     //Adding waypoints for the enemy path [WILL NEED REWORKING. JUST FOR TESTING RN]
     enemy.path.loop = true;
     enemy.path.add([13, 1, 13]);

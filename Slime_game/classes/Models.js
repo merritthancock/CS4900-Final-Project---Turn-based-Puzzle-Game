@@ -30,6 +30,13 @@ var slimePlayer = loader.load(
 		scene.add(gltf.scene);
 		gltf.scene.scale.set(.5, .5, .5);
 		gltf.scene.position.set(5, 1, 2);
+
+		gltf.animations; // Array<THREE.AnimationClip>
+		gltf.scene; // THREE.Scene
+		gltf.scenes; // Array<THREE.Scene>
+		gltf.cameras; // Array<THREE.Camera>
+		gltf.asset; // Object
+
 	},
 	// called while loading is progressing
 	function ( xhr ) {

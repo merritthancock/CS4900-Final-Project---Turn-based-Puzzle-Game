@@ -48,7 +48,7 @@ function setupLevel(){
     camera = new THREE.PerspectiveCamera(45, windowWidth / windowHeight, 0.1, 10000);
     buildCamera();
     scene.add(camera);
-    camera.updateProjectionMatrix();
+    renderer.compile(scene, camera);
     cameraControls = new THREE.OrbitControls( camera, renderer.domElement );
     buildCameraControls();
     animate();
@@ -67,8 +67,11 @@ function loadLevel(scene, board) {
     }
 
     // create lighting and add to scene 
+
     let light = new THREE.AmbientLight( 0xe0e0e0 ); // soft white light
+
     scene.add(light);
+
 
     //Set up the skybox
     let sky = new THREE.TextureLoader().load( './assets/Slimegamesky.jpg' );
@@ -87,8 +90,13 @@ function loadLevel(scene, board) {
 }
 
 function renderLevel() {
+<<<<<<< HEAD
     renderer.render(scene, camera);
+=======
+    //cameraControls.update();
+>>>>>>> Testing
     updateRender(board);
+    renderer.render(scene, camera);
 }
 
 function animate() {
