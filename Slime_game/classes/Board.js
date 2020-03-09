@@ -6,6 +6,10 @@ class Board {
         this.cursor = cursor;
         this.selected = null;
 
+        //Added these for LevelManager
+        this.tileMap = tileMap;
+        this.heightMap = heightMap;
+
         this.overlayMap = [];
         this.tileArray = [];
         for(let i = 0; i < tileMap.length; i++){

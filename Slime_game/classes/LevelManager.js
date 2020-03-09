@@ -93,7 +93,7 @@ function loadLevel(scene, level){
 
 function loadBoard(scene, level) {
     for(let i = 0; i < level.board.tileMap.length; i++){
-        for(let j = 0; j < levelboard.tileMap[0].length; j++){
+        for(let j = 0; j < level.board.tileMap[0].length; j++){
             if(level.board.tileMap[i][j].terrain != null){
                 scene.add(level.board.tileMap[i][j].terrain);
                 scene.add(level.board.tileMap[i][j].overlay);
@@ -114,12 +114,12 @@ function loadBoard(scene, level) {
     scene.add(skybox);
 
     //add player to the scene
-    scene.add(level.board.player.mesh);
+    scene.add(level.player.mesh);
     //add cursor to the scene
-    scene.add(level.board.cursor.mesh);
+    scene.add(level.cursor.mesh);
     //add enemy to the scene //TODO: Add array compatibility for board
     for(let i = 0; i < enemies.length; i++){
-        scene.add(board.enemies[i].mesh);
+        scene.add(level.enemies[i].mesh);
     }
 }
 
