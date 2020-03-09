@@ -63,5 +63,18 @@ class Enemy extends Entity {
         console.log(this.path);
         console.log(this.mesh.position);
     }
+
+    loop(){//changes whether path can loop
+        if(this.path.loop == true){
+            this.path.loop = false;
+        }
+        else{
+            this.path.loop = true;
+        }
+    }
+
+    pathAdd(waypoint){
+        this.path.add(waypoint);
+    }
 }
 export {Enemy};

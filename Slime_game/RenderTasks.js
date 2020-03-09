@@ -77,7 +77,7 @@ function updateRender(board){
         }
         if(keyStatus["mKey"]){
             getLock("inputHandler");
-            board.enemies.moveEPath();
+            board.enemies.update();//CHANGE AS NECESSARY
         }
     }
 }

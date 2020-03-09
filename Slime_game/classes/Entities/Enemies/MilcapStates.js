@@ -7,11 +7,15 @@ const PURSUE = 'PURSUE';
 class PatrolState extends State{
 
     enter(enemy) {
-        enemy.moveEPath();
+        //can be used to play an animation of some sort
     }
 
     execute(enemy){
         enemy.moveEPath();
+    }
+
+    exit(enemy){
+        //enemy.moveEPath();
     }
 
 }
