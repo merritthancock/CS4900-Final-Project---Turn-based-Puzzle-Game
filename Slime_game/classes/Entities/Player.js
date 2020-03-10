@@ -1,11 +1,12 @@
 import {Entity} from "./Entity.js";
 import { passTurn } from "../TurnManager.js";
 
+
 //Players inherit from Entity
 class Player extends Entity {
-    constructor(position, model, texture, id, startingMass){
+    constructor(position, model, id, startingMass){
         //Set up entity object part
-        super(position, model, texture, id);
+        super(position, model, id);
 
         //Set starting mass and size values
         this.mass = startingMass;
