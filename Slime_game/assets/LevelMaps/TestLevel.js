@@ -1,4 +1,4 @@
-import {Cursor} from "../../classes/Entities/Cursor.js";
+/*import {Cursor} from "../../classes/Entities/Cursor.js";
 import {Enemy} from "../../classes/Entities/Enemy.js";
 import {Player} from "../../classes/Entities/Player.js";
 import {Board} from "../../classes/Board.js";
@@ -118,4 +118,4 @@ function createTestLevel(){
     return testBoard;
 }
 
-export {createTestLevel};
+export {createTestLevel};*/
