@@ -21,29 +21,7 @@ var milcapSoldier = loader.load(
 		console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
 	}
 );
-var slimePlayer = loader.load(
-	// resource URL
-	'SlimeMain.glb',
-	// called when the resource is loaded
-	
-	function ( gltf ) {
-		scene.add(gltf.scene);
-		gltf.scene.scale.set(.5, .5, .5);
 
-		gltf.scene.position.set(4, 1, 2);
-
-		gltf.animations; // Array<THREE.AnimationClip>
-		gltf.scene; // THREE.Scene
-		gltf.scenes; // Array<THREE.Scene>
-		gltf.cameras; // Array<THREE.Camera>
-		gltf.asset; // Object
-
-	},
-	// called while loading is progressing
-	function ( xhr ) {
-		console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-	}
-);
 var cursor = loader.load(
 	// resource URL
 	'CursorOption2.glb',
@@ -67,4 +45,4 @@ var cursor = loader.load(
 		console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
 	}
 );
-export {milcapSoldier, slimePlayer};
+export {loader};
