@@ -10,14 +10,14 @@ class Board {
         this.tileMap = tileMap;
         this.heightMap = heightMap;
 
-        this.overlayMap = [];
         this.tileArray = [];
+        this.overlayMap = [];
         for(let i = 0; i < tileMap.length; i++){
             this.tileArray[i] = [];
             this.overlayMap[i] = [];
             for(let j = 0; j < tileMap[0].length; j++){
                 this.tileArray[i][j] = new Tile([i, heightMap[i][j] / 2, j], heightMap[i][j], tileMap[i][j]);
-                this.overlayMap[i][j] = new Overlay([i, heightMap[i][j] + 0.6, j]); 
+                this.overlayMap[i][j] = new Overlay([i, heightMap[i][j] + 0.6, j]);
             }
         }
         //Loop through enemies list, get each enemy's position, and place them in the corresponding
@@ -28,7 +28,7 @@ class Board {
             this.tileArray[x][y].occupant = enemies[i];
         }
         //Set player's position on the board
-        this.tileArray[player.position[0]][player.position[1]] = player;
+        this.tileArray[player.position[0]][player.position[2]].occupant = player;
     }
 
     select(entity){
@@ -88,6 +88,7 @@ class Tile {
                 break;
         }
         if(this.terrain != null){
+            //Set position
             this.terrain.position.x = this.position[0];
             this.terrain.position.y = this.position[1];
             this.terrain.position.z = this.position[2];
@@ -104,7 +105,6 @@ class Overlay {
         this.overlay.position.x = this.pos[0];
         this.overlay.position.y = this.pos[1];
         this.overlay.position.z = this.pos[2];
-        
     }
 }
 

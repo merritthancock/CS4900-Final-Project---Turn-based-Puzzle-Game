@@ -16,6 +16,7 @@ class Player extends Entity {
         this.movementRange = 2;
         //Set default jump height to 1
         this.jumpHeight = 1;
+        this.canActivateTrigger = true;
     }
 
     //Function absorbs enemy, increases mass
