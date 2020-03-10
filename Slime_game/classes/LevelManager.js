@@ -74,7 +74,7 @@ cursor.moveEntity(cursorPos[0], cursorPos[1], cursorPos[2], cursor);
 let skull = new THREE.TextureLoader().load( './assets/skull.jpg' );
 let enemyBox = new THREE.BoxGeometry(1,1,1);
 let enemyPos = [13, 1, 3];
-let enemy = new Milcap(enemyPos, enemyBox, skull, "enemy", 1);
+let enemy = new Milcap(enemyPos, enemyBox, skull, "enemy", 1, 1);
 enemy.moveEntity(enemyPos[0], enemyPos[1], enemyPos[2], enemy);
 let enemies = [enemy];
 
@@ -89,7 +89,7 @@ enemy.path.add([13, 1, 3]);
 let skull2 = new THREE.TextureLoader().load( './assets/skull.jpg' );
 let enemyBox2 = new THREE.BoxGeometry(1,1,1);
 let enemyPos2 = [8, 1, 17];
-let enemy2 = new Milcap(enemyPos2, enemyBox2, skull2, "enemy2", 2);
+let enemy2 = new Milcap(enemyPos2, enemyBox2, skull2, "enemy2", .9, 2);
 
 enemies.push(enemy2);
 enemy2.moveEntity(enemyPos2[0], enemyPos2[1], enemyPos2[2], enemy2);

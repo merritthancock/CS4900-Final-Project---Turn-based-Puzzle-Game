@@ -12,7 +12,7 @@ function sleep(ms) {
 async function passTurn(enemies) {
     turnCount++;
     let enemyPriorityQueue = buildPriorityQueue(enemies);
-    
+
     //if player turn, pass turn to enemy and handle enemy movement
     if(isPlayerTurn) {
         getMasterLock();

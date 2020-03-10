@@ -34,10 +34,9 @@ function AStarFinder() {
 AStarFinder.prototype.findPath = function(startX, startY, endX, endY, board, entity) {
     //MODIFICATION: Check if final tile is occupied
     var isOccupied = false;
-    if(board.tileArray[endX][endY].occupied != null) {
+    if(board.tileArray[endX][endY].occupant != null) {
         isOccupied = true;
     }
-    
     //MODIFICATION: Build board of nodes to avoid using
     //Grid.js
     this.nodeBoard = []
