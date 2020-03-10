@@ -78,8 +78,7 @@ function updateRender(currentLevel){
         }
         if(keyStatus["mKey"]){
             getLock("inputHandler");
-            //for now this just moves the one enemy
-            currentLevel.enemies[0].moveEPath();
+            board.enemies.update();
         }
     }
 }
