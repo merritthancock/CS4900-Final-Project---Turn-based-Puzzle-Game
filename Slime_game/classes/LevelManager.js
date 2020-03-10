@@ -56,14 +56,14 @@ let testLevelHeightMap = [
 ];
 
 //Create Player
-let slime = new THREE.TextureLoader().load( '../assets/slime.jpg' );
+let slime = new THREE.TextureLoader().load( './assets/slime.jpg' );
 let playerBox = new THREE.BoxGeometry(1, 1, 1);
 let playerPos = [2, 1, 2];
 let player = new Player(playerPos, playerBox, slime, "player", 1);
 player.moveEntity(playerPos[0], playerPos[1], playerPos[2], player);
 
 //Create Cursor
-let cu = new THREE.TextureLoader().load( '../assets/yellow.jpg' );
+let cu = new THREE.TextureLoader().load( './assets/yellow.jpg' );
 let cursorMod = new THREE.CircleBufferGeometry( 0.5, 30 );
 cursorMod.rotateX(-Math.PI/2);
 let cursorPos = [1, 1.6, 2];
@@ -71,7 +71,7 @@ let cursor = new Cursor(cursorPos, cursorMod, cu, "cursor");
 cursor.moveEntity(cursorPos[0], cursorPos[1], cursorPos[2], cursor);
 
 //Create Enemy
-let skull = new THREE.TextureLoader().load( '../assets/skull.jpg' );
+let skull = new THREE.TextureLoader().load( './assets/skull.jpg' );
 let enemyBox = new THREE.BoxGeometry(1,1,1);
 let enemyPos = [13, 1, 3];
 let enemy = new Enemy(enemyPos, enemyBox, skull, "enemy", 1);
@@ -107,7 +107,7 @@ function loadBoard(scene, level) {
 
 
     //Set up the skybox
-    let sky = new THREE.TextureLoader().load( '../assets/Slimegamesky.jpg' );
+    let sky = new THREE.TextureLoader().load( './assets/Slimegamesky.jpg' );
     let skyboxGeometry = new THREE.CubeGeometry(100, 100, 100);
     let skyboxMaterial = new THREE.MeshBasicMaterial({  map: sky, side: THREE.BackSide });
     let skybox = new THREE.Mesh(skyboxGeometry, skyboxMaterial);
