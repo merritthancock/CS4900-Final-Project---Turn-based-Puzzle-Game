@@ -2,9 +2,9 @@ import {Entity} from "./Entity.js";
 
 //The Cursor is an object that will contain unique methods allowing player interaction
 class Cursor extends Entity {
-    constructor(position, model, id){
+    constructor(position, model, texture, id){
         //Call entity constructor
-        super(position, model, id);
+        super(position, model, texture, id);
     }
     moveCursor(cursor, direction){
         switch(direction){

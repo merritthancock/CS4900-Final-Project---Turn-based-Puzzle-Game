@@ -6,11 +6,9 @@ import {aStar, checkNeighbor} from "../Pathing.js";
 
 //The Enemy is an object that will contain unique methods allowing player interaction
 class Enemy extends Entity {
-
-    constructor(position, model, id, startingMass, startPriority){
-
+    constructor(position, model, texture, id, startingMass, startPriority, visionRange){
         //Call entity constructor
-        super(position, model, id);
+        super(position, model, texture, id);
 
         //Set starting mass
         this.mass = startingMass;
