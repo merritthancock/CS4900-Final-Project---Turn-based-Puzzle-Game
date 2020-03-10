@@ -32,6 +32,12 @@ function AStarFinder() {
  *     end positions.
  */
 AStarFinder.prototype.findPath = function(startX, startY, endX, endY, board, entity) {
+    //MODIFICATION: Check if final tile is occupied
+    var isOccupied = false;
+    if(board.tileArray[endX][endY].occupied != null) {
+        isOccupied = true;
+    }
+    
     //MODIFICATION: Build board of nodes to avoid using
     //Grid.js
     this.nodeBoard = []
@@ -67,14 +73,19 @@ AStarFinder.prototype.findPath = function(startX, startY, endX, endY, board, ent
         node.closed = true;
 
         // if reached the end position, construct the path and return it
+        //MODIFICATION: If isOccupied is true, remove the next to last node instead.
         if (node === endNode) {
-            return backtrace(endNode);
+            let path = backtrace(endNode);
+            if(isOccupied) {
+                path.pop();
+            }
+            return path;
         }
 
         // get neigbours of the current node
         //MODIFICATION: getNeighbors moved to this file at the bottom,
         //rewritten to work with checkNeighbor in our pathing.js file
-        neighbors = getNeighbors(entity, this.nodeBoard, node);
+        neighbors = getNeighbors(entity, this.nodeBoard, node, isOccupied, endX, endY);
         for (i = 0, l = neighbors.length; i < l; ++i) {
             neighbor = neighbors[i];
 
@@ -114,20 +125,20 @@ AStarFinder.prototype.findPath = function(startX, startY, endX, endY, board, ent
     return [];
 };
 
-function getNeighbors(entity, nodeBoard, pathNode){
+function getNeighbors(entity, nodeBoard, pathNode, isOccupied, endX, endY){
     var sourceX = pathNode.x;
     var sourceY = pathNode.y;
     var neighbors = []
-    if(checkNeighbor(entity, pathNode.tile, nodeBoard[sourceX][sourceY - 1].tile)){
+    if(checkNeighbor(entity, pathNode.tile, nodeBoard[sourceX][sourceY - 1].tile, isOccupied, endX, endY)){
         neighbors.push(nodeBoard[sourceX][sourceY - 1]);
     }
-    if(checkNeighbor(entity, pathNode.tile, nodeBoard[sourceX + 1][sourceY].tile)){
+    if(checkNeighbor(entity, pathNode.tile, nodeBoard[sourceX + 1][sourceY].tile, isOccupied, endX, endY)){
         neighbors.push(nodeBoard[sourceX + 1][sourceY]);
     }
-    if(checkNeighbor(entity, pathNode.tile, nodeBoard[sourceX][sourceY + 1].tile)){
+    if(checkNeighbor(entity, pathNode.tile, nodeBoard[sourceX][sourceY + 1].tile, isOccupied, endX, endY)){
         neighbors.push(nodeBoard[sourceX][sourceY + 1]);
     }
-    if(checkNeighbor(entity, pathNode.tile, nodeBoard[sourceX - 1][sourceY].tile)){
+    if(checkNeighbor(entity, pathNode.tile, nodeBoard[sourceX - 1][sourceY].tile, isOccupied, endX, endY)){
         neighbors.push(nodeBoard[sourceX - 1][sourceY]);
     }
 

@@ -3,7 +3,7 @@ import {doKeyUp, doKeyDown} from "../KeyboardInput.js";
 import {buildCamera} from "./Camera.js";
 import {buildCameraControls} from "./Camera.js";
 import {scene} from "./LevelManager.js";
-import {testLevel} from "./LevelManager.js";
+import {currentLevel} from "./LevelManager.js";
 
 // declare letiables
 let windowWidth;
@@ -48,7 +48,7 @@ function setupLevel(){
 }
 
 function renderLevel() {
-    updateRender(testLevel.board);
+    updateRender(currentLevel);
     renderer.render(scene, camera);
 }
 

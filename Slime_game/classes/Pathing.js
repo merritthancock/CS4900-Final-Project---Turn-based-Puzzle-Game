@@ -1,5 +1,6 @@
 import {AStarFinder} from "../libraries/AStar/AStarFinder.js";
 import {Enemy} from "./Entities/Enemy.js";
+import {currentLevel} from "./LevelManager.js";
 
 function aStar(startX, startY, endX, endY, board, entity) {
     let finder = new AStarFinder();
@@ -29,7 +30,7 @@ function aStar(startX, startY, endX, endY, board, entity) {
 }
 
 //Checks neighboring tiles. To be used by both Flood Fill and A*
-function checkNeighbor(entity, sourceTile, destinationTile){
+function checkNeighbor(entity, sourceTile, destinationTile, isOccupied, endX, endZ){
     var maxHeight = entity.jumpHeight;
     var heightDifference = Math.abs(sourceTile.height - destinationTile.height);
     //This variable needs to be gotten from the entity later, but for now we can just
@@ -58,19 +59,23 @@ function checkNeighbor(entity, sourceTile, destinationTile){
     if(!traversableTerrain.includes(destinationTile.type)){
         return false;
     }
-    //Make sure the destination tile isn't occupied
-    if(destinationTile.occupant != null){
-        return false;
+    //Make sure the destination tile isn't occupied 
+    //(Special condition: if this is currently checking the end destination,
+    //and isOccupied is set to true, don't worry about this.)
+    if(!isOccupied && destinationTile.position[0] == endX && destinationTile.position[2] == endZ) {
+        if(destinationTile.occupant != null){
+            return false;
+        }
     }
     return true;
 }
 
 //FLOOD FILL IMPLEMENTATION
 function hover(board){//initiates methods when cursor hovers over entities/tiles
-    var cPos = board.cursor.position;
+    var cPos = currentLevel.cursor.position;
     var type = board.tileMap[cPos[0]][cPos[2]];
     var height = board.heightMap[cPos[0]][cPos[2]];
-    var pPos = board.player.position;
+    var pPos = currentLevel.player.position;
 
     console.log(cPos);
     console.log(pPos);
@@ -87,16 +92,16 @@ function movementOverlay(x, z, range, board, entity){//uses the flood fill algor
             board.overlayMap[x][z].overlay.material.visible = true;
         }
         //recursive call for surrounding spaces
-        if(checkNeighbor(entity, board.tileArray[x][z], board.tileArray[x+1][z])){
+        if(checkNeighbor(entity, board.tileArray[x][z], board.tileArray[x+1][z], false)){
             movementOverlay(x+1, z, range-1, board, entity);
         }
-        if(checkNeighbor(entity, board.tileArray[x][z], board.tileArray[x][z+1])){
+        if(checkNeighbor(entity, board.tileArray[x][z], board.tileArray[x][z+1], false)){
             movementOverlay(x, z+1, range-1, board, entity);
         }
-        if(checkNeighbor(entity, board.tileArray[x][z], board.tileArray[x-1][z])){
+        if(checkNeighbor(entity, board.tileArray[x][z], board.tileArray[x-1][z], false)){
             movementOverlay(x-1, z, range-1, board, entity);
         }
-        if(checkNeighbor(entity, board.tileArray[x][z], board.tileArray[x][z-1])){
+        if(checkNeighbor(entity, board.tileArray[x][z], board.tileArray[x][z-1], false)){
             movementOverlay(x, z-1, range-1, board, entity);
         }           
     }
@@ -129,26 +134,21 @@ function typeList(type){//Returns the terrain name for logging to console
     }
 }
 
-function occupied(board){//returns what occupies the tile and calls on flood fill overlay
+//returns what occupies the tile
+function occupied(board){
     var occupant = board.tileArray[board.cursor.position[0]][board.cursor.position[2]].occupant;
     if(occupant != null){
-        //moving functionality to board
-        //wipeOverlay(board);
-        //var overlayList = movementOverlayHelper(board, occupant);
         return occupant.id;
     }
-    else {//if(board.overlayMap[board.cursor.position[0]][board.cursor.position[2]].overlay.material.visible){
+    else {
         return "None";
     }
-    //else{
-    //    wipeOverlay(board);
-    //    return "None";
-    //}
 }
 
-function wipeOverlay(board){//this will return overlay visibility to false when player not occupying space
-    for(var r = 0; r < board.overlayMap.length; r++){
-        for(var c = 0; c < board.overlayMap[r].length; c++){
+//this will reset overlay visibility to false when player not occupying space
+function wipeOverlay(board){
+    for(var r = 0; r < board.tileArray.length; r++){
+        for(var c = 0; c < board.tileArray[r].length; c++){
             board.overlayMap[r][c].overlay.material.visible = false;
         }
     }
