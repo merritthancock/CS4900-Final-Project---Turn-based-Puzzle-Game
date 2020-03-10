@@ -2,7 +2,7 @@ import{Level} from "./Level.js";
 import {Cursor} from "./Entities/Cursor.js";
 import {Milcap} from "./Entities/Enemies/Milcap.js";
 import {Player} from "./Entities/Player.js";
-//import {loader} from "../classes/Models.js";
+import {loader} from "./Models.js";
 
 
 //Create New Levels
@@ -13,7 +13,7 @@ import {Player} from "./Entities/Player.js";
 let scene;
 
 let currentLevel;
-let loader = new THREE.GLTFLoader().setPath( '../assets/GLTFModels/' );
+
 let Slime;
 let cursorMod;
 let milcapSoldier;
@@ -152,7 +152,7 @@ enemy.path.add([13, 1, 3]);
 
 //Create Enemy2 (same type as original)
 let skull2 = new THREE.TextureLoader().load( './assets/skull.jpg' );
-//let enemyBox2 = new THREE.BoxGeometry(1,1,1);
+let enemyBox2 = new THREE.BoxGeometry(1,1,1);
 let enemyPos2 = [8, 1, 17];
 let enemy2 = new Milcap(enemyPos2, milcapSoldier, "enemy2", 2);
 
