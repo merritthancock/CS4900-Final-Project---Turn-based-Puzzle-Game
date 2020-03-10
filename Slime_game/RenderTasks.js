@@ -1,11 +1,11 @@
-import {unlocked, getLock} from "./Semaphore.js";
+import {unlocked, getLock, masterLock} from "./Semaphore.js";
 import {keyStatus} from "./KeyboardInput.js";
 import {hover, aStar} from "./classes/Pathing.js";
 import { passTurn } from "./classes/TurnManager.js";
 import {currentLevel} from "./classes/LevelManager.js";
 
 function updateRender(currentLevel){
-    if(unlocked) {
+    if(unlocked && !masterLock) {
         if(keyStatus["wKey"]){
             getLock("inputHandler");
             console.log("Moving Cursor Forward!");
@@ -54,8 +54,8 @@ function updateRender(currentLevel){
                     //if cursor is within movementRange of player, move player and pass turn. Else, deselect.
                     if(xDistance + yDistance <= currentLevel.player.movementRange){
                         aStar(currentX, currentY, goalX, goalY, currentLevel.board, currentLevel.player);
-                        board.select(currentLevel.player);
-                        passTurn(currentLevel.board);
+                        currentLevel.board.select(currentLevel.player);
+                        passTurn(currentLevel.enemies);
                     }
                     else{
                         currentLevel.board.select(currentLevel.player);
@@ -78,8 +78,7 @@ function updateRender(currentLevel){
         }
         if(keyStatus["mKey"]){
             getLock("inputHandler");
-            //for now this just moves the one enemy
-            currentLevel.enemies[0].moveEPath();
+            currentLevel.enemies[0].update();
         }
     }
 }

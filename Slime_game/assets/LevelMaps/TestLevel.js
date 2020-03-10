@@ -3,6 +3,7 @@ import {Enemy} from "../../classes/Entities/Enemy.js";
 import {Player} from "../../classes/Entities/Player.js";
 import {Board} from "../../classes/Board.js";
 import {milcapSoldier, slimePlayer} from "../../classes/Models.js";
+import { Milcap } from "../../classes/Entities/Enemies/Milcap.js";
 
 function createTestLevel(){
     var testLevelTileMap = [
@@ -98,7 +99,7 @@ function createTestLevel(){
     var skull = new THREE.TextureLoader().load( '../assets/skull.jpg' );
     var enemyBox = new THREE.BoxGeometry(1,1,1);
     var enemyPos = [13, 1, 3];
-    var enemy = new Enemy(enemyPos, enemyBox, skull, "enemy", 1);
+    var enemy = new Milcap(enemyPos, enemyBox, skull, "enemy", 1);
     enemy.moveEntity(enemyPos[0], enemyPos[1], enemyPos[2], enemy);
     
     //Adding waypoints for the enemy path [WILL NEED REWORKING. JUST FOR TESTING RN]
@@ -106,7 +107,7 @@ function createTestLevel(){
     enemy.path.add([13, 1, 13]);
     enemy.path.add([17, 1, 13]);
     enemy.path.add([15, 1, 4]);
-    enemy.path.add([14, 1, 4]);//enemy appears to wait a turn before the loop happens. Not sure why atm
+    enemy.path.add([14, 1, 4]);
     enemy.path.add([13, 1, 3]); 
 
     console.log(enemy.path);

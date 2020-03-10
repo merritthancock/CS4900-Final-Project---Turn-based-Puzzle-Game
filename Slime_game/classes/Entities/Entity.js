@@ -1,10 +1,10 @@
-import {GameEntity} from "../../libraries/yuka-master/src/core/GameEntity.js";
+import {GameEntity} from "../../libraries/yuka-master/src/yuka.js";
 
 class Entity extends GameEntity {
     constructor(position, model, texture, id){
         super();
         //Set position of entity
-        this.position = position;
+        this.position.set(position);
         //Set geometry of entity
         this.model = model;
         //Set material
