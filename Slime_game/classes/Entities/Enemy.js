@@ -2,7 +2,7 @@ import {currentLevel} from "../LevelManager.js";
 import {Entity} from "./Entity.js";
 //import {FollowPathBehavior} from "../libraries/yuka-master/src/yuka.js";
 import {Path, PursuitBehavior} from "../../libraries/yuka-master/src/yuka.js";
-import {aStar} from "../Pathing.js";
+import {aStar, checkNeighbor} from "../Pathing.js";
 
 //The Enemy is an object that will contain unique methods allowing player interaction
 class Enemy extends Entity {
@@ -79,8 +79,8 @@ class Enemy extends Entity {
 
     //Moves the enemy in the direction of the player
     moveToPlayer(){
-        var pos = currentLevel.player.position;
-        console.log('POS', pos);
+        let pos = currentLevel.player.position;
+
         aStar(this.position[0], this.position[2], pos[0], pos[2]+1, currentLevel.board, this);
 
         console.log(this.path);
