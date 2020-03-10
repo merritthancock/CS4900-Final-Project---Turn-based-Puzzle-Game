@@ -3,6 +3,7 @@ import { State } from "../../../libraries/yuka-master/src/yuka.js";
 //these constants can be used for animations and others
 const PATROL = 'PATROL';
 const PURSUE = 'PURSUE';
+const ATTACK = 'ATTACK';
 
 class PatrolState extends State{
 
@@ -19,7 +20,7 @@ class PatrolState extends State{
     }
 
     exit(enemy){
-        //some sort of alert to the player
+        //some sort of alert to the player?
        
     }
 
@@ -44,4 +45,20 @@ class PursueState extends State{
 
 }
 
-export {PatrolState, PursueState};
+class AttackState extends State{
+
+    enter(enemy) {
+        //attack animation
+        enemy.attack(enemy.attackPower);
+    }
+    
+    execute(enemy) {
+        enemy.attack(enemy.attackPower);
+    }
+
+    exit(enemy) {
+        
+    }
+}
+
+export {PatrolState, PursueState, AttackState};
