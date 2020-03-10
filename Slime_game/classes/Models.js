@@ -6,4 +6,4 @@ import {scene} from "./LevelManager.js";
 
 let loader = new THREE.GLTFLoader().setPath( '../assets/GLTFModels/' );
 
-export {loader};
+export {loader}
