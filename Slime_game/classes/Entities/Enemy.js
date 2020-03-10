@@ -6,7 +6,7 @@ import {aStar} from "../Pathing.js";
 
 //The Enemy is an object that will contain unique methods allowing player interaction
 class Enemy extends Entity {
-    constructor(position, model, texture, id, startingMass, startPriority){
+    constructor(position, model, texture, id, startingMass, startPriority, visionRange){
         //Call entity constructor
         super(position, model, texture, id);
 
@@ -20,6 +20,9 @@ class Enemy extends Entity {
         this.jumpHeight = 1;
         //Set the priority of the enemy
         this.priority = startPriority;
+        //Set the enemy's range of vision for seeing the player
+        this.visionRange = visionRange;
+
         //Give the enemy a path to patrol (loop must be set to true if path is cyclical)
         this.path = new Path();
         console.log(this.path);
@@ -47,6 +50,18 @@ class Enemy extends Entity {
         
     }
 
+    //Checks if the player is within sight range
+    seesPlayer() {
+        let xDistance = Math.abs(currentLevel.player.position[0] - this.position[0]);
+        let yDistance = Math.abs(currentLevel.player.position[2] - this.position[2]);
+        if(xDistance + yDistance <= this.visionRange) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     //moves the enemy along a predetermined patrol path
     moveEPath(){
         var pos = this.path.current();
@@ -64,9 +79,9 @@ class Enemy extends Entity {
 
     //Moves the enemy in the direction of the player
     moveToPlayer(){
-        var pos = board.player.position;
+        var pos = currentLevel.player.position;
         console.log('POS', pos);
-        aStar(this.position[0], this.position[2], pos[0], pos[2]+1, board, this);
+        aStar(this.position[0], this.position[2], pos[0], pos[2]+1, currentLevel.board, this);
 
         console.log(this.path);
         console.log(this.mesh.position);

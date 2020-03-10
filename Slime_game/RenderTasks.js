@@ -78,7 +78,7 @@ function updateRender(currentLevel){
         }
         if(keyStatus["mKey"]){
             getLock("inputHandler");
-            board.enemies.update();
+            currentLevel.enemies[0].update();
         }
     }
 }

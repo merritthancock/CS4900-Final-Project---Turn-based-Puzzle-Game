@@ -12,7 +12,7 @@ function passTurn(){
         getLock("turnManager");
         isPlayerTurn = false;
         //TODO: Make this more robust for moving enemies, also move enemy movement logic and passTurn call to other file
-        currentLevel.enemies[0].moveEPath();
+        currentLevel.enemies[0].update();
         passTurn();
     }
     else{

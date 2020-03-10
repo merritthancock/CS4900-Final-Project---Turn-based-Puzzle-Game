@@ -1,8 +1,7 @@
 import{Level} from "./Level.js";
 import {Cursor} from "./Entities/Cursor.js";
-import {Enemy} from "./Entities/Enemy.js";
+import {Milcap} from "./Entities/Enemies/Milcap.js";
 import {Player} from "./Entities/Player.js";
-import {milcapSoldier, slimePlayer} from "./Models.js";
 
 //Create New Levels
 //Load Level
@@ -75,9 +74,16 @@ cursor.moveEntity(cursorPos[0], cursorPos[1], cursorPos[2], cursor);
 let skull = new THREE.TextureLoader().load( './assets/skull.jpg' );
 let enemyBox = new THREE.BoxGeometry(1,1,1);
 let enemyPos = [13, 1, 3];
-let enemy = new Enemy(enemyPos, enemyBox, skull, "enemy", 1);
+let enemy = new Milcap(enemyPos, enemyBox, skull, "enemy", 1);
 enemy.moveEntity(enemyPos[0], enemyPos[1], enemyPos[2], enemy);
 let enemies = [enemy];
+
+enemy.path.loop = true;
+enemy.path.add([13, 1, 13]);
+enemy.path.add([17, 1, 13]);
+enemy.path.add([15, 1, 4]);
+enemy.path.add([14, 1, 4]);
+enemy.path.add([13, 1, 3]); 
 
 //Create Level
 let testLevel = new Level(testLevelHeightMap, testLevelTileMap, enemies, player, cursor);
