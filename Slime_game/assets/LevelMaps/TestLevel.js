@@ -1,4 +1,4 @@
-import {Cursor} from "../../classes/Entities/Cursor.js";
+/*import {Cursor} from "../../classes/Entities/Cursor.js";
 import {Enemy} from "../../classes/Entities/Enemy.js";
 import {Player} from "../../classes/Entities/Player.js";
 import {Board} from "../../classes/Board.js";
@@ -80,14 +80,14 @@ function createTestLevel(){
     var testLevelEnemies = [];
 
     //Create Player
-    var slime = new THREE.TextureLoader().load( './assets/slime.jpg' );
+    var slime = new THREE.TextureLoader().load( '../assets/slime.jpg' );
     var playerBox = new THREE.BoxGeometry(1, 1, 1);
     var playerPos = [2, 1, 2];
     var player = new Player(playerPos, playerBox, slime, "player", 1);
     player.moveEntity(playerPos[0], playerPos[1], playerPos[2], player);
 
     //Create Cursor
-    var cu = new THREE.TextureLoader().load( './assets/yellow.jpg' );
+    var cu = new THREE.TextureLoader().load( '../assets/yellow.jpg' );
     var cursorMod = new THREE.CircleBufferGeometry( 0.5, 30 );
     cursorMod.rotateX(-Math.PI/2);
     var cursorPos = [1, 1.6, 2];
@@ -95,7 +95,7 @@ function createTestLevel(){
     cursor.moveEntity(cursorPos[0], cursorPos[1], cursorPos[2], cursor);
 
     //Create Enemy
-    var skull = new THREE.TextureLoader().load( './assets/skull.jpg' );
+    var skull = new THREE.TextureLoader().load( '../assets/skull.jpg' );
     var enemyBox = new THREE.BoxGeometry(1,1,1);
     var enemyPos = [13, 1, 3];
     var enemy = new Enemy(enemyPos, enemyBox, skull, "enemy", 1);
@@ -113,9 +113,9 @@ function createTestLevel(){
 
     testLevelEnemies.push(enemy);
 
-    var testBoard = new Board(testLevelTileMap, testLevelHeightMap, testLevelEntitiesMap, player, enemy, cursor);
+    var testBoard = new Board(testLevelTileMap, testLevelHeightMap, player, enemy, cursor);
 
     return testBoard;
 }
 
-export {createTestLevel};
+export {createTestLevel};*/
