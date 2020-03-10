@@ -49,7 +49,7 @@ class AttackState extends State{
 
     enter(enemy) {
         //attack animation
-        enemy.attack(enemy.attackPower);
+        //enemy.attack(enemy.attackPower);
     }
     
     execute(enemy) {
