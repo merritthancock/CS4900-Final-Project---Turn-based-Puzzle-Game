@@ -94,9 +94,9 @@ function loadLevel(scene, level){
 function loadBoard(scene, level) {
     for(let i = 0; i < level.board.tileMap.length; i++){
         for(let j = 0; j < level.board.tileMap[0].length; j++){
-            if(level.board.tileMap[i][j].terrain != null){
-                scene.add(level.board.tileMap[i][j].terrain);
-                scene.add(level.board.tileMap[i][j].overlay);
+            if(level.board.tileArray[i][j].terrain != null){
+                scene.add(level.board.tileArray[i][j].terrain);
+                scene.add(level.board.tileArray[i][j].overlay);
             }
         }
     }
