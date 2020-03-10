@@ -55,7 +55,7 @@ function updateRender(currentLevel){
                     if(xDistance + yDistance <= currentLevel.player.movementRange){
                         aStar(currentX, currentY, goalX, goalY, currentLevel.board, currentLevel.player);
                         currentLevel.board.select(currentLevel.player);
-                        passTurn(currentLevel.board);
+                        passTurn();
                     }
                     else{
                         currentLevel.board.select(currentLevel.player);

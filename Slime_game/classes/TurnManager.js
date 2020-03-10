@@ -1,9 +1,10 @@
 import { getLock, releaseLock } from "../Semaphore.js";
+import { currentLevel } from "./LevelManager.js";
 
 let turnCount = 0;
 let isPlayerTurn = true;
 
-function passTurn(board){
+function passTurn(){
     turnCount++;
     
     //if player turn, pass turn to enemy and handle enemy movement
@@ -11,7 +12,7 @@ function passTurn(board){
         getLock("turnManager");
         isPlayerTurn = false;
         //TODO: Make this more robust for moving enemies, also move enemy movement logic and passTurn call to other file
-        board.enemies.moveEPath();
+        currentLevel.enemies[0].moveEPath();
         passTurn();
     }
     else{
