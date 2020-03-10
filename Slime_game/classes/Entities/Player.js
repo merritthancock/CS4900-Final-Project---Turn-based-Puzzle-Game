@@ -49,6 +49,17 @@ class Player extends Entity {
         board.player.mesh.position.set(board.cursor.position[0], board.cursor.position[1], board.cursor.position[2]);
         board.tileArray[board.player.position[0]][board.player.position[2]].occupant = board.player;
     };
+    
+    //player takes damage and loses mass
+    takeDamage(damage){
+        this.mass -= damage;
+        console.log("Damage Taken: ", damage, "Player Health: ", this.mass);
+        if(this.mass <= 0){
+            //death animation
+            //death screen
+            
+        }
+    }
 }
 
 export {Player};

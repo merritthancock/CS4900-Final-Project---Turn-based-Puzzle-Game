@@ -9,7 +9,6 @@ class Enemy extends Entity {
     constructor(position, model, texture, id, startingMass, startPriority, visionRange){
         //Call entity constructor
         super(position, model, texture, id);
-
         //Set starting mass
         this.mass = startingMass;
         //Set abilities to an empty set for starters
@@ -22,6 +21,8 @@ class Enemy extends Entity {
         this.priority = startPriority;
         //Set the enemy's range of vision for seeing the player
         this.visionRange = visionRange;
+        //the damage the enemy deals on an attack
+        this.attackPower = 0.5;
 
         //Give the enemy a path to patrol (loop must be set to true if path is cyclical)
         this.path = new Path();
@@ -98,6 +99,23 @@ class Enemy extends Entity {
 
     pathAdd(waypoint){//add new waypoint to enemy patrol path
         this.path.add(waypoint);
+    }
+
+    //damage the playerh
+    attack(damage){
+        //Play attack animation
+        currentLevel.player.takeDamage(damage);
+
+    }
+    
+    //set custom attack power for enemy type
+    setAttackPower(atPow){
+        this.attackPower = atPow;
+    }
+
+    //set custom enemy mass for enemy type
+    setMass(newMass){
+        this.mass = newMass;
     }
 }
 export {Enemy};
