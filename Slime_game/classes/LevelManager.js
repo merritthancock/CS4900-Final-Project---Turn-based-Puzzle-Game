@@ -85,6 +85,18 @@ enemy.path.add([15, 1, 4]);
 enemy.path.add([14, 1, 4]);
 enemy.path.add([13, 1, 3]); 
 
+//Create Enemy2 (same type as original)
+let skull2 = new THREE.TextureLoader().load( './assets/skull.jpg' );
+let enemyBox2 = new THREE.BoxGeometry(1,1,1);
+let enemyPos2 = [8, 1, 17];
+let enemy2 = new Milcap(enemyPos2, enemyBox2, skull2, "enemy2", 2);
+
+enemies.push(enemy2);
+enemy2.moveEntity(enemyPos2[0], enemyPos2[1], enemyPos2[2], enemy2);
+enemy2.path.loop = true;
+enemy2.path.add([8, 1, 23]);
+enemy2.path.add([8, 1, 17]);
+
 //Create Level
 let testLevel = new Level(testLevelHeightMap, testLevelTileMap, enemies, player, cursor);
 
