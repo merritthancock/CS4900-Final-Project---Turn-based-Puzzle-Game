@@ -2,7 +2,7 @@ import{Level} from "./Level.js";
 import {Cursor} from "./Entities/Cursor.js";
 import {Milcap} from "./Entities/Enemies/Milcap.js";
 import {Player} from "./Entities/Player.js";
-import {loader} from "./Models.js";
+import {loader} from "../classes/Models.js";
 
 
 //Create New Levels
@@ -92,7 +92,7 @@ let player = new Player(playerPos, Slime, "player", 1);
 player.moveEntity(playerPos[0], playerPos[1], playerPos[2], player);
 loader.load(
 	// resource URL
-	'CursorOption2.glb',
+	'CursorOption2b.glb',
 	// called when the resource is loaded
 	
 	function ( gltf ) {
