@@ -1,5 +1,6 @@
 import {AStarFinder} from "../libraries/AStar/AStarFinder.js";
 import {Enemy} from "./Entities/Enemy.js";
+import {currentLevel} from "./LevelManager.js";
 
 function aStar(startX, startY, endX, endY, board, entity) {
     let finder = new AStarFinder();
@@ -67,10 +68,10 @@ function checkNeighbor(entity, sourceTile, destinationTile){
 
 //FLOOD FILL IMPLEMENTATION
 function hover(board){//initiates methods when cursor hovers over entities/tiles
-    var cPos = board.cursor.position;
+    var cPos = currentLevel.cursor.position;
     var type = board.tileMap[cPos[0]][cPos[2]];
     var height = board.heightMap[cPos[0]][cPos[2]];
-    var pPos = board.player.position;
+    var pPos = currentLevel.player.position;
 
     console.log(cPos);
     console.log(pPos);

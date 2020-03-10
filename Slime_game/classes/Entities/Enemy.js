@@ -1,4 +1,4 @@
-import {testLevel} from "../LevelManager.js";
+import {currentLevel} from "../LevelManager.js";
 import {Entity} from "./Entity.js";
 //import {FollowPathBehavior} from "../libraries/yuka-master/src/yuka.js";
 import {Path} from "../../libraries/yuka-master/src/yuka.js";
@@ -55,7 +55,7 @@ class Enemy extends Entity {
     //TODO: add compatibility with enemy array for multiple enemies
     moveEPath(){
         var pos = this.path.current();
-        aStar(this.position[0], this.position[2], pos[0], pos[2], testLevel.board, this);
+        aStar(this.position[0], this.position[2], pos[0], pos[2], currentLevel.board, this);
         //this.moveEntity(pos[0], board.tileArray[pos[0]][pos[2]].height + 1, pos[2]);
 
         //if made it to node, advance the node

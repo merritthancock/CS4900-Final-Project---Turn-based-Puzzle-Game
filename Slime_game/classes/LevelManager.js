@@ -9,6 +9,7 @@ import {milcapSoldier, slimePlayer} from "./Models.js";
 
 //Variables
 let scene;
+let currentLevel;
 
 let testLevelTileMap = [
     [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 9, 4, 4, 4, 4, 4, 4, 4, 4, 4],
@@ -124,7 +125,9 @@ function loadBoard(scene, level) {
 }
 
 loadLevel(scene, testLevel);
+currentLevel = testLevel;
 
 export {scene}
 export {testLevel}
+export {currentLevel}
 
