@@ -1,4 +1,5 @@
 import {State} from "../../../libraries/yuka-master/src/yuka.js";
+import {Board} from "../../Board.js";
 
 //these constants can be used for animations and others
 const PATROL = 'PATROL';
@@ -15,7 +16,8 @@ class PatrolState extends State{
     }
 
     exit(enemy){
-        //enemy.moveEPath();
+        //some sort of alert to the player
+       
     }
 
 }
@@ -27,6 +29,10 @@ class PursueState extends State{
     }
 
     execute(enemy){
+        enemy.moveToPlayer();
+    }
+
+    exit(enemy){
 
     }
 

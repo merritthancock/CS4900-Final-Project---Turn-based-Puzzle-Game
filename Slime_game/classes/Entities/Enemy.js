@@ -64,6 +64,16 @@ class Enemy extends Entity {
         console.log(this.mesh.position);
     }
 
+    //Moves the enemy in the direction of the player
+    moveToPlayer(){
+        var pos = board.player.position;
+        console.log('POS', pos);
+        aStar(this.position[0], this.position[2], pos[0], pos[2]+1, board, this);
+
+        console.log(this.path);
+        console.log(this.mesh.position);
+    }
+
     loop(){//changes whether path can loop
         if(this.path.loop == true){
             this.path.loop = false;
@@ -73,7 +83,7 @@ class Enemy extends Entity {
         }
     }
 
-    pathAdd(waypoint){
+    pathAdd(waypoint){//add new waypoint to enemy patrol path
         this.path.add(waypoint);
     }
 }

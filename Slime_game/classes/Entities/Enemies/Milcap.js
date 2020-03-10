@@ -13,26 +13,33 @@ class Milcap extends Enemy {
         super(position, model, texture, id, startingMass, startPriority);
 
         //Default trigger radius in all directions
-        this.radius = (4,4,4);
+        this.radius = [7,3,7];
 
         this.stateMachine = new StateMachine(this);
 
         this.stateMachine.add('PATROL', new PatrolState());
         this.stateMachine.add('PURSUE', new PursueState());
+        
         console.log(this.stateMachine.get('PATROL'));
         this.stateMachine.changeTo('PATROL');
+        this.stateMachine.changeTo('PURSUE');
         
         let triggerRadius = new RectangularTriggerRegion(this.radius);
         let triggerAggro = new Trigger(triggerRadius);
-        triggerAggro.position.set(position);
+        triggerAggro.position.set(position[0], position[1], position[2]);
+        console.log('Aggro', triggerAggro.position);
 
-        const boxGeometry = new THREE.BoxBufferGeometry( this.radius.x, this.radius.y, this.radius.z );
+        //=== NONESSENTIAL: Just to visually represent the trigger radius ==============
+        const boxGeometry = new THREE.BoxBufferGeometry( this.radius[0], this.radius[1], this.radius[2] );
 		const boxMaterial = new THREE.MeshBasicMaterial( { color: 0x6083c2, wireframe: true } );
-        const triggerMesh = new THREE.Mesh( boxGeometry, boxMaterial );
-        triggerMesh.position.set(position);
-		triggerMesh.matrixAutoUpdate = false;
-		triggerAggro.setRenderComponent(triggerMesh);
-
+        let triggerMesh = new THREE.Mesh( boxGeometry, boxMaterial );
+        triggerMesh.position.set(position[0],position[1],position[2]);
+        console.log('box', triggerMesh.position);
+		//triggerMesh.matrixAutoUpdate = false;
+        triggerAggro.setRenderComponent(triggerMesh);
+        
+        scene.add(triggerMesh);
+        //==============================================================================
     }
 
     update(){//calls a single step in the state
