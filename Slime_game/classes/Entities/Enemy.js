@@ -81,7 +81,7 @@ class Enemy extends Entity {
     moveToPlayer(){
         let pos = currentLevel.player.position;
 
-        aStar(this.position[0], this.position[2], pos[0], pos[2]+1, currentLevel.board, this);
+        aStar(this.position[0], this.position[2], pos[0], pos[2], currentLevel.board, this);
 
         console.log(this.path);
         console.log(this.mesh.position);

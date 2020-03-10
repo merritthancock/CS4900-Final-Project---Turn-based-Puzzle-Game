@@ -1,4 +1,4 @@
-import { getLock, releaseLock } from "../Semaphore.js";
+import { getMasterLock, releaseMasterLock} from "../Semaphore.js";
 import { currentLevel } from "./LevelManager.js";
 import { PriorityQueue } from "../libraries/yuka-master/src/yuka.js";
 
@@ -15,7 +15,7 @@ async function passTurn(enemies) {
     
     //if player turn, pass turn to enemy and handle enemy movement
     if(isPlayerTurn) {
-        getLock("turnManager");
+        getMasterLock();
         isPlayerTurn = false;
         //TODO: Make this more robust for moving enemies, also move enemy movement logic and passTurn call to other file
         while(enemyPriorityQueue.peek() != null) {
@@ -26,7 +26,7 @@ async function passTurn(enemies) {
     }
     else{
         isPlayerTurn = true;
-        releaseLock("turnManager");
+        releaseMasterLock();
     }
 }
 
