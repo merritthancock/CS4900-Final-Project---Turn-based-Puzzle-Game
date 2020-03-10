@@ -23,7 +23,7 @@ function AStarFinder() {
         return dx + dy;
     };
     this.weight = 1;
-    this.nodeBoard = []
+    this.nodeBoard = [];
 }
 
 /**
