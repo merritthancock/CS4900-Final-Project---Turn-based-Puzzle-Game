@@ -1,4 +1,4 @@
-import {scene} from "../classes/Controller.js";
+import {scene} from "./LevelManager.js";
 
 //https://medium.com/@matthewmain/how-to-import-a-3d-blender-object-into-a-three-js-project-as-a-gltf-file-5a67290f65f2 Part 4 is helpful
 
@@ -30,6 +30,13 @@ var slimePlayer = loader.load(
 		scene.add(gltf.scene);
 		gltf.scene.scale.set(.5, .5, .5);
 		gltf.scene.position.set(5, 1, 2);
+
+		gltf.animations; // Array<THREE.AnimationClip>
+		gltf.scene; // THREE.Scene
+		gltf.scenes; // Array<THREE.Scene>
+		gltf.cameras; // Array<THREE.Camera>
+		gltf.asset; // Object
+
 	},
 	// called while loading is progressing
 	function ( xhr ) {

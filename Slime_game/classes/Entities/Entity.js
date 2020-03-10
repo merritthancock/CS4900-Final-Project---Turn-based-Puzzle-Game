@@ -1,7 +1,10 @@
-class Entity {
+import {GameEntity} from "../../libraries/yuka-master/src/yuka.js";
+
+class Entity extends GameEntity {
     constructor(position, model, texture, id){
+        super();
         //Set position of entity
-        this.position = position;
+        this.position.set(position);
         //Set geometry of entity
         this.model = model;
         //Set material
@@ -11,7 +14,7 @@ class Entity {
         //Build mesh from provided geometry and material, can add to scene in rest of code
         //this.mesh = THREE.Mesh(model, texture);
         this.mesh = new THREE.Mesh(model,
-                    new THREE.MeshStandardMaterial({ map: texture}));
+                    new THREE.MeshBasicMaterial({ map: texture, visibile: true}));
     }
 
     //Function moves player to a given position. Only call after validation.

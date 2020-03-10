@@ -1,8 +1,9 @@
 var lockOwner = null;
 var unlocked = true;
+var masterLock = false;
 
 function getLock(requester) {
-    if(unlocked){
+    if(unlocked && !masterLock){
         unlocked = false;
         lockOwner = requester;
     }
@@ -16,4 +17,14 @@ function releaseLock(requester) {
     }
 }
 
-export {getLock, releaseLock, unlocked};
+function getMasterLock() {
+    if(!masterLock) {
+        masterLock = true;
+    }
+}
+
+function releaseMasterLock() {
+    masterLock = false;
+}
+
+export {unlocked, getLock, releaseLock, masterLock, getMasterLock, releaseMasterLock};

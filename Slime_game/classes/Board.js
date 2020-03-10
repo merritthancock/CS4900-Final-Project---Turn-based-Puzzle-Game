@@ -2,24 +2,33 @@
 import {movementOverlayHelper, wipeOverlay} from "./Pathing.js";
 
 class Board {
-    constructor(tileMap, heightMap, entitiesMap, player, enemies, cursor){
-        this.tileMap = tileMap;
-        this.heightMap = heightMap;
-        this.player = player;
-        this.enemies = enemies;
+    constructor(tileMap, heightMap, player, enemies, cursor){
         this.cursor = cursor;
         this.selected = null;
-        this.overlayMap = [];
+
+        //Added these for LevelManager
+        this.tileMap = tileMap;
+        this.heightMap = heightMap;
 
         this.tileArray = [];
-        for(var i = 0; i < tileMap.length; i++){
+        this.overlayMap = [];
+        for(let i = 0; i < tileMap.length; i++){
             this.tileArray[i] = [];
             this.overlayMap[i] = [];
-            for(var j = 0; j < tileMap[0].length; j++){
-                this.tileArray[i][j] = new Tile([i, heightMap[i][j] / 2, j], heightMap[i][j], tileMap[i][j], entitiesMap[i][j], player, enemies);
-                this.overlayMap[i][j] = new Overlay([i, heightMap[i][j] + 0.6, j]); 
+            for(let j = 0; j < tileMap[0].length; j++){
+                this.tileArray[i][j] = new Tile([i, heightMap[i][j] / 2, j], heightMap[i][j], tileMap[i][j]);
+                this.overlayMap[i][j] = new Overlay([i, heightMap[i][j] + 0.6, j]);
             }
         }
+        //Loop through enemies list, get each enemy's position, and place them in the corresponding
+        //tileArray coordinates' occupant field.
+        for(let i = 0; i < enemies.length; i++) {
+            let x = enemies[i].position[0];
+            let y = enemies[i].position[2];
+            this.tileArray[x][y].occupant = enemies[i];
+        }
+        //Set player's position on the board
+        this.tileArray[player.position[0]][player.position[2]].occupant = player;
     }
 
     select(entity){
@@ -38,16 +47,16 @@ class Board {
 }
 
 class Tile {
-    constructor(position, height, type, occupant, player, enemy){
+    constructor(position, height, type){
 
         this.position = position;
         this.height = height;
         this.type = type;
 
-        var grass = new THREE.TextureLoader().load( './assets/grass.jpg' );
+        var grass = new THREE.TextureLoader().load( './assets/grass64.jpg' );
         var water = new THREE.TextureLoader().load( './assets/water.jpg' );
         var rocks = new THREE.TextureLoader().load( './assets/mountain.jpg' );
-        var cave = new THREE.TextureLoader().load( './assets/cave.jpg' );
+        var cave = new THREE.TextureLoader().load( './assets/cave64.jpg' );
 
         switch(type){
             case 0://grass
@@ -79,26 +88,12 @@ class Tile {
                 break;
         }
         if(this.terrain != null){
+            //Set position
             this.terrain.position.x = this.position[0];
             this.terrain.position.y = this.position[1];
             this.terrain.position.z = this.position[2];
         }
-        switch(occupant) {
-            case 1://Player
-                this.occupant = player;
-                break;
-            case 2://Placeholder enemy
-                this.occupant = enemy;
-                break;
-            default:
-                this.occupant = null;
-                break;
-        }
     }   
-
-    getFCost() {
-        return this.hCost + this.gCost;
-    }
 }
 
 class Overlay {
@@ -110,7 +105,6 @@ class Overlay {
         this.overlay.position.x = this.pos[0];
         this.overlay.position.y = this.pos[1];
         this.overlay.position.z = this.pos[2];
-        
     }
 }
 

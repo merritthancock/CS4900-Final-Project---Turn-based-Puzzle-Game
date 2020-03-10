@@ -12,9 +12,10 @@ class Player extends Entity {
         //Set abilities to an empty set for starters
         this.abilities = {};
         //Set default movement range to 2
-        this.movementRange = 2;
+        this.movementRange = 4;
         //Set default jump height to 1
         this.jumpHeight = 1;
+        this.canActivateTrigger = true;
     }
 
     //Function absorbs enemy, increases mass
@@ -48,6 +49,17 @@ class Player extends Entity {
         board.player.mesh.position.set(board.cursor.position[0], board.cursor.position[1], board.cursor.position[2]);
         board.tileArray[board.player.position[0]][board.player.position[2]].occupant = board.player;
     };
+    
+    //player takes damage and loses mass
+    takeDamage(damage){
+        this.mass -= damage;
+        console.log("Damage Taken: ", damage, "Player Health: ", this.mass);
+        if(this.mass <= 0){
+            //death animation
+            //death screen
+            
+        }
+    }
 }
 
 export {Player};

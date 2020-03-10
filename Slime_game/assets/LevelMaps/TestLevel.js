@@ -1,8 +1,9 @@
-import {Cursor} from "../../classes/Entities/Cursor.js";
+/*import {Cursor} from "../../classes/Entities/Cursor.js";
 import {Enemy} from "../../classes/Entities/Enemy.js";
 import {Player} from "../../classes/Entities/Player.js";
 import {Board} from "../../classes/Board.js";
 import {milcapSoldier, slimePlayer} from "../../classes/Models.js";
+import { Milcap } from "../../classes/Entities/Enemies/Milcap.js";
 
 function createTestLevel(){
     var testLevelTileMap = [
@@ -80,14 +81,14 @@ function createTestLevel(){
     var testLevelEnemies = [];
 
     //Create Player
-    var slime = new THREE.TextureLoader().load( './assets/slime.jpg' );
+    var slime = new THREE.TextureLoader().load( '../assets/slime.jpg' );
     var playerBox = new THREE.BoxGeometry(1, 1, 1);
     var playerPos = [2, 1, 2];
     var player = new Player(playerPos, playerBox, slime, "player", 1);
     player.moveEntity(playerPos[0], playerPos[1], playerPos[2], player);
 
     //Create Cursor
-    var cu = new THREE.TextureLoader().load( './assets/yellow.jpg' );
+    var cu = new THREE.TextureLoader().load( '../assets/yellow.jpg' );
     var cursorMod = new THREE.CircleBufferGeometry( 0.5, 30 );
     cursorMod.rotateX(-Math.PI/2);
     var cursorPos = [1, 1.6, 2];
@@ -95,27 +96,27 @@ function createTestLevel(){
     cursor.moveEntity(cursorPos[0], cursorPos[1], cursorPos[2], cursor);
 
     //Create Enemy
-    var skull = new THREE.TextureLoader().load( './assets/skull.jpg' );
+    var skull = new THREE.TextureLoader().load( '../assets/skull.jpg' );
     var enemyBox = new THREE.BoxGeometry(1,1,1);
     var enemyPos = [13, 1, 3];
-    var enemy = new Enemy(enemyPos, enemyBox, skull, "enemy", 1);
+    var enemy = new Milcap(enemyPos, enemyBox, skull, "enemy", 1);
     enemy.moveEntity(enemyPos[0], enemyPos[1], enemyPos[2], enemy);
-
+    
     //Adding waypoints for the enemy path [WILL NEED REWORKING. JUST FOR TESTING RN]
     enemy.path.loop = true;
     enemy.path.add([13, 1, 13]);
     enemy.path.add([17, 1, 13]);
     enemy.path.add([15, 1, 4]);
-    enemy.path.add([14, 1, 4]);//enemy appears to wait a turn before the loop happens. Not sure why atm
+    enemy.path.add([14, 1, 4]);
     enemy.path.add([13, 1, 3]); 
 
     console.log(enemy.path);
 
     testLevelEnemies.push(enemy);
 
-    var testBoard = new Board(testLevelTileMap, testLevelHeightMap, testLevelEntitiesMap, player, enemy, cursor);
+    var testBoard = new Board(testLevelTileMap, testLevelHeightMap, player, enemy, cursor);
 
     return testBoard;
 }
 
-export {createTestLevel};
+export {createTestLevel};*/

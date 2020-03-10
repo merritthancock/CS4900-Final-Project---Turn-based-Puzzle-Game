@@ -19,4 +19,4 @@ function buildCameraControls(){
 }
 
 export{buildCamera};
-export{buildCameraControls}
+export{buildCameraControls};
