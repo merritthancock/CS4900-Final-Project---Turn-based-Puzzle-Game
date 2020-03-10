@@ -148,8 +148,8 @@ function occupied(board){//returns what occupies the tile and calls on flood fil
 }
 
 function wipeOverlay(board){//this will return overlay visibility to false when player not occupying space
-    for(var r = 0; r < board.overlayMap.length; r++){
-        for(var c = 0; c < board.overlayMap[r].length; c++){
+    for(var r = 0; r < board.tileArray.length; r++){
+        for(var c = 0; c < board.tileArray[r].length; c++){
             board.overlayMap[r][c].overlay.material.visible = false;
         }
     }

@@ -54,7 +54,7 @@ function updateRender(currentLevel){
                     //if cursor is within movementRange of player, move player and pass turn. Else, deselect.
                     if(xDistance + yDistance <= currentLevel.player.movementRange){
                         aStar(currentX, currentY, goalX, goalY, currentLevel.board, currentLevel.player);
-                        board.select(currentLevel.player);
+                        currentLevel.board.select(currentLevel.player);
                         passTurn(currentLevel.board);
                     }
                     else{
