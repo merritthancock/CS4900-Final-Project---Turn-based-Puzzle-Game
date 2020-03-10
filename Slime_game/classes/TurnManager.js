@@ -12,11 +12,12 @@ function sleep(ms) {
 async function passTurn(enemies) {
     turnCount++;
     let enemyPriorityQueue = buildPriorityQueue(enemies);
-    
+
     //if player turn, pass turn to enemy and handle enemy movement
     if(isPlayerTurn) {
         getMasterLock();
         isPlayerTurn = false;
+        currentLevel.cursor.mesh.material.visibile = false;
         //TODO: Make this more robust for moving enemies, also move enemy movement logic and passTurn call to other file
         while(enemyPriorityQueue.peek() != null) {
             await sleep(250);
@@ -26,6 +27,7 @@ async function passTurn(enemies) {
     }
     else{
         isPlayerTurn = true;
+        currentLevel.cursor.mesh.material.visibile = true;
         releaseMasterLock();
     }
 }

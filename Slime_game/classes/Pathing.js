@@ -6,6 +6,8 @@ function aStar(startX, startY, endX, endY, board, entity) {
     let finder = new AStarFinder();
     //Get path
     let foundPath = finder.findPath(startX, startY, endX, endY, board, entity);
+    console.log(entity.id);
+    console.log(foundPath);
     if(foundPath.length == 0){
         console.log("No path exists!");
     }
@@ -45,8 +47,8 @@ function checkNeighbor(entity, sourceTile, destinationTile, isOccupied, endX, en
     //(this is taken care of in flood fill, but not in A*)
     //Enemy doesn't do this, because enemy needs to have a destination beyond movement range in mind
     if(!(entity instanceof Enemy)){
-        let xDistance = Math.abs(destinationTile.position[0] - entity.position[0]);
-        let zDistance = Math.abs(destinationTile.position[2] - entity.position[2]);
+        var xDistance = Math.abs(destinationTile.position[0] - entity.position[0]);
+        var zDistance = Math.abs(destinationTile.position[2] - entity.position[2]);
         if(xDistance + zDistance > entity.movementRange){
             return false;
         }
@@ -62,7 +64,7 @@ function checkNeighbor(entity, sourceTile, destinationTile, isOccupied, endX, en
     //Make sure the destination tile isn't occupied 
     //(Special condition: if this is currently checking the end destination,
     //and isOccupied is set to true, don't worry about this.)
-    if(!isOccupied && destinationTile.position[0] == endX && destinationTile.position[2] == endZ) {
+    if(!isOccupied && (destinationTile.position[0] != endX || destinationTile.position[2] != endZ)) {
         if(destinationTile.occupant != null){
             return false;
         }
@@ -78,7 +80,7 @@ function hover(board){//initiates methods when cursor hovers over entities/tiles
     var pPos = currentLevel.player.position;
 
     console.log(cPos);
-    console.log(pPos);
+    //console.log(pPos);
 
     console.log("Type: ", typeList(type));
     console.log("Height: ", height);
