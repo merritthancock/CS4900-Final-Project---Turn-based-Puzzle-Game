@@ -2,27 +2,18 @@ import{Level} from "./Level.js";
 import {Cursor} from "./Entities/Cursor.js";
 import {Milcap} from "./Entities/Enemies/Milcap.js";
 import {Player} from "./Entities/Player.js";
-import {loader} from "./Models.js";
-
 
 //Create New Levels
 //Load Level
 
 //Variables
-
 let scene;
-
 let currentLevel;
-
-let Slime;
-let cursorMod;
-let milcapSoldier;
-
 
 let testLevelTileMap = [
     [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 9, 4, 4, 4, 4, 4, 4, 4, 4, 4],
-    [4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 9, 4, 0, 0, 0, 0, 0, 0, 8, 4],
-    [4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 9, 4, 0, 0, 0, 0, 0, 0, 0, 4],
+    [4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 9, 4, 0, 0, 0, 0, 0, 8, 8, 4],
+    [4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 9, 4, 0, 0, 0, 0, 0, 8, 8, 4],
     [4, 0, 0, 0, 0, 0, 4, 0, 4, 0, 0, 0, 0, 0, 4, 9, 4, 0, 0, 0, 0, 0, 0, 0, 4],
     [4, 0, 0, 0, 0, 4, 4, 0, 4, 4, 0, 0, 0, 0, 4, 9, 4, 0, 0, 0, 0, 0, 0, 0, 4],
     [4, 0, 0, 0, 0, 4, 4, 0, 4, 4, 0, 0, 0, 0, 4, 9, 4, 0, 0, 0, 0, 0, 0, 0, 4],
@@ -64,31 +55,11 @@ let testLevelHeightMap = [
     [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0]
 ];
 
-loader.load(
-	// resource URL
-	'SlimeMain.glb',
-	// called when the resource is loaded
-	
-	function ( gltf ) {
-		scene.add(gltf.scene);
-		gltf.scene.scale.set(.5, .5, .5);
-		gltf.animations; // Array<THREE.AnimationClip>
-		gltf.scene; // THREE.Scene
-		gltf.scenes; // Array<THREE.Scene>
-		gltf.cameras; // Array<THREE.Camera>
-		gltf.asset; // Object
-        Slime = gltf.scene;
-	},
-	// called while loading is progressing
-	function ( xhr ) {
-		console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-	}
-);
 //Create Player
-//let slime = new THREE.TextureLoader().load( './assets/slime.jpg' );
-//let playerBox = new THREE.BoxGeometry(1, 1, 1);
+let slime = new THREE.TextureLoader().load( './assets/slime.jpg' );
+let playerBox = new THREE.BoxGeometry(1, 1, 1);
 let playerPos = [2, 1, 2];
-let player = new Player(playerPos, Slime, "player", 1);
+let player = new Player(playerPos, playerBox, slime, "player", 1);
 player.moveEntity(playerPos[0], playerPos[1], playerPos[2], player);
 loader.load(
 	// resource URL
@@ -111,35 +82,18 @@ loader.load(
 	}
 );
 //Create Cursor
-//let cu = new THREE.TextureLoader().load( './assets/yellow.jpg' );
-//let cursorMod = new THREE.CircleBufferGeometry( 0.5, 30 );
-//cursorMod.rotateX(-Math.PI/2);
+let cu = new THREE.TextureLoader().load( './assets/yellow.jpg' );
+let cursorMod = new THREE.CircleBufferGeometry( 0.5, 30 );
+cursorMod.rotateX(-Math.PI/2);
 let cursorPos = [1, 1.6, 2];
-let cursor = new Cursor(cursorPos, cursorMod, "cursor");
+let cursor = new Cursor(cursorPos, cursorMod, cu, "cursor");
 cursor.moveEntity(cursorPos[0], cursorPos[1], cursorPos[2], cursor);
 
-loader.load(
-	// resource URL
-	'MilcapSoldier.glb',
-	// called when the resource is loaded
-	
-	function ( gltf ) {
-		scene.add(gltf.scene);
-		gltf.scene.scale.set(.5, .5, .5);
-        milcapSoldier = gltf.scene;
-	},
-	// called while loading is progressing
-	function ( xhr ) {
-		console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-	}
-);
 //Create Enemy
-//let skull = new THREE.TextureLoader().load( './assets/skull.jpg' );
-//let enemyBox = new THREE.BoxGeometry(1,1,1);
+let skull = new THREE.TextureLoader().load( './assets/skull.jpg' );
+let enemyBox = new THREE.BoxGeometry(1,1,1);
 let enemyPos = [13, 1, 3];
-
-let enemy = new Milcap(enemyPos, milcapSoldier, "enemy", 1);
-
+let enemy = new Milcap(enemyPos, milcapSoldier, "enemy", 1, 1);
 enemy.moveEntity(enemyPos[0], enemyPos[1], enemyPos[2], enemy);
 let enemies = [enemy];
 
@@ -154,7 +108,7 @@ enemy.path.add([13, 1, 3]);
 let skull2 = new THREE.TextureLoader().load( './assets/skull.jpg' );
 let enemyBox2 = new THREE.BoxGeometry(1,1,1);
 let enemyPos2 = [8, 1, 17];
-let enemy2 = new Milcap(enemyPos2, milcapSoldier, "enemy2", 2);
+let enemy2 = new Milcap(enemyPos2, milcapSoldier, "enemy2", .9, 2);
 
 enemies.push(enemy2);
 enemy2.moveEntity(enemyPos2[0], enemyPos2[1], enemyPos2[2], enemy2);

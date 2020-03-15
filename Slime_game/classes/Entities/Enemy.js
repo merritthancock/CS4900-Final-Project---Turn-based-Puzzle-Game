@@ -6,24 +6,23 @@ import {aStar, checkNeighbor} from "../Pathing.js";
 
 //The Enemy is an object that will contain unique methods allowing player interaction
 class Enemy extends Entity {
-
-    constructor(position, model, id, startingMass, startPriority){
-
+    constructor(position, model, texture, id, startingMass, startPriority, visionRange){
         //Call entity constructor
-        super(position, model, id);
-
+        super(position, model, texture, id);
         //Set starting mass
         this.mass = startingMass;
         //Set abilities to an empty set for starters
         this.abilities = {};
         //Set default movement range to 1
-        this.movementRange = 1;
+        this.movementRange = 2;
         //Set jump height to 1
         this.jumpHeight = 1;
         //Set the priority of the enemy
         this.priority = startPriority;
         //Set the enemy's range of vision for seeing the player
         this.visionRange = visionRange;
+        //the damage the enemy deals on an attack
+        this.attackPower = 0.5;
 
         //Give the enemy a path to patrol (loop must be set to true if path is cyclical)
         this.path = new Path();
@@ -83,7 +82,7 @@ class Enemy extends Entity {
     moveToPlayer(){
         let pos = currentLevel.player.position;
 
-        aStar(this.position[0], this.position[2], pos[0], pos[2]+1, currentLevel.board, this);
+        aStar(this.position[0], this.position[2], pos[0], pos[2], currentLevel.board, this);
 
         console.log(this.path);
         console.log(this.mesh.position);
@@ -100,6 +99,23 @@ class Enemy extends Entity {
 
     pathAdd(waypoint){//add new waypoint to enemy patrol path
         this.path.add(waypoint);
+    }
+
+    //damage the playerh
+    attack(damage){
+        //Play attack animation
+        currentLevel.player.takeDamage(damage);
+
+    }
+    
+    //set custom attack power for enemy type
+    setAttackPower(atPow){
+        this.attackPower = atPow;
+    }
+
+    //set custom enemy mass for enemy type
+    setMass(newMass){
+        this.mass = newMass;
     }
 }
 export {Enemy};

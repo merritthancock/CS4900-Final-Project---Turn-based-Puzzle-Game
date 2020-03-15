@@ -1,11 +1,11 @@
-import {unlocked, getLock} from "./Semaphore.js";
+import {unlocked, getLock, masterLock} from "./Semaphore.js";
 import {keyStatus} from "./KeyboardInput.js";
 import {hover, aStar} from "./classes/Pathing.js";
 import { passTurn } from "./classes/TurnManager.js";
 import {currentLevel} from "./classes/LevelManager.js";
 
 function updateRender(currentLevel){
-    if(unlocked) {
+    if(unlocked && !masterLock) {
         if(keyStatus["wKey"]){
             getLock("inputHandler");
             console.log("Moving Cursor Forward!");
