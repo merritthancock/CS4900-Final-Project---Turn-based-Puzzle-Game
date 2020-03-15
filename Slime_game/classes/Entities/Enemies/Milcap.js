@@ -6,9 +6,9 @@ import { currentLevel } from "../../LevelManager.js";
 
 //The Enemy is an object that will contain unique methods allowing player interaction
 class Milcap extends Enemy {
-    constructor(position, model, texture, id, startingMass, startPriority){
+    constructor(position, model, id, startingMass, startPriority){
         //Call entity constructor
-        super(position, model, texture, id, startingMass, startPriority, 5);
+        super(position, model, id, startingMass, startPriority, 5);
 
         //Default trigger radius in all directions
         this.radius = [7,3,7];
