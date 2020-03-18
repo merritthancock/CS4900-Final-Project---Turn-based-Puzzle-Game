@@ -36,6 +36,9 @@ class PursueState extends State{
         if(!enemy.seesPlayer()) {
             enemy.stateMachine.changeTo(PATROL);
         }
+        if(1 == 2){
+            enemy.stateMachine.changeTo(ATTACK);
+        }
         enemy.moveToPlayer();
     }
 
