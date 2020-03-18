@@ -30,16 +30,19 @@ class PursueState extends State{
 
     enter(enemy) {
         console.log("Now chasing player!");
+        enemy.moveToPlayer();
     }
 
     execute(enemy){
         if(!enemy.seesPlayer()) {
             enemy.stateMachine.changeTo(PATROL);
         }
-        if(1 == 2){
+        enemy.moveToPlayer();
+        
+        if(enemy.withinARange()) {
             enemy.stateMachine.changeTo(ATTACK);
         }
-        enemy.moveToPlayer();
+        
     }
 
     exit(enemy){
@@ -51,12 +54,22 @@ class PursueState extends State{
 class AttackState extends State{
 
     enter(enemy) {
+        //enemy.moveToPlayer();
         //attack animation
-        //enemy.attack(enemy.attackPower);
+        console.log("FIRST ATTACK");
+        enemy.attack(enemy.attackPower);
     }
     
     execute(enemy) {
-        enemy.attack(enemy.attackPower);
+        enemy.moveToPlayer();
+        console.log("Within AR: ", enemy.withinARange());
+        if(enemy.withinARange() == false){
+            enemy.stateMachine.changeTo(PURSUE);
+        }
+        else{
+            //attack animation
+            enemy.attack(enemy.attackPower);
+        }
     }
 
     exit(enemy) {
