@@ -4,6 +4,7 @@ import { State } from "../../../libraries/yuka-master/src/yuka.js";
 const PATROL = 'PATROL';
 const PURSUE = 'PURSUE';
 const ATTACK = 'ATTACK';
+const FLEE = 'FLEE';
 
 class PatrolState extends State{
 
@@ -38,8 +39,9 @@ class PursueState extends State{
             enemy.stateMachine.changeTo(PATROL);
         }
         enemy.moveToPlayer();
-        
+
         if(enemy.withinARange()) {
+            enemy.moveToPlayer();
             enemy.stateMachine.changeTo(ATTACK);
         }
         
@@ -54,7 +56,6 @@ class PursueState extends State{
 class AttackState extends State{
 
     enter(enemy) {
-        //enemy.moveToPlayer();
         //attack animation
         console.log("FIRST ATTACK");
         enemy.attack(enemy.attackPower);

@@ -1,7 +1,7 @@
 import { StateMachine, RectangularTriggerRegion, Trigger } from "../../../libraries/yuka-master/src/yuka.js";
 import {aStar} from "../../Pathing.js";
 import { Enemy } from "../Enemy.js";
-import { PatrolState, PursueState, AttackState } from "./MilcapStates.js";
+import { PatrolState, PursueState, AttackState } from "./EnemyStates.js";
 import { currentLevel } from "../../LevelManager.js";
 
 //The Enemy is an object that will contain unique methods allowing player interaction
