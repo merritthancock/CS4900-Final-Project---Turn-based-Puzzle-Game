@@ -14,7 +14,7 @@ class Enemy extends Entity {
         //Set abilities to an empty set for starters
         this.abilities = {};
         //Set default movement range to 1
-        this.movementRange = 1;
+        this.movementRange = 2;
         //Set jump height to 1
         this.jumpHeight = 1;
         //Set the priority of the enemy
@@ -133,6 +133,46 @@ class Enemy extends Entity {
     //set custom attack range
     setARange(newAR){
         this.attackRange = newAR;
+    }
+
+    //Moves the enemy in the direction of the player
+    moveToPlayer(){
+        let pos = currentLevel.player.position;
+
+        aStar(this.position[0], this.position[2], pos[0], pos[2], currentLevel.board, this);
+
+        console.log(this.path);
+        console.log(this.mesh.position);
+    }
+
+    loop(){//changes whether path can loop
+        if(this.path.loop == true){
+            this.path.loop = false;
+        }
+        else{
+            this.path.loop = true;
+        }
+    }
+
+    pathAdd(waypoint){//add new waypoint to enemy patrol path
+        this.path.add(waypoint);
+    }
+
+    //damage the playerh
+    attack(damage){
+        //Play attack animation
+        currentLevel.player.takeDamage(damage);
+
+    }
+    
+    //set custom attack power for enemy type
+    setAttackPower(atPow){
+        this.attackPower = atPow;
+    }
+
+    //set custom enemy mass for enemy type
+    setMass(newMass){
+        this.mass = newMass;
     }
 }
 export {Enemy};

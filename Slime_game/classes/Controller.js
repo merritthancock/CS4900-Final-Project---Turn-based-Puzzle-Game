@@ -11,7 +11,8 @@ let windowHeight;
 let camera;
 let cameraControls;
 let renderer;
-//let scene;
+let menu = document.getElementById("menu");
+let startButton = document.getElementById("start");
 //let board;
 
 //Game setup tasks-----------------------------------------------
@@ -19,24 +20,28 @@ let renderer;
 windowWidth = window.innerWidth;
 windowHeight = window.innerHeight;
 
-//Creates renderer and adds it to document body
-renderer = new THREE.WebGLRenderer({ antialias: true });
-renderer.setSize(windowWidth, windowHeight);
-document.body.appendChild(renderer.domElement);
+function start(){
+    //Start Game
+    startButton.onclick = function(){
+        //Creates renderer and adds it to document body
+        renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(windowWidth, windowHeight);
+        document.body.appendChild(renderer.domElement);
 
-//set listener for window resizing. Allows resizing of game.
-window.addEventListener('resize', () => {
-    renderer.setSize(window.innerWidth,window.innerHeight);
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-});
+        //set listener for window resizing. Allows resizing of game.
+        window.addEventListener('resize', () => {
+            renderer.setSize(window.innerWidth,window.innerHeight);
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+        });
 
-//Adds event listeners to document
-document.addEventListener('keyup', doKeyUp, false);
-document.addEventListener('keydown', doKeyDown, false);
-//----------------------------------------------------------------
-
-
+        //Adds event listeners to document
+        document.addEventListener('keyup', doKeyUp, false);
+        document.addEventListener('keydown', doKeyDown, false);
+        //----------------------------------------------------------------
+        setupLevel();};
+}
+    
 function setupLevel(){
     camera = new THREE.PerspectiveCamera(45, windowWidth / windowHeight, 0.1, 10000);
     buildCamera();
@@ -56,8 +61,8 @@ function animate() {
     requestAnimationFrame(animate);
     renderLevel();
 }
-
-setupLevel();
+start();
+//setupLevel();
 
 export {camera};
 export {cameraControls};

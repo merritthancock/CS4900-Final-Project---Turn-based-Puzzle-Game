@@ -31,6 +31,7 @@ class Milcap extends Enemy {
         //updates default attack power with new attack power
         this.setAttackPower(0.5);
 
+
     }
 
     update(){//calls a single step in the state
