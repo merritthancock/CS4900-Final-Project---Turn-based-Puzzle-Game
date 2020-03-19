@@ -6,14 +6,21 @@ function aStar(startX, startY, endX, endY, board, entity) {
     let finder = new AStarFinder();
     //Get path
     let foundPath = finder.findPath(startX, startY, endX, endY, board, entity);
-    console.log(entity.id);
-    console.log(foundPath);
+    //console.log(entity.id);
+    //console.log(foundPath);
     if(foundPath.length == 0){
         console.log("No path exists!");
     }
     else {
-        let movesRemaining = entity.movementRange;
         for(var i = 0; i < foundPath.length; i++){
+            //ensure that entity still has moves remaining
+            if(entity.remainingAP < 0){
+                break;
+            }
+
+            console.log(entity.remainingAP);
+
+            entity.remainingAP--;
             board.tileArray[entity.position[0]][entity.position[2]].occupant = null;
             entity.moveEntity(
                 foundPath[i].tile.position[0],
@@ -21,12 +28,6 @@ function aStar(startX, startY, endX, endY, board, entity) {
                 foundPath[i].tile.position[2]
             );
             board.tileArray[entity.position[0]][entity.position[2]].occupant = entity;
-
-            //ensure that movement range is not exceeded
-            movesRemaining--;
-            if(movesRemaining < 0){
-                break;
-            }
         }
     }
 }
@@ -110,8 +111,16 @@ function movementOverlay(x, z, range, board, entity){//uses the flood fill algor
 }
 
 function movementOverlayHelper(board, entity){
-    var entityPos = entity.position;//for player only
-    var range = entity.movementRange;
+    let entityPos = entity.position;//for player only
+    //This if/else statement is meant to allow the overlay to work on entities that have no AP
+    //at the moment. It otherwise shows the player's remaining movement.
+    let range;
+    if(entity.movementRange <= entity.remainingAP || entity.remainingAP <= 0) {
+        range = entity.movementRange;
+    }
+    else {
+        range = entity.remainingAP;
+    }
     movementOverlay(entityPos[0], entityPos[2], range, board, entity);
     //return overlayList;
 }
