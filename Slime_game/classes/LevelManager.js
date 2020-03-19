@@ -9,7 +9,7 @@ import {Player} from "./Entities/Player.js";
 //Variables
 let scene;
 let currentLevel;
-
+let loader = new THREE.GLTFLoader().setPath( '../assets/GLTFModels/' );
 let testLevelTileMap = [
     [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 9, 4, 4, 4, 4, 4, 4, 4, 4, 4],
     [4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 9, 4, 0, 0, 0, 0, 0, 8, 8, 4],
@@ -54,44 +54,92 @@ let testLevelHeightMap = [
     [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0],
     [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0]
 ];
+const slimeURL = 'SlimeMain.glb'; 
+const milcapURL = 'SlimeMain.glb'; 
+const cursorURL = 'CursorOption2.glb'; 
+
+
+
+
+    
+
 
 //Create Player
-let slime = new THREE.TextureLoader().load( './assets/slime.jpg' );
-let playerBox = new THREE.BoxGeometry(1, 1, 1);
-let playerPos = [2, 1, 2];
-let player = new Player(playerPos, playerBox, slime, "player", 1);
-player.moveEntity(playerPos[0], playerPos[1], playerPos[2], player);
+//let slime = new THREE.TextureLoader().load( './assets/slime.jpg' );
+//let playerBox = new THREE.BoxGeometry(1, 1, 1);
+let slime;
 loader.load(
-	// resource URL
-	'CursorOption2b.glb',
-	// called when the resource is loaded
-	
-	function ( gltf ) {
-		scene.add(gltf.scene);
-		gltf.scene.scale.set(.5, .5, .5);
-		gltf.animations; // Array<THREE.AnimationClip>
-		gltf.scene; // THREE.Scene
-		gltf.scenes; // Array<THREE.Scene>
-		gltf.cameras; // Array<THREE.Camera>
-		gltf.asset; // Object
-        cursorMod = gltf.scene;
-	},
-	// called while loading is progressing
-	function ( xhr ) {
-		console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-	}
+    // resource URL
+    slimeURL,
+    // called when the resource is loaded
+    
+    function ( gltf ) {
+        scene.add(gltf.scene);
+        gltf.animations; // Array<THREE.AnimationClip>
+        gltf.scene; // THREE.Scene
+        gltf.scenes; // Array<THREE.Scene>
+        gltf.cameras; // Array<THREE.Camera>
+        gltf.asset; // Object
+        slime = gltf.scene;
+        },
+    // called while loading is progressing
+    function ( xhr ) {
+        console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+    }
 );
+let playerPos = [2, 1, 2];
+let player = new Player(playerPos, slime, "player", 1);
+player.moveEntity(playerPos[0], playerPos[1], playerPos[2], player);
+
 //Create Cursor
-let cu = new THREE.TextureLoader().load( './assets/yellow.jpg' );
-let cursorMod = new THREE.CircleBufferGeometry( 0.5, 30 );
-cursorMod.rotateX(-Math.PI/2);
+//let cu = new THREE.TextureLoader().load( './assets/yellow.jpg' );
+//let cursorMod = new THREE.CircleBufferGeometry( 0.5, 30 );
+//cursorMod.rotateX(-Math.PI/2);
+let cursorM;
+loader.load(
+    // resource URL
+    cursorURL,
+    // called when the resource is loaded
+    function ( gltf ) {
+        scene.add(gltf.scene);
+        gltf.animations; // Array<THREE.AnimationClip>
+        gltf.scene; // THREE.Scene
+        gltf.scenes; // Array<THREE.Scene>
+        gltf.cameras; // Array<THREE.Camera>
+        gltf.asset; // Object
+        cursorM = gltf.scene;
+        },
+    // called while loading is progressing
+    function ( xhr ) {
+        console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+    }
+);
 let cursorPos = [1, 1.6, 2];
-let cursor = new Cursor(cursorPos, cursorMod, cu, "cursor");
+let cursor = new Cursor(cursorPos, cursorM, "cursor");
 cursor.moveEntity(cursorPos[0], cursorPos[1], cursorPos[2], cursor);
 
 //Create Enemy
-let skull = new THREE.TextureLoader().load( './assets/skull.jpg' );
-let enemyBox = new THREE.BoxGeometry(1,1,1);
+//let skull = new THREE.TextureLoader().load( './assets/skull.jpg' );
+//let enemyBox = new THREE.BoxGeometry(1,1,1);
+let milcap;
+loader.load(
+    // resource URL
+    milcapURL,
+    // called when the resource is loaded
+    function ( gltf ) {
+        scene.add(gltf.scene);
+        gltf.animations; // Array<THREE.AnimationClip>
+        gltf.scene; // THREE.Scene
+        gltf.scenes; // Array<THREE.Scene>
+        gltf.cameras; // Array<THREE.Camera>
+        gltf.asset; // Object
+        milcap = gltf.scene;
+        },
+    // called while loading is progressing
+    function ( xhr ) {
+        console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+    }
+);
 let enemyPos = [13, 1, 3];
 let enemy = new Milcap(enemyPos, milcapSoldier, "enemy", 1, 1);
 enemy.moveEntity(enemyPos[0], enemyPos[1], enemyPos[2], enemy);
@@ -105,8 +153,8 @@ enemy.path.add([14, 1, 4]);
 enemy.path.add([13, 1, 3]); 
 
 //Create Enemy2 (same type as original)
-let skull2 = new THREE.TextureLoader().load( './assets/skull.jpg' );
-let enemyBox2 = new THREE.BoxGeometry(1,1,1);
+//let skull2 = new THREE.TextureLoader().load( './assets/skull.jpg' );
+//let enemyBox2 = new THREE.BoxGeometry(1,1,1);
 let enemyPos2 = [8, 1, 17];
 let enemy2 = new Milcap(enemyPos2, milcapSoldier, "enemy2", .9, 2);
 
