@@ -31,6 +31,8 @@ class PursueState extends State{
 
     enter(enemy) {
         console.log("Now chasing player!");
+        enemy.moveToPlayer();
+
     }
 
     execute(enemy){
