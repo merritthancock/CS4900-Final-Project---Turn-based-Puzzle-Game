@@ -11,6 +11,8 @@ class Entity extends GameEntity {
         this.texture = texture;
         //TODO: Enforce uniqueness of entity ID
         this.id = id;
+        //Represents Action points (AP)
+        this.ap = 2;
         //Build mesh from provided geometry and material, can add to scene in rest of code
         //this.mesh = THREE.Mesh(model, texture);
         this.mesh = new THREE.Mesh(model,
@@ -24,6 +26,17 @@ class Entity extends GameEntity {
         this.position[1] = y;
         this.position[2] = z;
         this.mesh.position.set(x,y,z);
+    }
+
+    //A method to check an entity's AP and decrement it with each move or action the entity takes
+    checkAP(ap){
+        if(ap > 0){
+            ap--;
+            return ap;
+        }
+        else{
+            return null;
+        }
     }
 }
 

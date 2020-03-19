@@ -31,17 +31,7 @@ class Milcap extends Enemy {
         //updates default attack power with new attack power
         this.setAttackPower(0.5);
 
-        /*=== NONESSENTIAL: Just to visually represent the trigger radius ==============
-        const boxGeometry = new THREE.BoxBufferGeometry( this.radius[0], this.radius[1], this.radius[2] );
-		const boxMaterial = new THREE.MeshBasicMaterial( { color: 0x6083c2, wireframe: true } );
-        let triggerMesh = new THREE.Mesh( boxGeometry, boxMaterial );
-        triggerMesh.position.set(position[0],position[1],position[2]);
-        console.log('box', triggerMesh.position);
-		//triggerMesh.matrixAutoUpdate = false;
-        triggerAggro.setRenderComponent(triggerMesh);
-        
-        scene.add(triggerMesh);
-        *///==============================================================================
+
     }
 
     update(){//calls a single step in the state
