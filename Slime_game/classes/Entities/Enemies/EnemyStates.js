@@ -78,4 +78,19 @@ class AttackState extends State{
     }
 }
 
-export {PatrolState, PursueState, AttackState};
+class FleeState extends State{
+
+    enter(enemy) {
+
+    }
+
+    execute(enemy) {
+
+    }
+
+    exit(enemy) { 
+
+    }
+}
+
+export {PatrolState, PursueState, AttackState}; 

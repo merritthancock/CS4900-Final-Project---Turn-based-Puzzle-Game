@@ -21,8 +21,6 @@ class Milcap extends Enemy {
         
         console.log(this.stateMachine.get('PATROL'));
         this.stateMachine.changeTo('PATROL');
-        //this.stateMachine.changeTo('PURSUE');
-        //this.stateMachine.changeTo('ATTACK');
         
         let triggerRadius = new RectangularTriggerRegion(this.radius);
         let triggerAggro = new Trigger(triggerRadius);
