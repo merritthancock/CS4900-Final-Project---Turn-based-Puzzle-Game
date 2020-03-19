@@ -113,7 +113,7 @@ class Enemy extends Entity {
         this.path.add(waypoint);
     }
 
-    //damage the playerh
+    //damage the player
     attack(damage){
         //Play attack animation
         currentLevel.player.takeDamage(damage);

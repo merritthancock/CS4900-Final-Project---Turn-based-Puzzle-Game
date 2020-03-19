@@ -15,6 +15,8 @@ class Player extends Entity {
         this.movementRange = 2;
         //Set default jump height to 1
         this.jumpHeight = 1;
+        //Set remaining AP initialized to starting AP
+        this.remainingAP = this.ap;
         this.canActivateTrigger = true;
     }
 
@@ -57,7 +59,7 @@ class Player extends Entity {
         if(this.mass <= 0){
             //death animation
             //death screen
-            
+            console.log("You died!");
         }
     }
 }

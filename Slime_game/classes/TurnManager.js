@@ -21,12 +21,21 @@ async function passTurn(enemies) {
         //TODO: Make this more robust for moving enemies, also move enemy movement logic and passTurn call to other file
         while(enemyPriorityQueue.peek() != null) {
             await sleep(250);
-            enemyPriorityQueue.pop().update();
+            //Get next enemy on the priority queue, give it its AP for the turn,
+            //and update until it runs out of AP.
+            let currentEnemy = enemyPriorityQueue.pop();
+            currentEnemy.remainingAP = currentEnemy.ap;
+            while(currentEnemy.remainingAP > 0) {
+                currentEnemy.update();
+                await sleep(100);
+            }
         }
         passTurn(enemies);
     }
-    else{
+    else {
+        let player = currentLevel.player;
         isPlayerTurn = true;
+        player.remainingAP = player.ap
         currentLevel.cursor.mesh.material.visibile = true;
         releaseMasterLock();
     }
