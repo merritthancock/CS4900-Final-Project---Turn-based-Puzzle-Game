@@ -13,6 +13,8 @@ class Entity extends GameEntity {
         this.id = id;
         //Represents Action points (AP)
         this.ap = 2;
+        //AP remaining for turn. (Set by TurnManager)
+        this.remainingAP = 0;
         //Build mesh from provided geometry and material, can add to scene in rest of code
         //this.mesh = THREE.Mesh(model, texture);
         this.mesh = new THREE.Mesh(model,
@@ -28,7 +30,7 @@ class Entity extends GameEntity {
         this.mesh.position.set(x,y,z);
     }
 
-    //A method to check an entity's AP and decrement it with each move or action the entity takes
+    /*A method to check an entity's AP and decrement it with each move or action the entity takes
     checkAP(ap){
         if(ap > 0){
             ap--;
@@ -37,7 +39,7 @@ class Entity extends GameEntity {
         else{
             return null;
         }
-    }
+    }*/
 }
 
 export {Entity};
