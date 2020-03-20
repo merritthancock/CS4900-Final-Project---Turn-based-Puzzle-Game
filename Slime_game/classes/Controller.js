@@ -15,6 +15,7 @@ let menu = document.getElementById("menu");
 let startButton = document.getElementById("start");
 let level2Button = document.getElementById("Level2");
 let level3Button = document.getElementById("Level3");
+let currentScene;
 //let board;
 
 //Game setup tasks-----------------------------------------------
@@ -25,6 +26,8 @@ windowHeight = window.innerHeight;
 function start(){
     //Level 1
     startButton.onclick = function(){
+        //Sets current scene to level 1 scene
+        currentScene = scene;
         //Creates renderer and adds it to document body
         renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.setSize(windowWidth, windowHeight);
@@ -57,16 +60,37 @@ function start(){
 function setupLevel1(){
     camera = new THREE.PerspectiveCamera(45, windowWidth / windowHeight, 0.1, 10000);
     buildCamera();
-    scene.add(camera);//referenced scene from LevelManager
-    renderer.compile(scene, camera);
+    currentScene.add(camera);//referenced scene from LevelManager
+    renderer.compile(currentScene, camera);
     cameraControls = new THREE.OrbitControls( camera, renderer.domElement );
     buildCameraControls();
     animate();
 }
 
+function setupLevel2(){
+    /*
+    camera = new THREE.PerspectiveCamera(45, windowWidth / windowHeight, 0.1, 10000);
+    buildCamera();
+    scene.add(camera);//referenced scene from LevelManager
+    renderer.compile(scene, camera);
+    cameraControls = new THREE.OrbitControls( camera, renderer.domElement );
+    buildCameraControls();
+    animate();*/
+}
+
+function setupLevel3(){
+    /*camera = new THREE.PerspectiveCamera(45, windowWidth / windowHeight, 0.1, 10000);
+    buildCamera();
+    scene.add(camera);//referenced scene from LevelManager
+    renderer.compile(scene, camera);
+    cameraControls = new THREE.OrbitControls( camera, renderer.domElement );
+    buildCameraControls();
+    animate();*/
+}
+
 function renderLevel() {
     updateRender(currentLevel);
-    renderer.render(scene, camera);
+    renderer.render(currentScene, camera);
 }
 
 function animate() {
