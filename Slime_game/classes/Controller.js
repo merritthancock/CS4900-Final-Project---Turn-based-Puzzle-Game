@@ -13,6 +13,8 @@ let cameraControls;
 let renderer;
 let menu = document.getElementById("menu");
 let startButton = document.getElementById("start");
+let level2Button = document.getElementById("Level2");
+let level3Button = document.getElementById("Level3");
 //let board;
 
 //Game setup tasks-----------------------------------------------
@@ -21,7 +23,7 @@ windowWidth = window.innerWidth;
 windowHeight = window.innerHeight;
 
 function start(){
-    //Start Game
+    //Level 1
     startButton.onclick = function(){
         //Creates renderer and adds it to document body
         renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -39,10 +41,20 @@ function start(){
         document.addEventListener('keyup', doKeyUp, false);
         document.addEventListener('keydown', doKeyDown, false);
         //----------------------------------------------------------------
-        setupLevel();};
+        setupLevel1();
+    };
+    //Level 2
+    level2Button.onclick = function(){
+        console.log("Level2");
+    };
+    //Level 3
+    level3Button.onclick = function(){
+        console.log("Level 3");
+    };
+
 }
     
-function setupLevel(){
+function setupLevel1(){
     camera = new THREE.PerspectiveCamera(45, windowWidth / windowHeight, 0.1, 10000);
     buildCamera();
     scene.add(camera);//referenced scene from LevelManager
