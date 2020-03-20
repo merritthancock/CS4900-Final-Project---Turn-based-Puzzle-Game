@@ -8,7 +8,10 @@ import {Player} from "./Entities/Player.js";
 
 //Variables
 let scene;
+let scene2;
 let currentLevel;
+let currentLevel2;
+//Level1---------------------------------------------------------------------------------------------
 
 let testLevelTileMap = [
     [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 9, 4, 4, 4, 4, 4, 4, 4, 4, 4],
@@ -144,6 +147,144 @@ function loadBoard(scene, level) {
 
 loadLevel(scene, testLevel);
 currentLevel = testLevel;
+
+/*
+//Level 2---------------------------------------------------------------------------------------------------
+let testLevelTileMap2 = [
+    [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 9, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+    [4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 9, 4, 0, 0, 0, 0, 0, 8, 8, 4],
+    [4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 9, 4, 0, 0, 0, 0, 0, 8, 8, 4],
+    [4, 0, 0, 0, 0, 0, 4, 0, 4, 0, 0, 0, 0, 0, 4, 9, 4, 0, 0, 0, 0, 0, 0, 0, 4],
+    [4, 0, 0, 0, 0, 4, 4, 0, 4, 4, 0, 0, 0, 0, 4, 9, 4, 0, 0, 0, 0, 0, 0, 0, 4],
+    [4, 0, 0, 0, 0, 4, 4, 0, 4, 4, 0, 0, 0, 0, 4, 9, 4, 0, 0, 0, 0, 0, 0, 0, 4],
+    [4, 0, 0, 0, 0, 0, 4, 0, 4, 0, 0, 0, 0, 0, 4, 9, 4, 0, 0, 0, 0, 0, 0, 0, 4],
+    [4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 9, 4, 0, 0, 0, 0, 0, 0, 0, 4],
+    [4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 9, 4, 0, 0, 0, 0, 0, 0, 0, 4],
+    [4, 4, 4, 4, 4, 4, 4, 0, 0, 0, 4, 4, 4, 4, 4, 9, 4, 0, 0, 0, 4, 4, 4, 4, 4],//mid
+    [9, 9, 9, 9, 9, 9, 4, 0, 0, 0, 4, 9, 9, 9, 9, 9, 4, 0, 0, 0, 4, 9, 9, 9, 9],//mid
+    [4, 4, 4, 4, 4, 4, 4, 0, 0, 0, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0, 4, 9, 9, 9, 9],
+    [4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 9, 9, 9, 9],
+    [4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 9, 9, 9, 9],
+    [4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 9, 9, 9, 9],
+    [4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 9, 9, 9, 9],
+    [4, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 9, 9, 9, 9],
+    [4, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 9, 9, 9, 9],
+    [4, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 9, 9, 9, 9],
+    [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 9, 9, 9, 9],
+];
+let testLevelHeightMap2 = [
+    [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 9, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 9, 2, 0, 0, 0, 0, 0, 0, 0, 2], 
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 9, 2, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 0, 0, 0, 0, 0, 4, 0, 4, 0, 0, 0, 0, 0, 2, 9, 2, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 0, 0, 0, 0, 4, 4, 0, 4, 4, 0, 0, 0, 0, 2, 9, 2, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 0, 0, 0, 0, 4, 4, 0, 4, 4, 0, 0, 0, 0, 2, 9, 2, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 0, 0, 0, 0, 0, 4, 0, 4, 0, 0, 0, 0, 0, 2, 9, 2, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 9, 2, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 9, 2, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 2, 2, 2, 2, 2, 9, 2, 0, 0, 0, 2, 2, 2, 2, 2],//mid
+    [9, 9, 9, 9, 9, 9, 2, 0, 0, 0, 2, 9, 9, 9, 9, 9, 2, 0, 0, 0, 2, 0, 0, 0, 0],//mid
+    [2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 2, 0, 0, 0, 0],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 3, 2, 1, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 3, 2, 1, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 3, 2, 1, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0],
+    [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0]
+];
+
+//Create Player
+let slime2 = new THREE.TextureLoader().load( './assets/slime.jpg' );
+let playerBox2 = new THREE.BoxGeometry(1, 1, 1);
+let playerPos2 = [2, 1, 2];
+let player2 = new Player(playerPos2, playerBox2, slime2, "player", 1);
+player2.moveEntity(playerPos[0], playerPos[1], playerPos[2], player);
+
+//Create Cursor
+let cu2 = new THREE.TextureLoader().load( './assets/yellow.jpg' );
+let cursorMod2 = new THREE.CircleBufferGeometry( 0.5, 30 );
+cursorMod2.rotateX(-Math.PI/2);
+let cursorPos2 = [1, 1.6, 2];
+let cursor2 = new Cursor(cursorPos2, cursorMod2, cu2, "cursor");
+cursor2.moveEntity(cursorPos2[0], cursorPos2[1], cursorPos2[2], cursor2);
+
+//Create Enemy
+let skull2a = new THREE.TextureLoader().load( './assets/skull.jpg' );
+let enemyBox2a = new THREE.BoxGeometry(1,1,1);
+let enemyPos2a = [13, 1, 3];
+let enemy2a = new Milcap(enemyPos2a, enemyBox2a, skull2a, "enemy", 1, 1);
+enemy2a.moveEntity(enemyPos2a[0], enemyPos2a[1], enemyPos2a[2], enemy2a);
+let enemies2 = [enemy2a];
+
+enemy2a.path.loop = true;
+enemy2a.path.add([13, 1, 13]);
+enemy2a.path.add([17, 1, 13]);
+enemy2a.path.add([15, 1, 4]);
+enemy2a.path.add([14, 1, 4]);
+enemy2a.path.add([13, 1, 3]); 
+
+//Create Enemy2 (same type as original)
+let skull2b = new THREE.TextureLoader().load( './assets/skull.jpg' );
+let enemyBox2b = new THREE.BoxGeometry(1,1,1);
+let enemyPos2b = [8, 1, 17];
+let enemy2b = new Milcap(enemyPos2b, enemyBox2b, skull2b, "enemy2", .9, 2);
+
+enemies2.push(enemy2b);
+enemy2b.moveEntity(enemyPos2b[0], enemyPos2b[1], enemyPos2b[2], enemy2b);
+enemy2b.path.loop = true;
+enemy2b.path.add([8, 1, 23]);
+enemy2b.path.add([8, 1, 17]);
+
+//Create Level
+let testLevel2 = new Level(testLevelHeightMap2, testLevelTileMap2, enemies2, player2, cursor2);
+
+
+//Create Scene
+scene2 = new THREE.Scene;
+
+
+function loadLevel2(scene2, level2){
+
+    loadBoard2(scene2, level2);
+}
+
+function loadBoard2(scene2, level2) {
+    for(let i = 0; i < level2.board.tileMap.length; i++){
+        for(let j = 0; j < level2.board.tileMap[0].length; j++){
+            if(level2.board.tileArray[i][j].terrain != null){
+                scene2.add(level2.board.tileArray[i][j].terrain);
+                scene2.add(level2.board.overlayMap[i][j].overlay);
+            }
+        }
+    }
+
+    // create lighting and add to scene 
+    let light2 = new THREE.AmbientLight( 0xe0e0e0 ); // soft white light
+    scene2.add(light2);
+
+
+    //Set up the skybox
+    let sky2 = new THREE.TextureLoader().load( './assets/Slimegamesky.jpg' );
+    let skyboxGeometry2 = new THREE.CubeGeometry(100, 100, 100);
+    let skyboxMaterial2 = new THREE.MeshBasicMaterial({  map: sky, side: THREE.BackSide });
+    let skybox2 = new THREE.Mesh(skyboxGeometry2, skyboxMaterial2);
+    scene2.add(skybox2);
+
+    //add player to the scene
+    scene2.add(level2.player.mesh);
+    //add cursor to the scene
+    scene2.add(level2.cursor.mesh);
+    //add enemy to the scene //TODO: Add array compatibility for board
+    for(let i = 0; i < enemies2.length; i++){
+        scene2.add(level2.enemies2[i].mesh);
+    }
+}
+
+loadLevel2(scene2, testLevel2);
+//currentLevel = testLevel2;
+*/
 
 export {scene}
 export {testLevel}
