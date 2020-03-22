@@ -148,7 +148,7 @@ function loadBoard(scene, level) {
 loadLevel(scene, testLevel);
 currentLevel = testLevel;
 
-/*
+
 //Level 2---------------------------------------------------------------------------------------------------
 let testLevelTileMap2 = [
     [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 9, 4, 4, 4, 4, 4, 4, 4, 4, 4],
@@ -177,7 +177,7 @@ let testLevelHeightMap2 = [
     [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 9, 2, 0, 0, 0, 0, 0, 0, 0, 2], 
     [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 9, 2, 0, 0, 0, 0, 0, 0, 0, 2],
     [2, 0, 0, 0, 0, 0, 4, 0, 4, 0, 0, 0, 0, 0, 2, 9, 2, 0, 0, 0, 0, 0, 0, 0, 2],
-    [2, 0, 0, 0, 0, 4, 4, 0, 4, 4, 0, 0, 0, 0, 2, 9, 2, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 0, 0, 0, 0, 4, 4, 0, 4, 4, 0, 4, 0, 0, 2, 9, 2, 0, 0, 0, 0, 0, 0, 0, 2],
     [2, 0, 0, 0, 0, 4, 4, 0, 4, 4, 0, 0, 0, 0, 2, 9, 2, 0, 0, 0, 0, 0, 0, 0, 2],
     [2, 0, 0, 0, 0, 0, 4, 0, 4, 0, 0, 0, 0, 0, 2, 9, 2, 0, 0, 0, 0, 0, 0, 0, 2],
     [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 9, 2, 0, 0, 0, 0, 0, 0, 0, 2],
@@ -200,14 +200,14 @@ let slime2 = new THREE.TextureLoader().load( './assets/slime.jpg' );
 let playerBox2 = new THREE.BoxGeometry(1, 1, 1);
 let playerPos2 = [2, 1, 2];
 let player2 = new Player(playerPos2, playerBox2, slime2, "player", 1);
-player2.moveEntity(playerPos[0], playerPos[1], playerPos[2], player);
-
+player2.moveEntity(playerPos2[0], playerPos2[1], playerPos2[2], player2);
+ 
 //Create Cursor
 let cu2 = new THREE.TextureLoader().load( './assets/yellow.jpg' );
 let cursorMod2 = new THREE.CircleBufferGeometry( 0.5, 30 );
 cursorMod2.rotateX(-Math.PI/2);
 let cursorPos2 = [1, 1.6, 2];
-let cursor2 = new Cursor(cursorPos2, cursorMod2, cu2, "cursor");
+let cursor2 = new Cursor(cursorPos, cursorMod2, cu2, "cursor");
 cursor2.moveEntity(cursorPos2[0], cursorPos2[1], cursorPos2[2], cursor2);
 
 //Create Enemy
@@ -224,19 +224,19 @@ enemy2a.path.add([17, 1, 13]);
 enemy2a.path.add([15, 1, 4]);
 enemy2a.path.add([14, 1, 4]);
 enemy2a.path.add([13, 1, 3]); 
-
+/*
 //Create Enemy2 (same type as original)
-let skull2b = new THREE.TextureLoader().load( './assets/skull.jpg' );
-let enemyBox2b = new THREE.BoxGeometry(1,1,1);
-let enemyPos2b = [8, 1, 17];
-let enemy2b = new Milcap(enemyPos2b, enemyBox2b, skull2b, "enemy2", .9, 2);
+let skull2 = new THREE.TextureLoader().load( './assets/skull.jpg' );
+let enemyBox2 = new THREE.BoxGeometry(1,1,1);
+let enemyPos2 = [8, 1, 17];
+let enemy2 = new Milcap(enemyPos2, enemyBox2, skull2, "enemy2", .9, 2);
 
-enemies2.push(enemy2b);
-enemy2b.moveEntity(enemyPos2b[0], enemyPos2b[1], enemyPos2b[2], enemy2b);
-enemy2b.path.loop = true;
-enemy2b.path.add([8, 1, 23]);
-enemy2b.path.add([8, 1, 17]);
-
+enemies.push(enemy2);
+enemy2.moveEntity(enemyPos2[0], enemyPos2[1], enemyPos2[2], enemy2);
+enemy2.path.loop = true;
+enemy2.path.add([8, 1, 23]);
+enemy2.path.add([8, 1, 17]);
+*/
 //Create Level
 let testLevel2 = new Level(testLevelHeightMap2, testLevelTileMap2, enemies2, player2, cursor2);
 
@@ -245,48 +245,50 @@ let testLevel2 = new Level(testLevelHeightMap2, testLevelTileMap2, enemies2, pla
 scene2 = new THREE.Scene;
 
 
-function loadLevel2(scene2, level2){
+function loadLevel2(scene2, testLevel2){
 
-    loadBoard2(scene2, level2);
+    loadBoard2(scene2, testLevel2);
 }
 
-function loadBoard2(scene2, level2) {
-    for(let i = 0; i < level2.board.tileMap.length; i++){
-        for(let j = 0; j < level2.board.tileMap[0].length; j++){
-            if(level2.board.tileArray[i][j].terrain != null){
-                scene2.add(level2.board.tileArray[i][j].terrain);
-                scene2.add(level2.board.overlayMap[i][j].overlay);
+function loadBoard2(scene2, testLevel2) {
+    for(let i = 0; i < testLevel2.board.tileMap.length; i++){
+        for(let j = 0; j < testLevel2.board.tileMap[0].length; j++){
+            if(testLevel2.board.tileArray[i][j].terrain != null){
+                scene2.add(testLevel2.board.tileArray[i][j].terrain);
+                scene2.add(testLevel2.board.overlayMap[i][j].overlay);
             }
         }
     }
 
     // create lighting and add to scene 
-    let light2 = new THREE.AmbientLight( 0xe0e0e0 ); // soft white light
-    scene2.add(light2);
+    let light = new THREE.AmbientLight( 0xe0e0e0 ); // soft white light
+    scene2.add(light);
 
 
     //Set up the skybox
-    let sky2 = new THREE.TextureLoader().load( './assets/Slimegamesky.jpg' );
-    let skyboxGeometry2 = new THREE.CubeGeometry(100, 100, 100);
-    let skyboxMaterial2 = new THREE.MeshBasicMaterial({  map: sky, side: THREE.BackSide });
-    let skybox2 = new THREE.Mesh(skyboxGeometry2, skyboxMaterial2);
-    scene2.add(skybox2);
+    let sky = new THREE.TextureLoader().load( './assets/Slimegamesky.jpg' );
+    let skyboxGeometry = new THREE.CubeGeometry(100, 100, 100);
+    let skyboxMaterial = new THREE.MeshBasicMaterial({  map: sky, side: THREE.BackSide });
+    let skybox = new THREE.Mesh(skyboxGeometry, skyboxMaterial);
+    scene2.add(skybox);
 
     //add player to the scene
-    scene2.add(level2.player.mesh);
+    scene2.add(testLevel2.player.mesh);
     //add cursor to the scene
-    scene2.add(level2.cursor.mesh);
+    scene2.add(testLevel2.cursor.mesh);
     //add enemy to the scene //TODO: Add array compatibility for board
     for(let i = 0; i < enemies2.length; i++){
-        scene2.add(level2.enemies2[i].mesh);
+        scene2.add(testLevel2.enemies[i].mesh);
     }
 }
 
 loadLevel2(scene2, testLevel2);
 //currentLevel = testLevel2;
-*/
+
 
 export {scene}
+export {scene2}
 export {testLevel}
+export {testLevel2}
 export {currentLevel}
 
