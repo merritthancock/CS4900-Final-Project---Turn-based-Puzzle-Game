@@ -18,6 +18,7 @@ class PatrolState extends State{
             enemy.stateMachine.changeTo(PURSUE);
         }
         enemy.moveEPath();
+        enemy.remainingAP--;
     }
 
     exit(enemy){
@@ -32,6 +33,7 @@ class PursueState extends State{
     enter(enemy) {
         console.log("Now chasing player!");
         enemy.moveToPlayer();
+
     }
 
     execute(enemy){
@@ -40,6 +42,8 @@ class PursueState extends State{
         }
         enemy.moveToPlayer();
 
+        enemy.remainingAP--;
+        
         if(enemy.withinARange()) {
             enemy.moveToPlayer();
             enemy.stateMachine.changeTo(ATTACK);
@@ -57,12 +61,12 @@ class AttackState extends State{
 
     enter(enemy) {
         //attack animation
-        console.log("FIRST ATTACK");
-        enemy.attack(enemy.attackPower);
+        //console.log("FIRST ATTACK");
+        //enemy.attack(enemy.attackPower);
     }
     
     execute(enemy) {
-        enemy.moveToPlayer();
+        //enemy.moveToPlayer();
         console.log("Within AR: ", enemy.withinARange());
         if(enemy.withinARange() == false){
             enemy.stateMachine.changeTo(PURSUE);
@@ -70,6 +74,7 @@ class AttackState extends State{
         else{
             //attack animation
             enemy.attack(enemy.attackPower);
+            enemy.remainingAP--;
         }
     }
 

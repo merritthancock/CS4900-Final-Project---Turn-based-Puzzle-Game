@@ -28,6 +28,8 @@ class Milcap extends Enemy {
         console.log('Aggro', triggerAggro.position);
         //updates default attack power with new attack power
         this.setAttackPower(0.5);
+        //Milcaps have 1 AP per turn
+        this.ap = 2;
 
     }
 

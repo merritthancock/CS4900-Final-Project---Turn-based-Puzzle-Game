@@ -12,9 +12,11 @@ class Player extends Entity {
         //Set abilities to an empty set for starters
         this.abilities = {};
         //Set default movement range to 2
-        this.movementRange = 2;
+        this.movementRange = 4;
         //Set default jump height to 1
         this.jumpHeight = 1;
+        //Set remaining AP initialized to starting AP
+        this.remainingAP = this.ap;
         this.canActivateTrigger = true;
     }
 
@@ -58,7 +60,7 @@ class Player extends Entity {
             console.log("PLAYER IS DEAD");
             //death animation
             //death screen
-            
+            console.log("You died!");
         }
     }
 }
