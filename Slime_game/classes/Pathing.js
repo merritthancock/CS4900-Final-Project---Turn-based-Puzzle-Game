@@ -12,23 +12,7 @@ function aStar(startX, startY, endX, endY, board, entity) {
         console.log("No path exists!");
     }
     else {
-        for(var i = 0; i < foundPath.length; i++){
-            //ensure that entity still has moves remaining
-            if(entity.remainingAP < 0){
-                break;
-            }
-
-            console.log(entity.remainingAP);
-
-            entity.remainingAP--;
-            board.tileArray[entity.position[0]][entity.position[2]].occupant = null;
-            entity.moveEntity(
-                foundPath[i].tile.position[0],
-                foundPath[i].tile.height + 1,
-                foundPath[i].tile.position[2]
-            );
-            board.tileArray[entity.position[0]][entity.position[2]].occupant = entity;
-        }
+        return foundPath;
     }
 }
 

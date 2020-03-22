@@ -71,28 +71,36 @@ class Enemy extends Entity {
     }
 
     //moves the enemy along a predetermined patrol path
-    moveEPath(){
-        var pos = this.path.current();
-        aStar(this.position[0], this.position[2], pos[0], pos[2], currentLevel.board, this);
-        //this.moveEntity(pos[0], board.tileArray[pos[0]][pos[2]].height + 1, pos[2]);
+    moveEPath(moves){
+        let pos = this.path.current();
+        let route = aStar(this.position[0], this.position[2], pos[0], pos[2], currentLevel.board, this);
+
+        //Move along the route for the number of moves allowed
+        for(let i = 1; i < route.length && moves > 0; i++) {
+            currentLevel.board.tileArray[this.position[0]][this.position[2]].occupant = null;
+            this.moveEntity(route[i].tile.position[0], route[i].tile.height + 1, route[i].tile.position[2]);
+            currentLevel.board.tileArray[this.position[0]][this.position[2]].occupant = this;
+            moves--;
+        }
 
         //if made it to node, advance the node
         if(this.position[0] == pos[0] && this.position[2] == pos[2]){
             this.path.advance();
         }
-
-        //console.log(this.path);
-        //console.log(this.mesh.position);
     }
 
     //Moves the enemy in the direction of the player
-    moveToPlayer(){
+    moveToPlayer(moves){
         let pos = currentLevel.player.position;
+        let route = aStar(this.position[0], this.position[2], pos[0], pos[2], currentLevel.board, this);
 
-        aStar(this.position[0], this.position[2], pos[0], pos[2], currentLevel.board, this);
-
-        //console.log(this.path);
-        //console.log(this.mesh.position);
+        //Move along the route for the number of moves allowed
+        for(let i = 1; i < route.length && moves > 0; i++) {
+            currentLevel.board.tileArray[this.position[0]][this.position[2]].occupant = null;
+            this.moveEntity(route[i].tile.position[0], route[i].tile.height + 1, route[i].tile.position[2]);
+            currentLevel.board.tileArray[this.position[0]][this.position[2]].occupant = this;
+            moves--;
+        }
     }
 
     loop(){//changes whether path can loop

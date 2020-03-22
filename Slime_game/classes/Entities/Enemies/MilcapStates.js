@@ -16,8 +16,7 @@ class PatrolState extends State{
         if(enemy.seesPlayer()) {
             enemy.stateMachine.changeTo(PURSUE);
         }
-        enemy.moveEPath();
-        enemy.remainingAP--;
+        enemy.moveEPath(1);
     }
 
     exit(enemy){
@@ -31,7 +30,7 @@ class PursueState extends State{
 
     enter(enemy) {
         console.log("Now chasing player!");
-        enemy.moveToPlayer();
+        enemy.moveToPlayer(1);
 
     }
 
@@ -39,8 +38,7 @@ class PursueState extends State{
         if(!enemy.seesPlayer()) {
             enemy.stateMachine.changeTo(PATROL);
         }
-        enemy.moveToPlayer();
-        enemy.remainingAP--;
+        enemy.moveToPlayer(1);
         
         if(enemy.withinARange()) {
             enemy.stateMachine.changeTo(ATTACK);
@@ -72,7 +70,6 @@ class AttackState extends State{
         else{
             //attack animation
             enemy.attack(enemy.attackPower);
-            enemy.remainingAP--;
         }
     }
 

@@ -1,8 +1,6 @@
 import {unlocked, getLock, masterLock} from "./Semaphore.js";
 import {keyStatus} from "./KeyboardInput.js";
-import {hover, aStar} from "./classes/Pathing.js";
-import { passTurn } from "./classes/TurnManager.js";
-import {currentLevel} from "./classes/LevelManager.js";
+import {hover} from "./classes/Pathing.js";
 
 function updateRender(currentLevel){
     if(unlocked && !masterLock) {
@@ -33,39 +31,7 @@ function updateRender(currentLevel){
         if(keyStatus["enter"]){
             getLock("inputHandler");
 
-            let goalX = currentLevel.cursor.position[0];
-            let goalY = currentLevel.cursor.position[2];
-
-            //Check if player is selected
-            if(currentLevel.board.selected != null && currentLevel.player.id == currentLevel.board.selected.id){
-                let currentX = currentLevel.player.position[0];
-                let currentY = currentLevel.player.position[2];
-                //if cursor is on player, deselect. Else, try to move player and then deselect.
-                if(currentX == goalX && currentY == goalY){
-                    currentLevel.board.select(currentLevel.player);
-                }
-                else{
-                    let xDistance = Math.abs(goalX - currentX);
-                    let yDistance = Math.abs(goalY - currentY);
-                    //if cursor is within movementRange of player, move player and pass turn. Else, deselect.
-                    if(xDistance + yDistance <= currentLevel.player.movementRange){
-                        aStar(currentX, currentY, goalX, goalY, currentLevel.board, currentLevel.player);
-                        currentLevel.board.select(currentLevel.player);
-                        passTurn(currentLevel.enemies);
-                    }
-                    else{
-                        currentLevel.board.select(currentLevel.player);
-                    }
-                }
-            }
-            //if something other than player is selected, deselect
-            else if(currentLevel.board.selected != null){
-                currentLevel.board.select(currentLevel.board.selected);
-            }
-            //if nothing is selected, select whatever's currently occupying
-            else if(currentLevel.board.tileArray[goalX][goalY].occupant != null){
-                currentLevel.board.select(currentLevel.board.tileArray[goalX][goalY].occupant);
-            }
+            currentLevel.cursor.click();
 
             hover(currentLevel.board);
         }
