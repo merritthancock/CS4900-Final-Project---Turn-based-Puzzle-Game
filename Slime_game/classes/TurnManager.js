@@ -17,15 +17,15 @@ async function passTurn(enemies) {
     if(isPlayerTurn) {
         getMasterLock();
         isPlayerTurn = false;
-        currentLevel.cursor.mesh.material.visibile = false;
+        currentLevel.cursor.mesh.material.visible = false;
         //TODO: Make this more robust for moving enemies, also move enemy movement logic and passTurn call to other file
         while(enemyPriorityQueue.peek() != null) {
             await sleep(250);
             //Get next enemy on the priority queue, give it its AP for the turn,
             //and update until it runs out of AP.
             let currentEnemy = enemyPriorityQueue.pop();
-            currentEnemy.remainingAP = currentEnemy.ap;
-            while(currentEnemy.remainingAP > 0) {
+            currentEnemy.resetAP();
+            while(currentEnemy.decrementAP() != null) {
                 currentEnemy.update();
                 await sleep(100);
             }
@@ -35,8 +35,8 @@ async function passTurn(enemies) {
     else {
         let player = currentLevel.player;
         isPlayerTurn = true;
-        player.remainingAP = player.ap
-        currentLevel.cursor.mesh.material.visibile = true;
+        player.resetAP();
+        currentLevel.cursor.mesh.material.visible = true;
         releaseMasterLock();
     }
 }
