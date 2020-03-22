@@ -31,7 +31,7 @@ class Milcap extends Enemy {
         //updates default attack power with new attack power
         this.setAttackPower(0.5);
         //Milcaps have 1 AP per turn
-        this.ap = 1;
+        this.ap = 2;
 
     }
 
