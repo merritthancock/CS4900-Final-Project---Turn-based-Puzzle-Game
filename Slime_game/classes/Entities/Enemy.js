@@ -70,11 +70,7 @@ class Enemy extends Entity {
         }
     }
 
-    //moves the enemy along a predetermined patrol path
-    moveEPath(moves){
-        let pos = this.path.current();
-        let route = aStar(this.position[0], this.position[2], pos[0], pos[2], currentLevel.board, this);
-
+    moveEnemy(route, moves) {
         //Move along the route for the number of moves allowed
         for(let i = 1; i < route.length && moves > 0; i++) {
             currentLevel.board.tileArray[this.position[0]][this.position[2]].occupant = null;
@@ -82,6 +78,15 @@ class Enemy extends Entity {
             currentLevel.board.tileArray[this.position[0]][this.position[2]].occupant = this;
             moves--;
         }
+    }
+
+    //moves the enemy along a predetermined patrol path
+    moveEPath(moves){
+        let pos = this.path.current();
+        let route = aStar(this.position[0], this.position[2], pos[0], pos[2], currentLevel.board, this);
+
+        //Move along the route for the number of moves allowed
+        this.moveEnemy(route, moves);
 
         //if made it to node, advance the node
         if(this.position[0] == pos[0] && this.position[2] == pos[2]){
@@ -94,13 +99,7 @@ class Enemy extends Entity {
         let pos = currentLevel.player.position;
         let route = aStar(this.position[0], this.position[2], pos[0], pos[2], currentLevel.board, this);
 
-        //Move along the route for the number of moves allowed
-        for(let i = 1; i < route.length && moves > 0; i++) {
-            currentLevel.board.tileArray[this.position[0]][this.position[2]].occupant = null;
-            this.moveEntity(route[i].tile.position[0], route[i].tile.height + 1, route[i].tile.position[2]);
-            currentLevel.board.tileArray[this.position[0]][this.position[2]].occupant = this;
-            moves--;
-        }
+        this.moveEnemy(route, moves);
     }
 
     loop(){//changes whether path can loop

@@ -15,8 +15,7 @@ class PatrolState extends State {
         }
         else{
             console.log(enemy.nestLocation);
-            enemy.moveEPath();
-            enemy.remainingAP--;
+            enemy.moveEPath(1);
         }
     }
 
@@ -37,7 +36,7 @@ class FleeState extends State {
             enemy.stateMachine.changeTo(HIDE);
         }
         else{
-            enemy.fleeToNest();
+            enemy.fleeToNest(1);
         }
     }
     

@@ -23,7 +23,7 @@ class Verm extends Enemy {
         this.stateMachine.changeTo('PATROL');
         //updates default attack power with new attack power
         this.setAttackPower(0.5);
-        //Milcaps have 1 AP per turn
+        //Verms have 2 AP per turn
         this.ap = 2;
         //Location of the Verm's nest
         this.nestLocation = [];
@@ -36,9 +36,9 @@ class Verm extends Enemy {
     }
 
     //Moves the Verm in the direction of its nest
-    fleeToNest(){
-
-        aStar(this.position[0], this.position[2], this.nestLocation[0], this.nestLocation[2], currentLevel.board, this);
+    fleeToNest(moves){
+        let route = aStar(this.position[0], this.position[2], this.nestLocation[0], this.nestLocation[2], currentLevel.board, this);
+        this.moveEnemy(route, moves);
     }
 
     //Sets the nest position relative to the level
