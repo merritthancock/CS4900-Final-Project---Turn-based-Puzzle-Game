@@ -3,6 +3,9 @@ import {doKeyUp, doKeyDown} from "../KeyboardInput.js";
 import {buildCamera} from "./Camera.js";
 import {buildCameraControls} from "./Camera.js";
 import {scene} from "./LevelManager.js";
+import {scene2} from "./LevelManager.js";
+import {testLevel} from "./LevelManager.js";
+import {testLevel2} from "./LevelManager.js";
 import {currentLevel} from "./LevelManager.js";
 
 // declare variables
@@ -36,7 +39,7 @@ function start(){
     //Level 2
     level2Button.onclick = function(){
         console.log("Level 2");
-        currentScene = scene;
+        currentScene = scene2;
         setupTasks();
         setupLevel1();
     };
