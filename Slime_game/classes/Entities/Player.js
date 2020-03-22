@@ -53,6 +53,7 @@ class Player extends Entity {
         this.mass -= damage;
         console.log("Damage Taken: ", damage, "Player Health: ", this.mass);
         if(this.mass <= 0){
+            console.log("PLAYER IS DEAD");
             //death animation
             //death screen
             console.log("You died!");
