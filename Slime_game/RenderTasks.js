@@ -8,28 +8,24 @@ function updateRender(currentLevel){
     if(unlocked && !masterLock) {
         if(keyStatus["wKey"]){
             getLock("inputHandler");
-            console.log("Moving Cursor Forward!");
             currentLevel.cursor.moveCursor(currentLevel.cursor, "forward");
             currentLevel.cursor.cursorHeight(currentLevel.cursor, currentLevel.board.tileArray[currentLevel.cursor.position[0]][currentLevel.cursor.position[2]].height + .6);
             hover(currentLevel.board);
         }
         if(keyStatus["aKey"]){
             getLock("inputHandler");
-            console.log("Moving Cursor Left!");
             currentLevel.cursor.moveCursor(currentLevel.cursor, "left");
             currentLevel.cursor.cursorHeight(currentLevel.cursor, currentLevel.board.tileArray[currentLevel.cursor.position[0]][currentLevel.cursor.position[2]].height + .6);
             hover(currentLevel.board);
         }
         if(keyStatus["sKey"]){
             getLock("inputHandler");
-            console.log("Moving Cursor Backward!");
             currentLevel.cursor.moveCursor(currentLevel.cursor, "backward");
             currentLevel.cursor.cursorHeight(currentLevel.cursor, currentLevel.board.tileArray[currentLevel.cursor.position[0]][currentLevel.cursor.position[2]].height + .6);
             hover(currentLevel.board);
         }
         if(keyStatus["dKey"]){
             getLock("inputHandler");
-            console.log("Moving Cursor Right!");
             currentLevel.cursor.moveCursor(currentLevel.cursor, "right");
             currentLevel.cursor.cursorHeight(currentLevel.cursor, currentLevel.board.tileArray[currentLevel.cursor.position[0]][currentLevel.cursor.position[2]].height + .6);
             hover(currentLevel.board);
