@@ -1,4 +1,5 @@
 import {Entity} from "./Entity.js";
+import {currentLevel} from "../LevelManager.js";
 
 //The Cursor is an object that will contain unique methods allowing player interaction
 class Cursor extends Entity {
@@ -6,6 +7,7 @@ class Cursor extends Entity {
         //Call entity constructor
         super(position, model, texture, id);
     }
+
     moveCursor(cursor, direction){
         switch(direction){
             case "forward":
@@ -22,41 +24,47 @@ class Cursor extends Entity {
                 break;
         }
 
-        
         cursor.mesh.position.set(this.position[0], this.position[1], this.position[2]);
-        //Set height equal to the height of the tile that the cursor was moved over.
-        //this.position[1] = level.board[this.position[0]][this.position[2]].height;
     }
+
     cursorHeight(cursor, height){
         cursor.mesh.position.set(this.position[0], height + 1, this.position[2]);
-        //this.position[1] = height;
     }
-    /* deprecated method (for reference)
-        function cursorMove(direction){
-            //Check if movement of the cursor is locked
-            if(movementUnlocked){
-                //If movement is unlocked, lock the movement so that the cursor is not useable while movement takes place
-                movementUnlocked = false;
-                
-                switch(direction){
-                    case "forward":
-                        cursor_currentPos[2] += 1
-                        break;
-                    case "backward":
-                        cursor_currentPos[2] -= 1;
-                        break;
-                    case "left":
-                        cursor_currentPos[0] += 1;
-                        break;
-                    case "right":
-                        cursor_currentPos[0] -= 1;
-                        break;
+
+    //This method will perform actions based on what the cursor is currently hovering over
+    click() {
+        let cursorX = this.position[0];
+        let cursorY = this.position[2];
+        //Check if player is selected
+        if(currentLevel.board.selected != null && currentLevel.player.id == currentLevel.board.selected.id){
+            let playerX = currentLevel.player.position[0];
+            let playerY = currentLevel.player.position[2];
+            //if cursor is on player, deselect. Else, try to move player and then deselect.
+            if(playerX == cursorX && playerY == cursorY){
+                currentLevel.board.select(currentLevel.player);
+            }
+            else{
+                let xDistance = Math.abs(cursorX - playerX);
+                let yDistance = Math.abs(cursorY - playerY);
+                //if cursor is within movementRange of player, move player and pass turn. Else, deselect.
+                if(xDistance + yDistance <= currentLevel.player.movementRange){
+                    currentLevel.board.select(currentLevel.player);
+                    currentLevel.player.movePlayer(this.position);
                 }
-                cursor_currentPos[1] = cursor_startPos[1] + heightMap[cursor_currentPos[0]][cursor_currentPos[2]];
-                cursor.position.set(cursor_currentPos[0], cursor_currentPos[1], cursor_currentPos[2]);
+                else{
+                    currentLevel.board.select(currentLevel.player);
+                }
             }
         }
-        */
+        //if something other than player is selected, deselect
+        else if(currentLevel.board.selected != null){
+            currentLevel.board.select(currentLevel.board.selected);
+        }
+        //if nothing is selected, select whatever's currently occupying
+        else if(currentLevel.board.tileArray[cursorX][cursorY].occupant != null){
+            currentLevel.board.select(currentLevel.board.tileArray[cursorX][cursorY].occupant);
+        }
+    }
 }
 
 export {Cursor};

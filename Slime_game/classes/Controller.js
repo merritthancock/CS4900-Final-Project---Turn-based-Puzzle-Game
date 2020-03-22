@@ -5,7 +5,7 @@ import {buildCameraControls} from "./Camera.js";
 import {scene} from "./LevelManager.js";
 import {currentLevel} from "./LevelManager.js";
 
-// declare letiables
+// declare variables
 let windowWidth;
 let windowHeight;
 let camera;
