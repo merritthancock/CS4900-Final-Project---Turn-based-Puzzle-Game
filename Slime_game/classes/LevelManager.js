@@ -1,6 +1,7 @@
 import{Level} from "./Level.js";
 import {Cursor} from "./Entities/Cursor.js";
 import {Milcap} from "./Entities/Enemies/Milcap.js";
+import {Verm} from "./Entities/Enemies/Verm.js";
 import {Player} from "./Entities/Player.js";
 
 //Create New Levels
@@ -96,6 +97,20 @@ enemy2.moveEntity(enemyPos2[0], enemyPos2[1], enemyPos2[2], enemy2);
 enemy2.path.loop = true;
 enemy2.path.add([8, 1, 23]);
 enemy2.path.add([8, 1, 17]);
+
+//Create a Verm
+let skull3 = new THREE.TextureLoader().load( './assets/skull.jpg' );
+let enemyBox3 = new THREE.BoxGeometry(1,1,1);
+let enemyPos3 = [5, 1, 7];
+let enemy3 = new Verm(enemyPos3, enemyBox3, skull3, "enemy3", 0.5, 3);
+
+enemies.push(enemy3);
+enemy3.moveEntity(enemyPos3[0], enemyPos3[1], enemyPos3[2], enemy3);
+enemy3.setNest([5,1,7]);
+enemy3.path.loop = true;
+enemy3.path.add([8, 1, 13]);
+enemy3.path.add([5, 1, 10]);
+enemy3.path.add([1, 1, 13]);
 
 //Create Level
 let testLevel = new Level(testLevelHeightMap, testLevelTileMap, enemies, player, cursor);
