@@ -61,8 +61,8 @@ class AttackState extends State{
 
     enter(enemy) {
         //attack animation
-        //console.log("FIRST ATTACK");
-        //enemy.attack(enemy.attackPower);
+        console.log("FIRST ATTACK");
+        enemy.attack(enemy.attackPower);
     }
     
     execute(enemy) {
@@ -86,7 +86,9 @@ class AttackState extends State{
 class FleeState extends State{
 
     enter(enemy) {
-
+        if(enemy.seesPlayer()){
+            
+        }
     }
 
     execute(enemy) {
