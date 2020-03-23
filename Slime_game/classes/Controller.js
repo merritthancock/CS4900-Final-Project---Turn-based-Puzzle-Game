@@ -39,6 +39,8 @@ function start(){
     };
     //Level 2
     level2Button.onclick = function(){
+        //Sets current scene to level 2 scene
+        menu.style.display = "none";
         console.log("Level 2");
         currentLevel = testLevel2;
         currentScene = scene2;
