@@ -6,7 +6,6 @@ import {scene} from "./LevelManager.js";
 import {scene2} from "./LevelManager.js";
 import {testLevel} from "./LevelManager.js";
 import {testLevel2} from "./LevelManager.js";
-import {currentLevel} from "./LevelManager.js";
 
 // declare variables
 let windowWidth;
@@ -19,6 +18,7 @@ let startButton = document.getElementById("start");
 let level2Button = document.getElementById("Level2");
 let level3Button = document.getElementById("Level3");
 let currentScene;
+let currentLevel;
 //let board;
 
 //Game setup tasks-----------------------------------------------
@@ -32,6 +32,7 @@ function start(){
         //Sets current scene to level 1 scene
         menu.style.display = "none";
         console.log("Level 1");
+        currentLevel = testLevel;
         currentScene = scene;
         setupTasks();
         setupLevel1();
@@ -39,6 +40,7 @@ function start(){
     //Level 2
     level2Button.onclick = function(){
         console.log("Level 2");
+        currentLevel = testLevel2;
         currentScene = scene2;
         setupTasks();
         setupLevel1();
@@ -103,7 +105,7 @@ function setupLevel3(){
 }
 
 function renderLevel() {
-    updateRender(currentLevel);
+    updateRender();
     renderer.render(currentScene, camera);
 }
 
@@ -115,3 +117,4 @@ start();
 
 export {camera};
 export {cameraControls};
+export {currentLevel};
