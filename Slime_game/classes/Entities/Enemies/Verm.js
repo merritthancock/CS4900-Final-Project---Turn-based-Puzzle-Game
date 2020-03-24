@@ -6,10 +6,13 @@ import { currentLevel } from "../../Controller.js";
 
 //The Enemy is an object that will contain unique methods allowing player interaction
 class Verm extends Enemy {
-    constructor(position, model, texture, id, startingMass, startPriority){
+    constructor(position, id, startingMass, startPriority){
         //Call entity constructor
-        super(position, model, texture, id, startingMass, startPriority, 4);
+        super(position, id, startingMass, startPriority, 5);
         
+        //TEMP URL
+        this.url = "MilcapSoldier.glb";
+
         //Default trigger radius in all directions
         this.radius = [7,3,7];
 

@@ -2,10 +2,9 @@ import {updateRender} from "../RenderTasks.js";
 import {doKeyUp, doKeyDown} from "../KeyboardInput.js";
 import {buildCamera} from "./Camera.js";
 import {buildCameraControls} from "./Camera.js";
-import {scene} from "./LevelManager.js";
-import {scene2} from "./LevelManager.js";
-import {testLevel} from "./LevelManager.js";
-import {testLevel2} from "./LevelManager.js";
+import {scene, testLevel} from "./LevelManager.js";
+//import {scene2} from "./LevelManager.js";
+//import {testLevel2} from "./LevelManager.js";
 
 // declare variables
 let windowWidth;
@@ -29,11 +28,11 @@ windowHeight = window.innerHeight;
 
 function start(){
     //Plays title music
-    playMusic(titleAudio);
+    //playMusic(titleAudio);
     //Level 1
     startButton.onclick = function(){
         //Sets current scene to level 1 scene
-        pauseMusic(titleAudio);
+        //pauseMusic(titleAudio);
         menu.style.display = "none";
         console.log("Level 1");
         currentLevel = testLevel;
@@ -46,8 +45,8 @@ function start(){
         //Sets current scene to level 2 scene
         menu.style.display = "none";
         console.log("Level 2");
-        currentLevel = testLevel2;
-        currentScene = scene2;
+        currentLevel = testLevel;
+        currentScene = scene;
         setupTasks();
         setupLevel();
     };
@@ -59,14 +58,14 @@ function start(){
         setupLevel();
     };
 }
-
+/*
 function playMusic(x){
     x.play();
 }
 function pauseMusic(x){
     x.pause();
 }
-    
+*/
 function setupTasks(){
     //Creates renderer and adds it to document body
     renderer = new THREE.WebGLRenderer({ antialias: true });

@@ -6,9 +6,12 @@ import { currentLevel } from "../../Controller.js";
 
 //The Enemy is an object that will contain unique methods allowing player interaction
 class Pinpod extends Enemy {
-    constructor(position, model, texture, id, startingMass, startPriority){
+    constructor(position, id, startingMass, startPriority){
         //Call entity constructor
-        super(position, model, texture, id, startingMass, startPriority, 1);
+        super(position, id, startingMass, startPriority, 1);
+
+        //Set URL (PLACEHOLDER UNTIL PINPOD MODEL DONE)
+        this.url = "MilcapSoldier.glb";
         
         //the Pinpod's ability which will be passed to the player upon absorption
         this.ability = 'SPIKE';
