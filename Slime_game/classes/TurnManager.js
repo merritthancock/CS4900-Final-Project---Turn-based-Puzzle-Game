@@ -1,5 +1,5 @@
 import { getMasterLock, releaseMasterLock} from "../Semaphore.js";
-import { currentLevel } from "./LevelManager.js";
+import { currentLevel } from "./Controller.js";
 import { PriorityQueue } from "../libraries/yuka-master/src/yuka.js";
 
 let turnCount = 0;

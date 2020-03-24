@@ -10,8 +10,6 @@ import {Player} from "./Entities/Player.js";
 //Variables
 let scene;
 let scene2;
-let currentLevel;
-let currentLevel2;
 //Level1---------------------------------------------------------------------------------------------
 
 let testLevelTileMap = [
@@ -161,8 +159,6 @@ function loadBoard(scene, level) {
 }
 
 loadLevel(scene, testLevel);
-currentLevel = testLevel;
-
 
 //Level 2---------------------------------------------------------------------------------------------------
 let testLevelTileMap2 = [
@@ -298,12 +294,9 @@ function loadBoard2(scene2, testLevel2) {
 }
 
 loadLevel2(scene2, testLevel2);
-//currentLevel = testLevel2;
 
-
-export {scene}
-export {scene2}
-export {testLevel}
-export {testLevel2}
-export {currentLevel}
+export {scene};
+export {scene2};
+export {testLevel};
+export {testLevel2};
 

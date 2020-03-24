@@ -1,4 +1,4 @@
-import {currentLevel} from "../LevelManager.js";
+import {currentLevel} from "../Controller.js";
 import {Entity} from "./Entity.js";
 import {Path} from "../../libraries/yuka-master/src/yuka.js";
 import {aStar} from "../Pathing.js";

@@ -1,6 +1,6 @@
 import {AStarFinder} from "../libraries/AStar/AStarFinder.js";
 import {Enemy} from "./Entities/Enemy.js";
-import {currentLevel} from "./LevelManager.js";
+import {currentLevel} from "./Controller.js";
 
 function aStar(startX, startY, endX, endY, board, entity) {
     let finder = new AStarFinder();
