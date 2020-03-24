@@ -2,7 +2,7 @@ import {updateRender} from "../RenderTasks.js";
 import {doKeyUp, doKeyDown} from "../KeyboardInput.js";
 import {buildCamera} from "./Camera.js";
 import {buildCameraControls} from "./Camera.js";
-import {scene, currentLevel, testLevel} from "./LevelManager.js";
+import {scene, testLevel} from "./LevelManager.js";
 //import {scene2} from "./LevelManager.js";
 //import {testLevel2} from "./LevelManager.js";
 
@@ -18,6 +18,7 @@ let level2Button = document.getElementById("Level2");
 let level3Button = document.getElementById("Level3");
 let titleAudio = document.getElementById("titleAudio");
 let currentScene;
+let currentLevel;
 //let board;
 
 //Game setup tasks-----------------------------------------------
@@ -34,7 +35,7 @@ function start(){
         //pauseMusic(titleAudio);
         menu.style.display = "none";
         console.log("Level 1");
-        //currentLevel = testLevel;
+        currentLevel = testLevel;
         currentScene = scene;
         setupTasks();
         setupLevel();
