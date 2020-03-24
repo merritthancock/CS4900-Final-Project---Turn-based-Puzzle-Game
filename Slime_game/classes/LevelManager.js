@@ -2,6 +2,7 @@ import{Level} from "./Level.js";
 import {Cursor} from "./Entities/Cursor.js";
 import {Milcap} from "./Entities/Enemies/Milcap.js";
 import {Verm} from "./Entities/Enemies/Verm.js";
+import {Pinpod} from "./Entities/Enemies/Pinpod.js";
 import {Player} from "./Entities/Player.js";
 
 //Create New Levels
@@ -112,6 +113,14 @@ enemy3.path.loop = true;
 enemy3.path.add([8, 1, 13]);
 enemy3.path.add([5, 1, 10]);
 enemy3.path.add([1, 1, 13]);
+
+let skull4 = new THREE.TextureLoader().load( './assets/skull.jpg');
+let enemyBox4 = new THREE.BoxGeometry(1,1,1);
+let enemyPos4 = [17, 1, 18];
+let pinpod1 = new Pinpod(enemyPos4, enemyBox4, skull4, "enemy4", 0.5, 4);
+
+enemies.push(pinpod1);
+pinpod1.moveEntity(enemyPos4[0], enemyPos4[1], enemyPos4[2], pinpod1);
 
 //Create Level
 let testLevel = new Level(testLevelHeightMap, testLevelTileMap, enemies, player, cursor);
