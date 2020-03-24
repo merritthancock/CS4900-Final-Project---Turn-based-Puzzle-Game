@@ -35,7 +35,7 @@ function start(){
         currentLevel = testLevel;
         currentScene = scene;
         setupTasks();
-        setupLevel1();
+        setupLevel();
     };
     //Level 2
     level2Button.onclick = function(){
@@ -45,14 +45,14 @@ function start(){
         currentLevel = testLevel2;
         currentScene = scene2;
         setupTasks();
-        setupLevel1();
+        setupLevel();
     };
     //Level 3
     level3Button.onclick = function(){
         console.log("Level 3");
         currentScene = scene;
         setupTasks();
-        setupLevel1();
+        setupLevel();
     };
 }
     
@@ -75,35 +75,14 @@ function setupTasks(){
     //----------------------------------------------------------------
 }
 
-function setupLevel1(){
+function setupLevel(){
     camera = new THREE.PerspectiveCamera(45, windowWidth / windowHeight, 0.1, 10000);
     buildCamera();
-    currentScene.add(camera);//referenced scene from LevelManager
+    currentScene.add(camera);
     renderer.compile(currentScene, camera);
     cameraControls = new THREE.OrbitControls( camera, renderer.domElement );
     buildCameraControls();
     animate();
-}
-
-function setupLevel2(){
-    /*
-    camera = new THREE.PerspectiveCamera(45, windowWidth / windowHeight, 0.1, 10000);
-    buildCamera();
-    scene.add(camera);//referenced scene from LevelManager
-    renderer.compile(scene, camera);
-    cameraControls = new THREE.OrbitControls( camera, renderer.domElement );
-    buildCameraControls();
-    animate();*/
-}
-
-function setupLevel3(){
-    /*camera = new THREE.PerspectiveCamera(45, windowWidth / windowHeight, 0.1, 10000);
-    buildCamera();
-    scene.add(camera);//referenced scene from LevelManager
-    renderer.compile(scene, camera);
-    cameraControls = new THREE.OrbitControls( camera, renderer.domElement );
-    buildCameraControls();
-    animate();*/
 }
 
 function renderLevel() {
