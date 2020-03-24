@@ -27,7 +27,9 @@ class ExtendState extends State {
     }
 
     exit(enemy){
-
+        if(enemy.seesPlayer()){
+            enemy.attack(enemy.attackPower);
+        }
     }
 }
 
