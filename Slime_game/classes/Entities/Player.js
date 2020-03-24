@@ -1,6 +1,6 @@
 import {Entity} from "./Entity.js";
 import { passTurn } from "../TurnManager.js";
-import { currentLevel } from "../LevelManager.js";
+import { currentLevel } from "../Controller.js";
 import {aStar} from "../Pathing.js";
 
 //Players inherit from Entity

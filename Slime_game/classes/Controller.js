@@ -2,11 +2,9 @@ import {updateRender} from "../RenderTasks.js";
 import {doKeyUp, doKeyDown} from "../KeyboardInput.js";
 import {buildCamera} from "./Camera.js";
 import {buildCameraControls} from "./Camera.js";
-import {scene} from "./LevelManager.js";
+import {scene, currentLevel, testLevel} from "./LevelManager.js";
 //import {scene2} from "./LevelManager.js";
-import {testLevel} from "./LevelManager.js";
 //import {testLevel2} from "./LevelManager.js";
-import {currentLevel} from "./LevelManager.js";
 
 // declare variables
 let windowWidth;
@@ -18,6 +16,7 @@ let menu = document.getElementById("menu");
 let startButton = document.getElementById("start");
 let level2Button = document.getElementById("Level2");
 let level3Button = document.getElementById("Level3");
+let titleAudio = document.getElementById("titleAudio");
 let currentScene;
 //let board;
 
@@ -27,31 +26,45 @@ windowWidth = window.innerWidth;
 windowHeight = window.innerHeight;
 
 function start(){
+    //Plays title music
+    //playMusic(titleAudio);
     //Level 1
     startButton.onclick = function(){
         //Sets current scene to level 1 scene
+        //pauseMusic(titleAudio);
         menu.style.display = "none";
         console.log("Level 1");
+        //currentLevel = testLevel;
         currentScene = scene;
         setupTasks();
-        setupLevel1();
+        setupLevel();
     };
     //Level 2
     level2Button.onclick = function(){
+        //Sets current scene to level 2 scene
+        menu.style.display = "none";
         console.log("Level 2");
-        currentScene = scene2;
+        currentLevel = testLevel;
+        currentScene = scene;
         setupTasks();
-        setupLevel1();
+        setupLevel();
     };
     //Level 3
     level3Button.onclick = function(){
         console.log("Level 3");
         currentScene = scene;
         setupTasks();
-        setupLevel1();
+        setupLevel();
     };
 }
-    
+/*
+function playMusic(x){
+    x.play();
+}
+function pauseMusic(x){
+    x.pause();
+}
+*/
 function setupTasks(){
     //Creates renderer and adds it to document body
     renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -71,39 +84,18 @@ function setupTasks(){
     //----------------------------------------------------------------
 }
 
-function setupLevel1(){
+function setupLevel(){
     camera = new THREE.PerspectiveCamera(45, windowWidth / windowHeight, 0.1, 10000);
     buildCamera();
-    currentScene.add(camera);//referenced scene from LevelManager
+    currentScene.add(camera);
     renderer.compile(currentScene, camera);
     cameraControls = new THREE.OrbitControls( camera, renderer.domElement );
     buildCameraControls();
     animate();
 }
 
-function setupLevel2(){
-    /*
-    camera = new THREE.PerspectiveCamera(45, windowWidth / windowHeight, 0.1, 10000);
-    buildCamera();
-    scene.add(camera);//referenced scene from LevelManager
-    renderer.compile(scene, camera);
-    cameraControls = new THREE.OrbitControls( camera, renderer.domElement );
-    buildCameraControls();
-    animate();*/
-}
-
-function setupLevel3(){
-    /*camera = new THREE.PerspectiveCamera(45, windowWidth / windowHeight, 0.1, 10000);
-    buildCamera();
-    scene.add(camera);//referenced scene from LevelManager
-    renderer.compile(scene, camera);
-    cameraControls = new THREE.OrbitControls( camera, renderer.domElement );
-    buildCameraControls();
-    animate();*/
-}
-
 function renderLevel() {
-    updateRender(currentLevel);
+    updateRender();
     renderer.render(currentScene, camera);
 }
 
@@ -115,3 +107,4 @@ start();
 
 export {camera};
 export {cameraControls};
+export {currentLevel};

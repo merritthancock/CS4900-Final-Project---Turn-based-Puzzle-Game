@@ -1,5 +1,5 @@
 import {Entity} from "./Entity.js";
-import {currentLevel} from "../LevelManager.js";
+import {currentLevel} from "../Controller.js";
 
 //The Cursor is an object that will contain unique methods allowing player interaction
 class Cursor extends Entity {

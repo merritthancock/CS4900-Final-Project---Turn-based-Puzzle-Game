@@ -1,8 +1,9 @@
 import {unlocked, getLock, masterLock} from "./Semaphore.js";
 import {keyStatus} from "./KeyboardInput.js";
 import {hover} from "./classes/Pathing.js";
+import {currentLevel} from "./classes/Controller.js";
 
-function updateRender(currentLevel){
+function updateRender(){
     if(unlocked && !masterLock) {
         if(keyStatus["wKey"]){
             getLock("inputHandler");
