@@ -64,7 +64,6 @@ class AttackState extends State{
     }
     
     execute(enemy) {
-        //enemy.moveToPlayer();
         console.log("Within AR: ", enemy.withinARange());
         if(enemy.withinARange() == false){
             enemy.stateMachine.changeTo(PURSUE);
