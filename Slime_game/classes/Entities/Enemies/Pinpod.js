@@ -1,7 +1,7 @@
 import { StateMachine, RectangularTriggerRegion, Trigger } from "../../../libraries/yuka-master/src/yuka.js";
 import {aStar} from "../../Pathing.js";
 import { Enemy } from "../Enemy.js";
-import { ExtendState, RetractState, DefenseState} from "./PinpodStates.js";
+import { ExtendState, RetractState} from "./PinpodStates.js";
 import { currentLevel } from "../../Controller.js";
 
 //The Enemy is an object that will contain unique methods allowing player interaction
@@ -23,7 +23,7 @@ class Pinpod extends Enemy {
         //attack power dealt by spikes
         this.setAttackPower(0.5);
         //Pinpod AP per turn
-        this.ap = 2;
+        this.ap = 1;
         //Number of turns the Verm hides for
         this.turnCount = 0;
     }
@@ -43,4 +43,4 @@ class Pinpod extends Enemy {
         this.nestLocation = waypoint;
     }
 }
-export {Verm};
+export {Pinpod};
