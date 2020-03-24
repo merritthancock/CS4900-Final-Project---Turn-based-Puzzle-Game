@@ -18,7 +18,6 @@ let startButton = document.getElementById("start");
 let level2Button = document.getElementById("Level2");
 let level3Button = document.getElementById("Level3");
 let titleAudio = document.getElementById("titleAudio");
-let mainAudio = document.getElementById("mainAudio");
 let currentScene;
 let currentLevel;
 //let board;
@@ -35,7 +34,6 @@ function start(){
     startButton.onclick = function(){
         //Sets current scene to level 1 scene
         pauseMusic(titleAudio);
-        playMusic(mainAudio);
         menu.style.display = "none";
         console.log("Level 1");
         currentLevel = testLevel;
