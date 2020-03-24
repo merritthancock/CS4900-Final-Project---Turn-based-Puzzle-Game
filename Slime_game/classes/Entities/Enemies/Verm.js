@@ -8,7 +8,7 @@ import { currentLevel } from "../../Controller.js";
 class Verm extends Enemy {
     constructor(position, model, texture, id, startingMass, startPriority){
         //Call entity constructor
-        super(position, model, texture, id, startingMass, startPriority, 5);
+        super(position, model, texture, id, startingMass, startPriority, 4);
         
         //Default trigger radius in all directions
         this.radius = [7,3,7];
