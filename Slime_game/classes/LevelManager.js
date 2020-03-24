@@ -60,26 +60,26 @@ let testLevelHeightMap = [
 ];
 
 //Create Player
-let slime = new THREE.TextureLoader().load( './assets/slime.jpg' );
-let playerBox = new THREE.BoxGeometry(1, 1, 1);
+//let slime = new THREE.TextureLoader().load( './assets/slime.jpg' );
+//let playerBox = new THREE.BoxGeometry(1, 1, 1);
 let playerPos = [2, 1, 2];
-let player = new Player(playerPos, playerBox, slime, "player", 1);
-player.moveEntity(playerPos[0], playerPos[1], playerPos[2], player);
+let player = new Player(playerPos, "player", 1);
+//player.moveEntity(playerPos[0], playerPos[1], playerPos[2], player);
 
 //Create Cursor
-let cu = new THREE.TextureLoader().load( './assets/yellow.jpg' );
-let cursorMod = new THREE.CircleBufferGeometry( 0.5, 30 );
-cursorMod.rotateX(-Math.PI/2);
+//let cu = new THREE.TextureLoader().load( './assets/yellow.jpg' );
+//let cursorMod = new THREE.CircleBufferGeometry( 0.5, 30 );
+//cursorMod.rotateX(-Math.PI/2);
 let cursorPos = [1, 1.6, 2];
-let cursor = new Cursor(cursorPos, cursorMod, cu, "cursor");
-cursor.moveEntity(cursorPos[0], cursorPos[1], cursorPos[2], cursor);
+let cursor = new Cursor(cursorPos, "cursor");
+//cursor.moveEntity(cursorPos[0], cursorPos[1], cursorPos[2], cursor);
 
 //Create Enemy
-let skull = new THREE.TextureLoader().load( './assets/skull.jpg' );
-let enemyBox = new THREE.BoxGeometry(1,1,1);
+//let skull = new THREE.TextureLoader().load( './assets/skull.jpg' );
+//let enemyBox = new THREE.BoxGeometry(1,1,1);
 let enemyPos = [13, 1, 3];
-let enemy = new Milcap(enemyPos, enemyBox, skull, "enemy", 1, 1);
-enemy.moveEntity(enemyPos[0], enemyPos[1], enemyPos[2], enemy);
+let enemy = new Milcap(enemyPos, "enemy", 1, 1);
+//enemy.moveEntity(enemyPos[0], enemyPos[1], enemyPos[2], enemy);
 let enemies = [enemy];
 
 enemy.path.loop = true;
@@ -90,25 +90,22 @@ enemy.path.add([14, 1, 4]);
 enemy.path.add([13, 1, 3]); 
 
 //Create Enemy2 (same type as original)
-let skull2 = new THREE.TextureLoader().load( './assets/skull.jpg' );
-let enemyBox2 = new THREE.BoxGeometry(1,1,1);
+//let skull2 = new THREE.TextureLoader().load( './assets/skull.jpg' );
+//let enemyBox2 = new THREE.BoxGeometry(1,1,1);
 let enemyPos2 = [8, 1, 17];
-let enemy2 = new Milcap(enemyPos2, enemyBox2, skull2, "enemy2", .9, 2);
+let enemy2 = new Milcap(enemyPos2, "enemy2", .9, 2);
 
 enemies.push(enemy2);
-enemy2.moveEntity(enemyPos2[0], enemyPos2[1], enemyPos2[2], enemy2);
+//enemy2.moveEntity(enemyPos2[0], enemyPos2[1], enemyPos2[2], enemy2);
 enemy2.path.loop = true;
 enemy2.path.add([8, 1, 23]);
 enemy2.path.add([8, 1, 17]);
 
 //Create a Verm
-let skull3 = new THREE.TextureLoader().load( './assets/skull.jpg' );
-let enemyBox3 = new THREE.BoxGeometry(1,1,1);
 let enemyPos3 = [5, 1, 7];
-let enemy3 = new Verm(enemyPos3, enemyBox3, skull3, "enemy3", 0.5, 3);
+let enemy3 = new Verm(enemyPos3, "enemy3", 0.5, 3);
 
 enemies.push(enemy3);
-enemy3.moveEntity(enemyPos3[0], enemyPos3[1], enemyPos3[2], enemy3);
 enemy3.setNest([5,1,7]);
 enemy3.path.loop = true;
 enemy3.path.add([8, 1, 13]);
@@ -123,9 +120,27 @@ let testLevel = new Level(testLevelHeightMap, testLevelTileMap, enemies, player,
 scene = new THREE.Scene;
 
 
-function loadLevel(scene, level){
-
-    loadBoard(scene, level);
+function loadModel(entity, loader) {
+	loader.load(
+		// resource URL
+		entity.url,
+		// called when the resource is loaded
+		
+		function ( gltf ) {
+			scene.add(gltf.scene);
+			//Set positional data
+			let xPos = entity.position[0];
+			let yPos = entity.position[1];
+			let zPos = entity.position[2];
+			gltf.scene.scale.set(.5, .5, .5);
+			gltf.scene.position.set(xPos, yPos, zPos);
+			entity.model = gltf.scene;
+		},
+		// called while loading is progressing
+		function ( xhr ) {
+			console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+		}
+	);
 }
 
 function loadBoard(scene, level) {
@@ -150,20 +165,36 @@ function loadBoard(scene, level) {
     let skybox = new THREE.Mesh(skyboxGeometry, skyboxMaterial);
     scene.add(skybox);
 
+    /*COMMENTED OUT BECAUSE OF NEW LOADING MECHANICS
     //add player to the scene
     scene.add(level.player.mesh);
     //add cursor to the scene
     scene.add(level.cursor.mesh);
-    //add enemy to the scene //TODO: Add array compatibility for board
+    //add enemy to the scene
     for(let i = 0; i < enemies.length; i++){
         scene.add(level.enemies[i].mesh);
+    }*/
+}
+
+function loadLevel(scene, level){
+    let loader = new THREE.GLTFLoader().setPath( './assets/GLTFModels/' );
+
+    //Load enemy models
+    for(let i = 0; i < level.enemies.length; i++) {
+        loadModel(level.enemies[i], loader);
     }
+    //Load player model
+    loadModel(level.player, loader);
+    //Load cursor model
+    loadModel(level.cursor, loader);
+
+    loadBoard(scene, level);
 }
 
 loadLevel(scene, testLevel);
 currentLevel = testLevel;
 
-
+/*
 //Level 2---------------------------------------------------------------------------------------------------
 let testLevelTileMap2 = [
     [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 9, 4, 4, 4, 4, 4, 4, 4, 4, 4],
@@ -239,7 +270,7 @@ enemy2a.path.add([17, 1, 13]);
 enemy2a.path.add([15, 1, 4]);
 enemy2a.path.add([14, 1, 4]);
 enemy2a.path.add([13, 1, 3]); 
-/*
+
 //Create Enemy2 (same type as original)
 let skull2 = new THREE.TextureLoader().load( './assets/skull.jpg' );
 let enemyBox2 = new THREE.BoxGeometry(1,1,1);
@@ -251,14 +282,12 @@ enemy2.moveEntity(enemyPos2[0], enemyPos2[1], enemyPos2[2], enemy2);
 enemy2.path.loop = true;
 enemy2.path.add([8, 1, 23]);
 enemy2.path.add([8, 1, 17]);
-*/
+
 //Create Level
 let testLevel2 = new Level(testLevelHeightMap2, testLevelTileMap2, enemies2, player2, cursor2);
 
-
 //Create Scene
 scene2 = new THREE.Scene;
-
 
 function loadLevel2(scene2, testLevel2){
 
@@ -299,11 +328,10 @@ function loadBoard2(scene2, testLevel2) {
 
 loadLevel2(scene2, testLevel2);
 //currentLevel = testLevel2;
-
-
+*/
 export {scene}
-export {scene2}
+//export {scene2}
 export {testLevel}
-export {testLevel2}
+//export {testLevel2}
 export {currentLevel}
 

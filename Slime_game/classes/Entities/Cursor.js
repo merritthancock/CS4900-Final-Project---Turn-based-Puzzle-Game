@@ -3,12 +3,15 @@ import {currentLevel} from "../LevelManager.js";
 
 //The Cursor is an object that will contain unique methods allowing player interaction
 class Cursor extends Entity {
-    constructor(position, model, texture, id){
+    constructor(position, id){
         //Call entity constructor
-        super(position, model, texture, id);
+        super(position, id);
+
+        //Set url for cursor:
+        this.url = "SlimeMain.glb";
     }
 
-    moveCursor(cursor, direction){
+    moveCursor(direction){
         switch(direction){
             case "forward":
                 this.position[2] += 1;
@@ -24,11 +27,11 @@ class Cursor extends Entity {
                 break;
         }
 
-        cursor.mesh.position.set(this.position[0], this.position[1], this.position[2]);
+        this.model.position.set(this.position[0], this.position[1], this.position[2]);
     }
 
-    cursorHeight(cursor, height){
-        cursor.mesh.position.set(this.position[0], height + 1, this.position[2]);
+    cursorHeight(height){
+        this.model.position.set(this.position[0], height + 1, this.position[2]);
     }
 
     //This method will perform actions based on what the cursor is currently hovering over

@@ -3,9 +3,9 @@ import {doKeyUp, doKeyDown} from "../KeyboardInput.js";
 import {buildCamera} from "./Camera.js";
 import {buildCameraControls} from "./Camera.js";
 import {scene} from "./LevelManager.js";
-import {scene2} from "./LevelManager.js";
+//import {scene2} from "./LevelManager.js";
 import {testLevel} from "./LevelManager.js";
-import {testLevel2} from "./LevelManager.js";
+//import {testLevel2} from "./LevelManager.js";
 import {currentLevel} from "./LevelManager.js";
 
 // declare variables

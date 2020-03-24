@@ -6,26 +6,26 @@ function updateRender(currentLevel){
     if(unlocked && !masterLock) {
         if(keyStatus["wKey"]){
             getLock("inputHandler");
-            currentLevel.cursor.moveCursor(currentLevel.cursor, "forward");
-            currentLevel.cursor.cursorHeight(currentLevel.cursor, currentLevel.board.tileArray[currentLevel.cursor.position[0]][currentLevel.cursor.position[2]].height + .6);
+            currentLevel.cursor.moveCursor("forward");
+            currentLevel.cursor.cursorHeight(currentLevel.board.tileArray[currentLevel.cursor.position[0]][currentLevel.cursor.position[2]].height + .6);
             hover(currentLevel.board);
         }
         if(keyStatus["aKey"]){
             getLock("inputHandler");
-            currentLevel.cursor.moveCursor(currentLevel.cursor, "left");
-            currentLevel.cursor.cursorHeight(currentLevel.cursor, currentLevel.board.tileArray[currentLevel.cursor.position[0]][currentLevel.cursor.position[2]].height + .6);
+            currentLevel.cursor.moveCursor("left");
+            currentLevel.cursor.cursorHeight(currentLevel.board.tileArray[currentLevel.cursor.position[0]][currentLevel.cursor.position[2]].height + .6);
             hover(currentLevel.board);
         }
         if(keyStatus["sKey"]){
             getLock("inputHandler");
-            currentLevel.cursor.moveCursor(currentLevel.cursor, "backward");
-            currentLevel.cursor.cursorHeight(currentLevel.cursor, currentLevel.board.tileArray[currentLevel.cursor.position[0]][currentLevel.cursor.position[2]].height + .6);
+            currentLevel.cursor.moveCursor("backward");
+            currentLevel.cursor.cursorHeight(currentLevel.board.tileArray[currentLevel.cursor.position[0]][currentLevel.cursor.position[2]].height + .6);
             hover(currentLevel.board);
         }
         if(keyStatus["dKey"]){
             getLock("inputHandler");
-            currentLevel.cursor.moveCursor(currentLevel.cursor, "right");
-            currentLevel.cursor.cursorHeight(currentLevel.cursor, currentLevel.board.tileArray[currentLevel.cursor.position[0]][currentLevel.cursor.position[2]].height + .6);
+            currentLevel.cursor.moveCursor("right");
+            currentLevel.cursor.cursorHeight(currentLevel.board.tileArray[currentLevel.cursor.position[0]][currentLevel.cursor.position[2]].height + .6);
             hover(currentLevel.board);
         }
         if(keyStatus["enter"]){

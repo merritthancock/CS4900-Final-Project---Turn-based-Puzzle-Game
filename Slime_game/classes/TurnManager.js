@@ -17,7 +17,7 @@ async function passTurn(enemies) {
     if(isPlayerTurn) {
         getMasterLock();
         isPlayerTurn = false;
-        currentLevel.cursor.mesh.material.visible = false;
+        currentLevel.cursor.model.visible = false;
         //TODO: Make this more robust for moving enemies, also move enemy movement logic and passTurn call to other file
         while(enemyPriorityQueue.peek() != null) {
             await sleep(250);
@@ -36,7 +36,7 @@ async function passTurn(enemies) {
         let player = currentLevel.player;
         isPlayerTurn = true;
         player.resetAP();
-        currentLevel.cursor.mesh.material.visible = true;
+        currentLevel.cursor.model.visible = true;
         releaseMasterLock();
     }
 }

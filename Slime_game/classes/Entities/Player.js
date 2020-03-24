@@ -5,9 +5,12 @@ import {aStar} from "../Pathing.js";
 
 //Players inherit from Entity
 class Player extends Entity {
-    constructor(position, model, texture, id, startingMass){
+    constructor(position, id, startingMass){
         //Set up entity object part
-        super(position, model, texture, id);
+        super(position, id);
+
+        //Set URL
+        this.url = "SlimeMain.glb";
 
         //Set starting mass and size values
         this.mass = startingMass;
@@ -44,7 +47,7 @@ class Player extends Entity {
     followCursor(board){
         board.tileArray[board.player.position[0]][board.player.position[2]].occupant = null;
         board.player.position = [...board.cursor.position]
-        board.player.mesh.position.set(board.cursor.position[0], board.cursor.position[1], board.cursor.position[2]);
+        board.player.model.position.set(board.cursor.position[0], board.cursor.position[1], board.cursor.position[2]);
         board.tileArray[board.player.position[0]][board.player.position[2]].occupant = board.player;
     };
     
