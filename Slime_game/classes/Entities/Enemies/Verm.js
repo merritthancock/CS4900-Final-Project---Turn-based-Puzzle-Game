@@ -28,6 +28,7 @@ class Verm extends Enemy {
         this.setAttackPower(0.5);
         //Verms have 2 AP per turn
         this.ap = 2;
+        this.movementRange = 2;
         //Location of the Verm's nest
         this.nestLocation = [];
         //Number of turns the Verm hides for

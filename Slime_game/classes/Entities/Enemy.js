@@ -19,8 +19,6 @@ class Enemy extends Entity {
         //Set default attack stats
         this.attackPower = 0.5;
         this.attackRange = 1;
-        //Set default movement range to 1
-        this.movementRange = 2;
         //Set default jump height to 1
         this.jumpHeight = 1;
 

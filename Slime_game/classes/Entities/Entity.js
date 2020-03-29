@@ -8,9 +8,13 @@ class Entity extends GameEntity {
         //TODO: Enforce uniqueness of entity ID
         this.name = name;
         //Represents Action points (AP)
-        this.ap = 2;
+        this.ap = 0;
         //AP remaining for turn.
         this.remainingAP = 0;
+        //Max movement
+        this.movementRange = 0;
+        //Remaining movement for turn
+        this.remainingMovement = 0;
         //Build mesh from provided geometry and material, can add to scene in rest of code
         //this.mesh = THREE.Mesh(model, texture);
         /*
@@ -42,6 +46,22 @@ class Entity extends GameEntity {
     //Resets entity's AP to default at start of turn
     resetAP() {
         this.remainingAP = this.ap;
+    }
+
+    //Checks movement and decrements with each step the entity takes
+    decrementMovement() {
+        if(this.remainingMovement > 0) {
+            this.remainingMovement--;
+            return this.remainingMovement;
+        }
+        else {
+            return null;
+        }
+    }
+
+    //Reset's entity's movments at start of turn
+    resetMovement() {
+        this.remainingMovement = this.movementRange;
     }
 }
 

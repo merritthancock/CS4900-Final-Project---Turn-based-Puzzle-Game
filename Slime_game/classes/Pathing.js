@@ -12,6 +12,14 @@ function aStar(startX, startY, endX, endY, board, entity) {
         console.log("No path exists!");
     }
     else {
+        //Truncate foundPath to be only a length equal to remainingAP or remainingMovement, whichever is shorter
+        let pathLength = Math.min(entity.remainingAP, entity.remainingMovement);
+        if(foundPath.length > pathLength) {
+            let difference = foundPath.length - pathLength;
+            for(let i = 0; i < difference - 1; i++) {
+                foundPath.pop();
+            }
+        }
         return foundPath;
     }
 }
@@ -46,10 +54,10 @@ function checkNeighbor(entity, sourceTile, destinationTile, isOccupied, endX, en
     if(!traversableTerrain.includes(destinationTile.type)){
         return false;
     }
-    //Make sure the destination tile isn't occupied 
+    //Make sure the destination tile isn't occupied
     //(Special condition: if this is currently checking the end destination,
     //and isOccupied is set to true, don't worry about this.)
-    if(!isOccupied && (destinationTile.position[0] != endX || destinationTile.position[2] != endZ)) {
+    if(!isOccupied || (destinationTile.position[0] != endX || destinationTile.position[2] != endZ)) {
         if(destinationTile.occupant != null){
             return false;
         }

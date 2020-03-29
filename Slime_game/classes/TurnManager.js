@@ -13,7 +13,7 @@ async function passTurn(enemies) {
     turnCount++;
     let enemyPriorityQueue = buildPriorityQueue(enemies);
 
-    //if player turn, pass turn to enemy and handle enemy movement
+    //if player turn, pass turn to enemy and handle enemy actions
     if(isPlayerTurn) {
         getMasterLock();
         isPlayerTurn = false;
@@ -25,9 +25,11 @@ async function passTurn(enemies) {
             //and update until it runs out of AP.
             let currentEnemy = enemyPriorityQueue.pop();
             currentEnemy.resetAP();
-            while(currentEnemy.decrementAP() != null) {
+            currentEnemy.resetMovement();
+            while(currentEnemy.remainingAP > 0) {
                 currentEnemy.update();
                 await sleep(100);
+                currentEnemy.decrementAP();
             }
         }
         passTurn(enemies);
@@ -36,6 +38,7 @@ async function passTurn(enemies) {
         let player = currentLevel.player;
         isPlayerTurn = true;
         player.resetAP();
+        player.resetMovement();
         currentLevel.cursor.model.visible = true;
         releaseMasterLock();
     }
