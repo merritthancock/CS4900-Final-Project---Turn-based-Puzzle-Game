@@ -32,6 +32,11 @@ body{
     cursor: pointer;
     width: 150px;
 }
+.level-btn:active {
+	box-shadow: none;
+	position: relative;
+	top: .2em;
+}
 
 .game{
     height: 100%;
