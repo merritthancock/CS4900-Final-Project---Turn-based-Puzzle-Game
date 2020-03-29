@@ -19,6 +19,7 @@ let level3Button = document.getElementById("Level3");
 let titleAudio = document.getElementById("titleAudio");
 let currentScene;
 let currentLevel;
+let loadingManager;
 //let board;
 
 //Game setup tasks-----------------------------------------------
@@ -27,12 +28,21 @@ windowWidth = window.innerWidth;
 windowHeight = window.innerHeight;
 
 function start(){
+    const loadingScreen = document.getElementById("loading-screen");
+    //loadingScreen.style.display = "none";
+    loadingScreen.remove();
     //Plays title music
     //playMusic(titleAudio);
     //Level 1
     startButton.onclick = function(){
         //Sets current scene to level 1 scene
-        //pauseMusic(titleAudio);
+
+       
+
+
+
+
+
         menu.style.display = "none";
         console.log("Level 1");
         currentLevel = testLevel;
@@ -58,14 +68,7 @@ function start(){
         setupLevel();
     };
 }
-/*
-function playMusic(x){
-    x.play();
-}
-function pauseMusic(x){
-    x.pause();
-}
-*/
+
 function setupTasks(){
     //Creates renderer and adds it to document body
     renderer = new THREE.WebGLRenderer({ antialias: true });

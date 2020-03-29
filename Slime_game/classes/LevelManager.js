@@ -11,11 +11,11 @@ import {Player} from "./Entities/Player.js";
 //Variables
 let scene;
 let scene2;
-let selector = 1;
+let levelSelector = 1;
 let testLevel;
 let testLevel2;
 //Level1---------------------------------------------------------------------------------------------
-if(selector == 1){
+if(levelSelector = 1){
     let testLevelTileMap = [
         [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 9, 4, 4, 4, 4, 4, 4, 4, 4, 4],
         [4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 9, 4, 0, 0, 0, 0, 0, 8, 8, 4],
