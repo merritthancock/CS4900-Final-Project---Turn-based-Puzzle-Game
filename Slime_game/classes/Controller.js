@@ -5,6 +5,7 @@ import {buildCameraControls} from "./Camera.js";
 import {scene, testLevel} from "./LevelManager.js";
 //import {scene2} from "./LevelManager.js";
 //import {testLevel2} from "./LevelManager.js";
+import {loadLevel} from "./LevelManager.js";
 
 // declare variables
 let windowWidth;
@@ -16,10 +17,9 @@ let menu = document.getElementById("menu");
 let startButton = document.getElementById("start");
 let level2Button = document.getElementById("Level2");
 let level3Button = document.getElementById("Level3");
-let titleAudio = document.getElementById("titleAudio");
 let currentScene;
 let currentLevel;
-//let board;
+let loadingScreen = document.getElementById("loading-screen");
 
 //Game setup tasks-----------------------------------------------
 //Sets height and width for game window
@@ -27,16 +27,15 @@ windowWidth = window.innerWidth;
 windowHeight = window.innerHeight;
 
 function start(){
-    //Plays title music
-    //playMusic(titleAudio);
+    loadingScreen.style.display = "none";
     //Level 1
     startButton.onclick = function(){
         //Sets current scene to level 1 scene
-        //pauseMusic(titleAudio);
         menu.style.display = "none";
         console.log("Level 1");
         currentLevel = testLevel;
         currentScene = scene;
+        loadLevel(currentScene, currentLevel);
         setupTasks();
         setupLevel();
     };
@@ -52,25 +51,20 @@ function start(){
     };
     //Level 3
     level3Button.onclick = function(){
+        menu.style.display = "none";
         console.log("Level 3");
         currentScene = scene;
         setupTasks();
         setupLevel();
     };
 }
-/*
-function playMusic(x){
-    x.play();
-}
-function pauseMusic(x){
-    x.pause();
-}
-*/
+
 function setupTasks(){
     //Creates renderer and adds it to document body
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(windowWidth, windowHeight);
     document.body.appendChild(renderer.domElement);
+    //gameScreen.appendChild(renderer.domElement);
 
     //set listener for window resizing. Allows resizing of game.
     window.addEventListener('resize', () => {
