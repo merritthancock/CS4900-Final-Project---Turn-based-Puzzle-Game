@@ -6,10 +6,13 @@ import { currentLevel } from "../../Controller.js";
 
 //The Enemy is an object that will contain unique methods allowing player interaction
 class Verm extends Enemy {
-    constructor(position, model, texture, id, startingMass, startPriority){
+    constructor(position, id, startingMass, startPriority){
         //Call entity constructor
-        super(position, model, texture, id, startingMass, startPriority, 5);
+        super(position, id, startingMass, startPriority, 5);
         
+        //TEMP URL
+        this.url = "MilcapSoldier.glb";
+
         //Default trigger radius in all directions
         this.radius = [7,3,7];
 
@@ -25,6 +28,7 @@ class Verm extends Enemy {
         this.setAttackPower(0.5);
         //Verms have 2 AP per turn
         this.ap = 2;
+        this.movementRange = 2;
         //Location of the Verm's nest
         this.nestLocation = [];
         //Number of turns the Verm hides for

@@ -6,7 +6,7 @@ const HIDE = 'HIDE';
 
 class PatrolState extends State {
     enter(enemy){
-        
+        enemy.ap = 2;
     }
 
     execute(enemy){
@@ -28,6 +28,7 @@ class FleeState extends State {
     enter(enemy){
         //alert animation
         console.log('EEK!');
+        enemy.ap = 3;
     }
 
     execute(enemy){
@@ -50,12 +51,13 @@ class HideState extends State {
     enter(enemy){
         //enemy and its model disappears
         console.log('HIDING');
+        enemy.ap = 1;
     }
 
     execute(enemy){
-        if(enemy.hideCount > 0){
+        if(enemy.hideCount > 1){
             enemy.hideCount--;
-            console.log('VERM hiding for ', enemy.hideCount, " more turns!");
+            console.log('VERM hiding for ', enemy.hideCount + 1, " more turns!");
         }
         else{
             //enemy and model reappears

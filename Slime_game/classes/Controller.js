@@ -2,10 +2,10 @@ import {updateRender} from "../RenderTasks.js";
 import {doKeyUp, doKeyDown} from "../KeyboardInput.js";
 import {buildCamera} from "./Camera.js";
 import {buildCameraControls} from "./Camera.js";
-import {scene} from "./LevelManager.js";
-import {scene2} from "./LevelManager.js";
-import {testLevel} from "./LevelManager.js";
-import {testLevel2} from "./LevelManager.js";
+import {scene, testLevel} from "./LevelManager.js";
+//import {scene2} from "./LevelManager.js";
+//import {testLevel2} from "./LevelManager.js";
+import {loadLevel} from "./LevelManager.js";
 
 // declare variables
 let windowWidth;
@@ -17,11 +17,9 @@ let menu = document.getElementById("menu");
 let startButton = document.getElementById("start");
 let level2Button = document.getElementById("Level2");
 let level3Button = document.getElementById("Level3");
-let titleAudio = document.getElementById("titleAudio");
-let mainAudio = document.getElementById("mainAudio");
 let currentScene;
 let currentLevel;
-//let board;
+let loadingScreen = document.getElementById("loading-screen");
 
 //Game setup tasks-----------------------------------------------
 //Sets height and width for game window
@@ -29,17 +27,15 @@ windowWidth = window.innerWidth;
 windowHeight = window.innerHeight;
 
 function start(){
-    //Plays title music
-    playMusic(titleAudio);
+    loadingScreen.style.display = "none";
     //Level 1
     startButton.onclick = function(){
         //Sets current scene to level 1 scene
-        pauseMusic(titleAudio);
-        playMusic(mainAudio);
         menu.style.display = "none";
         console.log("Level 1");
         currentLevel = testLevel;
         currentScene = scene;
+        loadLevel(currentScene, currentLevel);
         setupTasks();
         setupLevel();
     };
@@ -48,13 +44,14 @@ function start(){
         //Sets current scene to level 2 scene
         menu.style.display = "none";
         console.log("Level 2");
-        currentLevel = testLevel2;
-        currentScene = scene2;
+        currentLevel = testLevel;
+        currentScene = scene;
         setupTasks();
         setupLevel();
     };
     //Level 3
     level3Button.onclick = function(){
+        menu.style.display = "none";
         console.log("Level 3");
         currentScene = scene;
         setupTasks();
@@ -62,18 +59,12 @@ function start(){
     };
 }
 
-function playMusic(x){
-    x.play();
-}
-function pauseMusic(x){
-    x.pause();
-}
-    
 function setupTasks(){
     //Creates renderer and adds it to document body
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(windowWidth, windowHeight);
     document.body.appendChild(renderer.domElement);
+    //gameScreen.appendChild(renderer.domElement);
 
     //set listener for window resizing. Allows resizing of game.
     window.addEventListener('resize', () => {

@@ -5,9 +5,9 @@ import {aStar} from "../Pathing.js";
 
 //The Enemy is an object that will contain unique methods allowing player interaction
 class Enemy extends Entity {
-    constructor(position, model, texture, id, startingMass, startPriority, visionRange){
+    constructor(position, id, startingMass, startPriority, visionRange){
         //Call entity constructor
-        super(position, model, texture, id);
+        super(position, id);
         //Set starting mass
         this.mass = startingMass;
         //Set abilities to an empty set for starters
@@ -19,8 +19,6 @@ class Enemy extends Entity {
         //Set default attack stats
         this.attackPower = 0.5;
         this.attackRange = 1;
-        //Set default movement range to 1
-        this.movementRange = 2;
         //Set default jump height to 1
         this.jumpHeight = 1;
 

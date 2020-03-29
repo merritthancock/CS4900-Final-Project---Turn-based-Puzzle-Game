@@ -4,10 +4,13 @@ import { PatrolState, PursueState, AttackState } from "./MilcapStates.js";
 
 //The Enemy is an object that will contain unique methods allowing player interaction
 class Milcap extends Enemy {
-    constructor(position, model, texture, id, startingMass, startPriority){
+    constructor(position, id, startingMass, startPriority){
         //Call entity constructor
-        super(position, model, texture, id, startingMass, startPriority, 5);
+        super(position, id, startingMass, startPriority, 5);
         
+        //Define url for the model
+        this.url = "MilcapSoldier.glb";
+
         //Default trigger radius in all directions
         this.radius = [7,3,7];
 
@@ -21,9 +24,9 @@ class Milcap extends Enemy {
         
         //updates default attack power with new attack power
         this.setAttackPower(0.5);
-        //Milcaps have 1 AP per turn
+        //Milcaps have 2 AP per turn
         this.ap = 2;
-
+        this.movementRange = 2;
     }
 
     update(){//calls a single step in the state

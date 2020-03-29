@@ -1,24 +1,26 @@
 import {GameEntity} from "../../libraries/yuka-master/src/yuka.js";
 
 class Entity extends GameEntity {
-    constructor(position, model, texture, id){
+    constructor(position, name){
         super();
         //Set position of entity
-        this.position.set(position);
-        //Set geometry of entity
-        this.model = model;
-        //Set material
-        this.texture = texture;
+        this.position = position;
         //TODO: Enforce uniqueness of entity ID
-        this.id = id;
+        this.name = name;
         //Represents Action points (AP)
-        this.ap = 2;
+        this.ap = 0;
         //AP remaining for turn.
         this.remainingAP = 0;
+        //Max movement
+        this.movementRange = 0;
+        //Remaining movement for turn
+        this.remainingMovement = 0;
         //Build mesh from provided geometry and material, can add to scene in rest of code
         //this.mesh = THREE.Mesh(model, texture);
+        /*
         this.mesh = new THREE.Mesh(model,
                     new THREE.MeshBasicMaterial({ map: texture }));
+        */
     }
 
     //Function moves player to a given position. Only call after validation.
@@ -27,7 +29,7 @@ class Entity extends GameEntity {
         this.position[0] = x;
         this.position[1] = y;
         this.position[2] = z;
-        this.mesh.position.set(x,y,z);
+        this.model.position.set(x,y,z);
     }
 
     //A method to check an entity's AP and decrement it with each move or action the entity takes
@@ -44,6 +46,22 @@ class Entity extends GameEntity {
     //Resets entity's AP to default at start of turn
     resetAP() {
         this.remainingAP = this.ap;
+    }
+
+    //Checks movement and decrements with each step the entity takes
+    decrementMovement() {
+        if(this.remainingMovement > 0) {
+            this.remainingMovement--;
+            return this.remainingMovement;
+        }
+        else {
+            return null;
+        }
+    }
+
+    //Reset's entity's movments at start of turn
+    resetMovement() {
+        this.remainingMovement = this.movementRange;
     }
 }
 
