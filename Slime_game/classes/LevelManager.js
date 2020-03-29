@@ -14,8 +14,24 @@ let scene2;
 let levelSelector = 1;
 let testLevel;
 let testLevel2;
-//Level1---------------------------------------------------------------------------------------------
-if(levelSelector = 1){
+let loadingManager;
+let loadingScreen = document.getElementById("loading-screen");
+
+//Loading Manager
+loadingManager = new THREE.LoadingManager();
+loadingManager.onStart = function ( url, itemsLoaded, itemsTotal ) {
+    console.log("Loading begins....");
+    loadingScreen.style.display = "visible";
+
+};
+
+loadingManager.onLoad = function ( ) {
+    console.log("Loading complete!");
+    loadingScreen.style.display = "hidden";
+};
+
+
+//Level1-------------------------------------------------------------------------------------------
     let testLevelTileMap = [
         [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 9, 4, 4, 4, 4, 4, 4, 4, 4, 4],
         [4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 9, 4, 0, 0, 0, 0, 0, 8, 8, 4],
@@ -187,7 +203,7 @@ if(levelSelector = 1){
     }
 
     function loadLevel(scene, level){
-        let loader = new THREE.GLTFLoader().setPath( './assets/GLTFModels/' );
+        let loader = new THREE.GLTFLoader(loadingManager).setPath( './assets/GLTFModels/' );
 
         //Load enemy models
         for(let i = 0; i < level.enemies.length; i++) {
@@ -201,9 +217,8 @@ if(levelSelector = 1){
         loadBoard(scene, level);
     }
 
-    loadLevel(scene, testLevel);
-    var currentLevel = testLevel;
-}
+    //loadLevel(scene, testLevel);
+
     /*
     //Level 2---------------------------------------------------------------------------------------------------
     let testLevelTileMap2 = [
@@ -343,5 +358,5 @@ export {scene};
 //export {scene2}
 export {testLevel};
 //export {testLevel2}
-export {currentLevel};
+export {loadLevel};
 

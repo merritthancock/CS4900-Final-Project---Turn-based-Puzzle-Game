@@ -5,6 +5,7 @@ import {buildCameraControls} from "./Camera.js";
 import {scene, testLevel} from "./LevelManager.js";
 //import {scene2} from "./LevelManager.js";
 //import {testLevel2} from "./LevelManager.js";
+import {loadLevel} from "./LevelManager.js";
 
 // declare variables
 let windowWidth;
@@ -20,6 +21,8 @@ let titleAudio = document.getElementById("titleAudio");
 let currentScene;
 let currentLevel;
 let loadingManager;
+let loadingScreen = document.getElementById("loading-screen");
+let gameScreen = document.getElementById("game");
 //let board;
 
 //Game setup tasks-----------------------------------------------
@@ -28,25 +31,18 @@ windowWidth = window.innerWidth;
 windowHeight = window.innerHeight;
 
 function start(){
-    const loadingScreen = document.getElementById("loading-screen");
-    //loadingScreen.style.display = "none";
-    loadingScreen.remove();
+    loadingScreen.style.display = "none";
+    //loadingScreen.remove();
     //Plays title music
     //playMusic(titleAudio);
     //Level 1
     startButton.onclick = function(){
         //Sets current scene to level 1 scene
-
-       
-
-
-
-
-
         menu.style.display = "none";
         console.log("Level 1");
         currentLevel = testLevel;
         currentScene = scene;
+        loadLevel(currentScene, currentLevel);
         setupTasks();
         setupLevel();
     };
@@ -69,11 +65,14 @@ function start(){
     };
 }
 
+
+
 function setupTasks(){
     //Creates renderer and adds it to document body
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(windowWidth, windowHeight);
     document.body.appendChild(renderer.domElement);
+    //gameScreen.appendChild(renderer.domElement);
 
     //set listener for window resizing. Allows resizing of game.
     window.addEventListener('resize', () => {
