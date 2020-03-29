@@ -20,8 +20,10 @@ class Player extends Entity {
         this.movementRange = 4;
         //Set default jump height to 1
         this.jumpHeight = 1;
+        this.ap = 2;
         //Set remaining AP initialized to starting AP
         this.remainingAP = this.ap;
+        this.remainingMovement = this.movementRange;
         this.canActivateTrigger = true;
     }
 
@@ -35,7 +37,7 @@ class Player extends Entity {
         let route = aStar(this.position[0], this.position[2], 
             destination[0], destination[2], currentLevel.board, currentLevel.player);
         //Move along route given
-        for(let i = 1; i < route.length; i++) {
+        for(let i = 1; i < route.length && this.decrementAP() >= 0; i++) {
             currentLevel.board.tileArray[this.position[0]][this.position[2]].occupant = null;
             this.moveEntity(route[i].tile.position[0], route[i].tile.height + 1, route[i].tile.position[2]);
             currentLevel.board.tileArray[this.position[0]][this.position[2]].occupant = this;

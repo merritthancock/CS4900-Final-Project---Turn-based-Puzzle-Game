@@ -12,6 +12,14 @@ function aStar(startX, startY, endX, endY, board, entity) {
         console.log("No path exists!");
     }
     else {
+        //Truncate foundPath to be only a length equal to remainingAP or remainingMovement, whichever is shorter
+        let pathLength = Math.min(entity.remainingAP, entity.remainingMovement);
+        if(foundPath.length > pathLength) {
+            let difference = foundPath.length - pathLength;
+            for(let i = 0; i < difference - 1; i++) {
+                foundPath.pop();
+            }
+        }
         return foundPath;
     }
 }

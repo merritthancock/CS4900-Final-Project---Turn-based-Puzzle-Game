@@ -49,8 +49,8 @@ class Cursor extends Entity {
             else{
                 let xDistance = Math.abs(cursorX - playerX);
                 let yDistance = Math.abs(cursorY - playerY);
-                //if cursor is within movementRange of player, move player and pass turn. Else, deselect.
-                if(xDistance + yDistance <= currentLevel.player.movementRange){
+                //if cursor is within remainingMovement or remainingAP of player, move player and pass turn. Else, deselect.
+                if(xDistance + yDistance <= Math.min(currentLevel.player.remainingMovement, currentLevel.player.remainingAP)) {
                     currentLevel.board.select(currentLevel.player);
                     currentLevel.player.movePlayer(this.position);
                 }
