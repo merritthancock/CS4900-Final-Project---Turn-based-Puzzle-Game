@@ -26,11 +26,11 @@ function aStar(startX, startY, endX, endY, board, entity) {
 
 //Checks neighboring tiles. To be used by both Flood Fill and A*
 function checkNeighbor(entity, sourceTile, destinationTile, isOccupied, endX, endZ){
-    var maxHeight = entity.jumpHeight;
-    var heightDifference = Math.abs(sourceTile.height - destinationTile.height);
+    let maxHeight = entity.jumpHeight;
+    let heightDifference = Math.abs(sourceTile.height - destinationTile.height);
     //This variable needs to be gotten from the entity later, but for now we can just
     //use the basic traversability (No water/void/gap spaces)
-    var traversableTerrain = [0, 1, 4, 8];
+    let traversableTerrain = [0, 1, 4, 8];
     
     //Make sure destinationTile exists
     if(destinationTile == null){
@@ -40,8 +40,8 @@ function checkNeighbor(entity, sourceTile, destinationTile, isOccupied, endX, en
     //(this is taken care of in flood fill, but not in A*)
     //Enemy doesn't do this, because enemy needs to have a destination beyond movement range in mind
     if(!(entity instanceof Enemy)){
-        var xDistance = Math.abs(destinationTile.position[0] - entity.position[0]);
-        var zDistance = Math.abs(destinationTile.position[2] - entity.position[2]);
+        let xDistance = Math.abs(destinationTile.position[0] - entity.position[0]);
+        let zDistance = Math.abs(destinationTile.position[2] - entity.position[2]);
         if(xDistance + zDistance > entity.movementRange){
             return false;
         }
@@ -82,7 +82,7 @@ function hover(board){//initiates methods when cursor hovers over entities/tiles
 
 function movementOverlay(x, z, range, board, entity){//uses the flood fill algorithm to create overlay of all possible spaces to move
     if(range>=0 && x >= 0 && x < board.overlayMap.length && z >=0 && z < board.overlayMap[x].length){
-        //Do not render an overlay tile that has an entity in it
+        //Do not render a normal overlay tile that has an entity in it
         if(board.tileArray[x][z].occupant == null){
             board.overlayMap[x][z].overlay.material.visible = true;
         }
@@ -98,7 +98,7 @@ function movementOverlay(x, z, range, board, entity){//uses the flood fill algor
         }
         if(checkNeighbor(entity, board.tileArray[x][z], board.tileArray[x][z-1], false)){
             movementOverlay(x, z-1, range-1, board, entity);
-        }           
+        }
     }
 }
 
@@ -114,7 +114,20 @@ function movementOverlayHelper(board, entity){
         range = entity.remainingAP;
     }
     movementOverlay(entityPos[0], entityPos[2], range, board, entity);
-    //return overlayList;
+    
+    //Highlight enemies in range (player only)
+    if(entity.name == "player") {
+        let enemies = currentLevel.enemies;
+        for(let i = 0; i < enemies.length; i++) {
+            let xDistance = Math.abs(enemies[i].position[0] - entityPos[0]);
+            let zDistance = Math.abs(enemies[i].position[2] - entityPos[2]);
+            if(xDistance + zDistance <= range) {
+                let overlay = board.overlayMap[enemies[i].position[0]][enemies[i].position[2]].overlay;
+                overlay.material.color.setHex(0xAB4700);
+                overlay.material.visible = true;
+            }
+        }
+    }
 }
 
 function typeList(type){//Returns the terrain name for logging to console
@@ -141,7 +154,7 @@ function typeList(type){//Returns the terrain name for logging to console
 function occupied(board){
     var occupant = board.tileArray[board.cursor.position[0]][board.cursor.position[2]].occupant;
     if(occupant != null){
-        return occupant.id;
+        return occupant.name;
     }
     else {
         return "None";
@@ -150,9 +163,10 @@ function occupied(board){
 
 //this will reset overlay visibility to false when player not occupying space
 function wipeOverlay(board){
-    for(var r = 0; r < board.tileArray.length; r++){
-        for(var c = 0; c < board.tileArray[r].length; c++){
+    for(let r = 0; r < board.tileArray.length; r++){
+        for(let c = 0; c < board.tileArray[r].length; c++){
             board.overlayMap[r][c].overlay.material.visible = false;
+            board.overlayMap[r][c].overlay.material.color.setHex(0x0047AB);
         }
     }
 }
