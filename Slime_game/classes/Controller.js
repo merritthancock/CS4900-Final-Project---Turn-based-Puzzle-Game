@@ -17,13 +17,9 @@ let menu = document.getElementById("menu");
 let startButton = document.getElementById("start");
 let level2Button = document.getElementById("Level2");
 let level3Button = document.getElementById("Level3");
-let titleAudio = document.getElementById("titleAudio");
 let currentScene;
 let currentLevel;
-let loadingManager;
 let loadingScreen = document.getElementById("loading-screen");
-let gameScreen = document.getElementById("game");
-//let board;
 
 //Game setup tasks-----------------------------------------------
 //Sets height and width for game window
@@ -32,9 +28,6 @@ windowHeight = window.innerHeight;
 
 function start(){
     loadingScreen.style.display = "none";
-    //loadingScreen.remove();
-    //Plays title music
-    //playMusic(titleAudio);
     //Level 1
     startButton.onclick = function(){
         //Sets current scene to level 1 scene
@@ -58,14 +51,13 @@ function start(){
     };
     //Level 3
     level3Button.onclick = function(){
+        menu.style.display = "none";
         console.log("Level 3");
         currentScene = scene;
         setupTasks();
         setupLevel();
     };
 }
-
-
 
 function setupTasks(){
     //Creates renderer and adds it to document body

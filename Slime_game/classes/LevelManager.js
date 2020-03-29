@@ -5,9 +5,6 @@ import {Verm} from "./Entities/Enemies/Verm.js";
 import {Pinpod} from "./Entities/Enemies/Pinpod.js";
 import {Player} from "./Entities/Player.js";
 
-//Create New Levels
-//Load Level
-
 //Variables
 let scene;
 let scene2;
@@ -21,15 +18,13 @@ let loadingScreen = document.getElementById("loading-screen");
 loadingManager = new THREE.LoadingManager();
 loadingManager.onStart = function ( url, itemsLoaded, itemsTotal ) {
     console.log("Loading begins....");
-    loadingScreen.style.display = "visible";
+    loadingScreen.style.display = "block";
 
 };
-
 loadingManager.onLoad = function ( ) {
     console.log("Loading complete!");
-    loadingScreen.style.display = "hidden";
+    loadingScreen.style.display = "none";
 };
-
 
 //Level1-------------------------------------------------------------------------------------------
     let testLevelTileMap = [
