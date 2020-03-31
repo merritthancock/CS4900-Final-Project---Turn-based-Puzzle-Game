@@ -21,7 +21,6 @@ class Enemy extends Entity {
         this.attackRange = 1;
         //Set default jump height to 1
         this.jumpHeight = 1;
-
         //Give the enemy a path to patrol (loop must be set to true if path is cyclical)
         this.path = new Path();
         console.log(this.path);
