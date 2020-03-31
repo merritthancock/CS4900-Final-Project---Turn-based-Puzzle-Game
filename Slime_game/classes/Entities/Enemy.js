@@ -1,4 +1,4 @@
-import {currentLevel} from "../Controller.js";
+import {currentLevel} from "../Global.js";
 import {Entity} from "./Entity.js";
 import {Path} from "../../libraries/yuka-master/src/yuka.js";
 import {aStar} from "../Pathing.js";
@@ -21,28 +21,10 @@ class Enemy extends Entity {
         this.attackRange = 1;
         //Set default jump height to 1
         this.jumpHeight = 1;
-
         //Give the enemy a path to patrol (loop must be set to true if path is cyclical)
         this.path = new Path();
         console.log(this.path);
 
-    }
-
-    moveEnemy(direction){
-        switch(direction){
-            case "forward":
-                this.position[2] += 1
-                break;
-            case "backward":
-                this.position[2] -= 1;
-                break;
-            case "left":
-                this.position[0] += 1;
-                break;
-            case "right":
-                this.position[0] -= 1;
-                break;
-        }
     }
 
     //Checks if the player is within sight range

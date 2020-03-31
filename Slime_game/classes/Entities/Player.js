@@ -1,6 +1,6 @@
 import {Entity} from "./Entity.js";
 import { passTurn } from "../TurnManager.js";
-import { currentLevel } from "../Controller.js";
+import { currentLevel } from "../Global.js";
 import {aStar} from "../Pathing.js";
 
 //Players inherit from Entity
@@ -42,7 +42,7 @@ class Player extends Entity {
             this.moveEntity(route[i].tile.position[0], route[i].tile.height + 1, route[i].tile.position[2]);
             currentLevel.board.tileArray[this.position[0]][this.position[2]].occupant = this;
         }
-        passTurn(currentLevel.enemies);
+        passTurn(currentLevel);
     };
 
     //Function follows cursor

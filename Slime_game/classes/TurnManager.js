@@ -1,5 +1,4 @@
 import { getMasterLock, releaseMasterLock} from "../Semaphore.js";
-import { currentLevel } from "./Controller.js";
 import { PriorityQueue } from "../libraries/yuka-master/src/yuka.js";
 
 let turnCount = 0;
@@ -9,9 +8,9 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function passTurn(enemies) {
+async function passTurn(currentLevel) {
     turnCount++;
-    let enemyPriorityQueue = buildPriorityQueue(enemies);
+    let enemyPriorityQueue = buildPriorityQueue(currentLevel.enemies);
 
     //if player turn, pass turn to enemy and handle enemy actions
     if(isPlayerTurn) {
@@ -32,7 +31,7 @@ async function passTurn(enemies) {
                 currentEnemy.decrementAP();
             }
         }
-        passTurn(enemies);
+        passTurn(currentLevel);
     }
     else {
         let player = currentLevel.player;

@@ -1,8 +1,6 @@
-import { StateMachine, RectangularTriggerRegion, Trigger } from "../../../libraries/yuka-master/src/yuka.js";
-import {aStar} from "../../Pathing.js";
+import { StateMachine } from "../../../libraries/yuka-master/src/yuka.js";
 import { Enemy } from "../Enemy.js";
 import { ExtendState, RetractState} from "./PinpodStates.js";
-import { currentLevel } from "../../Controller.js";
 
 //The Enemy is an object that will contain unique methods allowing player interaction
 class Pinpod extends Enemy {
@@ -33,17 +31,6 @@ class Pinpod extends Enemy {
 
     update(){//calls a single step in the state
         this.stateMachine.update();
-    }
-
-    //Moves the Verm in the direction of its nest
-    fleeToNest(moves){
-        let route = aStar(this.position[0], this.position[2], this.nestLocation[0], this.nestLocation[2], currentLevel.board, this);
-        this.moveEnemy(route, moves);
-    }
-
-    //Sets the nest position relative to the level
-    setNest(waypoint){
-        this.nestLocation = waypoint;
     }
 }
 export {Pinpod};
