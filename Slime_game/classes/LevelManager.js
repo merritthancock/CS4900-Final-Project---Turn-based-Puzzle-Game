@@ -128,7 +128,7 @@ loadingManager.onLoad = function ( ) {
     let skull4 = new THREE.TextureLoader().load( './assets/skull.jpg');
     let enemyBox4 = new THREE.BoxGeometry(1,1,1);
     let enemyPos4 = [17, 1, 18];
-    let pinpod1 = new Pinpod(enemyPos4, enemyBox4, skull4, "enemy4", 0.5, 4);
+    let pinpod1 = new Pinpod(enemyPos4, "enemy4", 0.5, 4);
 
     enemies.push(pinpod1);
     //pinpod1.moveEntity(enemyPos4[0], enemyPos4[1], enemyPos4[2], pinpod1);
