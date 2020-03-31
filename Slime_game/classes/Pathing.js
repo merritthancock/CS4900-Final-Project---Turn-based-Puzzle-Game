@@ -1,6 +1,6 @@
 import {AStarFinder} from "../libraries/AStar/AStarFinder.js";
 import {Enemy} from "./Entities/Enemy.js";
-import {currentLevel} from "./Controller.js";
+import {currentLevel} from "./Global.js";
 
 function aStar(startX, startY, endX, endY, board, entity) {
     let finder = new AStarFinder();
@@ -66,18 +66,18 @@ function checkNeighbor(entity, sourceTile, destinationTile, isOccupied, endX, en
 }
 
 //FLOOD FILL IMPLEMENTATION
-function hover(board){//initiates methods when cursor hovers over entities/tiles
-    var cPos = currentLevel.cursor.position;
-    var type = board.tileMap[cPos[0]][cPos[2]];
-    var height = board.heightMap[cPos[0]][cPos[2]];
-    var pPos = currentLevel.player.position;
+function hover(level){//initiates methods when cursor hovers over entities/tiles
+    var cPos = level.cursor.position;
+    var type = level.board.tileMap[cPos[0]][cPos[2]];
+    var height = level.board.heightMap[cPos[0]][cPos[2]];
+    var pPos = level.player.position;
 
-    console.log(cPos);
+    //console.log(cPos);
     //console.log(pPos);
 
     console.log("Type: ", typeList(type));
     console.log("Height: ", height);
-    console.log("Occupied by: ", occupied(board));
+    console.log("Occupied by: ", occupied(level.board));
 }
 
 function movementOverlay(x, z, range, board, entity){//uses the flood fill algorithm to create overlay of all possible spaces to move

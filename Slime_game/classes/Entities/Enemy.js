@@ -1,4 +1,4 @@
-import {currentLevel} from "../Controller.js";
+import {currentLevel} from "../Global.js";
 import {Entity} from "./Entity.js";
 import {Path} from "../../libraries/yuka-master/src/yuka.js";
 import {aStar} from "../Pathing.js";
@@ -25,23 +25,6 @@ class Enemy extends Entity {
         this.path = new Path();
         console.log(this.path);
 
-    }
-
-    moveEnemy(direction){
-        switch(direction){
-            case "forward":
-                this.position[2] += 1
-                break;
-            case "backward":
-                this.position[2] -= 1;
-                break;
-            case "left":
-                this.position[0] += 1;
-                break;
-            case "right":
-                this.position[0] -= 1;
-                break;
-        }
     }
 
     //Checks if the player is within sight range
