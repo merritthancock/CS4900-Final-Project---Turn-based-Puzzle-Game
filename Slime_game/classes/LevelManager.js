@@ -136,10 +136,8 @@ loadingManager.onLoad = function ( ) {
     //Create Level
     testLevel = new Level(testLevelHeightMap, testLevelTileMap, enemies, player, cursor);
 
-
     //Create Scene
     scene = new THREE.Scene;
-
 
     function loadModel(entity, loader) {
         loader.load(
@@ -354,4 +352,3 @@ export {scene};
 export {testLevel};
 //export {testLevel2}
 export {loadLevel};
-
