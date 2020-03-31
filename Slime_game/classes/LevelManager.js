@@ -91,7 +91,7 @@ loadingManager.onLoad = function ( ) {
     //let skull = new THREE.TextureLoader().load( './assets/skull.jpg' );
     //let enemyBox = new THREE.BoxGeometry(1,1,1);
     let enemyPos = [13, 1, 3];
-    let enemy = new Milcap(enemyPos, "enemy", 2, 1);
+    let enemy = new Milcap(enemyPos, "enemy", 1, 1);
     //enemy.moveEntity(enemyPos[0], enemyPos[1], enemyPos[2], enemy);
     let enemies = [enemy];
 
@@ -116,7 +116,7 @@ loadingManager.onLoad = function ( ) {
 
     //Create a Verm
     let enemyPos3 = [5, 1, 7];
-    let enemy3 = new Verm(enemyPos3, "enemy3", 1, 3);
+    let enemy3 = new Verm(enemyPos3, "enemy3", 0.5, 3);
 
     enemies.push(enemy3);
     enemy3.setNest([5,1,7]);
@@ -128,8 +128,7 @@ loadingManager.onLoad = function ( ) {
     let skull4 = new THREE.TextureLoader().load( './assets/skull.jpg');
     let enemyBox4 = new THREE.BoxGeometry(1,1,1);
     let enemyPos4 = [17, 1, 18];
-    //let pinpod1 = new Pinpod(enemyPos4, enemyBox4, skull4, "enemy4", 0.5, 4);
-    let pinpod1 = new Pinpod(enemyPos4,"Pinpod1", 1, 4);
+    let pinpod1 = new Pinpod(enemyPos4, enemyBox4, skull4, "enemy4", 0.5, 4);
 
     enemies.push(pinpod1);
     //pinpod1.moveEntity(enemyPos4[0], enemyPos4[1], enemyPos4[2], pinpod1);
@@ -137,10 +136,8 @@ loadingManager.onLoad = function ( ) {
     //Create Level
     testLevel = new Level(testLevelHeightMap, testLevelTileMap, enemies, player, cursor);
 
-
     //Create Scene
     scene = new THREE.Scene;
-
 
     function loadModel(entity, loader) {
         loader.load(
@@ -355,4 +352,3 @@ export {scene};
 export {testLevel};
 //export {testLevel2}
 export {loadLevel};
-
