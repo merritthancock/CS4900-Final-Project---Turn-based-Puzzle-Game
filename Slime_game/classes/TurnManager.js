@@ -1,5 +1,4 @@
 import { getMasterLock, releaseMasterLock} from "../Semaphore.js";
-import { currentLevel } from "./LevelManager.js";
 import { PriorityQueue } from "../libraries/yuka-master/src/yuka.js";
 
 let turnCount = 0;
@@ -9,25 +8,37 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function passTurn(enemies) {
+async function passTurn(currentLevel) {
     turnCount++;
-    let enemyPriorityQueue = buildPriorityQueue(enemies);
+    let enemyPriorityQueue = buildPriorityQueue(currentLevel.enemies);
 
-    //if player turn, pass turn to enemy and handle enemy movement
+    //if player turn, pass turn to enemy and handle enemy actions
     if(isPlayerTurn) {
         getMasterLock();
         isPlayerTurn = false;
-        currentLevel.cursor.mesh.material.visibile = false;
+        currentLevel.cursor.model.visible = false;
         //TODO: Make this more robust for moving enemies, also move enemy movement logic and passTurn call to other file
         while(enemyPriorityQueue.peek() != null) {
             await sleep(250);
-            enemyPriorityQueue.pop().update();
+            //Get next enemy on the priority queue, give it its AP for the turn,
+            //and update until it runs out of AP.
+            let currentEnemy = enemyPriorityQueue.pop();
+            currentEnemy.resetAP();
+            currentEnemy.resetMovement();
+            while(currentEnemy.remainingAP > 0) {
+                currentEnemy.update();
+                await sleep(100);
+                currentEnemy.decrementAP();
+            }
         }
-        passTurn(enemies);
+        passTurn(currentLevel);
     }
-    else{
+    else {
+        let player = currentLevel.player;
         isPlayerTurn = true;
-        currentLevel.cursor.mesh.material.visibile = true;
+        player.resetAP();
+        player.resetMovement();
+        currentLevel.cursor.model.visible = true;
         releaseMasterLock();
     }
 }

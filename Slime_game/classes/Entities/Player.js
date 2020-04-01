@@ -1,11 +1,16 @@
 import {Entity} from "./Entity.js";
 import { passTurn } from "../TurnManager.js";
+import { currentLevel } from "../Global.js";
+import {aStar} from "../Pathing.js";
 
 //Players inherit from Entity
 class Player extends Entity {
-    constructor(position, model, texture, id, startingMass){
+    constructor(position, id, startingMass){
         //Set up entity object part
-        super(position, model, texture, id);
+        super(position, id);
+
+        //Set URL
+        this.url = "SlimeMain.glb";
 
         //Set starting mass and size values
         this.mass = startingMass;
@@ -15,6 +20,10 @@ class Player extends Entity {
         this.movementRange = 4;
         //Set default jump height to 1
         this.jumpHeight = 1;
+        this.ap = 2;
+        //Set remaining AP initialized to starting AP
+        this.remainingAP = this.ap;
+        this.remainingMovement = this.movementRange;
         this.canActivateTrigger = true;
     }
 
@@ -23,30 +32,24 @@ class Player extends Entity {
         this.mass += enemy.mass;
     };
 
-    //Function moves player
-    /*movePlayer(direction, board){
-        switch(direction){
-            case "forward":
-                this.position[2] += 1
-                break;
-            case "backward":
-                this.position[2] -= 1;
-                break;
-            case "left":
-                this.position[0] += 1;
-                break;
-            case "right":
-                this.position[0] -= 1;
-                break;
-        }   
-        player.position.set(player.position[0], player.position[1], player.position[2]);//removed .mesh
-    };*/
+    movePlayer(destination){
+        //Get route from A*
+        let route = aStar(this.position[0], this.position[2], 
+            destination[0], destination[2], currentLevel.board, currentLevel.player);
+        //Move along route given
+        for(let i = 1; i < route.length && this.decrementAP() >= 0; i++) {
+            currentLevel.board.tileArray[this.position[0]][this.position[2]].occupant = null;
+            this.moveEntity(route[i].tile.position[0], route[i].tile.height + 1, route[i].tile.position[2]);
+            currentLevel.board.tileArray[this.position[0]][this.position[2]].occupant = this;
+        }
+        passTurn(currentLevel);
+    };
 
     //Function follows cursor
     followCursor(board){
         board.tileArray[board.player.position[0]][board.player.position[2]].occupant = null;
         board.player.position = [...board.cursor.position]
-        board.player.mesh.position.set(board.cursor.position[0], board.cursor.position[1], board.cursor.position[2]);
+        board.player.model.position.set(board.cursor.position[0], board.cursor.position[1], board.cursor.position[2]);
         board.tileArray[board.player.position[0]][board.player.position[2]].occupant = board.player;
     };
     
@@ -55,9 +58,10 @@ class Player extends Entity {
         this.mass -= damage;
         console.log("Damage Taken: ", damage, "Player Health: ", this.mass);
         if(this.mass <= 0){
+            console.log("PLAYER IS DEAD");
             //death animation
             //death screen
-            
+            console.log("You died!");
         }
     }
 }

@@ -2,14 +2,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Slime Game</title>
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
+
     <script src='./libraries/three.js'></script>
     <script src="./libraries/GLTFLoader.js"></script>
     <script src="./libraries/OrbitControls.js"></script>
     <script type="module" src="./libraries/yuka-master/src/yuka.js"></script>
-    <script type="module" src="./classes/Models.js"></script>
     <script type="module" src="./classes/Entities/Entity.js"></script>
     <script type="module" src="./classes/Entities/Cursor.js"></script>
     <script type="module" src="./classes/Entities/Enemy.js"></script>
@@ -26,5 +28,36 @@
     <script type="module" src="./KeyboardInput.js"></script>
     <script type="module" src="./RenderTasks.js"></script>
     <script type="module" src="./classes/Controller.js"></script>
+
+    <div class="menu" id = "menu">
+        <h2 class="title">Slime's Revenge Super Ultra Arcade Remix Hyper Gold Collectors Edition</h2>
+        <!--
+        <audio id="titleAudio">
+            <source src="./assets/sounds/2017-08-20_-_Pirate_Dance_-_David_Fesliyan.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        -->
+        <button class="level-btn" id="start">Test Level</button>
+        <button class="level-btn" id="Level2">Level 2</button>
+        <button class="level-btn" id="Level3">Level 3</button>
+    </div>
+
+    <!-- loading screen url: https://codepen.io/dev_loop/pen/NmYmRP -->
+    <div class="container" id="loading-screen">
+        <div class="box--container">
+            <div class="box box--1">
+                <div class="circle circle--1"></div>
+            </div>
+    
+            <div class="box box--2">
+                <div class="circle circle--2"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="game" id="game">
+        
+    </div>
+    
 </body>
 </html>
