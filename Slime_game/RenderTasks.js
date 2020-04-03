@@ -38,6 +38,7 @@ function updateRender(){
         }
         if(keyStatus["space"]){
             getLock("inputHandler");
+            currentLevel.player.update();
         }
         if(keyStatus["mKey"]){
             getLock("inputHandler");
