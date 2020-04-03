@@ -36,16 +36,5 @@ class Pinpod extends Enemy {
     update(){//calls a single step in the state
         this.stateMachine.update();
     }
-
-    //Moves the Verm in the direction of its nest
-    fleeToNest(moves){
-        let route = aStar(this.position[0], this.position[2], this.nestLocation[0], this.nestLocation[2], currentLevel.board, this);
-        this.moveEnemy(route, moves);
-    }
-
-    //Sets the nest position relative to the level
-    setNest(waypoint){
-        this.nestLocation = waypoint;
-    }
 }
 export {Pinpod};
