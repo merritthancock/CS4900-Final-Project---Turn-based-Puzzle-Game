@@ -33,6 +33,8 @@ class Verm extends Enemy {
         this.nestLocation = [];
         //Number of turns the Verm hides for
         this.hideCount = 3;
+
+        this.type = 'VERM';
     }
 
     update(){//calls a single step in the state
