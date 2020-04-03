@@ -14,7 +14,9 @@ let windowHeight;
 let camera;
 let cameraControls;
 let renderer;
+let canvas = document.querySelector("#game");
 let menu = document.getElementById("menu");
+let winScreen = document.querySelector("#win");
 let startButton = document.getElementById("start");
 let level2Button = document.getElementById("Level2");
 let level3Button = document.getElementById("Level3");
@@ -61,9 +63,9 @@ function start(){
 
 function setupTasks(){
     //Creates renderer and adds it to document body
-    renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
     renderer.setSize(windowWidth, windowHeight);
-    document.body.appendChild(renderer.domElement);
+    //document.body.appendChild(renderer.domElement);
     //gameScreen.appendChild(renderer.domElement);
 
     //set listener for window resizing. Allows resizing of game.
