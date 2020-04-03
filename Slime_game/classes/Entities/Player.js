@@ -2,6 +2,8 @@ import {Entity} from "./Entity.js";
 import { passTurn } from "../TurnManager.js";
 import { currentLevel } from "../Global.js";
 import {aStar} from "../Pathing.js";
+import {NormState, SpikeState} from "./PlayerAbilities.js";
+import { StateMachine } from "../../libraries/yuka-master/src/yuka.js";
 
 //Players inherit from Entity
 class Player extends Entity {
@@ -25,11 +27,29 @@ class Player extends Entity {
         this.remainingAP = this.ap;
         this.remainingMovement = this.movementRange;
         this.canActivateTrigger = true;
+
+        //state machine for player abilities
+        this.stateMachine = new StateMachine(this);
+        this.stateMachine.add('NORMAL', new NormState());
+        this.stateMachine.add('SPIKE', new SpikeState());
+        this.stateMachine.changeTo('NORMAL');
+        //value for ability uses which will be set upon ability gain
+        this.abilityUses = 0;
     }
 
-    //Function absorbs enemy, increases mass
+    //uses current ability or does nothing if no ability (MAPPED TO SPACE)
+    update(){
+        this.stateMachine.update();
+    }
+
+    //Function absorbs enemy, increases mass, takes ability if available
     absorb(enemy){
         this.mass += enemy.mass;
+        if(enemy.type == 'PINPOD'){
+            this.abilityUses = 3; //three spike uses
+            this.stateMachine.changeTo('SPIKE');
+
+        }
     };
 
     movePlayer(destination){
@@ -62,6 +82,23 @@ class Player extends Entity {
             //death animation
             //death screen
             console.log("You died!");
+        }
+    }
+
+    spikeAttack(damage){
+        for(let i = 0; i< currentLevel.enemies.length; i++){
+            let xDistance = Math.abs(currentLevel.enemies[i].position[0] - this.position[0]);
+            let yDistance = Math.abs(currentLevel.enemies[i].position[2] - this.position[2]);
+            if((xDistance <= 1 &&  yDistance == 0) || (yDistance <= 1 && xDistance == 0)){
+               let status = currentLevel.enemies[i].takeDamage(damage);
+               if (status == 'DEAD'){
+                currentLevel.enemies[i].model.visible = false;
+                currentLevel.board.tileArray[currentLevel.enemies[i].position[0]][currentLevel.enemies[i].position[2]].occupant = null;
+                currentLevel.enemies.splice(i,1);
+                
+               }
+            }
+
         }
     }
 }
