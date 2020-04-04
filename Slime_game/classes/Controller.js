@@ -28,6 +28,7 @@ let loadingScreen = document.getElementById("loading-screen");
 windowWidth = window.innerWidth;
 windowHeight = window.innerHeight;
 
+
 function start(){
     loadingScreen.style.display = "none";
     //Level 1
@@ -65,7 +66,7 @@ function setupTasks(){
     //Creates renderer and adds it to document body
     renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
     renderer.setSize(windowWidth, windowHeight);
-    //document.body.appendChild(renderer.domElement);
+    document.body.appendChild(renderer.domElement);
     //gameScreen.appendChild(renderer.domElement);
 
     //set listener for window resizing. Allows resizing of game.
