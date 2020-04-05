@@ -1,12 +1,9 @@
 import { getMasterLock, releaseMasterLock} from "../Semaphore.js";
 import { PriorityQueue } from "../libraries/yuka-master/src/yuka.js";
+import { sleep } from "./Global.js";
 
 let turnCount = 0;
 let isPlayerTurn = true;
-
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
 
 async function passTurn(currentLevel) {
     turnCount++;
