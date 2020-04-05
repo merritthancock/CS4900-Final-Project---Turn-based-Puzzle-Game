@@ -16,7 +16,7 @@ let cameraControls;
 let renderer;
 let canvas = document.querySelector("#game");
 let menu = document.getElementById("menu");
-let winScreen = document.querySelector("#win");
+let winScreen = document.querySelector("#winLevel");
 let startButton = document.getElementById("start");
 let level2Button = document.getElementById("Level2");
 let level3Button = document.getElementById("Level3");
@@ -92,6 +92,10 @@ function setupLevel(){
     animate();
 }
 
+function winLevel(){
+    winScreen.style.opacity = 1;
+}
+
 function renderLevel() {
     updateRender();
     renderer.render(currentScene, camera);
@@ -105,3 +109,4 @@ start();
 
 export {camera};
 export {cameraControls};
+export {winLevel};
