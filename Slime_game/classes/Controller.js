@@ -32,6 +32,7 @@ windowHeight = window.innerHeight;
 menuBtn.onclick = function(){
     winScreen.style.display = "none";
     loadingScreen.style.display = "block";
+    canvas.style.display = "none";
     var i;
     for(i=0; i < currentScene.children.length; i++){
         let obj = currentScene.children[i];
@@ -42,15 +43,20 @@ menuBtn.onclick = function(){
 };
 
 function start(){
+
     loadingScreen.style.display = "none";
+    canvas.style.display = "none";
+
     //Level 1
     startButton.onclick = function(){
         //Sets current scene to level 1 scene
         menu.style.display = "none";
+        canvas.style.display = "block";
         console.log("Level 1");
         changeLevel(testLevel);
         currentScene = scene;
         loadLevel(currentScene, currentLevel);
+        canvas.style.display = "block";
         setupTasks();
         setupLevel();
     };
@@ -61,16 +67,16 @@ function start(){
         console.log("Level 2");
         currentLevel = testLevel;
         currentScene = scene;
-        setupTasks();
-        setupLevel();
+        //setupTasks();
+        //setupLevel();
     };
     //Level 3
     level3Button.onclick = function(){
         menu.style.display = "none";
         console.log("Level 3");
         currentScene = scene;
-        setupTasks();
-        setupLevel();
+        //setupTasks();
+        //setupLevel();
     };
 }
 
