@@ -1,6 +1,6 @@
 import {Entity} from "./Entity.js";
 import { passTurn } from "../TurnManager.js";
-import { currentLevel } from "../Global.js";
+import { currentLevel, sleep, degToRad } from "../Global.js";
 import {aStar} from "../Pathing.js";
 
 //Players inherit from Entity
@@ -32,15 +32,32 @@ class Player extends Entity {
         this.mass += enemy.mass;
     };
 
-    movePlayer(destination){
+    async movePlayer(destination){
         //Get route from A*
         let route = aStar(this.position[0], this.position[2], 
             destination[0], destination[2], currentLevel.board, currentLevel.player);
         //Move along route given
         for(let i = 1; i < route.length && this.decrementAP() >= 0; i++) {
+            //Rotate unit
+            if(this.position[0] < route[i].tile.position[0]) {
+                this.model.rotation.y = degToRad(90);
+            }
+            else if (this.position[0] > route[i].tile.position[0]) {
+                this.model.rotation.y = degToRad(270);
+            }
+            else if (this.position[2] < route[i].tile.position[2]) {
+                this.model.rotation.y = degToRad(0);
+            }
+            else if (this.position[2] > route[i].tile.position[2]) {
+                this.model.rotation.y = degToRad(180);
+            }
+
+            //Move unit
             currentLevel.board.tileArray[this.position[0]][this.position[2]].occupant = null;
             this.moveEntity(route[i].tile.position[0], route[i].tile.height + 1, route[i].tile.position[2]);
             currentLevel.board.tileArray[this.position[0]][this.position[2]].occupant = this;
+
+            await sleep(100);
         }
         passTurn(currentLevel);
     };

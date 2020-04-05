@@ -8,4 +8,14 @@ function changeLevel(newLevel) {
     currentLevel = newLevel;
 }
 
-export { currentLevel, changeLevel };
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function degToRad(degrees) {
+    let radians = degrees * 3.1415 / 180.0;
+
+    return radians;
+}
+
+export { currentLevel, changeLevel, sleep, degToRad };
