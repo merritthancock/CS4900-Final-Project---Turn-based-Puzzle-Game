@@ -31,6 +31,13 @@ windowHeight = window.innerHeight;
 
 menuBtn.onclick = function(){
     winScreen.style.display = "none";
+    loadingScreen.style.display = "block";
+    var i;
+    for(i=0; i < currentScene.children.length; i++){
+        let obj = currentScene.children[i];
+        currentScene.remove(obj);
+    }
+    loadingScreen.style.display = "none";
     menu.style.display = "block";
 };
 
