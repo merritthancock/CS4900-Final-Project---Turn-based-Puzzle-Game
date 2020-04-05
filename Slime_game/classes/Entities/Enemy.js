@@ -1,4 +1,4 @@
-import {currentLevel} from "../Global.js";
+import {currentLevel, degToRad} from "../Global.js";
 import {Entity} from "./Entity.js";
 import {Path} from "../../libraries/yuka-master/src/yuka.js";
 import {aStar} from "../Pathing.js";
@@ -53,6 +53,22 @@ class Enemy extends Entity {
     moveEnemy(route, moves) {
         //Move along the route for the number of moves allowed
         for(let i = 1; i < route.length && moves > 0; i++) {
+
+            //Rotate unit
+            if(this.position[0] < route[i].tile.position[0]) {
+                this.model.rotation.y = degToRad(90);
+            }
+            else if (this.position[0] > route[i].tile.position[0]) {
+                this.model.rotation.y = degToRad(270);
+            }
+            else if (this.position[2] < route[i].tile.position[2]) {
+                this.model.rotation.y = degToRad(0);
+            }
+            else if (this.position[2] > route[i].tile.position[2]) {
+                this.model.rotation.y = degToRad(180);
+            }
+
+            //Move unit
             currentLevel.board.tileArray[this.position[0]][this.position[2]].occupant = null;
             this.moveEntity(route[i].tile.position[0], route[i].tile.height + 1, route[i].tile.position[2]);
             currentLevel.board.tileArray[this.position[0]][this.position[2]].occupant = this;
