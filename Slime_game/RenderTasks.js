@@ -2,6 +2,7 @@ import {unlocked, getLock, masterLock} from "./Semaphore.js";
 import {keyStatus} from "./KeyboardInput.js";
 import {hover} from "./classes/Pathing.js";
 import {currentLevel} from "./classes/Global.js";
+import { winLevel } from "./classes/Controller.js";
 
 function updateRender(){
     if(unlocked && !masterLock) {
@@ -43,6 +44,10 @@ function updateRender(){
         if(keyStatus["mKey"]){
             getLock("inputHandler");
             currentLevel.enemies[0].update();
+        }
+        if(keyStatus["gKey"]){//win level
+            getLock("inputHandler");
+            winLevel();
         }
     }
 }
