@@ -51,6 +51,7 @@ class HideState extends State {
     enter(enemy){
         //enemy and its model disappears
         console.log('HIDING');
+        enemy.model.visible = false;
         enemy.ap = 1;
     }
 
@@ -67,7 +68,7 @@ class HideState extends State {
     }
 
     exit(enemy){
-
+        enemy.model.visible = true;
     }
 }
 
