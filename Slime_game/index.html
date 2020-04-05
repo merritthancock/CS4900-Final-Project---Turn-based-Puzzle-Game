@@ -12,7 +12,6 @@
     <script src="./libraries/GLTFLoader.js"></script>
     <script src="./libraries/OrbitControls.js"></script>
     <script type="module" src="./libraries/yuka-master/src/yuka.js"></script>
-    <script type="module" src="./classes/Models.js"></script>
     <script type="module" src="./classes/Entities/Entity.js"></script>
     <script type="module" src="./classes/Entities/Cursor.js"></script>
     <script type="module" src="./classes/Entities/Enemy.js"></script>
@@ -56,8 +55,23 @@
         </div>
     </div>
 
-    <div class="game" id="game">
-        
+    <!-- where the game is-->
+    <div class="outerGame" id="outerGame">
+        <canvas id="game"></canvas>
+
+        <div class="gameInfo" id="gameInfo">
+            <button>click me</button>
+        </div>
+
+        <div class="winLevel" id="winLevel">
+            <label id="endText">You Win!</label>
+            <button class="divBtn" id="menuBtn">Main Menu</button>
+        </div>
+
+
+
+
+
     </div>
     
 </body>

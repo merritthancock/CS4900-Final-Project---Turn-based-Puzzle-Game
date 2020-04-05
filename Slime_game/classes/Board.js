@@ -16,8 +16,8 @@ class Board {
             this.tileArray[i] = [];
             this.overlayMap[i] = [];
             for(let j = 0; j < tileMap[0].length; j++){
-                this.tileArray[i][j] = new Tile([i, heightMap[i][j] / 2, j], heightMap[i][j], tileMap[i][j]);
-                this.overlayMap[i][j] = new Overlay([i, heightMap[i][j] + 0.6, j]);
+                this.tileArray[i][j] = new Tile([i, heightMap[i][j] / 2 + 0.5, j], heightMap[i][j], tileMap[i][j]);
+                this.overlayMap[i][j] = new Overlay([i, heightMap[i][j] + 1.1, j]);
             }
         }
         //Loop through enemies list, get each enemy's position, and place them in the corresponding
@@ -60,11 +60,11 @@ class Tile {
 
         switch(type){
             case 0://grass
-                this.terrain = new THREE.Mesh(new THREE.CylinderBufferGeometry(.71, .71, height, 4, (height+1), false, (Math.PI/4)),
+                this.terrain = new THREE.Mesh(new THREE.CylinderBufferGeometry(.71, .71, height+1, 4, (height+1), false, (Math.PI/4)),
                                new THREE.MeshBasicMaterial({ map: grass}));
                 break;
             case 1://rocky
-                this.terrain = new THREE.Mesh(new THREE.CylinderBufferGeometry(.71, .71, height, 4, (height+1), false, (Math.PI/4)),
+                this.terrain = new THREE.Mesh(new THREE.CylinderBufferGeometry(.71, .71, height+1, 4, (height+1), false, (Math.PI/4)),
                                new THREE.MeshBasicMaterial({ map: rocks}));            
                 break;
             /*case 2://water
@@ -76,7 +76,7 @@ class Tile {
                                new THREE.MeshBasicMaterial({ color: 0x000000}));
                 break;
             case 4://cave
-                this.terrain = new THREE.Mesh(new THREE.CylinderBufferGeometry(0.71, 0.71, height, 4, (height+1), false, (Math.PI/4)),
+                this.terrain = new THREE.Mesh(new THREE.CylinderBufferGeometry(0.71, 0.71, height+1, 4, (height+1), false, (Math.PI/4)),
                                new THREE.MeshBasicMaterial({ map: cave}));            
                 break;
             case 8://exit

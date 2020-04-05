@@ -2,7 +2,7 @@ import { StateMachine, RectangularTriggerRegion, Trigger } from "../../../librar
 import {aStar} from "../../Pathing.js";
 import { Enemy } from "../Enemy.js";
 import { PatrolState, FleeState, HideState} from "./VermStates.js";
-import { currentLevel } from "../../Controller.js";
+import { currentLevel } from "../../Global.js";
 
 //The Enemy is an object that will contain unique methods allowing player interaction
 class Verm extends Enemy {
@@ -33,6 +33,8 @@ class Verm extends Enemy {
         this.nestLocation = [];
         //Number of turns the Verm hides for
         this.hideCount = 3;
+
+        this.type = 'VERM';
     }
 
     update(){//calls a single step in the state
