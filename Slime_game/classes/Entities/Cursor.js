@@ -53,7 +53,8 @@ class Cursor extends Entity {
                 if(xDistance + yDistance <= Math.min(currentLevel.player.remainingMovement, currentLevel.player.remainingAP) && 
                    currentLevel.board.tileArray[cursorX][cursorY].occupant != currentLevel.player &&
                    currentLevel.board.tileArray[cursorX][cursorY].occupant != null &&
-                   currentLevel.board.tileArray[cursorX][cursorY].occupant.mass <= currentLevel.player.mass){
+                   currentLevel.board.tileArray[cursorX][cursorY].occupant.mass <= currentLevel.player.mass && 
+                   currentLevel.board.tileArray[cursorX][cursorY].occupant.absorbable == true){
 
                     console.log("ABSORB");
                     //play absorb animation

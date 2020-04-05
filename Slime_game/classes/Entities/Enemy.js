@@ -25,6 +25,8 @@ class Enemy extends Entity {
         this.path = new Path();
         console.log(this.path);
 
+        this.absorbable = true;
+
     }
 
     //Checks if the player is within sight range
