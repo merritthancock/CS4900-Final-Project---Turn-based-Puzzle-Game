@@ -20,6 +20,7 @@ let winScreen = document.querySelector("#winLevel");
 let startButton = document.getElementById("start");
 let level2Button = document.getElementById("Level2");
 let level3Button = document.getElementById("Level3");
+let menuBtn = document.querySelector("#menuBtn");
 let currentScene;
 let loadingScreen = document.getElementById("loading-screen");
 
@@ -28,6 +29,10 @@ let loadingScreen = document.getElementById("loading-screen");
 windowWidth = window.innerWidth;
 windowHeight = window.innerHeight;
 
+menuBtn.onclick = function(){
+    winScreen.style.display = "none";
+    menu.style.display = "block";
+};
 
 function start(){
     loadingScreen.style.display = "none";
