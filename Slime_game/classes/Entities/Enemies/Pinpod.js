@@ -27,6 +27,8 @@ class Pinpod extends Enemy {
         this.ap = 1;
         //Number of turns the Verm hides for
         this.turnCount = 0;
+
+        this.type = 'PINPOD';
     }
 
     update(){//calls a single step in the state

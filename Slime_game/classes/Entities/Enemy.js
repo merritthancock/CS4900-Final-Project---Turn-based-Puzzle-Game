@@ -131,5 +131,17 @@ class Enemy extends Entity {
     setAttackRange(newAR){
         this.attackRange = newAR;
     }
+
+    //enemy takes damage and loses mass
+    takeDamage(damage){
+        this.mass -= damage;
+        console.log("Damage Dealt: ", damage, "Enemy Health: ", this.mass);
+        if(this.mass <= 0){
+            return 'DEAD'; //to determine removal
+        }
+        else{
+            return 'ALIVE';
+        }
+    }
 }
 export {Enemy};
