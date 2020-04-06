@@ -11,6 +11,7 @@ let scene2;
 let levelSelector = 1;
 let testLevel;
 let testLevel2;
+let level3;
 let loadingManager;
 let loadingScreen = document.getElementById("loading-screen");
 
@@ -73,23 +74,15 @@ loadingManager.onLoad = function ( ) {
     ];
 
     //Create Player
-    //let slime = new THREE.TextureLoader().load( './assets/slime.jpg' );
-    //let playerBox = new THREE.BoxGeometry(1, 1, 1);
     let playerPos = [2, 1, 2];
     let player = new Player(playerPos, "player", 1);
     //player.moveEntity(playerPos[0], playerPos[1], playerPos[2], player);
 
     //Create Cursor
-    //let cu = new THREE.TextureLoader().load( './assets/yellow.jpg' );
-    //let cursorMod = new THREE.CircleBufferGeometry( 0.5, 30 );
-    //cursorMod.rotateX(-Math.PI/2);
     let cursorPos = [1, 1.6, 2];
     let cursor = new Cursor(cursorPos, "cursor");
-    //cursor.moveEntity(cursorPos[0], cursorPos[1], cursorPos[2], cursor);
 
     //Create Enemy
-    //let skull = new THREE.TextureLoader().load( './assets/skull.jpg' );
-    //let enemyBox = new THREE.BoxGeometry(1,1,1);
     let enemyPos = [13, 1, 3];
     let enemy = new Milcap(enemyPos, "enemy", 1, 1);
     //enemy.moveEntity(enemyPos[0], enemyPos[1], enemyPos[2], enemy);
@@ -347,8 +340,73 @@ loadingManager.onLoad = function ( ) {
     loadLevel2(scene2, testLevel2);
     //currentLevel = testLevel2;
     */
+
+    //LEVEL 3: BOSS-------------------------------------------------
+    let level3TileMap = [
+        [9, 4, 4, 4, 4, 9, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 9],
+        [4, 4, 1, 1, 4, 9, 4, 1, 1, 1, 1, 1, 1, 1, 1, 4, 4],
+        [4, 1, 1, 1, 1, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4],
+        [4, 1, 1, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 1, 4, 9],
+        [4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4],
+        [4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4],
+        [9, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4],
+        [9, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4],
+        [9, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4],//mid
+        [9, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4],
+        [9, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 9],
+        [4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4],
+        [4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4],
+        [4, 1, 1, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 1, 1, 4],
+        [4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4],
+        [4, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 4],
+        [9, 4, 4, 1, 1, 1, 1, 4, 4, 4, 1, 1, 1, 1, 1, 4, 9],
+        [9, 9, 4, 4, 4, 4, 4, 9, 9, 9, 4, 4, 4, 4, 4, 4, 9]
+    ];
+
+    let level3HeightMap = [
+        [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+        [4, 4, 0, 0, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4],
+        [4, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4],
+        [4, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 4, 4],
+        [4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4],
+        [4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4],
+        [4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4],
+        [4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4],
+        [4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4],//mid
+        [4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4],
+        [4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4],
+        [4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4],
+        [4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4],
+        [4, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 4],
+        [4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4],
+        [4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4],
+        [4, 4, 4, 0, 0, 0, 0, 4, 4, 4, 0, 0, 0, 0, 0, 4, 4],
+        [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]
+        
+    ];
+
+    //Create Player
+    let pPosL3 = [8, 1, 14];
+    let pL3 = new Player(pPosL3, "player", 1);
+
+    //Create Cursor
+    let cPosL3 = [8, 1.6, 14];
+    let cL3 = new Cursor(cPosL3, "cursor");
+
+    let enemiesL3 = [];
+
+    let enemyPosL3 = [8, 1, 5];
+    let pinpodL3 = new Pinpod(enemyPosL3, "pinpod", 0.5, 4);
+
+    enemiesL3.push(pinpodL3);
+
+
+
+    level3 = new Level(level3HeightMap, level3TileMap, enemiesL3, pL3, cL3);
+
 export {scene};
 //export {scene2}
 export {testLevel};
+export {level3};
 //export {testLevel2}
 export {loadLevel};

@@ -6,6 +6,7 @@ const RETRACT = 'RETRACT';
 class ExtendState extends State {
     enter(enemy){
         //change model to spike version
+        enemy.absorbable = false;
         if(enemy.seesPlayer()){
             enemy.attack(enemy.attackPower);
         }
@@ -30,6 +31,7 @@ class ExtendState extends State {
         if(enemy.seesPlayer()){
             enemy.attack(enemy.attackPower);
         }
+        enemy.absorbable = true;
     }
 }
 

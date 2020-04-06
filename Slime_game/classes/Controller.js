@@ -2,7 +2,7 @@ import {updateRender} from "../RenderTasks.js";
 import {doKeyUp, doKeyDown} from "../KeyboardInput.js";
 import {buildCamera} from "./Camera.js";
 import {buildCameraControls} from "./Camera.js";
-import {scene, testLevel} from "./LevelManager.js";
+import {scene, testLevel, level3} from "./LevelManager.js";
 //import {scene2} from "./LevelManager.js";
 //import {testLevel2} from "./LevelManager.js";
 import {loadLevel} from "./LevelManager.js";
@@ -29,10 +29,11 @@ let loadingScreen = document.getElementById("loading-screen");
 windowWidth = window.innerWidth;
 windowHeight = window.innerHeight;
 
+
 menuBtn.onclick = function(){
     winScreen.style.display = "none";
     loadingScreen.style.display = "block";
-    //canvas.style.display = "none";
+    canvas.style.display = "none";
     while(currentScene.children.length > 0) {
         let obj = currentScene.children[0];
         currentScene.remove(obj);
@@ -79,9 +80,12 @@ function start(){
     level3Button.onclick = function(){
         menu.style.display = "none";
         console.log("Level 3");
+        changeLevel(level3);
         currentScene = scene;
-        //setupTasks();
-        //setupLevel();
+        loadLevel(currentScene, currentLevel);
+        canvas.style.display = "block";
+        setupTasks();
+        setupLevel();
     };
 }
 
