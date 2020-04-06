@@ -29,10 +29,11 @@ let loadingScreen = document.getElementById("loading-screen");
 windowWidth = window.innerWidth;
 windowHeight = window.innerHeight;
 
+
 menuBtn.onclick = function(){
     winScreen.style.display = "none";
     loadingScreen.style.display = "block";
-    //canvas.style.display = "none";
+    canvas.style.display = "none";
     while(currentScene.children.length > 0) {
         let obj = currentScene.children[0];
         currentScene.remove(obj);
