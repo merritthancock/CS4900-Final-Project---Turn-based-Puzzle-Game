@@ -31,7 +31,7 @@ class ExtendState extends State {
         if(enemy.seesPlayer()){
             enemy.attack(enemy.attackPower);
         }
-        enemy.absorbable = false;
+        enemy.absorbable = true;
     }
 }
 
