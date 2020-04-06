@@ -36,7 +36,13 @@ menuBtn.onclick = function(){
     while(currentScene.children.length > 0) {
         let obj = currentScene.children[0];
         currentScene.remove(obj);
+        if(obj instanceof THREE.BufferGeometry) {
+            console.log("HIIIII");
+            obj.material.dispose();
+            obj.dispose();
+        }
     }
+    renderer.dispose();
     loadingScreen.style.display = "none";
     menu.style.display = "block";
 };
