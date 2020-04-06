@@ -2,7 +2,7 @@ import {updateRender} from "../RenderTasks.js";
 import {doKeyUp, doKeyDown} from "../KeyboardInput.js";
 import {buildCamera} from "./Camera.js";
 import {buildCameraControls} from "./Camera.js";
-import {scene, testLevel} from "./LevelManager.js";
+import {scene, testLevel, level3} from "./LevelManager.js";
 //import {scene2} from "./LevelManager.js";
 //import {testLevel2} from "./LevelManager.js";
 import {loadLevel} from "./LevelManager.js";
@@ -74,9 +74,12 @@ function start(){
     level3Button.onclick = function(){
         menu.style.display = "none";
         console.log("Level 3");
+        changeLevel(level3);
         currentScene = scene;
-        //setupTasks();
-        //setupLevel();
+        loadLevel(currentScene, currentLevel);
+        canvas.style.display = "block";
+        setupTasks();
+        setupLevel();
     };
 }
 
