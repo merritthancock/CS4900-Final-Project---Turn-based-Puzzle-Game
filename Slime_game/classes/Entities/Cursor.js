@@ -1,5 +1,5 @@
 import {Entity} from "./Entity.js";
-import {currentLevel} from "../Controller.js";
+import {currentLevel} from "../Global.js";
 
 //The Cursor is an object that will contain unique methods allowing player interaction
 class Cursor extends Entity {
@@ -49,8 +49,27 @@ class Cursor extends Entity {
             else{
                 let xDistance = Math.abs(cursorX - playerX);
                 let yDistance = Math.abs(cursorY - playerY);
+                //absorption of enemy (within ap range, enemy occupies a space, enemy has <= mass than player)
+                if(xDistance + yDistance <= Math.min(currentLevel.player.remainingMovement, currentLevel.player.remainingAP) && 
+                   currentLevel.board.tileArray[cursorX][cursorY].occupant != currentLevel.player &&
+                   currentLevel.board.tileArray[cursorX][cursorY].occupant != null &&
+                   currentLevel.board.tileArray[cursorX][cursorY].occupant.mass <= currentLevel.player.mass && 
+                   currentLevel.board.tileArray[cursorX][cursorY].occupant.absorbable == true){
+
+                    console.log("ABSORB");
+                    //play absorb animation
+                    let index = currentLevel.enemies.indexOf(currentLevel.board.tileArray[cursorX][cursorY].occupant);
+                    //adds mass to player
+                    currentLevel.player.absorb(currentLevel.board.tileArray[cursorX][cursorY].occupant);
+                    currentLevel.board.tileArray[cursorX][cursorY].occupant.model.visible = false;
+                    currentLevel.enemies.splice(index,1);
+                    currentLevel.board.tileArray[cursorX][cursorY].occupant = null;
+                    currentLevel.player.movePlayer(this.position);
+                    currentLevel.board.select(currentLevel.player);
+
+                }
                 //if cursor is within remainingMovement or remainingAP of player, move player and pass turn. Else, deselect.
-                if(xDistance + yDistance <= Math.min(currentLevel.player.remainingMovement, currentLevel.player.remainingAP)) {
+                else if(xDistance + yDistance <= Math.min(currentLevel.player.remainingMovement, currentLevel.player.remainingAP)) {
                     currentLevel.board.select(currentLevel.player);
                     currentLevel.player.movePlayer(this.position);
                 }

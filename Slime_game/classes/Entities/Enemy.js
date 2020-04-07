@@ -1,4 +1,4 @@
-import {currentLevel} from "../Controller.js";
+import {currentLevel, degToRad} from "../Global.js";
 import {Entity} from "./Entity.js";
 import {Path} from "../../libraries/yuka-master/src/yuka.js";
 import {aStar} from "../Pathing.js";
@@ -21,28 +21,12 @@ class Enemy extends Entity {
         this.attackRange = 1;
         //Set default jump height to 1
         this.jumpHeight = 1;
-
         //Give the enemy a path to patrol (loop must be set to true if path is cyclical)
         this.path = new Path();
         console.log(this.path);
 
-    }
+        this.absorbable = true;
 
-    moveEnemy(direction){
-        switch(direction){
-            case "forward":
-                this.position[2] += 1
-                break;
-            case "backward":
-                this.position[2] -= 1;
-                break;
-            case "left":
-                this.position[0] += 1;
-                break;
-            case "right":
-                this.position[0] -= 1;
-                break;
-        }
     }
 
     //Checks if the player is within sight range
@@ -71,6 +55,22 @@ class Enemy extends Entity {
     moveEnemy(route, moves) {
         //Move along the route for the number of moves allowed
         for(let i = 1; i < route.length && moves > 0; i++) {
+
+            //Rotate unit
+            if(this.position[0] < route[i].tile.position[0]) {
+                this.model.rotation.y = degToRad(90);
+            }
+            else if (this.position[0] > route[i].tile.position[0]) {
+                this.model.rotation.y = degToRad(270);
+            }
+            else if (this.position[2] < route[i].tile.position[2]) {
+                this.model.rotation.y = degToRad(0);
+            }
+            else if (this.position[2] > route[i].tile.position[2]) {
+                this.model.rotation.y = degToRad(180);
+            }
+
+            //Move unit
             currentLevel.board.tileArray[this.position[0]][this.position[2]].occupant = null;
             this.moveEntity(route[i].tile.position[0], route[i].tile.height + 1, route[i].tile.position[2]);
             currentLevel.board.tileArray[this.position[0]][this.position[2]].occupant = this;
@@ -132,6 +132,18 @@ class Enemy extends Entity {
     //set custom attack range
     setAttackRange(newAR){
         this.attackRange = newAR;
+    }
+
+    //enemy takes damage and loses mass
+    takeDamage(damage){
+        this.mass -= damage;
+        console.log("Damage Dealt: ", damage, "Enemy Health: ", this.mass);
+        if(this.mass <= 0){
+            return 'DEAD'; //to determine removal
+        }
+        else{
+            return 'ALIVE';
+        }
     }
 }
 export {Enemy};

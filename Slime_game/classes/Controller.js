@@ -2,10 +2,11 @@ import {updateRender} from "../RenderTasks.js";
 import {doKeyUp, doKeyDown} from "../KeyboardInput.js";
 import {buildCamera} from "./Camera.js";
 import {buildCameraControls} from "./Camera.js";
-import {scene, testLevel} from "./LevelManager.js";
+import {scene, testLevel, level3} from "./LevelManager.js";
 //import {scene2} from "./LevelManager.js";
 //import {testLevel2} from "./LevelManager.js";
 import {loadLevel} from "./LevelManager.js";
+import {currentLevel, changeLevel} from "./Global.js";
 
 // declare variables
 let windowWidth;
@@ -13,12 +14,14 @@ let windowHeight;
 let camera;
 let cameraControls;
 let renderer;
+let canvas = document.querySelector("#game");
 let menu = document.getElementById("menu");
+let winScreen = document.querySelector("#winLevel");
 let startButton = document.getElementById("start");
 let level2Button = document.getElementById("Level2");
 let level3Button = document.getElementById("Level3");
+let menuBtn = document.querySelector("#menuBtn");
 let currentScene;
-let currentLevel;
 let loadingScreen = document.getElementById("loading-screen");
 
 //Game setup tasks-----------------------------------------------
@@ -26,16 +29,34 @@ let loadingScreen = document.getElementById("loading-screen");
 windowWidth = window.innerWidth;
 windowHeight = window.innerHeight;
 
-function start(){
+
+menuBtn.onclick = function(){
+    winScreen.style.display = "none";
+    loadingScreen.style.display = "block";
+    canvas.style.display = "none";
+    while(currentScene.children.length > 0) {
+        let obj = currentScene.children[0];
+        currentScene.remove(obj);
+    }
     loadingScreen.style.display = "none";
+    menu.style.display = "block";
+};
+
+function start(){
+
+    loadingScreen.style.display = "none";
+    canvas.style.display = "none";
+
     //Level 1
     startButton.onclick = function(){
         //Sets current scene to level 1 scene
         menu.style.display = "none";
+        canvas.style.display = "block";
         console.log("Level 1");
-        currentLevel = testLevel;
+        changeLevel(testLevel);
         currentScene = scene;
         loadLevel(currentScene, currentLevel);
+        canvas.style.display = "block";
         setupTasks();
         setupLevel();
     };
@@ -46,14 +67,17 @@ function start(){
         console.log("Level 2");
         currentLevel = testLevel;
         currentScene = scene;
-        setupTasks();
-        setupLevel();
+        //setupTasks();
+        //setupLevel();
     };
     //Level 3
     level3Button.onclick = function(){
         menu.style.display = "none";
         console.log("Level 3");
+        changeLevel(level3);
         currentScene = scene;
+        loadLevel(currentScene, currentLevel);
+        canvas.style.display = "block";
         setupTasks();
         setupLevel();
     };
@@ -61,7 +85,7 @@ function start(){
 
 function setupTasks(){
     //Creates renderer and adds it to document body
-    renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
     renderer.setSize(windowWidth, windowHeight);
     document.body.appendChild(renderer.domElement);
     //gameScreen.appendChild(renderer.domElement);
@@ -89,6 +113,10 @@ function setupLevel(){
     animate();
 }
 
+function winLevel(){
+    winScreen.style.opacity = 1;
+}
+
 function renderLevel() {
     updateRender();
     renderer.render(currentScene, camera);
@@ -102,4 +130,4 @@ start();
 
 export {camera};
 export {cameraControls};
-export {currentLevel};
+export {winLevel};
