@@ -1,4 +1,3 @@
-//import { Enemy } from "./Entities/Enemy.js";
 import {movementOverlayHelper, wipeOverlay} from "./Pathing.js";
 
 class Board {
@@ -9,6 +8,12 @@ class Board {
         //Added these for LevelManager
         this.tileMap = tileMap;
         this.heightMap = heightMap;
+        this.textures = []
+        
+        this.textures.push(new THREE.TextureLoader().load( './assets/grass64.jpg' ));
+        this.textures.push(new THREE.TextureLoader().load( './assets/water.jpg' ));
+        this.textures.push(new THREE.TextureLoader().load( './assets/mountain.jpg' ));
+        this.textures.push(new THREE.TextureLoader().load( './assets/cave64.jpg' ));
 
         this.tileArray = [];
         this.overlayMap = [];
@@ -16,7 +21,7 @@ class Board {
             this.tileArray[i] = [];
             this.overlayMap[i] = [];
             for(let j = 0; j < tileMap[0].length; j++){
-                this.tileArray[i][j] = new Tile([i, heightMap[i][j] / 2 + 0.5, j], heightMap[i][j], tileMap[i][j]);
+                this.tileArray[i][j] = new Tile([i, heightMap[i][j] / 2 + 0.5, j], heightMap[i][j], tileMap[i][j], this.textures);
                 this.overlayMap[i][j] = new Overlay([i, heightMap[i][j] + 1.1, j]);
             }
         }
@@ -47,25 +52,25 @@ class Board {
 }
 
 class Tile {
-    constructor(position, height, type){
+    constructor(position, height, type, textures){
 
         this.position = position;
         this.height = height;
         this.type = type;
-
-        var grass = new THREE.TextureLoader().load( './assets/grass64.jpg' );
-        var water = new THREE.TextureLoader().load( './assets/water.jpg' );
-        var rocks = new THREE.TextureLoader().load( './assets/mountain.jpg' );
-        var cave = new THREE.TextureLoader().load( './assets/cave64.jpg' );
-
+        /*
+        let grass = new THREE.TextureLoader().load( './assets/grass64.jpg' );
+        let water = new THREE.TextureLoader().load( './assets/water.jpg' );
+        let rocks = new THREE.TextureLoader().load( './assets/mountain.jpg' );
+        let cave = new THREE.TextureLoader().load( './assets/cave64.jpg' );
+        */
         switch(type){
             case 0://grass
                 this.terrain = new THREE.Mesh(new THREE.CylinderBufferGeometry(.71, .71, height+1, 4, (height+1), false, (Math.PI/4)),
-                               new THREE.MeshBasicMaterial({ map: grass}));
+                               new THREE.MeshBasicMaterial({ map: textures[0]}));
                 break;
             case 1://rocky
                 this.terrain = new THREE.Mesh(new THREE.CylinderBufferGeometry(.71, .71, height+1, 4, (height+1), false, (Math.PI/4)),
-                               new THREE.MeshBasicMaterial({ map: rocks}));            
+                               new THREE.MeshBasicMaterial({ map: textures[1]}));            
                 break;
             /*case 2://water
                 this.terrain = new THREE.Mesh(new THREE.CylinderBufferGeometry(1, 1, height, 4, height),
@@ -77,7 +82,7 @@ class Tile {
                 break;
             case 4://cave
                 this.terrain = new THREE.Mesh(new THREE.CylinderBufferGeometry(0.71, 0.71, height+1, 4, (height+1), false, (Math.PI/4)),
-                               new THREE.MeshBasicMaterial({ map: cave}));            
+                               new THREE.MeshBasicMaterial({ map: textures[2]}));            
                 break;
             case 8://exit
             this.terrain = new THREE.Mesh(new THREE.BoxBufferGeometry(1, 1, 1),

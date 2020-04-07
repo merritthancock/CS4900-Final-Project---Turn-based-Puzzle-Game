@@ -34,6 +34,8 @@ menuBtn.onclick = function(){
     winScreen.style.display = "none";
     loadingScreen.style.display = "block";
     canvas.style.display = "none";
+
+    //Dispose of all the contents of the scene graph
     while(currentScene.children.length > 0) {
         let obj = currentScene.children[0];
         currentScene.remove(obj);
