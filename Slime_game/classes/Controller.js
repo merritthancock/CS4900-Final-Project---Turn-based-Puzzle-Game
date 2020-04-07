@@ -7,6 +7,7 @@ import {scene, testLevel, level3} from "./LevelManager.js";
 //import {testLevel2} from "./LevelManager.js";
 import {loadLevel} from "./LevelManager.js";
 import {currentLevel, changeLevel} from "./Global.js";
+import { NavNode } from "../libraries/yuka-master/src/yuka.js";
 
 // declare variables
 let windowWidth;
@@ -32,6 +33,7 @@ windowHeight = window.innerHeight;
 
 menuBtn.onclick = function(){
     winScreen.style.display = "none";
+    winScreen.style['pointer-events'] = 'none';
     loadingScreen.style.display = "block";
     canvas.style.display = "none";
     while(currentScene.children.length > 0) {
@@ -40,6 +42,7 @@ menuBtn.onclick = function(){
     }
     loadingScreen.style.display = "none";
     menu.style.display = "block";
+  
 };
 
 function start(){
@@ -114,6 +117,7 @@ function setupLevel(){
 }
 
 function winLevel(){
+    winScreen.style['pointer-events'] = 'auto';
     winScreen.style.opacity = 1;
 }
 
