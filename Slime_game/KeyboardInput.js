@@ -40,6 +40,10 @@ function doKeyDown(event) {
         case 77: //m key (For testing enemy pathing)
             keyStatus["mKey"] = true;
             break;
+        
+        case 71: //g key for testing win screen
+            keyStatus["gKey"] = true;
+            break;
     }
 }
 
@@ -80,6 +84,11 @@ function doKeyUp(event) {
             keyStatus["mKey"] = false;
             releaseLock("inputHandler");
             break;
+
+        case 71: //g key for testing win screen
+        keyStatus["gKey"] = false;
+        releaseLock("inputHandler");
+        break;
     }
 }
 

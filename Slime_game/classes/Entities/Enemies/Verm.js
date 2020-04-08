@@ -10,8 +10,8 @@ class Verm extends Enemy {
         //Call entity constructor
         super(position, id, startingMass, startPriority, 5);
         
-        //TEMP URL
-        this.url = "MilcapSoldier.glb";
+        //Verm URL
+        this.url = "Verm.glb";
 
         //Default trigger radius in all directions
         this.radius = [7,3,7];
@@ -33,6 +33,8 @@ class Verm extends Enemy {
         this.nestLocation = [];
         //Number of turns the Verm hides for
         this.hideCount = 3;
+
+        this.type = 'VERM';
     }
 
     update(){//calls a single step in the state
