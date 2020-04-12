@@ -2,10 +2,10 @@ import {updateRender} from "../RenderTasks.js";
 import {doKeyUp, doKeyDown} from "../KeyboardInput.js";
 import {buildCamera} from "./Camera.js";
 import {buildCameraControls} from "./Camera.js";
-import {scene, testLevel, level3} from "./LevelManager.js";
+import {scene, buildLevel1, buildLevel3} from "./LevelManager.js";
 //import {scene2} from "./LevelManager.js";
 //import {testLevel2} from "./LevelManager.js";
-import {loadLevel} from "./LevelManager.js";
+import {loadLevel, resourceTracker} from "./LevelManager.js";
 import {currentLevel, changeLevel} from "./Global.js";
 
 // declare variables
@@ -29,14 +29,13 @@ let loadingScreen = document.getElementById("loading-screen");
 windowWidth = window.innerWidth;
 windowHeight = window.innerHeight;
 
-
 menuBtn.onclick = function(){
     winScreen.style.display = "none";
     loadingScreen.style.display = "block";
     canvas.style.display = "none";
 
     //Dispose of all the contents of the scene graph
-    while(currentScene.children.length > 0) {
+    /*while(currentScene.children.length > 0) {
         let obj = currentScene.children[0];
         currentScene.remove(obj);
         if(obj instanceof THREE.BufferGeometry) {
@@ -44,8 +43,9 @@ menuBtn.onclick = function(){
             obj.material.dispose();
             obj.dispose();
         }
-    }
-    renderer.dispose();
+    }*/
+    //renderer.dispose();
+    resourceTracker.dispose();
     loadingScreen.style.display = "none";
     menu.style.display = "block";
 };
@@ -61,7 +61,7 @@ function start(){
         menu.style.display = "none";
         canvas.style.display = "block";
         console.log("Level 1");
-        changeLevel(testLevel);
+        changeLevel(buildLevel1());
         currentScene = scene;
         loadLevel(currentScene, currentLevel);
         canvas.style.display = "block";
@@ -82,7 +82,7 @@ function start(){
     level3Button.onclick = function(){
         menu.style.display = "none";
         console.log("Level 3");
-        changeLevel(level3);
+        changeLevel(buildLevel3());
         currentScene = scene;
         loadLevel(currentScene, currentLevel);
         canvas.style.display = "block";
@@ -112,11 +112,11 @@ function setupTasks(){
 }
 
 function setupLevel(){
-    camera = new THREE.PerspectiveCamera(45, windowWidth / windowHeight, 0.1, 10000);
+    camera = resourceTracker.track(new THREE.PerspectiveCamera(45, windowWidth / windowHeight, 0.1, 10000));
     buildCamera();
     currentScene.add(camera);
     renderer.compile(currentScene, camera);
-    cameraControls = new THREE.OrbitControls( camera, renderer.domElement );
+    cameraControls = resourceTracker.track(new THREE.OrbitControls( camera, renderer.domElement ));
     buildCameraControls();
     animate();
 }

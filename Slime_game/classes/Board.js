@@ -1,7 +1,7 @@
 import {movementOverlayHelper, wipeOverlay} from "./Pathing.js";
 
 class Board {
-    constructor(tileMap, heightMap, player, enemies, cursor){
+    constructor(resourceTracker, tileMap, heightMap, player, enemies, cursor){
         this.cursor = cursor;
         this.selected = null;
 
@@ -21,8 +21,8 @@ class Board {
             this.tileArray[i] = [];
             this.overlayMap[i] = [];
             for(let j = 0; j < tileMap[0].length; j++){
-                this.tileArray[i][j] = new Tile([i, heightMap[i][j] / 2 + 0.5, j], heightMap[i][j], tileMap[i][j], this.textures);
-                this.overlayMap[i][j] = new Overlay([i, heightMap[i][j] + 1.1, j]);
+                this.tileArray[i][j] = new Tile(resourceTracker, [i, heightMap[i][j] / 2 + 0.5, j], heightMap[i][j], tileMap[i][j], this.textures);
+                this.overlayMap[i][j] = new Overlay(resourceTracker, [i, heightMap[i][j] + 1.1, j]);
             }
         }
         //Loop through enemies list, get each enemy's position, and place them in the corresponding
@@ -52,7 +52,7 @@ class Board {
 }
 
 class Tile {
-    constructor(position, height, type, textures){
+    constructor(resourceTracker, position, height, type, textures){
 
         this.position = position;
         this.height = height;
@@ -65,28 +65,38 @@ class Tile {
         */
         switch(type){
             case 0://grass
-                this.terrain = new THREE.Mesh(new THREE.CylinderBufferGeometry(.71, .71, height+1, 4, (height+1), false, (Math.PI/4)),
-                               new THREE.MeshBasicMaterial({ map: textures[0]}));
+                this.terrain = resourceTracker.track(new THREE.Mesh(
+                    new THREE.CylinderBufferGeometry(.71, .71, height+1, 4, (height+1), false, (Math.PI/4)),
+                    new THREE.MeshBasicMaterial({ map: textures[0]}))
+                );
                 break;
-            case 1://rocky
-                this.terrain = new THREE.Mesh(new THREE.CylinderBufferGeometry(.71, .71, height+1, 4, (height+1), false, (Math.PI/4)),
-                               new THREE.MeshBasicMaterial({ map: textures[1]}));            
+            case 1://rock
+                this.terrain = resourceTracker.track(new THREE.Mesh(
+                    new THREE.CylinderBufferGeometry(.71, .71, height+1, 4, (height+1), false, (Math.PI/4))),
+                    new THREE.MeshBasicMaterial({ map: textures[2]})
+                );
                 break;
             /*case 2://water
                 this.terrain = new THREE.Mesh(new THREE.CylinderBufferGeometry(1, 1, height, 4, height),
                                new THREE.MeshBasicMaterial({ map: water }));;
                 break;*/
             case 3://gap
-                this.terrain = new THREE.Mesh(new THREE.BoxBufferGeometry(1, .1, 1),
-                               new THREE.MeshBasicMaterial({ color: 0x000000}));
+                this.terrain = resourceTracker.track(new THREE.Mesh(
+                    new THREE.BoxBufferGeometry(1, .1, 1)),
+                    new THREE.MeshBasicMaterial({ color: 0x000000})
+                );
                 break;
             case 4://cave
-                this.terrain = new THREE.Mesh(new THREE.CylinderBufferGeometry(0.71, 0.71, height+1, 4, (height+1), false, (Math.PI/4)),
-                               new THREE.MeshBasicMaterial({ map: textures[2]}));            
+                this.terrain = resourceTracker.track(new THREE.Mesh(
+                    new THREE.CylinderBufferGeometry(.71, .71, height+1, 4, (height+1), false, (Math.PI/4))),
+                    new THREE.MeshBasicMaterial({ map: textures[3]})
+                );
                 break;
             case 8://exit
-            this.terrain = new THREE.Mesh(new THREE.BoxBufferGeometry(1, 1, 1),
-                               new THREE.MeshLambertMaterial({ color: 0xFADADD, emissive: 0XFF69B4}));
+                this.terrain = resourceTracker.track(new THREE.Mesh(
+                    new THREE.BoxBufferGeometry(1, 1, 1)),
+                    new THREE.MeshLambertMaterial({ color: 0xFADADD, emissive: 0XFF69B4})
+                );
                 break;
             default:
                 this.terrain = null;
@@ -102,10 +112,12 @@ class Tile {
 }
 
 class Overlay {
-    constructor(pos){
+    constructor(resourceTracker, pos){
         this.pos = pos;
-        this.overlay = new THREE.Mesh(new THREE.PlaneBufferGeometry(0.9,0.9),
-                       new THREE.MeshBasicMaterial( {color: 0x0047AB, transparent: true, opacity: 0.5, visible: false}));
+        this.overlay = resourceTracker.track(new THREE.Mesh(
+            new THREE.PlaneBufferGeometry(0.9,0.9)),
+            new THREE.MeshBasicMaterial( {color: 0x0047AB, transparent: true, opacity: 0.5, visible: false})
+        );
         this.overlay.rotateX(-Math.PI / 2);      
         this.overlay.position.x = this.pos[0];
         this.overlay.position.y = this.pos[1];
