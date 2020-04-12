@@ -3,15 +3,16 @@ import { State } from "../../../libraries/yuka-master/src/yuka.js";
 const SPAWN = 'SPAWN';
 const ACTION = 'ACTION';
 const AOE = 'AOE';
+const CHARGE = 'CHARGE';
 
-class SpawnState extends State {
+class SpawnState extends State { //PINBEAST IS ONLY VULNERABLE DURING THIS STATE
     enter(enemy){
        //alerted animation
     }
 
     execute(enemy){
         //for loop i =0; i<4{
-            //spawn new pinpod (passing along childID) in random location within a range (to avoid wall spawning)
+            //spawn new pinpod (passing along childID) in random location within a range (to avoid wall spawning) USING FLOOD FILL
             //increment childID++
        // }
     }
@@ -28,10 +29,14 @@ class ActionState extends State {
 
     execute(enemy){
         //check if pinpod children count drops to zero
-        //SWITCH Spawn State
+        //SWITCH Charge State
        
         //displays attack tiles in red
         //SWITCH AOE State
+
+        //OR
+
+        //SWITCH Charge State
 
     }
 
@@ -56,5 +61,19 @@ class AOEState extends State {
 
 }
 
+class ChargeState extends State {//charges in direction of player
+    enter(enemy){
+       
+    }
 
-export {SpawnState, ActionState, AOEState}
+    execute(enemy){
+        
+    }
+
+    exit(enemy){
+        
+    }
+}
+
+
+export {SpawnState, ActionState, AOEState, ChargeState};

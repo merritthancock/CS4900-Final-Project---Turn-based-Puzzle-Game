@@ -4,6 +4,7 @@ import {Milcap} from "./Entities/Enemies/Milcap.js";
 import {Verm} from "./Entities/Enemies/Verm.js";
 import {Pinpod} from "./Entities/Enemies/Pinpod.js";
 import {Player} from "./Entities/Player.js";
+import { Pinbeast } from "./Entities/Enemies/Pinbeast.js";
 
 //Variables
 let scene;
@@ -396,9 +397,12 @@ loadingManager.onLoad = function ( ) {
     let enemiesL3 = [];
 
     let enemyPosL3 = [8, 1, 5];
-    let pinpodL3 = new Pinpod(enemyPosL3, "pinpod", 0.5, 4);
+    //let pinpodL3 = new Pinpod(enemyPosL3, "pinpod", 0.5, 4);
 
-    enemiesL3.push(pinpodL3);
+    let boss = new Pinbeast(enemyPosL3, "Pinbeast", 20, 1);
+
+
+    enemiesL3.push(boss);
 
 
 
