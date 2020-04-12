@@ -139,6 +139,13 @@ function loadModel(entity, loader) {
             gltf.scene.scale.set(.5, .5, .5);
             gltf.scene.position.set(xPos, yPos, zPos);
             entity.model = gltf.scene;
+            entity.mixer = new THREE.AnimationMixer(gltf.scene);
+            let clips = gltf.animations;
+            //let clip = THREE.AnimationClip.findByName( clips, 'idle' );
+            let clip = clips[0];
+            let action = entity.mixer.clipAction( clip );
+            action.play();
+
         },
         // called while loading is progressing
         function ( xhr ) {
@@ -227,14 +234,21 @@ function winLevel(){
     winScreen.style.opacity = 1;
 }
 
-function renderLevel() {
-    updateRender();
-    renderer.render(scene, camera);
-}
-
 function animate() {
     requestAnimationFrame(animate);
-    renderLevel();
+    renderer.render(scene, camera);
+    if(currentLevel.player.mixer) {
+        currentLevel.player.mixer.update(.017);
+    }
+    if(currentLevel.cursor.mixer) {
+        currentLevel.cursor.mixer.update(.017);
+    }
+    for(let i = 0; i < currentLevel.enemies.length; i++) {
+        if(currentLevel.enemies[i].mixer) {
+            currentLevel.enemies[i].mixer.update(.017);
+        }
+    }
+    updateRender();
 }
 start();
 
