@@ -71,22 +71,31 @@
         <div class="toolTip" id="toolTip">
             <table>
                 <tr>
-                    <td rowspan="3">Picture of entity</td>
-                    <td>Health</td>
+                    <td rowspan="3">
+                        <div>
+                            <img style="width:75px;height:75px;"" src="./assets/slime.jpg" >
+                        </div>
+                    </td>
+                    <td colspan="3">Health: <label id="health">100%</label></td>
                 </tr>
                 <tr>
-                    <td>Mass</td>
-                 
+                    <td colspan="3">Mass: <label id="mass">1</label></td>
                 </tr>
                 <tr>
-                    <td>Terrain type</td>
-                    <td>Terrain height</td>
-                    <td>Jump Height</td>
+                    <td>Terrain: <label id="terrainType">Grass</label></td>
+                    <td>Height: <label id="terrainHeight">1</label></td>
+                    
                 </tr>
                 <tr>
-                    <td>Type of entity</td>
-                    <td>Ability</td>
-                    <td>Movement Range</td>
+                    <td></td>
+                    <td>Jump Height: <label id="jumpHeight">1</label></td>
+                    <td>Range: <label id="MovementRange">1</label></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Type: <label id="entityType">Player</label></td>
+                    <td>Ability: <label id="ability">None</label></td>
+                    
                 </tr>
                 
             </table>
