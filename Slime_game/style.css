@@ -100,8 +100,15 @@ body{
 	text-align: center;
 	display: block;
 	
-
+	font-size: 17px;
+	
+	color: white;
+	border-color: white;
 	background-color: rgb(84, 78, 78);
+}
+
+.tipTable{
+	column-s: 10px;
 }
 
 .game{
