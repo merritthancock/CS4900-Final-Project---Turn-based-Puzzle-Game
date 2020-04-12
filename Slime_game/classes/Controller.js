@@ -18,6 +18,7 @@ let renderer;
 let canvas = document.querySelector("#game");
 let menu = document.getElementById("menu");
 let winScreen = document.querySelector("#winLevel");
+let toolTips = document.querySelector("#toolTip");
 let startButton = document.getElementById("start");
 let level2Button = document.getElementById("Level2");
 let level3Button = document.getElementById("Level3");
@@ -49,7 +50,8 @@ function start(){
 
     loadingScreen.style.display = "none";
     canvas.style.display = "none";
-
+    toolTips.style['opacity'] = '0.9';
+    toolTips.style.display = "none";
     //Level 1
     startButton.onclick = function(){
         //Sets current scene to level 1 scene
@@ -60,6 +62,7 @@ function start(){
         currentScene = scene;
         loadLevel(currentScene, currentLevel);
         canvas.style.display = "block";
+        toolTips.style.display = "block";
         setupTasks();
         setupLevel();
     };
@@ -67,6 +70,7 @@ function start(){
     level2Button.onclick = function(){
         //Sets current scene to level 2 scene
         menu.style.display = "none";
+        toolTips.style.display = "block";
         console.log("Level 2");
         currentLevel = testLevel;
         currentScene = scene;
@@ -81,6 +85,7 @@ function start(){
         currentScene = scene;
         loadLevel(currentScene, currentLevel);
         canvas.style.display = "block";
+        toolTips.style.display = "block";
         setupTasks();
         setupLevel();
     };
@@ -119,6 +124,7 @@ function setupLevel(){
 function winLevel(){
     winScreen.style['pointer-events'] = 'auto';
     winScreen.style.opacity = 1;
+    toolTips.style.display = "none";
 }
 
 function renderLevel() {
