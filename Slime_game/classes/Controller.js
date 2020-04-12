@@ -26,6 +26,16 @@ let menuBtn = document.querySelector("#menuBtn");
 let currentScene;
 let loadingScreen = document.getElementById("loading-screen");
 
+//Tool Tips Variables
+let healthTip = document.querySelector("#health");
+let massTip = document.querySelector("#mass");
+let terrainTip = document.querySelector("#terrainType");
+let terrainHeightTip = document.querySelector("#terrainHeight");
+let jumpHeightTip = document.querySelector("#jumpHeight");
+let movementRangeTip = document.querySelector("#MovementRange");
+let entityTypeTip = document.querySelector("#entityType");
+let abilityTypeTip = document.querySelector("#ability");
+
 //Game setup tasks-----------------------------------------------
 //Sets height and width for game window
 windowWidth = window.innerWidth;
@@ -119,6 +129,10 @@ function setupLevel(){
     cameraControls = new THREE.OrbitControls( camera, renderer.domElement );
     buildCameraControls();
     animate();
+}
+
+function updateToolTips(){
+
 }
 
 function winLevel(){
