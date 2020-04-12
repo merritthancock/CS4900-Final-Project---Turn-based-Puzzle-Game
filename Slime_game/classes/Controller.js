@@ -132,7 +132,7 @@ function setupLevel(){
 }
 
 function updateToolTips(){
-
+    
 }
 
 function winLevel(){
