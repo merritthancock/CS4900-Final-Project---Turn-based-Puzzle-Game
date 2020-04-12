@@ -91,6 +91,19 @@ body{
 	pointer-events: none;
 }
 
+.toolTip{
+	opacity: 0.9;
+	position: absolute;
+	width: 25%;
+	height: 25%;
+	top: 500px;
+	text-align: center;
+	display: block;
+	
+
+	background-color: rgb(84, 78, 78);
+}
+
 .game{
     height: 100%;
     width: 100%;
