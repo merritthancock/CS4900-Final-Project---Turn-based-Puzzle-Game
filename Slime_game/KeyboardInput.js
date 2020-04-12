@@ -86,9 +86,9 @@ function doKeyUp(event) {
             break;
 
         case 71: //g key for testing win screen
-        keyStatus["gKey"] = false;
-        releaseLock("inputHandler");
-        break;
+            keyStatus["gKey"] = false;
+            releaseLock("inputHandler");
+            break;
     }
 }
 
