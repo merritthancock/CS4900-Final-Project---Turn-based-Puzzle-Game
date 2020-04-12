@@ -7,97 +7,11 @@ import {Player} from "./Entities/Player.js";
 import {ResourceTracker} from "./ResourceTracker.js";
 
 //Variables
-let scene = new THREE.Scene;
 let levelSelector = 1;
 let testLevel;
 let testLevel2;
 let level3;
-let loadingManager;
-let loadingScreen = document.getElementById("loading-screen");
 let resourceTracker = new ResourceTracker();
-
-//Loading Manager
-loadingManager = new THREE.LoadingManager();
-loadingManager.onStart = function ( url, itemsLoaded, itemsTotal ) {
-    console.log("Loading begins....");
-    loadingScreen.style.display = "block";
-
-};
-loadingManager.onLoad = function ( ) {
-    console.log("Loading complete!");
-    loadingScreen.style.display = "none";
-};
-
-function loadModel(entity, loader) {
-    loader.load(
-        // resource URL
-        entity.url,
-        // called when the resource is loaded
-        
-        function ( gltf ) {
-            scene.add(resourceTracker.track(gltf.scene));
-            //Set positional data
-            let xPos = entity.position[0];
-            let yPos = entity.position[1];
-            let zPos = entity.position[2];
-            gltf.scene.scale.set(.5, .5, .5);
-            gltf.scene.position.set(xPos, yPos, zPos);
-            entity.model = gltf.scene;
-        },
-        // called while loading is progressing
-        function ( xhr ) {
-            console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-        }
-    );
-}
-
-function loadBoard(scene, level) {
-    for(let i = 0; i < level.board.tileMap.length; i++){
-        for(let j = 0; j < level.board.tileMap[0].length; j++){
-            if(level.board.tileArray[i][j].terrain != null){
-                scene.add(level.board.tileArray[i][j].terrain);
-                scene.add(level.board.overlayMap[i][j].overlay);
-            }
-        }
-    }
-
-    // create lighting and add to scene 
-    let light = resourceTracker.track(new THREE.AmbientLight( 0xe0e0e0 )); // soft white light
-    scene.add(light);
-
-    //Set up the skybox (TODO: MAKE SKYBOX A PARAM IN LEVEL)
-    let sky = resourceTracker.track(new THREE.TextureLoader().load( './assets/Slimegamesky.jpg' ));
-    scene.background = sky;
-    //let skyboxGeometry = new THREE.CubeGeometry(100, 100, 100);
-    //let skyboxMaterial = new THREE.MeshBasicMaterial({  map: sky, side: THREE.BackSide });
-    //let skybox = resourceTracker.track(new THREE.Mesh(skyboxGeometry, skyboxMaterial));
-    //scene.add(skybox);
-
-    /*COMMENTED OUT BECAUSE OF NEW LOADING MECHANICS
-    //add player to the scene
-    scene.add(level.player.mesh);
-    //add cursor to the scene
-    scene.add(level.cursor.mesh);
-    //add enemy to the scene
-    for(let i = 0; i < enemies.length; i++){
-        scene.add(level.enemies[i].mesh);
-    }*/
-}
-
-function loadLevel(scene, level){
-    let loader = new THREE.GLTFLoader(loadingManager).setPath( './assets/GLTFModels/' );
-
-    //Load enemy models
-    for(let i = 0; i < level.enemies.length; i++) {
-        loadModel(level.enemies[i], loader);
-    }
-    //Load player model
-    loadModel(level.player, loader);
-    //Load cursor model
-    loadModel(level.cursor, loader);
-
-    loadBoard(scene, level);
-}
 
 //Level1-------------------------------------------------------------------------------------------
 function buildLevel1() {
@@ -193,7 +107,7 @@ function buildLevel1() {
     //pinpod1.moveEntity(enemyPos4[0], enemyPos4[1], enemyPos4[2], pinpod1);
 
     //Create Level
-    testLevel = new Level(resourceTracker, testLevelHeightMap, testLevelTileMap, enemies, player, cursor);
+    testLevel = new Level(testLevelHeightMap, testLevelTileMap, enemies, player, cursor);
 
     return testLevel;
 }
@@ -336,7 +250,7 @@ function buildLevel1() {
     //currentLevel = testLevel2;
     */
 
-    //LEVEL 3: BOSS-------------------------------------------------
+//LEVEL 3: PINBEAST BOSS-------------------------------------------------
 function buildLevel3() {
     let level3TileMap = [
         [9, 4, 4, 4, 4, 9, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 9],
@@ -377,8 +291,7 @@ function buildLevel3() {
         [4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4],
         [4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4],
         [4, 4, 4, 0, 0, 0, 0, 4, 4, 4, 0, 0, 0, 0, 0, 4, 4],
-        [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]
-        
+        [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]  
     ];
 
     //Create Player
@@ -396,17 +309,13 @@ function buildLevel3() {
 
     enemiesL3.push(pinpodL3);
 
-
-
-    level3 = new Level(resourceTracker, level3HeightMap, level3TileMap, enemiesL3, pL3, cL3);
+    level3 = new Level(level3HeightMap, level3TileMap, enemiesL3, pL3, cL3);
 
     return level3;
 }
 
-export {scene};
 //export {scene2}
 export {buildLevel1};
 export {buildLevel3};
 //export {testLevel2}
-export {loadLevel};
 export {resourceTracker};
