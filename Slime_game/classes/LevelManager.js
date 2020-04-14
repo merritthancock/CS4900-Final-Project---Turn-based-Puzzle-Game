@@ -15,7 +15,7 @@ let level3;
 let resourceTracker = new ResourceTracker();
 
 //Level1-------------------------------------------------------------------------------------------
-function buildLevel1() {
+function buildTestLevel() {
     let testLevelTileMap = [
         [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 9, 4, 4, 4, 4, 4, 4, 4, 4, 4],
         [4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 9, 4, 0, 0, 0, 0, 0, 8, 8, 4],
@@ -319,7 +319,8 @@ function buildLevel3() {
 }
 
 //export {scene2}
-export {buildLevel1};
+//export {buildLevel1};
+export {buildTestLevel};
 export {buildLevel3};
 //export {testLevel2}
 export {resourceTracker};
