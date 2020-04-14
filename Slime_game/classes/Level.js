@@ -11,7 +11,6 @@ class Level{
         this.player = player;
         //Sets cursor
         this.cursor = cursor;
-        
     }
 }
 

@@ -1,4 +1,5 @@
 import { State } from "../../../libraries/yuka-master/src/yuka.js";
+import {currentLevel} from "../../Global.js";
 
 const SPAWN = 'SPAWN';
 const ACTION = 'ACTION';
@@ -28,8 +29,17 @@ class ActionState extends State {
     }
 
     execute(enemy){
-        //check if pinpod children count drops to zero
-        //SWITCH Charge State
+        //checks how many pinpods remain on level
+        enemy.babies = 0;
+        for(let i = 0; i < currentLevel.enemies.length; i++){
+           if(currentLevel.enemies[i].type == 'PINPOD'){
+               enemy.babies++;
+           } 
+        }
+        if(enemy.babies == 0){
+            enemy.stateMachine.changeTo(CHARGE);
+        }
+        
        
         //displays attack tiles in red
         //SWITCH AOE State
