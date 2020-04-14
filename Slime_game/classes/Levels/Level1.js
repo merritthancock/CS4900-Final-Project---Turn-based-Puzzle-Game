@@ -64,9 +64,9 @@ function buildLevel1() {
 
     let enemyPos = [15, 2, 13];
     let milcap1 = new Milcap(enemyPos, "Milcap", 3, 1);
-    milcap1.path.add([11, 1, 13]);
-    milcap1.path.add([11, 1, 14]);
-    milcap1.path.add([15, 2, 14]);
+    milcap1.path.add([15, 1, 9]);
+    milcap1.path.add([16, 1, 9]);
+    milcap1.path.add([16, 2, 13]);
     milcap1.path.add([15, 2, 13]);
     milcap1.path.loop = true;
 
