@@ -32,6 +32,8 @@ class Pinbeast extends Enemy {
         this.babies = 0;
         //incremented value which becomes the ID of each spawned pinpod
         this.childID = 1;
+        //numbner of turns before pinbeast uses AOE attack
+        this.attackCharge = 3;
         
 
         this.type = 'PINBEAST';

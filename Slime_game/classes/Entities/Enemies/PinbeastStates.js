@@ -26,6 +26,7 @@ class SpawnState extends State { //PINBEAST IS ONLY VULNERABLE DURING THIS STATE
 class ActionState extends State {
     enter(enemy){
        //takes a movement of some kind
+       enemy.attackCharge = 3;
     }
 
     execute(enemy){
@@ -39,9 +40,13 @@ class ActionState extends State {
         if(enemy.babies == 0){
             enemy.stateMachine.changeTo(CHARGE);
         }
-        
-       
-        //displays attack tiles in red
+        else{
+            console.log(enemy.attackCharge, " turns until attack!");
+            enemy.attackCharge--;
+            if(enemy.attackCharge == 0){
+                enemy.stateMachine.changeTo(AOE);
+            }
+         }
         //SWITCH AOE State
 
         //OR
@@ -57,12 +62,26 @@ class ActionState extends State {
 
 class AOEState extends State {
     enter(enemy){
-       
+        //attack animation HERE
+        //uses AOE attack
+        for(let i = 0; i < currentLevel.enemies.length; i++){
+            if(currentLevel.enemies[i].type != 'PINBEAST'){
+                let status = currentLevel.enemies[i].takeDamage(enemy.attackPower);
+                if (status == 'DEAD'){
+                    currentLevel.enemies[i].model.visible = false;
+                    currentLevel.board.tileArray[currentLevel.enemies[i].position[0]][currentLevel.enemies[i].position[2]].occupant = null;
+                    currentLevel.enemies.splice(i,1);
+               }
+            }
+        }
+        console.log("MASSIVE DAMAGE TAKEN");
+        enemy.attack(enemy.attackPower);
+        enemy.stateMachine.changeTo(ACTION);
     }
 
     execute(enemy){
-        //aoe attack which affects whole room
-        //SWITCH Action State
+        
+        
     }
 
     exit(enemy){
