@@ -19,6 +19,7 @@ let canvas = document.querySelector("#game");
 let menu = document.getElementById("menu");
 let winScreen = document.querySelector("#winLevel");
 let toolTips = document.querySelector("#toolTip");
+let rightTips = document.querySelector("#topRightTip");
 let startButton = document.getElementById("start");
 let level1Button = document.getElementById("Level1");
 //let level2Button = document.getElementById("Level2");
@@ -28,14 +29,17 @@ let scene = new THREE.Scene();
 let loadingScreen = document.getElementById("loading-screen");
 
 //Tool Tips Variables
-let healthTip = document.querySelector("#health");
+let leftPic = document.querySelector("#playerPic");
 let massTip = document.querySelector("#mass");
-let terrainTip = document.querySelector("#terrainType");
-let terrainHeightTip = document.querySelector("#terrainHeight");
 let jumpHeightTip = document.querySelector("#jumpHeight");
-let movementRangeTip = document.querySelector("#MovementRange");
-let entityTypeTip = document.querySelector("#entityType");
+let movementRangeTip = document.querySelector("#movementRange");
 let abilityTypeTip = document.querySelector("#ability");
+//Right Tips Variables
+let rightPic = document.querySelector("#topRightTip");
+let rightType = document.querySelector("#type");
+let rightHeight = document.querySelector("#terrainHeight");
+let rightName = document.querySelector("#entityName");
+let rightAbility = document.querySelector("#rightAbility");
 
 //Game setup tasks-----------------------------------------------
 //Sets height and width for game window
@@ -66,11 +70,11 @@ menuBtn.onclick = function(){
 };
 
 function start(){
-
     loadingScreen.style.display = "none";
     canvas.style.display = "none";
-    toolTips.style['opacity'] = '0.9';
+    toolTips.style['opacity'] = '0.8';
     toolTips.style.display = "none";
+  
     //Test Level
     startButton.onclick = function(){
         //Sets current scene to level 1 scene
@@ -94,6 +98,7 @@ function start(){
         loadLevel(scene, currentLevel);
         canvas.style.display = "block";
         toolTips.style.display = "block";
+        rightTips.style.display = "block";
         setupTasks();
         setupLevel();
     };
@@ -116,6 +121,7 @@ function start(){
         loadLevel(scene, currentLevel);
         canvas.style.display = "block";
         toolTips.style.display = "block";
+        rightTips.style.display = "block";
         setupTasks();
         setupLevel();
     };
@@ -268,6 +274,7 @@ function winLevel(){
     winScreen.style['pointer-events'] = 'auto';
     winScreen.style.opacity = 1;
     toolTips.style.display = "none";
+    rightTips.style.display = "none";
 }
 
 function animate() {

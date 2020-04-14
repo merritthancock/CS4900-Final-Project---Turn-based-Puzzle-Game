@@ -67,10 +67,9 @@ function checkNeighbor(entity, sourceTile, destinationTile, isOccupied, endX, en
 
 //FLOOD FILL IMPLEMENTATION
 function hover(level){//initiates methods when cursor hovers over entities/tiles
-    var cPos = level.cursor.position;
-    var type = level.board.tileMap[cPos[0]][cPos[2]];
-    var height = level.board.heightMap[cPos[0]][cPos[2]];
-    var pPos = level.player.position;
+    let cPos = level.cursor.position;
+    let type = level.board.tileMap[cPos[0]][cPos[2]];
+    let height = level.board.heightMap[cPos[0]][cPos[2]];
 
     //console.log(cPos);
     //console.log(pPos);
@@ -80,6 +79,18 @@ function hover(level){//initiates methods when cursor hovers over entities/tiles
     console.log("Occupied by: ", occupied(level.board));
 }
 
+//Calls checkneighbor if destination tile exists
+function neighborConfirm(entity, board, sourceX, sourceY, destX, destY) {
+    if(destX >= 0 && destX < board.tileArray.length && destY >= 0 && destY < board.tileArray[0].length) {
+        let sourceTile = board.tileArray[sourceX][sourceY];
+        let destTile = board.tileArray[destX][destY];
+        return checkNeighbor(entity, sourceTile, destTile, false)
+    }
+    else {
+        return false;
+    }
+}
+
 function movementOverlay(x, z, range, board, entity){//uses the flood fill algorithm to create overlay of all possible spaces to move
     if(range>=0 && x >= 0 && x < board.overlayMap.length && z >=0 && z < board.overlayMap[x].length){
         //Do not render a normal overlay tile that has an entity in it
@@ -87,16 +98,16 @@ function movementOverlay(x, z, range, board, entity){//uses the flood fill algor
             board.overlayMap[x][z].overlay.material.visible = true;
         }
         //recursive call for surrounding spaces
-        if(checkNeighbor(entity, board.tileArray[x][z], board.tileArray[x+1][z], false)){
+        if(neighborConfirm(entity, board, x, z, x+1, z)){
             movementOverlay(x+1, z, range-1, board, entity);
         }
-        if(checkNeighbor(entity, board.tileArray[x][z], board.tileArray[x][z+1], false)){
+        if(neighborConfirm(entity, board, x, z, x, z+1)){
             movementOverlay(x, z+1, range-1, board, entity);
         }
-        if(checkNeighbor(entity, board.tileArray[x][z], board.tileArray[x-1][z], false)){
+        if(neighborConfirm(entity, board, x, z, x-1, z)){
             movementOverlay(x-1, z, range-1, board, entity);
         }
-        if(checkNeighbor(entity, board.tileArray[x][z], board.tileArray[x][z-1], false)){
+        if(neighborConfirm(entity, board, x, z, x, z-1)){
             movementOverlay(x, z-1, range-1, board, entity);
         }
     }
