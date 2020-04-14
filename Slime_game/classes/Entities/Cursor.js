@@ -8,7 +8,7 @@ class Cursor extends Entity {
         super(position, id);
 
         //Set url for cursor:
-        this.url = "SlimeMain.glb";
+        this.url = "CursorOption2.glb";
     }
 
     moveCursor(direction){

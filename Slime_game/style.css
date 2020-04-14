@@ -87,7 +87,43 @@ body{
 	font: 300;
 	font-family: 'Press Start 2P', cursive;
     color: black;
-    border-color: black;
+	border-color: black;
+	pointer-events: none;
+}
+
+.toolTip{
+	opacity: 0;
+	position: absolute;
+	width: 15%;
+	height: 12%;
+	top: 500px;
+	text-align: center;
+	display: block;
+	
+	font-size: 17px;
+	
+	color: white;
+	border-color: white;
+	background-color: rgb(84, 78, 78);
+	pointer-events: none;
+}
+
+.topRightTip{
+	opacity: 0;
+	position: absolute;
+	width: 15%;
+	height: 12%;
+	top: 200px;
+	right: 0px;
+	text-align: center;
+	display: block;
+	
+	font-size: 17px;
+	
+	color: white;
+	border-color: white;
+	background-color: rgb(84, 78, 78);
+	pointer-events: none;
 }
 
 .game{

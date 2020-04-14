@@ -9,7 +9,7 @@ class Pinpod extends Enemy {
         super(position, id, startingMass, startPriority, 1);
 
         //Set URL (PLACEHOLDER UNTIL PINPOD MODEL DONE)
-        this.url = "MilcapSoldier.glb";
+        this.url = "PinPod.glb";
         
         //the Pinpod's ability which will be passed to the player upon absorption
         this.ability = 'SPIKE';
@@ -25,7 +25,7 @@ class Pinpod extends Enemy {
         this.setAttackPower(0.5);
         //Pinpod AP per turn
         this.ap = 1;
-        //Number of turns the Verm hides for
+        //Turn counter for changing states
         this.turnCount = 0;
 
         this.type = 'PINPOD';
