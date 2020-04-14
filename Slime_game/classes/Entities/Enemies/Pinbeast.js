@@ -27,7 +27,7 @@ class Pinbeast extends Enemy {
         this.ap = 1;
 
         //number of currently living pinpod children in the level (decrements and increments accordingly)
-        this.babies = 4;
+        this.babies = 0;
         //incremented value which becomes the ID of each spawned pinpod
         this.childID = 1;
         
