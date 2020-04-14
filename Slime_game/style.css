@@ -8,7 +8,9 @@
 .menu{
     background-color: lightblue;
     margin-top: 150px;
-    text-align: center;
+	text-align: center;
+	height: 100%;
+	width: 100%;
 }
 
 body{
@@ -32,18 +34,66 @@ body{
     cursor: pointer;
     width: 150px;
 }
+.level-btn:active {
+	box-shadow: none;
+	position: relative;
+	top: .2em;
+}
+
+.divBtn{
+	text-align: center;
+	display: inline-block;
+	margin:5px;
+    font-weight: bold;
+    padding: 10px 0 10px 10px ;
+    background-color: lightgray;
+    text-shadow: -1px -1px black, 1px 1px white;
+    color: gray;
+    -webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	-o-border-radius: 7px;
+	border-radius: 7px;
+    box-shadow: 0 .2em gray; 
+    cursor: pointer;
+	width: 150px;
+	margin: 0 auto; 
+	display: block;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom:   0;
+}
+
+.gameInfo{
+	opacity: 0;
+	position: absolute;
+	width:100%;
+	height: 50px;
+	top: 600px;
+	text-align: left;
+	color: white;
+}
+
+.winLevel{
+	opacity: 0;
+	position: absolute;
+	width: 100%;
+	height: 75px;
+	top: 500px;
+	text-align: center;
+	display: block;
+	align-items: center;
+
+	font: 300;
+	font-family: 'Press Start 2P', cursive;
+    color: black;
+    border-color: black;
+}
 
 .game{
     height: 100%;
     width: 100%;
 }
-
-
-
-
-
-
-
 
 .container {
 	position: absolute;
