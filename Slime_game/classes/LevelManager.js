@@ -4,6 +4,7 @@ import {Milcap} from "./Entities/Enemies/Milcap.js";
 import {Verm} from "./Entities/Enemies/Verm.js";
 import {Pinpod} from "./Entities/Enemies/Pinpod.js";
 import {Player} from "./Entities/Player.js";
+import { Pinbeast } from "./Entities/Enemies/Pinbeast.js";
 import {ResourceTracker} from "./ResourceTracker.js";
 
 //Variables
@@ -14,7 +15,7 @@ let level3;
 let resourceTracker = new ResourceTracker();
 
 //Level1-------------------------------------------------------------------------------------------
-function buildLevel1() {
+function buildTestLevel() {
     let testLevelTileMap = [
         [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 9, 4, 4, 4, 4, 4, 4, 4, 4, 4],
         [4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 9, 4, 0, 0, 0, 0, 0, 8, 8, 4],
@@ -305,9 +306,12 @@ function buildLevel3() {
     let enemiesL3 = [];
 
     let enemyPosL3 = [8, 1, 5];
-    let pinpodL3 = new Pinpod(enemyPosL3, "pinpod", 0.5, 4);
+    //let pinpodL3 = new Pinpod(enemyPosL3, "pinpod", 0.5, 4);
 
-    enemiesL3.push(pinpodL3);
+    let boss = new Pinbeast(enemyPosL3, "Pinbeast", 20, 1);
+
+
+    enemiesL3.push(boss);
 
     level3 = new Level(level3HeightMap, level3TileMap, enemiesL3, pL3, cL3);
 
@@ -315,7 +319,8 @@ function buildLevel3() {
 }
 
 //export {scene2}
-export {buildLevel1};
+//export {buildLevel1};
+export {buildTestLevel};
 export {buildLevel3};
 //export {testLevel2}
 export {resourceTracker};

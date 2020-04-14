@@ -7,6 +7,7 @@ const HIDE = 'HIDE';
 class PatrolState extends State {
     enter(enemy){
         enemy.ap = 2;
+        enemy.movementRange = 2;
     }
 
     execute(enemy){
@@ -29,6 +30,7 @@ class FleeState extends State {
         //alert animation
         console.log('EEK!');
         enemy.ap = 3;
+        enemy.movementRange = 3;
     }
 
     execute(enemy){
@@ -54,6 +56,8 @@ class HideState extends State {
         enemy.absorbable = false;
         enemy.model.visible = false;
         enemy.ap = 1;
+        
+
     }
 
     execute(enemy){
