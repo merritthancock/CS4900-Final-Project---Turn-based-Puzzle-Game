@@ -1,5 +1,6 @@
 import { State } from "../../../libraries/yuka-master/src/yuka.js";
 import {currentLevel} from "../../Global.js";
+import { Pinpod } from "./Pinpod.js";
 
 const SPAWN = 'SPAWN';
 const ACTION = 'ACTION';
@@ -12,10 +13,17 @@ class SpawnState extends State { //PINBEAST IS ONLY VULNERABLE DURING THIS STATE
     }
 
     execute(enemy){
-        //for loop i =0; i<4{
-            //spawn new pinpod (passing along childID) in random location within a range (to avoid wall spawning) USING FLOOD FILL
-            //increment childID++
-       // }
+        for(let i = 0; i < 4; i++){
+            let x = Math.floor(Math.random() * enemy.movementRange + 1);
+            let z = Math.floor(Math.random() * enemy.movementRange + 1);
+            let ePos = [enemy.position[0] + x, 1, enemy.position[2] + z];
+            let pinpod = new Pinpod(ePos, enemy.childID.toString(), 1, 2);
+            currentLevel.enemies.push(pinpod);
+            currentLevel.board.tileArray[ePos[0]][ePos[2]].occupant = pinpod;
+            enemy.childID++;
+            console.log(pinpod.position);
+        }
+        enemy.stateMachine.changeTo(ACTION);
     }
 
     exit(enemy){
@@ -25,8 +33,12 @@ class SpawnState extends State { //PINBEAST IS ONLY VULNERABLE DURING THIS STATE
 
 class ActionState extends State {
     enter(enemy){
-       //takes a movement of some kind
-       enemy.attackCharge = 3;
+        //takes a movement of some kind
+        let x = Math.floor(Math.random() * enemy.movementRange + 1);
+        let z = Math.floor(Math.random() * enemy.movementRange + 1);
+        enemy.path.add([x, 1, z]);
+        
+        enemy.attackCharge = 3;
     }
 
     execute(enemy){
@@ -37,21 +49,18 @@ class ActionState extends State {
                enemy.babies++;
            } 
         }
+        console.log(enemy.babies);
         if(enemy.babies == 0){
-            enemy.stateMachine.changeTo(CHARGE);
+            enemy.stateMachine.changeTo(SPAWN);
         }
         else{
             console.log(enemy.attackCharge, " turns until attack!");
             enemy.attackCharge--;
-            if(enemy.attackCharge == 0){
+            if(enemy.attackCharge == -1){
                 enemy.stateMachine.changeTo(AOE);
             }
          }
-        //SWITCH AOE State
-
-        //OR
-
-        //SWITCH Charge State
+        
 
     }
 
@@ -65,7 +74,7 @@ class AOEState extends State {
         //attack animation HERE
         //uses AOE attack
         for(let i = 0; i < currentLevel.enemies.length; i++){
-            if(currentLevel.enemies[i].type != 'PINBEAST'){
+            if(currentLevel.enemies[i].type != 'PINBEAST' || currentLevel.enemies[i].type != 'PINPOD'){
                 let status = currentLevel.enemies[i].takeDamage(enemy.attackPower);
                 if (status == 'DEAD'){
                     currentLevel.enemies[i].model.visible = false;
