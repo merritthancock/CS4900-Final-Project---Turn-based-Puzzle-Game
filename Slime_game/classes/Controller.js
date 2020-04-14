@@ -74,6 +74,8 @@ function start(){
     canvas.style.display = "none";
     toolTips.style['opacity'] = '0.8';
     toolTips.style.display = "none";
+    rightTips.style.display = "none";
+    rightTips.style['opacity'] = '0.8';
   
     //Test Level
     startButton.onclick = function(){
@@ -85,6 +87,7 @@ function start(){
         loadLevel(scene, currentLevel);
         canvas.style.display = "block";
         toolTips.style.display = "block";
+        rightTips.style.display = "block";
         setupTasks();
         setupLevel();
     };
