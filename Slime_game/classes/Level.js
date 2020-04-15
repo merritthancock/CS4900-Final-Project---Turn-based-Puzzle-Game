@@ -11,7 +11,17 @@ class Level{
         this.player = player;
         //Sets cursor
         this.cursor = cursor;
-        
+    }
+
+    //Function to update UI data
+    getUIData() {
+        let data = {
+            cursorTile : this.board.tileArray[cursor.position[0]][cursor.position[2]],
+            playerTile : this.board.tileArray[this.player.position[0]][this.player.position[2]],
+            selectedTile : this.board.selected
+        }
+
+        return data;
     }
 }
 

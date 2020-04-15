@@ -38,7 +38,7 @@
         </audio>
         -->
         <button class="level-btn" id="start">Test Level</button>
-        <button class="level-btn" id="Level2">Level 2</button>
+        <button class="level-btn" id="Level1">Level 1</button>
         <button class="level-btn" id="Level3">Level 3</button>
     </div>
 
@@ -67,6 +67,59 @@
             <label id="endText">You Win!</label>
             <button class="divBtn" id="menuBtn">Main Menu</button>
         </div>
+
+        <div class="toolTip" id="toolTip">
+            <table>
+                <tr>
+                    <td rowspan="3">
+                        <div id="playerPic">
+                            <img style="width:75px;height:75px;"" src="./assets/slime.jpg" >
+                        </div>
+                    </td>
+                    <td></td>
+                    <td colspan="3">Mass: <label id="mass">100%</label></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Range: <label id="movementRange">1</label></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Jump Height: <label id="jumpHeight">1</label></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>Ability: <label id="ability">None</label></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="topRightTip" id="topRightTip">
+            <table>
+                <tr>
+                    <td rowspan="3">
+                        <div id="rightPic">
+                            <img style="width:75px;height:75px;"" src="./assets/grass.jpg" >
+                        </div>
+                    </td>
+                    <td>Type: <label id="type">Terrain</label></td>
+                </tr>
+                <tr>
+                    <td>Height: <label id="terrainHeight">1</label></td>
+                </tr>
+                <tr>
+                    <td>Name: <label id="entityName">Grass</label></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Ability: <label id="rightAbility">None</label></td>
+                </tr>
+            </table>
+        </div>
+
+
 
 
 
