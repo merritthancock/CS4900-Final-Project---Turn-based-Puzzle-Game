@@ -19,6 +19,7 @@ let renderer;
 let canvas = document.querySelector("#game");
 let menu = document.getElementById("menu");
 let winScreen = document.querySelector("#winLevel");
+let loseScreen = document.querySelector("#loseLevel");
 let toolTips = document.querySelector("#toolTip");
 let rightTips = document.querySelector("#topRightTip");
 let startButton = document.getElementById("start");
@@ -26,6 +27,7 @@ let level1Button = document.getElementById("Level1");
 let level2Button = document.getElementById("Level2");
 let level3Button = document.getElementById("Level3");
 let menuBtn = document.querySelector("#menuBtn");
+let loseBtn = document.querySelector("#loseBtn");
 let scene = new THREE.Scene();
 let loadingScreen = document.getElementById("loading-screen");
 
@@ -280,7 +282,14 @@ function updateToolTips(){
 
 function winLevel(){
     winScreen.style['pointer-events'] = 'auto';
-    winScreen.style.opacity = 1;
+    winScreen.style['opacity'] = '0.8';
+    toolTips.style.display = "none";
+    rightTips.style.display = "none";
+}
+
+function loseLevel(){
+    loseScreen.style['pointer-events'] = 'auto';
+    loseScreen.style['opacity'] = '0.8';
     toolTips.style.display = "none";
     rightTips.style.display = "none";
 }
@@ -306,3 +315,4 @@ start();
 export {camera};
 export {cameraControls};
 export {winLevel};
+export {loseLevel};
