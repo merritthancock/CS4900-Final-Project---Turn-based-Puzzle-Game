@@ -82,44 +82,59 @@ function buildLevel2() {
     let cursor = new Cursor(cPos, "cursor");
 
 
-    let enemyPos = [15, 3, 3];
-    let pinpod1 = new Pinpod(enemyPos, "pinpod1", 1, 1);
+    let enemyPos = [15, 4, 3];
+    let pinpod1 = new Pinpod(enemyPos, "pinpod1", 1, 2);
     
     let enemies = [pinpod1];
-/*
-    enemyPos = [15, 1, 13];
-    let milcap1 = new Milcap(enemyPos, "milcap1", 3, 1);
-    milcap1.path.add([15, 1, 9]);
-    milcap1.path.add([16, 1, 9]);
-    milcap1.path.add([16, 2, 13]);
-    milcap1.path.add([15, 2, 13]);
-    milcap1.path.loop = true;
 
-    
-    
-    enemyPos = [5,1,7];
-    let verm1 = new Verm(enemyPos, "verm1", 1, 2);
-    verm1.path.add([5, 1, 2]);
-    verm1.path.add([9, 1, 2]);
-    verm1.path.add([9, 2, 7]);
-    verm1.path.add([5, 1, 7]);
-    verm1.nestLocation = [4,1,17];
+    enemyPos = [19,1,12];
+    let verm1 = new Verm(enemyPos, "verm1", 1, 1);
+    verm1.path.add([15, 1, 10]);
+    verm1.path.add([12, 1, 14]);
+    verm1.path.add([18, 1, 15]);
+    verm1.path.add([19, 1, 12]);
+    verm1.nestLocation = [24,1,5];
     verm1.path.loop = true;
     
     enemies.push(verm1);
 
-    enemyPos = [5, 1, 11];
-    let milcap2 = new Milcap(enemyPos, "milcap2", 2, 3);
-    milcap2.path.add([6, 1, 15]);
-    milcap2.path.add([4, 1, 19]);
-    milcap2.path.add([1, 1, 14]);
-    milcap2.path.add([5,1,11]);
+    enemyPos = [18,1,20];
+    let verm2 = new Verm(enemyPos, "verm2", 1, 1);
+    verm2.path.add([16, 1, 22]);
+    verm2.path.add([13, 1, 18]);
+    verm2.path.add([10, 2, 21]);
+    verm2.path.add([13, 1, 24]);
+    verm2.path.add([18,1,20]);
+    verm2.nestLocation = [22,1,22];
+    verm2.path.loop = true;
+    
+    enemies.push(verm2);
+
+    enemyPos = [10, 1, 8];
+    let milcap1 = new Milcap(enemyPos, "milcap1", 2, 3);
+    milcap1.path.add([9, 1, 3]);
+    milcap1.path.add([11, 1, 1]);
+    milcap1.path.add([17, 1, 1]);
+    milcap1.path.add([18, 1, 7]);
+    milcap1.path.add([17, 1, 1]);
+    milcap1.path.add([11, 1, 1]);
+    milcap1.path.add([9, 1, 3]);
+    milcap1.path.add([10, 1, 7]);
+    milcap1.path.loop = true;
+
+    enemies.push(milcap1);
+
+    enemyPos = [6, 1, 11];
+    let milcap2 = new Milcap(enemyPos, "milcap2", 7, 3);
+    milcap2.path.add([6, 1, 14]);
+    milcap2.path.add([8, 1, 14]);
+    milcap2.path.add([8, 1, 11]);
+    milcap2.path.add([6,1,11]);
     milcap2.path.loop = true;
 
     enemies.push(milcap2);
 
 
-*/
     let level1 = new Level(heightMap, tileMap, enemies, player, cursor);
 
     return level1;
