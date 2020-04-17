@@ -4,6 +4,7 @@ import {buildCamera} from "./Camera.js";
 import {buildCameraControls} from "./Camera.js";
 import {resourceTracker, buildTestLevel, buildLevel3} from "./LevelManager.js";
 import {buildLevel1} from "./Levels/Level1.js";
+import {buildLevel2} from "./Levels/Level2.js";
 //import {scene2} from "./LevelManager.js";
 //import {testLevel2} from "./LevelManager.js";
 import {currentLevel, changeLevel} from "./Global.js";
@@ -22,7 +23,7 @@ let toolTips = document.querySelector("#toolTip");
 let rightTips = document.querySelector("#topRightTip");
 let startButton = document.getElementById("start");
 let level1Button = document.getElementById("Level1");
-//let level2Button = document.getElementById("Level2");
+let level2Button = document.getElementById("Level2");
 let level3Button = document.getElementById("Level3");
 let menuBtn = document.querySelector("#menuBtn");
 let scene = new THREE.Scene();
@@ -79,7 +80,7 @@ function start(){
   
     //Test Level
     startButton.onclick = function(){
-        //Sets current scene to level 1 scene
+        //Sets current scene to test level scene
         menu.style.display = "none";
         canvas.style.display = "block";
         console.log("Test Level");
@@ -93,7 +94,7 @@ function start(){
     };
     //Level 1
     level1Button.onclick = function(){
-        //Sets current scene to level 2 scene
+        //Sets current scene to level 1 scene
         menu.style.display = "none";
         toolTips.style.display = "block";
         console.log("Level 1");
@@ -106,15 +107,19 @@ function start(){
         setupLevel();
     };
     //Level 2
-    //level2Button.onclick = function(){
+    level2Button.onclick = function(){
         //Sets current scene to level 2 scene
-      //  menu.style.display = "none";
-        //toolTips.style.display = "block";
-        //console.log("Level 2");
-        //currentLevel = testLevel;
-        //setupTasks();
-        //setupLevel();
-    //};
+        menu.style.display = "none";
+        toolTips.style.display = "block";
+        console.log("Level 2");
+        changeLevel(buildLevel2());
+        loadLevel(scene, currentLevel);
+        canvas.style.display = "block";
+        toolTips.style.display = "block";
+        rightTips.style.display = "block";
+        setupTasks();
+        setupLevel();
+    };
 
     //Level 3
     level3Button.onclick = function(){
