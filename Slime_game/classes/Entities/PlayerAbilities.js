@@ -22,7 +22,7 @@ class SpikeState extends State{
     execute(player){
         //extend spikes and attack nearby enemies
         if(player.abilityUses > 0){
-            player.spikeAttack(0.5);
+            player.spikeAttack(1);
             console.log('USING PLAYER SPIKE');
             player.abilityUses--;
             console.log("Spike Uses Remaining: ", player.abilityUses);
