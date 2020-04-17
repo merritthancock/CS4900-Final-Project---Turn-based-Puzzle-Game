@@ -49,7 +49,7 @@ let rightAbility = document.querySelector("#rightAbility");
 windowWidth = window.innerWidth;
 windowHeight = window.innerHeight;
 
-menuBtn.onclick = function(){
+menuBtn.onclick = function winClick(){
     winScreen.style.display = "none";
     winScreen.style['pointer-events'] = 'none';
     loadingScreen.style.display = "block";
@@ -69,8 +69,13 @@ menuBtn.onclick = function(){
     resourceTracker.dispose();
     loadingScreen.style.display = "none";
     menu.style.display = "block";
-  
 };
+
+loseBtn.onclick = function(){
+    loseScreen.style.display = "none";
+    toolTips.style.display = "block";
+    rightTips.style.display = "block";
+}
 
 function start(){
     loadingScreen.style.display = "none";
