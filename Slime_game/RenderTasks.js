@@ -3,6 +3,7 @@ import {keyStatus} from "./KeyboardInput.js";
 import {hover} from "./classes/Pathing.js";
 import {currentLevel} from "./classes/Global.js";
 import { winLevel } from "./classes/Controller.js";
+import {updateToolTips} from "./classes/Controller.js";
 
 function updateRender(){
     if(unlocked && !masterLock) {
@@ -11,24 +12,29 @@ function updateRender(){
             currentLevel.cursor.moveCursor("forward");
             currentLevel.cursor.cursorHeight(currentLevel.board.tileArray[currentLevel.cursor.position[0]][currentLevel.cursor.position[2]].height + .6);
             hover(currentLevel);
+            updateToolTips();
         }
         if(keyStatus["aKey"]){
             getLock("inputHandler");
             currentLevel.cursor.moveCursor("left");
             currentLevel.cursor.cursorHeight(currentLevel.board.tileArray[currentLevel.cursor.position[0]][currentLevel.cursor.position[2]].height + .6);
             hover(currentLevel);
+            updateToolTips();
+
         }
         if(keyStatus["sKey"]){
             getLock("inputHandler");
             currentLevel.cursor.moveCursor("backward");
             currentLevel.cursor.cursorHeight(currentLevel.board.tileArray[currentLevel.cursor.position[0]][currentLevel.cursor.position[2]].height + .6);
             hover(currentLevel);
+            updateToolTips();
         }
         if(keyStatus["dKey"]){
             getLock("inputHandler");
             currentLevel.cursor.moveCursor("right");
             currentLevel.cursor.cursorHeight(currentLevel.board.tileArray[currentLevel.cursor.position[0]][currentLevel.cursor.position[2]].height + .6);
             hover(currentLevel);
+            updateToolTips();
         }
         if(keyStatus["enter"]){
             getLock("inputHandler");
@@ -36,6 +42,7 @@ function updateRender(){
             currentLevel.cursor.click();
 
             hover(currentLevel);
+            updateToolTips();
         }
         if(keyStatus["space"]){
             getLock("inputHandler");

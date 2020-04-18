@@ -282,7 +282,20 @@ function setupLevel(){
 }
 
 function updateToolTips(){
-    
+    //let lvlObject = currentLevel.getUIData();
+    //let playerHeight = lvlObject.playerTile.height;
+    //jumpHeightTip.innerHTML = playerHeight;
+    //console.log(playerHeight);
+    jumpHeightTip.innerHTML = currentLevel.player.jumpHeight.toString();
+    movementRangeTip.innerHTML = currentLevel.player.movementRange.toString();
+    massTip.innerHTML = currentLevel.player.mass.toString();
+    if(currentLevel.player.abilities.length = 1){
+        abilityTypeTip.innerHTML = "None";
+    }
+    else{
+        //abilityTypeTip.innerHTML = currentLevel.player.abilities[0].toString();
+        abilityTypeTip.innerHTML = "Yes";
+    }
 }
 
 function winLevel(){
@@ -321,3 +334,4 @@ export {camera};
 export {cameraControls};
 export {winLevel};
 export {loseLevel};
+export {updateToolTips};
