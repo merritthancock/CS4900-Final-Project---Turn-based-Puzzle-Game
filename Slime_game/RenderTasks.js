@@ -2,11 +2,17 @@ import {unlocked, getLock, masterLock} from "./Semaphore.js";
 import {keyStatus} from "./KeyboardInput.js";
 import {hover} from "./classes/Pathing.js";
 import {currentLevel} from "./classes/Global.js";
-import { winLevel } from "./classes/Controller.js";
+import { winLevel, loseLevel } from "./classes/Controller.js";
 import {updateToolTips} from "./classes/Controller.js";
 
 function updateRender(){
     if(unlocked && !masterLock) {
+        //checks for death and winning
+        if(currentLevel.player.mass <= 0){//lose
+            loseLevel();
+        }
+
+
         if(keyStatus["wKey"]){
             getLock("inputHandler");
             currentLevel.cursor.moveCursor("forward");
@@ -56,7 +62,7 @@ function updateRender(){
             getLock("inputHandler");
             winLevel();
         }
-    }
+    } 
 }
 
 export {updateRender};

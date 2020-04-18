@@ -282,10 +282,9 @@ function setupLevel(){
 }
 
 function updateToolTips(){
+    
+    //Update left tool tip
     //let lvlObject = currentLevel.getUIData();
-    //let playerHeight = lvlObject.playerTile.height;
-    //jumpHeightTip.innerHTML = playerHeight;
-    //console.log(playerHeight);
     jumpHeightTip.innerHTML = currentLevel.player.jumpHeight.toString();
     movementRangeTip.innerHTML = currentLevel.player.movementRange.toString();
     massTip.innerHTML = currentLevel.player.mass.toString();
@@ -296,6 +295,9 @@ function updateToolTips(){
         //abilityTypeTip.innerHTML = currentLevel.player.abilities[0].toString();
         abilityTypeTip.innerHTML = "Yes";
     }
+
+    //Update top right tool tip
+
 }
 
 function winLevel(){
@@ -307,6 +309,7 @@ function winLevel(){
 
 function loseLevel(){
     loseScreen.style['pointer-events'] = 'auto';
+    loseScreen.style.display = "block";
     loseScreen.style['opacity'] = '0.8';
     toolTips.style.display = "none";
     rightTips.style.display = "none";
