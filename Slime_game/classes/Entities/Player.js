@@ -18,14 +18,11 @@ class Player extends Entity {
         this.mass = startingMass;
         //Set abilities to an empty set for starters
         this.abilities = {};
-        //Set default movement range to 2
-        this.movementRange = 4;
         //Set default jump height to 1
         this.jumpHeight = 1;
         this.ap = 2;
         //Set remaining AP initialized to starting AP
         this.remainingAP = this.ap;
-        this.remainingMovement = this.movementRange;
         this.canActivateTrigger = true;
 
         //state machine for player abilities

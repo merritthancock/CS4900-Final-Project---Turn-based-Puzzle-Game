@@ -12,14 +12,14 @@ function aStar(startX, startY, endX, endY, board, entity) {
         console.log("No path exists!");
     }
     else {
-        //Truncate foundPath to be only a length equal to remainingAP or remainingMovement, whichever is shorter
-        let pathLength = Math.min(entity.remainingAP, entity.remainingMovement);
+        //Truncate foundPath to be only a length equal to remainingAP
+        /*let pathLength = entity.remainingAP;
         if(foundPath.length > pathLength) {
             let difference = foundPath.length - pathLength;
             for(let i = 0; i < difference - 1; i++) {
                 foundPath.pop();
             }
-        }
+        }*/
         return foundPath;
     }
 }
@@ -36,13 +36,13 @@ function checkNeighbor(entity, sourceTile, destinationTile, isOccupied, endX, en
     if(destinationTile == null){
         return false;
     }
-    //Make sure the destination tile is within the movement range
+    //Make sure the destination tile is within the remaining AP
     //(this is taken care of in flood fill, but not in A*)
     //Enemy doesn't do this, because enemy needs to have a destination beyond movement range in mind
     if(!(entity instanceof Enemy)){
         let xDistance = Math.abs(destinationTile.position[0] - entity.position[0]);
         let zDistance = Math.abs(destinationTile.position[2] - entity.position[2]);
-        if(xDistance + zDistance > entity.movementRange){
+        if(xDistance + zDistance > entity.remainingAP){
             return false;
         }
     }
@@ -117,13 +117,8 @@ function movementOverlayHelper(board, entity){
     let entityPos = entity.position;//for player only
     //This if/else statement is meant to allow the overlay to work on entities that have no AP
     //at the moment. It otherwise shows the player's remaining movement.
-    let range;
-    if(entity.movementRange <= entity.remainingAP || entity.remainingAP <= 0) {
-        range = entity.movementRange;
-    }
-    else {
-        range = entity.remainingAP;
-    }
+    let range = entity.remainingAP;
+
     movementOverlay(entityPos[0], entityPos[2], range, board, entity);
     
     //Highlight enemies in range (player only)
