@@ -269,7 +269,7 @@ function updateToolTips(){
     //Update left tool tip
     //let lvlObject = currentLevel.getUIData();
     jumpHeightTip.innerHTML = currentLevel.player.jumpHeight.toString();
-    movementRangeTip.innerHTML = currentLevel.player.movementRange.toString();
+    //movementRangeTip.innerHTML = currentLevel.player.movementRange.toString();
     massTip.innerHTML = currentLevel.player.mass.toString();
     if(currentLevel.player.abilities.length = 1){
         abilityTypeTip.innerHTML = "None";
