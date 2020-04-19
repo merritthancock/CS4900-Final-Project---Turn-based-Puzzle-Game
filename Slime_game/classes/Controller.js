@@ -73,6 +73,8 @@ menuBtn.onclick = function winClick(){
 
 loseBtn.onclick = function(){
     loseScreen.style.display = "none";
+    loseScreen.style['pointer-events'] = 'none';
+    
     toolTips.style.display = "block";
     rightTips.style.display = "block";
 }
@@ -87,59 +89,40 @@ function start(){
   
     //Test Level
     startButton.onclick = function(){
-        //Sets current scene to test level scene
-        menu.style.display = "none";
-        canvas.style.display = "block";
         console.log("Test Level");
         changeLevel(buildTestLevel());
-        loadLevel(scene, currentLevel);
-        canvas.style.display = "block";
-        toolTips.style.display = "block";
-        rightTips.style.display = "block";
-        setupTasks();
-        setupLevel();
+        buildLevel();
     };
     //Level 1
     level1Button.onclick = function(){
-        //Sets current scene to level 1 scene
-        menu.style.display = "none";
-        toolTips.style.display = "block";
         console.log("Level 1");
         changeLevel(buildLevel1());
-        loadLevel(scene, currentLevel);
-        canvas.style.display = "block";
-        toolTips.style.display = "block";
-        rightTips.style.display = "block";
-        setupTasks();
-        setupLevel();
+        buildLevel();
     };
     //Level 2
     level2Button.onclick = function(){
-        //Sets current scene to level 2 scene
-        menu.style.display = "none";
-        toolTips.style.display = "block";
         console.log("Level 2");
         changeLevel(buildLevel2());
-        loadLevel(scene, currentLevel);
-        canvas.style.display = "block";
-        toolTips.style.display = "block";
-        rightTips.style.display = "block";
-        setupTasks();
-        setupLevel();
+        buildLevel(); 
     };
 
     //Level 3
     level3Button.onclick = function(){
-        menu.style.display = "none";
         console.log("Level 3");
         changeLevel(buildLevel3());
-        loadLevel(scene, currentLevel);
-        canvas.style.display = "block";
-        toolTips.style.display = "block";
-        rightTips.style.display = "block";
-        setupTasks();
-        setupLevel();
+        buildLevel();
+      
     };
+}
+
+function buildLevel(){//Called for every level
+    menu.style.display = "none";
+    loadLevel(scene, currentLevel);
+    canvas.style.display = "block";
+    toolTips.style.display = "block";
+    rightTips.style.display = "block";
+    setupTasks();
+    setupLevel();
 }
 
 function setupTasks(){
