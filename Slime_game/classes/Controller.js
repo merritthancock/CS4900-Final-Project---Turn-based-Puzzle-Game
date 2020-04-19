@@ -280,7 +280,8 @@ function updateToolTips(){
     }
 
     //Update top right tool tip
-
+    //let c = currentLevel.getUIData();
+    //let ct = c.cursorTile.type.toString();
 }
 
 function winLevel(){
