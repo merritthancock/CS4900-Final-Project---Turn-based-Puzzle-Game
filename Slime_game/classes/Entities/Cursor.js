@@ -64,6 +64,7 @@ class Cursor extends Entity {
                     currentLevel.board.tileArray[x][y].occupant = null;
                 }
                 currentLevel.player.movePlayer(this.position);
+                this.activeState = this.neutralState;
                 currentLevel.board.deselect();
                 //passTurn(currentLevel);
             }

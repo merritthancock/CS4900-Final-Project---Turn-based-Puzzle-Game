@@ -31,16 +31,30 @@ class Entity extends GameEntity {
 
     //Helper method to rotate the entity slowly over time (WIP)
     async rotateEntity(rotationGoal) {
+        console.log("ROTATING TO: " + rotationGoal);
+        //Set currentRotation and rotationGoal such that they are 360 degrees instead of 0
+        let currentRotation = this.model.rotation.y;
+        if(this.model.rotation.y == 0) {
+            currentRotation = degToRad(360);
+        }
+        if(rotationGoal == 0) {
+            rotationGoal = 360;
+        }
         //calculate rotation and slowly rotate model
-        let rotationTotal = Math.abs(degToRad(rotationGoal) - this.model.rotation.y);
+        let rotationTotal = degToRad(rotationGoal) - currentRotation;
+        if(Math.abs(rotationTotal) > 3.1415926535) {
+            rotationTotal *= -1;
+            rotationTotal = 2*3.1415926535 - rotationTotal;
+        }
+        console.log("APPLYING TOTAL ROTATION: " + rotationTotal);
 
         let rotationIncrement = rotationTotal / 10.0;
         for(let j = 0; j < 10 && this.model.rotation.y != degToRad(rotationGoal); j++) {
-            if(rotationTotal > 3.1415926535) {
-                this.model.rotation.y += rotationIncrement;
+            if(Math.abs(rotationTotal) >= 3.1415926535) {
+                this.model.rotation.y -= rotationIncrement;
             }
             else {
-                this.model.rotation.y -= rotationIncrement;
+                this.model.rotation.y += rotationIncrement;
             }
             await sleep(1);
         }
