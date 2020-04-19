@@ -21,11 +21,9 @@ async function passTurn(currentLevel) {
             //and update until it runs out of AP.
             let currentEnemy = enemyPriorityQueue.pop();
             currentEnemy.resetAP();
-            currentEnemy.resetMovement();
-            while(currentEnemy.remainingAP > 0) {
+            while(currentEnemy.decrementAP() != null) {
                 currentEnemy.update();
                 await sleep(100);
-                currentEnemy.decrementAP();
             }
         }
         passTurn(currentLevel);
@@ -34,7 +32,6 @@ async function passTurn(currentLevel) {
         let player = currentLevel.player;
         isPlayerTurn = true;
         player.resetAP();
-        player.resetMovement();
         currentLevel.cursor.model.visible = true;
         releaseMasterLock();
     }

@@ -26,8 +26,8 @@ class Pinbeast extends Enemy {
         this.setAttackPower(5);
         //Pinbeast AP per turn
         this.ap = 1;
-        this.movementRange = 6;
-
+        //Pinbeast spawn range
+        this.spawnRange = 6;
         //number of currently living pinpod children in the level (decrements and increments accordingly)
         this.babies = 0;
         //incremented value which becomes the ID of each spawned pinpod
