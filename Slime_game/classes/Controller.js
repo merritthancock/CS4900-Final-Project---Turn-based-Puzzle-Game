@@ -19,6 +19,7 @@ let renderer;
 let canvas = document.querySelector("#game");
 let menu = document.getElementById("menu");
 let winScreen = document.querySelector("#winLevel");
+let loseScreen = document.querySelector("#loseLevel");
 let toolTips = document.querySelector("#toolTip");
 let rightTips = document.querySelector("#topRightTip");
 let startButton = document.getElementById("start");
@@ -26,6 +27,7 @@ let level1Button = document.getElementById("Level1");
 let level2Button = document.getElementById("Level2");
 let level3Button = document.getElementById("Level3");
 let menuBtn = document.querySelector("#menuBtn");
+let loseBtn = document.querySelector("#loseBtn");
 let scene = new THREE.Scene();
 let loadingScreen = document.getElementById("loading-screen");
 
@@ -47,7 +49,7 @@ let rightAbility = document.querySelector("#rightAbility");
 windowWidth = window.innerWidth;
 windowHeight = window.innerHeight;
 
-menuBtn.onclick = function(){
+menuBtn.onclick = function winClick(){
     winScreen.style.display = "none";
     winScreen.style['pointer-events'] = 'none';
     loadingScreen.style.display = "block";
@@ -67,8 +69,15 @@ menuBtn.onclick = function(){
     resourceTracker.dispose();
     loadingScreen.style.display = "none";
     menu.style.display = "block";
-  
 };
+
+loseBtn.onclick = function(){
+    loseScreen.style.display = "none";
+    loseScreen.style['pointer-events'] = 'none';
+    
+    toolTips.style.display = "block";
+    rightTips.style.display = "block";
+}
 
 function start(){
     loadingScreen.style.display = "none";
@@ -80,59 +89,40 @@ function start(){
   
     //Test Level
     startButton.onclick = function(){
-        //Sets current scene to test level scene
-        menu.style.display = "none";
-        canvas.style.display = "block";
         console.log("Test Level");
         changeLevel(buildTestLevel());
-        loadLevel(scene, currentLevel);
-        canvas.style.display = "block";
-        toolTips.style.display = "block";
-        rightTips.style.display = "block";
-        setupTasks();
-        setupLevel();
+        buildLevel();
     };
     //Level 1
     level1Button.onclick = function(){
-        //Sets current scene to level 1 scene
-        menu.style.display = "none";
-        toolTips.style.display = "block";
         console.log("Level 1");
         changeLevel(buildLevel1());
-        loadLevel(scene, currentLevel);
-        canvas.style.display = "block";
-        toolTips.style.display = "block";
-        rightTips.style.display = "block";
-        setupTasks();
-        setupLevel();
+        buildLevel();
     };
     //Level 2
     level2Button.onclick = function(){
-        //Sets current scene to level 2 scene
-        menu.style.display = "none";
-        toolTips.style.display = "block";
         console.log("Level 2");
         changeLevel(buildLevel2());
-        loadLevel(scene, currentLevel);
-        canvas.style.display = "block";
-        toolTips.style.display = "block";
-        rightTips.style.display = "block";
-        setupTasks();
-        setupLevel();
+        buildLevel(); 
     };
 
     //Level 3
     level3Button.onclick = function(){
-        menu.style.display = "none";
         console.log("Level 3");
         changeLevel(buildLevel3());
-        loadLevel(scene, currentLevel);
-        canvas.style.display = "block";
-        toolTips.style.display = "block";
-        rightTips.style.display = "block";
-        setupTasks();
-        setupLevel();
+        buildLevel();
+      
     };
+}
+
+function buildLevel(){//Called for every level
+    menu.style.display = "none";
+    loadLevel(scene, currentLevel);
+    canvas.style.display = "block";
+    toolTips.style.display = "block";
+    rightTips.style.display = "block";
+    setupTasks();
+    setupLevel();
 }
 
 function setupTasks(){
@@ -276,11 +266,34 @@ function setupLevel(){
 
 function updateToolTips(){
     
+    //Update left tool tip
+    //let lvlObject = currentLevel.getUIData();
+    jumpHeightTip.innerHTML = currentLevel.player.jumpHeight.toString();
+    movementRangeTip.innerHTML = currentLevel.player.movementRange.toString();
+    massTip.innerHTML = currentLevel.player.mass.toString();
+    if(currentLevel.player.abilities.length = 1){
+        abilityTypeTip.innerHTML = "None";
+    }
+    else{
+        //abilityTypeTip.innerHTML = currentLevel.player.abilities[0].toString();
+        abilityTypeTip.innerHTML = "Yes";
+    }
+
+    //Update top right tool tip
+
 }
 
 function winLevel(){
     winScreen.style['pointer-events'] = 'auto';
-    winScreen.style.opacity = 1;
+    winScreen.style['opacity'] = '0.8';
+    toolTips.style.display = "none";
+    rightTips.style.display = "none";
+}
+
+function loseLevel(){
+    loseScreen.style['pointer-events'] = 'auto';
+    loseScreen.style.display = "block";
+    loseScreen.style['opacity'] = '0.8';
     toolTips.style.display = "none";
     rightTips.style.display = "none";
 }
@@ -306,3 +319,5 @@ start();
 export {camera};
 export {cameraControls};
 export {winLevel};
+export {loseLevel};
+export {updateToolTips};

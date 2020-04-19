@@ -65,29 +65,55 @@ body{
 }
 
 .gameInfo{
-	opacity: 0;
+	opacity: 0.7;
 	position: absolute;
-	width:100%;
-	height: 50px;
-	top: 600px;
+	width:400px;
+	height: 200px;
 	text-align: left;
 	color: white;
+	background-color: rgb(84, 78, 78);
+	pointer-events: none;
+	margin-left: 35%;
+	top: 350px;
 }
 
 .winLevel{
 	opacity: 0;
 	position: absolute;
-	width: 100%;
-	height: 75px;
-	top: 500px;
+	width: 400px;
+	height: 200px;
+	top: 50%;
+	left: 50%;
+	margin-top: -50px;
+	margin-left: -50px;
+	padding-top: 50px;
 	text-align: center;
-	display: block;
 	align-items: center;
-
 	font: 300;
 	font-family: 'Press Start 2P', cursive;
-    color: black;
+    color: white;
 	border-color: black;
+	background-color: rgb(84, 78, 78);
+	pointer-events: none;
+}
+
+.loseLevel{
+	opacity: 0;
+	position: absolute;
+	width: 400px;
+	height: 200px;
+	top: 50%;
+	left: 50%;
+	margin-top: -50px;
+	margin-left: -50px;
+	padding-top: 50px;
+	text-align: center;
+	align-items: center;
+	font: 300;
+	font-family: 'Press Start 2P', cursive;
+    color: white;
+	border-color: black;
+	background-color: rgb(84, 78, 78);
 	pointer-events: none;
 }
 
@@ -158,11 +184,13 @@ body{
 	grid-template-rows: 1fr 1fr;
 	animation: rotate 1s ease infinite;
 }
+
 .container .box--container .box {
 	/* background: #fff; */
 	/* overflow: hidden; */
 	position: relative;
 }
+
 .container .box--container .box .circle {
 	position: absolute;
 	top: 50%;
@@ -173,10 +201,12 @@ body{
 	background: white ;
 	border-radius: 50%;
 }
+
 .container .box--container .box .circle--1 {
 	animation: circle--1 ease 1200ms infinite;
 	/* animation: rotate 1s ease infinite; */
 }
+
 .container .box--container .box .circle--2 {
 	background: limegreen;
 	animation: circle--2 ease 1200ms infinite;
