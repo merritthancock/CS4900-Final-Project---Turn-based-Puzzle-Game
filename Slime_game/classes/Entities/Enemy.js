@@ -26,7 +26,6 @@ class Enemy extends Entity {
         console.log(this.path);
 
         this.absorbable = true;
-
     }
 
     //Checks if the player is within sight range
@@ -36,10 +35,21 @@ class Enemy extends Entity {
         if(xDistance + yDistance <= this.visionRange) {
             return true;
         }
-        else {
-            return false;
-        }
+        return false;
     }
+
+    //Checks of player is next to this enemy
+    nextToPlayer() {
+        let xDistance = Math.abs(currentLevel.player.position[0] - this.position[0]);
+        let yDistance = Math.abs(currentLevel.player.position[2] - this.position[2]);
+
+        //If they're one tile away, they're adjacent
+        if (xDistance + yDistance == 1) {
+            return true;
+        }
+        return false;
+    }
+
     //Checks if the player is within this enemy's attack range
     withinARange() {
         let xDistance = Math.abs(currentLevel.player.position[0] - this.position[0]);
@@ -47,9 +57,7 @@ class Enemy extends Entity {
         if((xDistance <= this.attackRange &&  yDistance == 0) || (yDistance <= this.attackRange && xDistance == 0)){
             return true;
         }
-        else{
-            return false;
-        }
+        return false;
     }
 
     moveEnemy(route, moves) {

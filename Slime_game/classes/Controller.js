@@ -290,7 +290,7 @@ function winLevel(){
     rightTips.style.display = "none";
 }
 
-function loseLevel(){
+function loseLevel() {
     loseScreen.style['pointer-events'] = 'auto';
     loseScreen.style.display = "block";
     loseScreen.style['opacity'] = '0.8';
