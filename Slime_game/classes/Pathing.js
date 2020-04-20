@@ -99,14 +99,14 @@ function movementOverlay(x, z, range, board, entity){//uses the flood fill algor
             board.tileArray[x][z].highlighted = true;
         }
         //...unless that entity is an absorbable enemy, then highlight in red
-        else if(board.tileArray[x][z].occupant instanceof Enemy) {
+        /*else if(board.tileArray[x][z].occupant instanceof Enemy) {
             if(board.tileArray[x][z].occupant.absorbCheck()){
                 let overlay = board.overlayMap[x][z].overlay;
                 overlay.material.color.setHex(0xAB4700);
                 overlay.material.visible = true;
                 board.tileArray[x][z].highlighted = true;
             }
-        }
+        }*/
         //recursive call for surrounding spaces
         if(neighborConfirm(entity, board, x, z, x+1, z)){
             movementOverlay(x+1, z, range-1, board, entity);
@@ -135,12 +135,15 @@ function movementOverlayHelper(board, entity){
     if(entity.name == "player") {
         let enemies = currentLevel.enemies;
         for(let i = 0; i < enemies.length; i++) {
-            let xDistance = Math.abs(enemies[i].position[0] - entityPos[0]);
-            let zDistance = Math.abs(enemies[i].position[2] - entityPos[2]);
+            let x = enemies[i].position[0];
+            let z = enemies[i].position[2];
+            let xDistance = Math.abs(x - entityPos[0]);
+            let zDistance = Math.abs(z - entityPos[2]);
             if(xDistance + zDistance <= range && enemies[i].absorbCheck()) {
                 let overlay = board.overlayMap[enemies[i].position[0]][enemies[i].position[2]].overlay;
                 overlay.material.color.setHex(0xAB4700);
                 overlay.material.visible = true;
+                board.tileArray[x][z].highlighted = true;
             }
         }
     }
