@@ -55,6 +55,8 @@ class Tile {
         this.position = position;
         this.height = height;
         this.type = type;
+        this.highlighted = false;
+        this.occupant = null;
         /*
         let grass = new THREE.TextureLoader().load( './assets/grass64.jpg' );
         let water = new THREE.TextureLoader().load( './assets/water.jpg' );

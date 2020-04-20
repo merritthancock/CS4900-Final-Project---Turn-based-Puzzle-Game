@@ -128,8 +128,8 @@ class Enemy extends Entity {
     }
 
     //Check if player can currently absorb this enemy
-    absorbCheck(player) {
-        if(player.mass >= this.mass && this.absorbable) {
+    absorbCheck() {
+        if(currentLevel.player.mass >= this.mass && this.absorbable) {
             return true;
         }
         return false;
