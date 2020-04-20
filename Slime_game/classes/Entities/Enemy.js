@@ -126,6 +126,14 @@ class Enemy extends Entity {
         //Play attack animation
         currentLevel.player.takeDamage(damage);
     }
+
+    //Check if player can currently absorb this enemy
+    absorbCheck(player) {
+        if(player.mass >= this.mass && this.absorbable) {
+            return true;
+        }
+        return false;
+    }
     
     //set custom attack power for enemy type
     setAttackPower(atPow){

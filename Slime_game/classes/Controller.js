@@ -55,17 +55,6 @@ menuBtn.onclick = function winClick(){
     loadingScreen.style.display = "block";
     canvas.style.display = "none";
 
-    //Dispose of all the contents of the scene graph
-    /*while(currentScene.children.length > 0) {
-        let obj = currentScene.children[0];
-        currentScene.remove(obj);
-        if(obj instanceof THREE.BufferGeometry) {
-            console.log("HIIIII");
-            obj.material.dispose();
-            obj.dispose();
-        }
-    }*/
-    //renderer.dispose();
     resourceTracker.dispose();
     loadingScreen.style.display = "none";
     menu.style.display = "block";
