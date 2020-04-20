@@ -7,14 +7,7 @@ import {updateToolTips} from "./classes/Controller.js";
 
 function updateRender(){
     if(unlocked && !masterLock) {
-        //checks for death and winning
-        
         updateToolTips();
-        if(currentLevel.player.mass <= 0){//lose
-            loseLevel();
-        }
-
-
         if(keyStatus["wKey"]){
             getLock("inputHandler");
             currentLevel.cursor.moveCursor("forward");
@@ -51,6 +44,8 @@ function updateRender(){
 
             hover(currentLevel);
             updateToolTips();
+
+
         }
         if(keyStatus["space"]){
             getLock("inputHandler");
