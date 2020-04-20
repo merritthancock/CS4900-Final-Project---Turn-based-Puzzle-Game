@@ -99,17 +99,20 @@ loseBtn.onclick = function(){//replay
     switch(replayTracker){
         case 0:
             startButton.click();
+            break;
         case 1:
             level1Button.click();
+            break;
         case 2:
             level2Button.click();
+            break;
         case 3:
             level3Button.click();
-        /*default :
-            loseMenuBtn.click();*/
+            break;
+        default :
+            loseMenuBtn.click();
+            break;
     }
-    //toolTips.style.display = "block";
-    //rightTips.style.display = "block";
 }
 
 
