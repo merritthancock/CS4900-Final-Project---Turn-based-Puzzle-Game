@@ -64,6 +64,28 @@ body{
 	bottom:   0;
 }
 
+.loseBtn{
+	text-align: center;
+	display: inline-block;
+	margin:5px;
+    font-weight: bold;
+    padding: 10px 0 10px 10px ;
+    background-color: lightgray;
+    text-shadow: -1px -1px black, 1px 1px white;
+    color: gray;
+    -webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	-o-border-radius: 7px;
+	border-radius: 7px;
+    box-shadow: 0 .2em gray; 
+    cursor: pointer;
+	width: 150px;
+	/*margin: 0 auto; */
+	display: block;
+	position: absolute;
+	bottom:   50px;
+}
+
 .gameInfo{
 	opacity: 0.7;
 	position: absolute;
@@ -103,7 +125,7 @@ body{
 	width: 400px;
 	height: 200px;
 	top: 50%;
-	left: 50%;
+	left: 40%;
 	margin-top: -50px;
 	margin-left: -50px;
 	padding-top: 50px;
