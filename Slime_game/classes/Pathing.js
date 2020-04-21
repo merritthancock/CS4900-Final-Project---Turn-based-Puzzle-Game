@@ -177,4 +177,4 @@ function wipeOverlay(board){
     }
 }
 
-export {hover, checkNeighbor, aStar, wipeOverlay, movementOverlayHelper};
+export {hover, checkNeighbor, aStar, wipeOverlay, movementOverlayHelper, occupied};
