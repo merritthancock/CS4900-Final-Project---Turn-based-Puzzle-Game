@@ -1,7 +1,7 @@
 import { getMasterLock, releaseMasterLock} from "../Semaphore.js";
 import { PriorityQueue } from "../libraries/yuka-master/src/yuka.js";
 import { sleep } from "./Global.js";
-import { loseLevel } from "./Controller.js";
+import { loseLevel, winLevel } from "./Controller.js";
 
 let turnCount = 0;
 let isPlayerTurn = true;
@@ -33,6 +33,9 @@ async function passTurn(currentLevel) {
         if(currentLevel.player.mass <= 0){//lose game
             loseLevel();
         }
+        if(currentLevel.getUIData().playerTile.type == 8){//win game
+            winLevel();
+        }
 
         passTurn(currentLevel);
     }
@@ -46,6 +49,9 @@ async function passTurn(currentLevel) {
         //checks for end game
         if(currentLevel.player.mass <= 0){//lose game
             loseLevel();
+        }
+        if(currentLevel.getUIData().playerTile.type == 8){//win game
+            winLevel();
         }
     }
 }

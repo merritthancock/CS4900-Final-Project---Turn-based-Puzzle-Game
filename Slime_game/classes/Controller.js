@@ -9,6 +9,7 @@ import {buildLevel2} from "./Levels/Level2.js";
 //import {testLevel2} from "./LevelManager.js";
 import {currentLevel, changeLevel} from "./Global.js";
 import { NavNode } from "../libraries/yuka-master/src/yuka.js";
+import {occupied} from "./Pathing.js";
 
 // declare variables
 let windowWidth;
@@ -44,7 +45,7 @@ let rightPic = document.querySelector("#topRightTip");
 let rightType = document.querySelector("#type");
 let rightHeight = document.querySelector("#terrainHeight");
 let rightName = document.querySelector("#entityName");
-let rightAbility = document.querySelector("#rightAbility");
+let rightMass = document.querySelector("#rightMass");
 
 //Game setup tasks-----------------------------------------------
 //Sets height and width for game window
@@ -321,8 +322,45 @@ function updateToolTips(){
     }
 
     //Update top right tool tip
-    //let c = currentLevel.getUIData();
-    //let ct = c.cursorTile.type.toString();
+
+
+    let selectTile = currentLevel.getUIData().selectedTile;
+    let cursTile = currentLevel.getUIData().cursorTile;/*
+    let playTile = currentLevel.getUIData().playerTile;*/
+
+    let tileOccupant = occupied(currentLevel.board);
+    if(tileOccupant != "None"){
+        rightType.innerHTML = "Entity"
+        rightName.innerHTML = tileOccupant;
+        rightMass.style.display = "block";
+        //rightMass.innerHTML = currentLevel.board.cursTile.occupant.mass.toString();
+    }
+    else{    
+        rightMass.style.display = "none";
+        rightType.innerHTML = "None";
+        let tileType = currentLevel.getUIData().cursorTile.type;
+        switch(tileType){
+            case 0://grass
+                rightName.innerHTML = "grass";
+                break;
+            case 1://rock
+                rightName.innerHTML = "rock";
+                break;
+            case 2://water
+                rightName.innerHTML = "water";
+                break;
+            case 3://gap
+                rightName.innerHTML = "gap"
+                break;
+            case 4://cave
+                rightName.innerHTML = "cave";
+                break;
+            case 8://exit
+                rightName.innerHTML = "exit";
+                break;
+        }
+    }
+    rightHeight.innerHTML = currentLevel.getUIData().cursorTile.height.toString();
 }
 
 function winLevel(){
