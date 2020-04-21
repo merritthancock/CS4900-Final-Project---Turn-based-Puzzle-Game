@@ -321,8 +321,9 @@ function updateToolTips(){
     if(tileOccupant != "None"){
         rightType.innerHTML = "Entity"
         rightName.innerHTML = tileOccupant;
+        rightMass.style['opacity'] = '0.8';
         rightMass.style.display = "block";
-        //rightMass.innerHTML = currentLevel.board.cursTile.occupant.mass.toString();
+        rightMass.innerHTML = "Mass: " + cursTile.occupant.mass.toString();
     }
     else{    
         rightMass.style.display = "none";
