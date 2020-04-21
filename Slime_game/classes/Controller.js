@@ -207,8 +207,8 @@ function loadModel(entity, loader) {
             entity.model = gltf.scene;
             entity.mixer = new THREE.AnimationMixer(gltf.scene);
             let clips = gltf.animations;
-            //let clip = THREE.AnimationClip.findByName( clips, 'idle' );
-            let clip = clips[0];
+            entity.animations = clips;
+            let clip = THREE.AnimationClip.findByName( clips, 'idle' );
             let action = entity.mixer.clipAction( clip );
             action.play();
 
@@ -371,14 +371,14 @@ function animate() {
     requestAnimationFrame(animate);
     renderer.render(scene, camera);
     if(currentLevel.player.mixer) {
-        currentLevel.player.mixer.update(.017);
+        currentLevel.player.mixer.update(.025);
     }
     if(currentLevel.cursor.mixer) {
-        currentLevel.cursor.mixer.update(.017);
+        currentLevel.cursor.mixer.update(.025);
     }
     for(let i = 0; i < currentLevel.enemies.length; i++) {
         if(currentLevel.enemies[i].mixer) {
-            currentLevel.enemies[i].mixer.update(.017);
+            currentLevel.enemies[i].mixer.update(.025);
         }
     }
     updateRender();
