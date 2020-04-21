@@ -101,7 +101,8 @@ class AOEState extends State {
 
 class ChargeState extends State {//charges in direction of player
     enter(enemy){
-       
+       //Some tooltip to show the player to watch out
+       enemy.path.add(currentLevel.player.position);
     }
 
     execute(enemy){
