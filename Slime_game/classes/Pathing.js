@@ -24,7 +24,7 @@ function aStar(startX, startY, endX, endY, board, entity) {
     }
 }
 
-//Checks neighboring tiles. To be used by both Flood Fill and A*
+//Checks neighboring tiles for traversability. To be used by both Flood Fill and A*
 function checkNeighbor(entity, sourceTile, destinationTile, isOccupied, endX, endZ){
     let maxHeight = entity.jumpHeight;
     let heightDifference = Math.abs(sourceTile.height - destinationTile.height);
@@ -84,7 +84,7 @@ function neighborConfirm(entity, board, sourceX, sourceY, destX, destY) {
     if(destX >= 0 && destX < board.tileArray.length && destY >= 0 && destY < board.tileArray[0].length) {
         let sourceTile = board.tileArray[sourceX][sourceY];
         let destTile = board.tileArray[destX][destY];
-        return checkNeighbor(entity, sourceTile, destTile, false)
+        return checkNeighbor(entity, sourceTile, destTile, false);
     }
     else {
         return false;
@@ -96,7 +96,17 @@ function movementOverlay(x, z, range, board, entity){//uses the flood fill algor
         //Do not render a normal overlay tile that has an entity in it
         if(board.tileArray[x][z].occupant == null){
             board.overlayMap[x][z].overlay.material.visible = true;
+            board.tileArray[x][z].highlighted = true;
         }
+        //...unless that entity is an absorbable enemy, then highlight in red
+        /*else if(board.tileArray[x][z].occupant instanceof Enemy) {
+            if(board.tileArray[x][z].occupant.absorbCheck()){
+                let overlay = board.overlayMap[x][z].overlay;
+                overlay.material.color.setHex(0xAB4700);
+                overlay.material.visible = true;
+                board.tileArray[x][z].highlighted = true;
+            }
+        }*/
         //recursive call for surrounding spaces
         if(neighborConfirm(entity, board, x, z, x+1, z)){
             movementOverlay(x+1, z, range-1, board, entity);
@@ -125,12 +135,15 @@ function movementOverlayHelper(board, entity){
     if(entity.name == "player") {
         let enemies = currentLevel.enemies;
         for(let i = 0; i < enemies.length; i++) {
-            let xDistance = Math.abs(enemies[i].position[0] - entityPos[0]);
-            let zDistance = Math.abs(enemies[i].position[2] - entityPos[2]);
-            if(xDistance + zDistance <= range) {
+            let x = enemies[i].position[0];
+            let z = enemies[i].position[2];
+            let xDistance = Math.abs(x - entityPos[0]);
+            let zDistance = Math.abs(z - entityPos[2]);
+            if(xDistance + zDistance <= range && enemies[i].absorbCheck()) {
                 let overlay = board.overlayMap[enemies[i].position[0]][enemies[i].position[2]].overlay;
                 overlay.material.color.setHex(0xAB4700);
                 overlay.material.visible = true;
+                board.tileArray[x][z].highlighted = true;
             }
         }
     }
@@ -173,6 +186,7 @@ function wipeOverlay(board){
         for(let c = 0; c < board.tileArray[r].length; c++){
             board.overlayMap[r][c].overlay.material.visible = false;
             board.overlayMap[r][c].overlay.material.color.setHex(0x0047AB);
+            board.tileArray[r][c].highlighted = false;
         }
     }
 }
