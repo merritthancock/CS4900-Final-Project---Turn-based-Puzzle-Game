@@ -20,7 +20,6 @@ class Level{
             playerTile : this.board.tileArray[this.player.position[0]][this.player.position[2]],
             selectedTile : this.board.selected
         }
-
         return data;
     }
 }

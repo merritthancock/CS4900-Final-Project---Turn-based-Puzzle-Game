@@ -47,9 +47,9 @@ class Cursor extends Entity {
             let playerY = currentLevel.player.position[2];
             let xDistance = Math.abs(x - playerX);
             let yDistance = Math.abs(y - playerY);
-            if(xDistance + yDistance <= Math.min(currentLevel.player.remainingMovement, currentLevel.player.remainingAP)) {
+            if(xDistance + yDistance <= currentLevel.player.remainingAP) {
                 //absorption of enemy (within ap range, enemy occupies a space, enemy has <= mass than player)
-                if(xDistance + yDistance <= Math.min(currentLevel.player.remainingMovement, currentLevel.player.remainingAP) && 
+                if(xDistance + yDistance <= currentLevel.player.remainingAP && 
                     currentLevel.board.tileArray[x][y].occupant != null &&
                     currentLevel.board.tileArray[x][y].occupant.mass <= currentLevel.player.mass && 
                     currentLevel.board.tileArray[x][y].occupant.absorbable == true){
@@ -64,8 +64,9 @@ class Cursor extends Entity {
                     currentLevel.board.tileArray[x][y].occupant = null;
                 }
                 currentLevel.player.movePlayer(this.position);
+                this.activeState = this.neutralState;
                 currentLevel.board.deselect();
-                passTurn(currentLevel);
+                //passTurn(currentLevel);
             }
             //Otherwise, again, deselect and switch back to neutral state
             if(tile.occupant != null && tile.occupant.name == "player") {

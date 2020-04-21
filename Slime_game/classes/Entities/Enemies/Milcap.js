@@ -26,7 +26,6 @@ class Milcap extends Enemy {
         this.setAttackPower(0.5);
         //Milcaps have 2 AP per turn
         this.ap = 2;
-        this.movementRange = 2;
 
         this.type = 'MILCAP';
     }

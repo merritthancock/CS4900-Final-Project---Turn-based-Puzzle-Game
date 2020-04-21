@@ -41,6 +41,27 @@
         <button class="level-btn" id="Level1">Level 1</button>
         <button class="level-btn" id="Level2">Level 2</button>
         <button class="level-btn" id="Level3">Level 3</button>
+
+        <div class="gameInfo" id="gameInfo">
+            <table style="widows: 100%;">
+                <tr>
+                    <td>To move the cursor use the W A S D keys</td>
+                </tr>
+                <tr>
+                    <td>To select an entity hover over the entity and press enter</td>
+                </tr>
+                <tr>
+                    <td>To confirm a movement press enter</td>
+                </tr>
+                <tr>
+                    <td>To pan the camera right click and drag the screen</td>
+                </tr>
+                <tr>
+                    <td>To rotate the camera left click and drag the screen</td>
+                </tr>
+                
+            </table>
+        </div>
     </div>
 
     <!-- loading screen url: https://codepen.io/dev_loop/pen/NmYmRP -->
@@ -60,13 +81,21 @@
     <div class="outerGame" id="outerGame">
         <canvas id="game"></canvas>
 
-        <div class="gameInfo" id="gameInfo">
-            <button>click me</button>
-        </div>
-
         <div class="winLevel" id="winLevel">
-            <label id="endText">You Win!</label>
+            <label id="winText">You Win!</label>
             <button class="divBtn" id="menuBtn">Main Menu</button>
+        </div>
+        <div class="loseLevel" id="loseLevel">
+            <label id="loseText">You Lose!</label>
+            <table>
+                <tr>
+                    <button class="divBtn" id="loseBtn">Play Again</button>
+                </tr>
+                <tr>
+                    <button class="divBtn" id="loseMenuBtn">Main Menu</button>
+                </tr>
+            </table>
+            
         </div>
 
         <div class="toolTip" id="toolTip">
@@ -119,14 +148,6 @@
                 </tr>
             </table>
         </div>
-
-
-
-
-
-
-
     </div>
-    
 </body>
 </html>

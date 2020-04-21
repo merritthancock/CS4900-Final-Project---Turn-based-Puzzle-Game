@@ -14,8 +14,8 @@ class SpawnState extends State { //PINBEAST IS ONLY VULNERABLE DURING THIS STATE
 
     execute(enemy){
         for(let i = 0; i < 4; i++){
-            let x = Math.floor(Math.random() * enemy.movementRange + 1);
-            let z = Math.floor(Math.random() * enemy.movementRange + 1);
+            let x = Math.floor(Math.random() * enemy.spawnRange + 1);
+            let z = Math.floor(Math.random() * enemy.spawnRange + 1);
             let ePos = [enemy.position[0] + x, 1, enemy.position[2] + z];
             let pinpod = new Pinpod(ePos, enemy.childID.toString(), 1, 2);
             currentLevel.enemies.push(pinpod);
@@ -34,8 +34,8 @@ class SpawnState extends State { //PINBEAST IS ONLY VULNERABLE DURING THIS STATE
 class ActionState extends State {
     enter(enemy){
         //takes a movement of some kind
-        let x = Math.floor(Math.random() * enemy.movementRange + 1);
-        let z = Math.floor(Math.random() * enemy.movementRange + 1);
+        let x = Math.floor(Math.random() * enemy.spawnRange + 1);
+        let z = Math.floor(Math.random() * enemy.spawnRange + 1);
         enemy.path.add([x, 1, z]);
         
         enemy.attackCharge = 3;
