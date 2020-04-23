@@ -30,6 +30,7 @@ let level3Button = document.getElementById("Level3");
 let menuBtn = document.querySelector("#menuBtn");
 let loseBtn = document.querySelector("#loseBtn");
 let loseMenuBtn = document.querySelector("#loseMenuBtn");
+let nextLevel = document.querySelector("#nextLevel");
 let scene = new THREE.Scene();
 let loadingScreen = document.getElementById("loading-screen");
 let replayTracker;
@@ -103,6 +104,13 @@ loseBtn.onclick = function(){//replay
             loseMenuBtn.click();
             break;
     }
+}
+
+nextLevel.onclick = function(){//next level
+    winScreen.style.display = "none";
+    loseScreen.style['pointer-events'] = 'none';
+    replayTracker++;
+    loseBtn.click();
 }
 
 
@@ -333,6 +341,7 @@ function updateToolTips(){
             default:
                 document.getElementById("rightPic").src = "./assets/skull.jpg";
                 break;
+
         }
         
     }
