@@ -30,6 +30,7 @@ let level3Button = document.getElementById("Level3");
 let menuBtn = document.querySelector("#menuBtn");
 let loseBtn = document.querySelector("#loseBtn");
 let loseMenuBtn = document.querySelector("#loseMenuBtn");
+let nextLevel = document.querySelector("#nextLevel");
 let scene = new THREE.Scene();
 let loadingScreen = document.getElementById("loading-screen");
 let replayTracker;
@@ -103,6 +104,13 @@ loseBtn.onclick = function(){//replay
             loseMenuBtn.click();
             break;
     }
+}
+
+nextLevel.onclick = function(){//next level
+    winScreen.style.display = "none";
+    loseScreen.style['pointer-events'] = 'none';
+    replayTracker++;
+    loseBtn.click();
 }
 
 
@@ -324,6 +332,18 @@ function updateToolTips(){
         rightMass.style['opacity'] = '0.8';
         rightMass.style.display = "block";
         rightMass.innerHTML = "Mass: " + cursTile.occupant.mass.toString();
+
+        //set picture
+        switch(tileOccupant){
+            case "player":
+                document.getElementById("rightPic").src = "./assets/slime.jpg";
+                break;
+            default:
+                document.getElementById("rightPic").src = "./assets/skull.jpg";
+                break;
+
+        }
+        
     }
     else{    
         rightMass.style.display = "none";
@@ -332,25 +352,32 @@ function updateToolTips(){
         switch(tileType){
             case 0://grass
                 rightName.innerHTML = "grass";
+                document.getElementById("rightPic").src = "./assets/grass64.jpg";
                 break;
             case 1://rock
                 rightName.innerHTML = "rock";
+                document.getElementById("rightPic").src = "./assets/mountain.jpg";
                 break;
             case 2://water
                 rightName.innerHTML = "water";
+                document.getElementById("rightPic").src = "./assets/water.jpg";
                 break;
             case 3://gap
                 rightName.innerHTML = "gap"
+                document.getElementById("rightPic").src = "./assets/sky.jpg";
                 break;
             case 4://cave
                 rightName.innerHTML = "cave";
+                document.getElementById("rightPic").src = "./assets/cave64.jpg";
                 break;
             case 8://exit
                 rightName.innerHTML = "exit";
+                document.getElementById("rightPic").src = "./assets/yellow.jpg";
                 break;
         }
     }
     rightHeight.innerHTML = currentLevel.getUIData().cursorTile.height.toString();
+    
 }
 
 function winLevel(){
