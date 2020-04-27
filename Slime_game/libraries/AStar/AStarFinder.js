@@ -1,4 +1,4 @@
-import {checkNeighbor} from "../../classes/Pathing.js";
+import {checkNeighbor, neighborConfirm} from "../../classes/Pathing.js";
 import {Heap} from '../heap.js';
 import { backtrace } from './Util.js';
 import {Vertex} from './Vertex.js';
@@ -84,7 +84,7 @@ AStarFinder.prototype.findPath = function(startX, startY, endX, endY, board, ent
         // get neigbours of the current node
         //MODIFICATION: getNeighbors moved to this file at the bottom,
         //rewritten to work with checkNeighbor in our pathing.js file
-        neighbors = getNeighbors(entity, this.nodeBoard, node, isOccupied, endX, endY);
+        neighbors = getNeighbors(entity, board, this.nodeBoard, node, isOccupied, endX, endY);
         for (i = 0, l = neighbors.length; i < l; ++i) {
             neighbor = neighbors[i];
 
@@ -124,10 +124,24 @@ AStarFinder.prototype.findPath = function(startX, startY, endX, endY, board, ent
     return [];
 };
 
-function getNeighbors(entity, nodeBoard, pathNode, isOccupied, endX, endY){
+function getNeighbors(entity, board, nodeBoard, pathNode, isOccupied, endX, endY){
     var sourceX = pathNode.x;
     var sourceY = pathNode.y;
     var neighbors = []
+    if(neighborConfirm(entity, board, pathNode.x, pathNode.y, sourceX, sourceY - 1, isOccupied, endX, endY)){
+        neighbors.push(nodeBoard[sourceX][sourceY - 1]);
+    }
+    if(neighborConfirm(entity, board, pathNode.x, pathNode.y, sourceX + 1, sourceY, isOccupied, endX, endY)){
+        neighbors.push(nodeBoard[sourceX + 1][sourceY]);
+    }
+    if(neighborConfirm(entity, board, pathNode.x, pathNode.y, sourceX, sourceY + 1, isOccupied, endX, endY)){
+        neighbors.push(nodeBoard[sourceX][sourceY + 1]);
+    }
+    if(neighborConfirm(entity, board, pathNode.x, pathNode.y, sourceX - 1, sourceY, isOccupied, endX, endY)){
+        neighbors.push(nodeBoard[sourceX - 1][sourceY]);
+    }
+
+    /*
     if(checkNeighbor(entity, pathNode.tile, nodeBoard[sourceX][sourceY - 1].tile, isOccupied, endX, endY)){
         neighbors.push(nodeBoard[sourceX][sourceY - 1]);
     }
@@ -140,6 +154,7 @@ function getNeighbors(entity, nodeBoard, pathNode, isOccupied, endX, endY){
     if(checkNeighbor(entity, pathNode.tile, nodeBoard[sourceX - 1][sourceY].tile, isOccupied, endX, endY)){
         neighbors.push(nodeBoard[sourceX - 1][sourceY]);
     }
+    */
 
     return neighbors;
 }

@@ -80,11 +80,12 @@ function hover(level){//initiates methods when cursor hovers over entities/tiles
 }
 
 //Calls checkneighbor if destination tile exists
-function neighborConfirm(entity, board, sourceX, sourceY, destX, destY) {
-    if(destX >= 0 && destX < board.tileArray.length && destY >= 0 && destY < board.tileArray[0].length) {
+function neighborConfirm(entity, board, sourceX, sourceY, destX, destY, endX, endY) {
+    //if(destX >= 0 && destX < board.tileArray.length && destY >= 0 && destY < board.tileArray[0].length) {
+    if(board.tileCheck(destX, destY)) {
         let sourceTile = board.tileArray[sourceX][sourceY];
         let destTile = board.tileArray[destX][destY];
-        return checkNeighbor(entity, sourceTile, destTile, false);
+        return checkNeighbor(entity, sourceTile, destTile, false, endX, endY);
     }
     else {
         return false;
@@ -191,4 +192,4 @@ function wipeOverlay(board){
     }
 }
 
-export {hover, checkNeighbor, aStar, wipeOverlay, movementOverlayHelper, occupied};
+export {hover, checkNeighbor, neighborConfirm, aStar, wipeOverlay, movementOverlayHelper, occupied};
