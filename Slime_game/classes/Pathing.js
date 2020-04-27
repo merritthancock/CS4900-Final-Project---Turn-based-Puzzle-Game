@@ -128,7 +128,13 @@ function movementOverlayHelper(board, entity){
     let entityPos = entity.position;//for player only
     //This if/else statement is meant to allow the overlay to work on entities that have no AP
     //at the moment. It otherwise shows the player's remaining movement.
-    let range = entity.remainingAP;
+    let range = 0;
+    if(entity.remainingAP == 0) {
+        range = entity.ap;
+    }
+    else {
+        range = entity.remainingAP;
+    }
 
     movementOverlay(entityPos[0], entityPos[2], range, board, entity);
     
