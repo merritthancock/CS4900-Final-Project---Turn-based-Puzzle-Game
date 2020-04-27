@@ -11,6 +11,7 @@ import {currentLevel, changeLevel} from "./Global.js";
 import { NavNode } from "../libraries/yuka-master/src/yuka.js";
 import {occupied} from "./Pathing.js";
 import {getLock, releaseLock} from "../Semaphore.js";
+import {TWEEN} from "../libraries/tween.js";
 
 // declare variables
 let windowWidth;
@@ -385,6 +386,7 @@ function animate() {
             currentLevel.enemies[i].mixer.update(.025);
         }
     }
+    TWEEN.update();
     updateRender();
 }
 start();

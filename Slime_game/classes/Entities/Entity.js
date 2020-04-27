@@ -1,5 +1,6 @@
 import {GameEntity} from "../../libraries/yuka-master/src/yuka.js";
 import {sleep, degToRad } from "../Global.js";
+import {TWEEN} from "../../libraries/tween.js";
 
 class Entity extends GameEntity {
     constructor(position, name){
@@ -23,10 +24,13 @@ class Entity extends GameEntity {
     //Function moves player to a given position. Only call after validation.
     //TODO: Play animations to move along path rather than jumping to set location.
     moveEntity(x, y, z) {
+        let tween = new TWEEN.Tween(this.model.position);
+        tween.to({ x: x, y: y, z: z }, 100);
+        tween.start();
         this.position[0] = x;
         this.position[1] = y;
         this.position[2] = z;
-        this.model.position.set(x,y,z);
+        //this.model.position.set(x,y,z);
     }
 
     //Helper method to rotate the entity slowly over time (WIP)
