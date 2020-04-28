@@ -1,5 +1,6 @@
 import {GameEntity} from "../../libraries/yuka-master/src/yuka.js";
 import {sleep, degToRad } from "../Global.js";
+import {TWEEN} from "../../libraries/tween.js";
 
 class Entity extends GameEntity {
     constructor(position, name){
@@ -23,30 +24,42 @@ class Entity extends GameEntity {
     //Function moves player to a given position. Only call after validation.
     //TODO: Play animations to move along path rather than jumping to set location.
     moveEntity(x, y, z) {
+        let tween = new TWEEN.Tween(this.model.position);
+        tween.to({ x: x, y: y, z: z }, 100);
+        tween.start();
         this.position[0] = x;
         this.position[1] = y;
         this.position[2] = z;
-        this.model.position.set(x,y,z);
+        //this.model.position.set(x,y,z);
     }
 
     //Helper method to rotate the entity slowly over time (WIP)
-    async rotateEntity(rotationGoal) {
-        console.log("ROTATING TO: " + rotationGoal);
+    async rotateEntity(destination) {
+        let rotationGoal = 0;
+        if(this.position[0] < destination.tile.position[0]) {
+            rotationGoal = 90;
+        }
+        else if (this.position[0] > destination.tile.position[0]) {
+            rotationGoal = 270;
+        }
+        else if (this.position[2] < destination.tile.position[2]) {
+            rotationGoal = 0;
+        }
+        else if (this.position[2] > destination.tile.position[2]) {
+            rotationGoal = 180;
+        }
+        
         //Set currentRotation and rotationGoal such that they are 360 degrees instead of 0
         let currentRotation = this.model.rotation.y;
         if(this.model.rotation.y == 0) {
             currentRotation = degToRad(360);
         }
-        if(rotationGoal == 0) {
-            rotationGoal = 360;
-        }
         //calculate rotation and slowly rotate model
-        let rotationTotal = degToRad(rotationGoal) - currentRotation;
+        let rotationTotal = degToRad(rotationGoal) - Math.abs(currentRotation);
         if(Math.abs(rotationTotal) > 3.1415926535) {
             rotationTotal *= -1;
             rotationTotal = 2*3.1415926535 - rotationTotal;
         }
-        console.log("APPLYING TOTAL ROTATION: " + rotationTotal);
 
         let rotationIncrement = rotationTotal / 10.0;
         for(let j = 0; j < 10 && this.model.rotation.y != degToRad(rotationGoal); j++) {

@@ -321,6 +321,6 @@ function buildLevel3() {
 //export {scene2}
 //export {buildLevel1};
 export {buildTestLevel};
-export {buildLevel3};
+//export {buildLevel3};
 //export {testLevel2}
 export {resourceTracker};

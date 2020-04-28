@@ -16,6 +16,11 @@ class PatrolState extends State{
         if(enemy.seesPlayer()) {
             enemy.stateMachine.changeTo(PURSUE);
         }
+        //if made it to node, advance the node
+        let pos = enemy.path.current();
+        if(enemy.position[0] == pos[0] && enemy.position[2] == pos[2]){
+            enemy.path.advance();
+        }
         enemy.moveEPath(1);
     }
 

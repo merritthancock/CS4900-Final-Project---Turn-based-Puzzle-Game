@@ -101,18 +101,29 @@ class Cursor extends Entity {
     }
 
     moveCursor(direction){
+        let z = this.position[2];
+        let x = this.position[0];
+        
         switch(direction){
             case "forward":
-                this.position[2] += 1;
+                if(currentLevel.board.tileCheck(x, z + 1)) {
+                    this.position[2] += 1;
+                }
                 break;
             case "backward":
-                this.position[2] -= 1;
+                if(currentLevel.board.tileCheck(x, z - 1)) {
+                    this.position[2] -= 1;
+                }
                 break;
             case "left":
-                this.position[0] += 1;
+                if(currentLevel.board.tileCheck(x + 1, z)) {
+                    this.position[0] += 1;
+                }
                 break;
             case "right":
-                this.position[0] -= 1;
+                if(currentLevel.board.tileCheck(x - 1, z)) {
+                    this.position[0] -= 1;
+                }
                 break;
         }
 
