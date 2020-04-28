@@ -10,6 +10,8 @@ import {buildLevel2} from "./Levels/Level2.js";
 import {currentLevel, changeLevel} from "./Global.js";
 import { NavNode } from "../libraries/yuka-master/src/yuka.js";
 import {occupied} from "./Pathing.js";
+import {getLock, releaseLock} from "../Semaphore.js";
+import {TWEEN} from "../libraries/tween.js";
 
 // declare variables
 let windowWidth;
@@ -191,7 +193,7 @@ let loadingManager = new THREE.LoadingManager();
 loadingManager.onStart = function ( url, itemsLoaded, itemsTotal ) {
     console.log("Loading begins....");
     loadingScreen.style.display = "block";
-
+    
 };
 loadingManager.onLoad = function ( ) {
     console.log("Loading complete!");
@@ -230,10 +232,12 @@ function loadModel(entity, loader) {
 
 function loadTextures(level) {
     let textureLoadingManager = new THREE.LoadingManager();
+    getLock("Loader");
     let textureLoader = new THREE.TextureLoader(textureLoadingManager);
     textureLoadingManager.onLoad = function () {
         level.board.buildBoard(resourceTracker);
         loadBoard(scene, currentLevel);
+        releaseLock("Loader");
     }
     level.board.textures[0] = resourceTracker.track(textureLoader.load( './assets/grass.jpg' ));
     level.board.textures[2] = resourceTracker.track(textureLoader.load( './assets/mountain.jpg' ));
@@ -409,6 +413,7 @@ function animate() {
             currentLevel.enemies[i].mixer.update(.025);
         }
     }
+    TWEEN.update();
     updateRender();
 }
 start();

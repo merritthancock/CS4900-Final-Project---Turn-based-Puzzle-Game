@@ -96,19 +96,7 @@ class Player extends Entity {
             tile.position[0], tile.position[2], currentLevel.board, currentLevel.player);
         //Move along route given
         for(let i = 1; i < route.length && this.decrementAP() >= 0; i++) {
-            //Rotate unit
-            if(this.position[0] < route[i].tile.position[0]) {
-                await this.rotateEntity(90);
-            }
-            else if (this.position[0] > route[i].tile.position[0]) {
-                await this.rotateEntity(270);
-            }
-            else if (this.position[2] < route[i].tile.position[2]) {
-                await this.rotateEntity(0);
-            }
-            else if (this.position[2] > route[i].tile.position[2]) {
-                await this.rotateEntity(180);
-            }
+            await this.rotateEntity(route[i]);
 
             //Move unit
             //moveAnimate(this);

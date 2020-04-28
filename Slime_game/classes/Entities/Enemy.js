@@ -60,23 +60,12 @@ class Enemy extends Entity {
         return false;
     }
 
-    moveEnemy(route, moves) {
+    async moveEnemy(route, moves) {
         //Move along the route for the number of moves allowed
         for(let i = 1; i < route.length && moves > 0; i++) {
 
             //Rotate unit
-            if(this.position[0] < route[i].tile.position[0]) {
-                this.model.rotation.y = degToRad(90);
-            }
-            else if (this.position[0] > route[i].tile.position[0]) {
-                this.model.rotation.y = degToRad(270);
-            }
-            else if (this.position[2] < route[i].tile.position[2]) {
-                this.model.rotation.y = degToRad(0);
-            }
-            else if (this.position[2] > route[i].tile.position[2]) {
-                this.model.rotation.y = degToRad(180);
-            }
+            await this.rotateEntity(route[i]);
 
             //Move unit
             currentLevel.board.tileArray[this.position[0]][this.position[2]].occupant = null;
@@ -93,11 +82,6 @@ class Enemy extends Entity {
 
         //Move along the route for the number of moves allowed
         this.moveEnemy(route, moves);
-
-        //if made it to node, advance the node
-        if(this.position[0] == pos[0] && this.position[2] == pos[2]){
-            this.path.advance();
-        }
     }
 
     //Moves the enemy in the direction of the player

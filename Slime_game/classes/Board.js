@@ -47,6 +47,24 @@ class Board {
         this.selected = null;
         wipeOverlay(this);
     }
+
+    //returns true if tile exists at these coordinates
+    tileCheck(x, z) {
+        //Ensure tile is within array, first.
+        if(x >= 0 && x < this.tileMap.length && z >= 0 && z < this.tileMap[0].length) {
+            //Ensure tile isn't a void space
+            switch(this.tileMap[x][z]) {
+                case 0:
+                case 1:
+                case 3:
+                case 4:
+                case 8:
+                    return true;
+                default:
+            }
+        }
+        return false;
+    }
 }
 
 class Tile {
