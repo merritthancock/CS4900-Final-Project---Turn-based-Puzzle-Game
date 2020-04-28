@@ -60,12 +60,25 @@ function buildLevel3() {
 
     let enemies = [];
 
-    let enemyPos = [8, 1, 5];
-    //let pinpodL3 = new Pinpod(enemyPosL3, "pinpod", 0.5, 4);
+    let enemyPos = [6, 1, 11];
+    let pinpod1 = new Pinpod(enemyPos, "pinpod1", 0.5, 4);
 
+    enemyPos = [5,1,7];
+    let pinpod2 = new Pinpod(enemyPos, "pinpod3", 0.5, 3);
+
+    enemyPos = [13,1,6];
+    let pinpod3 = new Pinpod(enemyPos, "pinpod3", 0.5, 2);
+
+    enemyPos = [11,1,10];
+    let pinpod4 = new Pinpod(enemyPos, "pinpod4", 0.5, 5);
+
+    enemyPos = [8,1,5];
     let boss = new Pinbeast(enemyPos, "Pinbeast", 20, 1);
 
-
+    enemies.push(pinpod1);
+    enemies.push(pinpod2);
+    enemies.push(pinpod3);
+    enemies.push(pinpod4);
     enemies.push(boss);
 
     let level3 = new Level(heightMap, tileMap, enemies, player, cursor);
