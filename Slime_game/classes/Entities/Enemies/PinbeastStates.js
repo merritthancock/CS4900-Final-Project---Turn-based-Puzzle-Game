@@ -39,20 +39,30 @@ class ActionState extends State {
         enemy.path.add([x, 1, z]);
         
         enemy.attackCharge = 3;
+        
+        enemy.babies = 4;
+        
     }
 
     execute(enemy){
         //checks how many pinpods remain on level
-        enemy.babies = 0;
+        //enemy.babies = 0;
+        let actual = 0;
         for(let i = 0; i < currentLevel.enemies.length; i++){
            if(currentLevel.enemies[i].type == 'PINPOD'){
-               enemy.babies++;
+               actual++;
            } 
         }
-        console.log(enemy.babies);
-        if(enemy.babies == 0){
+        console.log(actual);
+        if(actual == 0){
             enemy.stateMachine.changeTo(SPAWN);
         }
+        else if (actual != enemy.babies){//resetting attack charge with each absorb
+            //alert animation
+            enemy.attackCharge += 3;
+            enemy.babies = actual;
+        }
+
         else{
             console.log(enemy.attackCharge, " turns until attack!");
             enemy.attackCharge--;
@@ -73,16 +83,16 @@ class AOEState extends State {
     enter(enemy){
         //attack animation HERE
         //uses AOE attack
-        for(let i = 0; i < currentLevel.enemies.length; i++){
-            if(currentLevel.enemies[i].type != 'PINBEAST' || currentLevel.enemies[i].type != 'PINPOD'){
-                let status = currentLevel.enemies[i].takeDamage(enemy.attackPower);
-                if (status == 'DEAD'){
-                    currentLevel.enemies[i].model.visible = false;
-                    currentLevel.board.tileArray[currentLevel.enemies[i].position[0]][currentLevel.enemies[i].position[2]].occupant = null;
-                    currentLevel.enemies.splice(i,1);
-               }
-            }
-        }
+       // for(let i = 0; i < currentLevel.enemies.length; i++){
+         //   if(currentLevel.enemies[i].type != 'PINBEAST' || currentLevel.enemies[i].type != 'PINPOD'){
+           //     let status = currentLevel.enemies[i].takeDamage(enemy.attackPower);
+             //   if (status == 'DEAD'){
+               //     currentLevel.enemies[i].model.visible = false;
+                 //   currentLevel.board.tileArray[currentLevel.enemies[i].position[0]][currentLevel.enemies[i].position[2]].occupant = null;
+                   // currentLevel.enemies.splice(i,1);
+               //}
+           // }
+       // }
         console.log("MASSIVE DAMAGE TAKEN");
         enemy.attack(enemy.attackPower);
         enemy.stateMachine.changeTo(ACTION);
