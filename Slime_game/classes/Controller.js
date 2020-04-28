@@ -332,7 +332,6 @@ function updateToolTips(){
     let tileOccupant = occupied(currentLevel.board);
     if(tileOccupant != "None"){
         rightType.innerHTML = "Entity"
-        rightName.innerHTML = tileOccupant;
         rightMass.style['opacity'] = '0.8';
         rightMass.style.display = "block";
         rightMass.innerHTML = "Mass: " + cursTile.occupant.mass.toString();
@@ -340,9 +339,11 @@ function updateToolTips(){
         //set picture
         switch(tileOccupant){
             case "player":
+                rightName.innerHTML = "Player";
                 document.getElementById("rightPic").src = "./assets/slime.jpg";
                 break;
             default:
+                rightName.innerHTML = cursTile.occupant.type;
                 document.getElementById("rightPic").src = "./assets/skull.jpg";
                 break;
 
