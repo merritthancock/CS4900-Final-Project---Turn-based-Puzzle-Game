@@ -6,7 +6,6 @@ import {Player} from "../Entities/Player.js";
 import {Cursor} from "../Entities/Cursor.js";
 
 function buildLevel2() {
-    //30x26
     let tileMap = [
         [9, 9, 9, 9, 9, 9, 9, 1, 4, 4, 4, 4, 4, 4, 1, 9, 9, 9, 9, 9, 9, 9,],
         [9, 9, 9, 9, 9, 9, 1, 1, 0, 4, 4, 4, 4, 0, 1, 1, 9, 9, 9, 9, 9, 9,],
