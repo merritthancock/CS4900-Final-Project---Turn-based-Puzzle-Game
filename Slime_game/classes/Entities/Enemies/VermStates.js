@@ -15,6 +15,12 @@ class PatrolState extends State {
         }
         else{
             console.log(enemy.nestLocation);
+            //advance node if possible
+            let pos = enemy.path.current();
+            if(enemy.position[0] == pos[0] && enemy.position[2] == pos[2]){
+                enemy.path.advance();
+            }
+
             enemy.moveEPath(1);
         }
     }

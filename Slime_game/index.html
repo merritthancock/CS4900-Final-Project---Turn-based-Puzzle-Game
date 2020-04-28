@@ -12,6 +12,7 @@
     <script src="./libraries/GLTFLoader.js"></script>
     <script src="./libraries/OrbitControls.js"></script>
     <script type="module" src="./libraries/yuka-master/src/yuka.js"></script>
+    <script type="module" src="./libraries/tween.js"></script>
     <script type="module" src="./classes/Entities/Entity.js"></script>
     <script type="module" src="./classes/Entities/Cursor.js"></script>
     <script type="module" src="./classes/Entities/Enemy.js"></script>
@@ -83,7 +84,8 @@
 
         <div class="winLevel" id="winLevel">
             <label id="winText">You Win!</label>
-            <button class="divBtn" id="menuBtn">Main Menu</button>
+            <button class="loseBtn" id="menuBtn" style="right:30px">Main Menu</button>
+            <button class="loseBtn" id="nextLevel" style="left:30px">Next Level</button>
         </div>
         <div class="loseLevel" id="loseLevel">
             <label id="loseText">You Lose!</label>
@@ -130,8 +132,8 @@
             <table>
                 <tr>
                     <td rowspan="3">
-                        <div id="rightPic">
-                            <img style="width:75px;height:75px;"" src="./assets/grass.jpg" >
+                        <div>
+                            <img id="rightPic" style="width:75px;height:75px;"" src="./assets/grass.jpg" >
                         </div>
                     </td>
                     <td>Occupant: <label id="type">Terrain</label></td>

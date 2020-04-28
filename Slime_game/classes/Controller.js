@@ -11,6 +11,8 @@ import {buildLevel3} from "./Levels/Level3.js";
 import {currentLevel, changeLevel} from "./Global.js";
 import { NavNode } from "../libraries/yuka-master/src/yuka.js";
 import {occupied} from "./Pathing.js";
+import {getLock, releaseLock} from "../Semaphore.js";
+import {TWEEN} from "../libraries/tween.js";
 
 // declare variables
 let windowWidth;
@@ -31,6 +33,7 @@ let level3Button = document.getElementById("Level3");
 let menuBtn = document.querySelector("#menuBtn");
 let loseBtn = document.querySelector("#loseBtn");
 let loseMenuBtn = document.querySelector("#loseMenuBtn");
+let nextLevel = document.querySelector("#nextLevel");
 let scene = new THREE.Scene();
 let loadingScreen = document.getElementById("loading-screen");
 let replayTracker;
@@ -104,6 +107,13 @@ loseBtn.onclick = function(){//replay
             loseMenuBtn.click();
             break;
     }
+}
+
+nextLevel.onclick = function(){//next level
+    winScreen.style.display = "none";
+    loseScreen.style['pointer-events'] = 'none';
+    replayTracker++;
+    loseBtn.click();
 }
 
 
@@ -184,7 +194,7 @@ let loadingManager = new THREE.LoadingManager();
 loadingManager.onStart = function ( url, itemsLoaded, itemsTotal ) {
     console.log("Loading begins....");
     loadingScreen.style.display = "block";
-
+    
 };
 loadingManager.onLoad = function ( ) {
     console.log("Loading complete!");
@@ -208,8 +218,8 @@ function loadModel(entity, loader) {
             entity.model = gltf.scene;
             entity.mixer = new THREE.AnimationMixer(gltf.scene);
             let clips = gltf.animations;
-            //let clip = THREE.AnimationClip.findByName( clips, 'idle' );
-            let clip = clips[0];
+            entity.animations = clips;
+            let clip = THREE.AnimationClip.findByName( clips, 'idle' );
             let action = entity.mixer.clipAction( clip );
             action.play();
 
@@ -223,10 +233,12 @@ function loadModel(entity, loader) {
 
 function loadTextures(level) {
     let textureLoadingManager = new THREE.LoadingManager();
+    getLock("Loader");
     let textureLoader = new THREE.TextureLoader(textureLoadingManager);
     textureLoadingManager.onLoad = function () {
         level.board.buildBoard(resourceTracker);
         loadBoard(scene, currentLevel);
+        releaseLock("Loader");
     }
     level.board.textures[0] = resourceTracker.track(textureLoader.load( './assets/grass.jpg' ));
     level.board.textures[2] = resourceTracker.track(textureLoader.load( './assets/mountain.jpg' ));
@@ -322,8 +334,21 @@ function updateToolTips(){
     if(tileOccupant != "None"){
         rightType.innerHTML = "Entity"
         rightName.innerHTML = tileOccupant;
+        rightMass.style['opacity'] = '0.8';
         rightMass.style.display = "block";
-        //rightMass.innerHTML = currentLevel.board.cursTile.occupant.mass.toString();
+        rightMass.innerHTML = "Mass: " + cursTile.occupant.mass.toString();
+
+        //set picture
+        switch(tileOccupant){
+            case "player":
+                document.getElementById("rightPic").src = "./assets/slime.jpg";
+                break;
+            default:
+                document.getElementById("rightPic").src = "./assets/skull.jpg";
+                break;
+
+        }
+        
     }
     else{    
         rightMass.style.display = "none";
@@ -332,25 +357,32 @@ function updateToolTips(){
         switch(tileType){
             case 0://grass
                 rightName.innerHTML = "grass";
+                document.getElementById("rightPic").src = "./assets/grass64.jpg";
                 break;
             case 1://rock
                 rightName.innerHTML = "rock";
+                document.getElementById("rightPic").src = "./assets/mountain.jpg";
                 break;
             case 2://water
                 rightName.innerHTML = "water";
+                document.getElementById("rightPic").src = "./assets/water.jpg";
                 break;
             case 3://gap
                 rightName.innerHTML = "gap"
+                document.getElementById("rightPic").src = "./assets/sky.jpg";
                 break;
             case 4://cave
                 rightName.innerHTML = "cave";
+                document.getElementById("rightPic").src = "./assets/cave64.jpg";
                 break;
             case 8://exit
                 rightName.innerHTML = "exit";
+                document.getElementById("rightPic").src = "./assets/yellow.jpg";
                 break;
         }
     }
     rightHeight.innerHTML = currentLevel.getUIData().cursorTile.height.toString();
+    
 }
 
 function winLevel(){
@@ -372,16 +404,17 @@ function animate() {
     requestAnimationFrame(animate);
     renderer.render(scene, camera);
     if(currentLevel.player.mixer) {
-        currentLevel.player.mixer.update(.017);
+        currentLevel.player.mixer.update(.025);
     }
     if(currentLevel.cursor.mixer) {
-        currentLevel.cursor.mixer.update(.017);
+        currentLevel.cursor.mixer.update(.025);
     }
     for(let i = 0; i < currentLevel.enemies.length; i++) {
         if(currentLevel.enemies[i].mixer) {
-            currentLevel.enemies[i].mixer.update(.017);
+            currentLevel.enemies[i].mixer.update(.025);
         }
     }
+    TWEEN.update();
     updateRender();
 }
 start();

@@ -4,6 +4,7 @@ import { currentLevel, sleep, degToRad } from "../Global.js";
 import {aStar} from "../Pathing.js";
 import {NormState, SpikeState} from "./PlayerAbilities.js";
 import { StateMachine } from "../../libraries/yuka-master/src/yuka.js";
+import {moveAnimate} from "../Animation.js";
 
 //Players inherit from Entity
 class Player extends Entity {
@@ -95,26 +96,15 @@ class Player extends Entity {
             tile.position[0], tile.position[2], currentLevel.board, currentLevel.player);
         //Move along route given
         for(let i = 1; i < route.length && this.decrementAP() >= 0; i++) {
-            //Rotate unit
-            if(this.position[0] < route[i].tile.position[0]) {
-                await this.rotateEntity(90);
-            }
-            else if (this.position[0] > route[i].tile.position[0]) {
-                await this.rotateEntity(270);
-            }
-            else if (this.position[2] < route[i].tile.position[2]) {
-                await this.rotateEntity(0);
-            }
-            else if (this.position[2] > route[i].tile.position[2]) {
-                await this.rotateEntity(180);
-            }
+            await this.rotateEntity(route[i]);
 
             //Move unit
+            //moveAnimate(this);
             currentLevel.board.tileArray[this.position[0]][this.position[2]].occupant = null;
             this.moveEntity(route[i].tile.position[0], route[i].tile.height + 1, route[i].tile.position[2]);
             currentLevel.board.tileArray[this.position[0]][this.position[2]].occupant = this;
 
-            await sleep(100);
+            await sleep(400);
         }
         if(tile.occupant.name != "player" && tile.occupant.absorbCheck()) {
             this.absorb(tile.occupant);
