@@ -11,6 +11,8 @@ class Level{
         this.player = player;
         //Sets cursor
         this.cursor = cursor;
+
+        this.respawnable = enemies;
     }
 
     //Function to update UI data
