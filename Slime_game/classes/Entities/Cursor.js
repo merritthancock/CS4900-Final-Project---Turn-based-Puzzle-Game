@@ -35,7 +35,7 @@ class Cursor extends Entity {
         }
 
         //playerSelState is a function that is carried out when the player is the currently selected entity
-        this.playerSelState = function (x, y, tile) {
+        /*this.playerSelState = function (x, y, tile) {
             //If tile is player, deselect and switch back to neutral state
             if(tile.occupant != null && tile.occupant.name == "player") {
                 currentLevel.board.deselect();
@@ -49,10 +49,10 @@ class Cursor extends Entity {
             let yDistance = Math.abs(y - playerY);
             if(xDistance + yDistance <= currentLevel.player.remainingAP) {
                 //absorption of enemy (within ap range, enemy occupies a space, enemy has <= mass than player)
-                if(xDistance + yDistance <= currentLevel.player.remainingAP && 
+                if(xDistance + yDistance <= currentLevel.player.remainingAP &&
                     currentLevel.board.tileArray[x][y].occupant != null &&
                     currentLevel.board.tileArray[x][y].occupant.mass <= currentLevel.player.mass && 
-                    currentLevel.board.tileArray[x][y].occupant.absorbable == true){
+                    currentLevel.board.tileArray[x][y].occupant.absorbable == true) {
 
                     console.log("ABSORB");
                     //play absorb animation
@@ -74,6 +74,19 @@ class Cursor extends Entity {
                 this.activeState = this.neutralState;
                 return;
             }
+        }*/
+        this.playerSelState = function(x, y, tile) {
+            //If tile is not accessible by player, deselect
+            if(!tile.highlighted) {
+                currentLevel.board.deselect();
+                this.activeState = this.neutralState;
+                return;
+            }
+
+            //If tile is accessible, move player. (player will absorb enemy through moveplayer)
+            currentLevel.player.movePlayer(tile);
+
+            currentLevel.board.deselect();
         }
 
         //enemySelState is a function that is carried out when any enemy is the currently selected entity
@@ -122,7 +135,7 @@ class Cursor extends Entity {
     }
 
     /*
-    //THIS method will be BANISHED TO THE PITS OF HELL FOR ITS CRIMES AGAINST SOFTWARE ENGINEERS THE WORLD OVER.
+    //This method will be BANISHED TO THE PITS OF HELL FOR ITS CRIMES AGAINST SOFTWARE ENGINEERS THE WORLD OVER.
     click() {
         let cursorX = this.position[0];
         let cursorY = this.position[2];

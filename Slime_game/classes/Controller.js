@@ -9,6 +9,7 @@ import {buildLevel2} from "./Levels/Level2.js";
 //import {testLevel2} from "./LevelManager.js";
 import {currentLevel, changeLevel} from "./Global.js";
 import { NavNode } from "../libraries/yuka-master/src/yuka.js";
+import {occupied} from "./Pathing.js";
 
 // declare variables
 let windowWidth;
@@ -28,8 +29,10 @@ let level2Button = document.getElementById("Level2");
 let level3Button = document.getElementById("Level3");
 let menuBtn = document.querySelector("#menuBtn");
 let loseBtn = document.querySelector("#loseBtn");
+let loseMenuBtn = document.querySelector("#loseMenuBtn");
 let scene = new THREE.Scene();
 let loadingScreen = document.getElementById("loading-screen");
+let replayTracker;
 
 //Tool Tips Variables
 let leftPic = document.querySelector("#playerPic");
@@ -42,42 +45,66 @@ let rightPic = document.querySelector("#topRightTip");
 let rightType = document.querySelector("#type");
 let rightHeight = document.querySelector("#terrainHeight");
 let rightName = document.querySelector("#entityName");
-let rightAbility = document.querySelector("#rightAbility");
+let rightMass = document.querySelector("#rightMass");
 
 //Game setup tasks-----------------------------------------------
 //Sets height and width for game window
 windowWidth = window.innerWidth;
 windowHeight = window.innerHeight;
 
-menuBtn.onclick = function winClick(){
+
+menuBtn.onclick = function(){
     winScreen.style.display = "none";
     winScreen.style['pointer-events'] = 'none';
     loadingScreen.style.display = "block";
     canvas.style.display = "none";
 
-    //Dispose of all the contents of the scene graph
-    /*while(currentScene.children.length > 0) {
-        let obj = currentScene.children[0];
-        currentScene.remove(obj);
-        if(obj instanceof THREE.BufferGeometry) {
-            console.log("HIIIII");
-            obj.material.dispose();
-            obj.dispose();
-        }
-    }*/
-    //renderer.dispose();
     resourceTracker.dispose();
     loadingScreen.style.display = "none";
     menu.style.display = "block";
 };
 
-loseBtn.onclick = function(){
+loseMenuBtn.onclick = function(){//go back to menu
     loseScreen.style.display = "none";
     loseScreen.style['pointer-events'] = 'none';
-    
-    toolTips.style.display = "block";
-    rightTips.style.display = "block";
+    loadingScreen.style.display = "block";
+    canvas.style.display = "none";
+    resourceTracker.dispose();
+    loadingScreen.style.display = "none";
+    menu.style.display = "block";
+    loseScreen.style.display = "none";
+};
+
+loseBtn.onclick = function(){//replay
+    loseScreen.style.display = "none";
+    loseScreen.style['pointer-events'] = 'none';
+    loadingScreen.style.display = "block";
+    canvas.style.display = "none";
+    resourceTracker.dispose();
+    loadingScreen.style.display = "none";
+    toolTips.style['opacity'] = '0.8';
+    toolTips.style.display = "none";
+    rightTips.style.display = "none";
+    rightTips.style['opacity'] = '0.8';
+    switch(replayTracker){
+        case 0:
+            startButton.click();
+            break;
+        case 1:
+            level1Button.click();
+            break;
+        case 2:
+            level2Button.click();
+            break;
+        case 3:
+            level3Button.click();
+            break;
+        default :
+            loseMenuBtn.click();
+            break;
+    }
 }
+
 
 function start(){
     loadingScreen.style.display = "none";
@@ -90,18 +117,22 @@ function start(){
     //Test Level
     startButton.onclick = function(){
         console.log("Test Level");
+        replayTracker = 0;
         changeLevel(buildTestLevel());
         buildLevel();
     };
     //Level 1
     level1Button.onclick = function(){
         console.log("Level 1");
+        replayTracker = 1;
+        loseScreen.style.display = "none";
         changeLevel(buildLevel1());
         buildLevel();
     };
     //Level 2
     level2Button.onclick = function(){
         console.log("Level 2");
+        replayTracker = 2;
         changeLevel(buildLevel2());
         buildLevel(); 
     };
@@ -109,9 +140,9 @@ function start(){
     //Level 3
     level3Button.onclick = function(){
         console.log("Level 3");
+        replayTracker = 3;
         changeLevel(buildLevel3());
         buildLevel();
-      
     };
 }
 
@@ -281,6 +312,44 @@ function updateToolTips(){
 
     //Update top right tool tip
 
+
+    let selectTile = currentLevel.getUIData().selectedTile;
+    let cursTile = currentLevel.getUIData().cursorTile;/*
+    let playTile = currentLevel.getUIData().playerTile;*/
+
+    let tileOccupant = occupied(currentLevel.board);
+    if(tileOccupant != "None"){
+        rightType.innerHTML = "Entity"
+        rightName.innerHTML = tileOccupant;
+        rightMass.style.display = "block";
+        //rightMass.innerHTML = currentLevel.board.cursTile.occupant.mass.toString();
+    }
+    else{    
+        rightMass.style.display = "none";
+        rightType.innerHTML = "None";
+        let tileType = currentLevel.getUIData().cursorTile.type;
+        switch(tileType){
+            case 0://grass
+                rightName.innerHTML = "grass";
+                break;
+            case 1://rock
+                rightName.innerHTML = "rock";
+                break;
+            case 2://water
+                rightName.innerHTML = "water";
+                break;
+            case 3://gap
+                rightName.innerHTML = "gap"
+                break;
+            case 4://cave
+                rightName.innerHTML = "cave";
+                break;
+            case 8://exit
+                rightName.innerHTML = "exit";
+                break;
+        }
+    }
+    rightHeight.innerHTML = currentLevel.getUIData().cursorTile.height.toString();
 }
 
 function winLevel(){
@@ -290,7 +359,7 @@ function winLevel(){
     rightTips.style.display = "none";
 }
 
-function loseLevel(){
+function loseLevel() {
     loseScreen.style['pointer-events'] = 'auto';
     loseScreen.style.display = "block";
     loseScreen.style['opacity'] = '0.8';

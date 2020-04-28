@@ -42,14 +42,24 @@ class Player extends Entity {
     //Function absorbs enemy, increases mass, takes ability if available
     absorb(enemy){
         this.mass += enemy.mass;
+        console.log("ABSORB");
+        //play absorb animation
+        let index = currentLevel.enemies.indexOf(enemy);
+        //remove enemy from board
+        enemy.model.visible = false;
+        currentLevel.enemies.splice(index,1);
+        currentLevel.board.tileArray[enemy.position[0]][enemy.position[2]].occupant = null;
+        //Move player to enemy position
+        this.movePlayer(currentLevel.board.tileArray[enemy.position[0]][enemy.position[2]]);
+        
         if(enemy.type == 'PINPOD'){
             this.abilityUses = 3; //three spike uses
             this.stateMachine.changeTo('SPIKE');
 
         }
-    };
+    }
 
-    async movePlayer(destination){
+    /*async movePlayer(destination){
         //Get route from A*
         let route = aStar(this.position[0], this.position[2], 
             destination[0], destination[2], currentLevel.board, currentLevel.player);
@@ -77,7 +87,42 @@ class Player extends Entity {
             await sleep(100);
         }
         passTurn(currentLevel);
-    };
+    }*/
+
+    async movePlayer(tile) {
+        //Get route from A*
+        let route = aStar(this.position[0], this.position[2], 
+            tile.position[0], tile.position[2], currentLevel.board, currentLevel.player);
+        //Move along route given
+        for(let i = 1; i < route.length && this.decrementAP() >= 0; i++) {
+            //Rotate unit
+            if(this.position[0] < route[i].tile.position[0]) {
+                await this.rotateEntity(90);
+            }
+            else if (this.position[0] > route[i].tile.position[0]) {
+                await this.rotateEntity(270);
+            }
+            else if (this.position[2] < route[i].tile.position[2]) {
+                await this.rotateEntity(0);
+            }
+            else if (this.position[2] > route[i].tile.position[2]) {
+                await this.rotateEntity(180);
+            }
+
+            //Move unit
+            currentLevel.board.tileArray[this.position[0]][this.position[2]].occupant = null;
+            this.moveEntity(route[i].tile.position[0], route[i].tile.height + 1, route[i].tile.position[2]);
+            currentLevel.board.tileArray[this.position[0]][this.position[2]].occupant = this;
+
+            await sleep(100);
+        }
+        if(tile.occupant.name != "player" && tile.occupant.absorbCheck()) {
+            this.absorb(tile.occupant);
+
+        }
+
+        passTurn(currentLevel);
+    }
 
     //Function follows cursor
     followCursor(board){
@@ -85,7 +130,7 @@ class Player extends Entity {
         board.player.position = [...board.cursor.position]
         board.player.model.position.set(board.cursor.position[0], board.cursor.position[1], board.cursor.position[2]);
         board.tileArray[board.player.position[0]][board.player.position[2]].occupant = board.player;
-    };
+    }
     
     //player takes damage and loses mass
     takeDamage(damage){
