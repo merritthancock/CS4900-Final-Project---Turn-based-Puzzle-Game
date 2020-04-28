@@ -13,17 +13,23 @@ class SpawnState extends State { //PINBEAST IS ONLY VULNERABLE DURING THIS STATE
     }
 
     execute(enemy){
-        for(let i = 0; i < 4; i++){
+        if(enemy.babies < 4){
             let x = Math.floor(Math.random() * enemy.spawnRange + 1);
             let z = Math.floor(Math.random() * enemy.spawnRange + 1);
             let ePos = [enemy.position[0] + x, 1, enemy.position[2] + z];
-            let pinpod = new Pinpod(ePos, enemy.childID.toString(), 1, 2);
-            currentLevel.enemies.push(pinpod);
-            currentLevel.board.tileArray[ePos[0]][ePos[2]].occupant = pinpod;
+           // let pinpod = new Pinpod(ePos, enemy.childID.toString(), 1, 2);
+            //currentLevel.enemies.push(pinpod);
+            //currentLevel.board.tileArray[ePos[0]][ePos[2]].occupant = pinpod;
             enemy.childID++;
-            console.log(pinpod.position);
+           // console.log(pinpod.position);
+            enemy.stateMachine.changeTo(ACTION);
+            currentLevel.respawnable[enemy.babies].position = [enemy.position[0] + x, 1, enemy.position[2] + z];
+            currentLevel.respawnable[enemy.babies].model = 'visible';
+            enemy.babies++;
         }
-        enemy.stateMachine.changeTo(ACTION);
+        else{
+            enemy.stateMachine.changeTo(ACTION);
+        }
     }
 
     exit(enemy){
@@ -47,6 +53,7 @@ class ActionState extends State {
     execute(enemy){
         //checks how many pinpods remain on level
         //enemy.babies = 0;
+        console.log(currentLevel.respawnable);
         let actual = 0;
         for(let i = 0; i < currentLevel.enemies.length; i++){
            if(currentLevel.enemies[i].type == 'PINPOD'){
@@ -55,7 +62,7 @@ class ActionState extends State {
         }
         console.log(actual);
         if(actual == 0){
-            enemy.stateMachine.changeTo(SPAWN);
+            enemy.stateMachine.changeTo(CHARGE);
         }
         else if (actual != enemy.babies){//resetting attack charge with each absorb
             //alert animation
@@ -112,15 +119,22 @@ class AOEState extends State {
 class ChargeState extends State {//charges in direction of player
     enter(enemy){
        //Some tooltip to show the player to watch out
-       enemy.path.add(currentLevel.player.position);
+       //enemy.path.add([11, 1, 10]);
+       //console.log(currentLevel.player.position);
+       //console.log(enemy.path.current());
     }
 
     execute(enemy){
-        
+       enemy.moveToPlayer(10);
+        //while(enemy.position != currentLevel.player.position){
+            //enemy.moveEPath();
+           // enemy.moveToPlayer(1);
+       // }
+        enemy.stateMachine.changeTo(SPAWN);
     }
 
     exit(enemy){
-        
+        enemy.path.clear();
     }
 }
 
