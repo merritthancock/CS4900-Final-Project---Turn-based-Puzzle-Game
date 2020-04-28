@@ -80,12 +80,12 @@ function hover(level){//initiates methods when cursor hovers over entities/tiles
 }
 
 //Calls checkneighbor if destination tile exists
-function neighborConfirm(entity, board, sourceX, sourceY, destX, destY, endX, endY) {
+function neighborConfirm(entity, board, sourceX, sourceY, destX, destY, isOccupied, endX, endY) {
     //if(destX >= 0 && destX < board.tileArray.length && destY >= 0 && destY < board.tileArray[0].length) {
     if(board.tileCheck(destX, destY)) {
         let sourceTile = board.tileArray[sourceX][sourceY];
         let destTile = board.tileArray[destX][destY];
-        return checkNeighbor(entity, sourceTile, destTile, false, endX, endY);
+        return checkNeighbor(entity, sourceTile, destTile, isOccupied, endX, endY);
     }
     else {
         return false;
@@ -109,16 +109,16 @@ function movementOverlay(x, z, range, board, entity){//uses the flood fill algor
             }
         }*/
         //recursive call for surrounding spaces
-        if(neighborConfirm(entity, board, x, z, x+1, z)){
+        if(neighborConfirm(entity, board, x, z, x+1, z, false)){
             movementOverlay(x+1, z, range-1, board, entity);
         }
-        if(neighborConfirm(entity, board, x, z, x, z+1)){
+        if(neighborConfirm(entity, board, x, z, x, z+1, false)){
             movementOverlay(x, z+1, range-1, board, entity);
         }
-        if(neighborConfirm(entity, board, x, z, x-1, z)){
+        if(neighborConfirm(entity, board, x, z, x-1, z, false)){
             movementOverlay(x-1, z, range-1, board, entity);
         }
-        if(neighborConfirm(entity, board, x, z, x, z-1)){
+        if(neighborConfirm(entity, board, x, z, x, z-1, false)){
             movementOverlay(x, z-1, range-1, board, entity);
         }
     }
