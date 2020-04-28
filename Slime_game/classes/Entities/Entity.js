@@ -41,11 +41,12 @@ class Entity extends GameEntity {
         if(this.model.rotation.y == 0) {
             currentRotation = degToRad(360);
         }
+        /*
         if(rotationGoal == 0) {
             rotationGoal = 360;
-        }
+        }*/
         //calculate rotation and slowly rotate model
-        let rotationTotal = degToRad(rotationGoal) - currentRotation;
+        let rotationTotal = degToRad(rotationGoal) - Math.abs(currentRotation);
         if(Math.abs(rotationTotal) > 3.1415926535) {
             rotationTotal *= -1;
             rotationTotal = 2*3.1415926535 - rotationTotal;
