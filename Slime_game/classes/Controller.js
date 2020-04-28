@@ -304,7 +304,6 @@ function setupLevel(){
 }
 
 function updateToolTips(){
-    
     //Update left tool tip
     //let lvlObject = currentLevel.getUIData();
     jumpHeightTip.innerHTML = currentLevel.player.jumpHeight.toString();

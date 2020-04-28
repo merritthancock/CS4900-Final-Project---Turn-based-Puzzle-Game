@@ -4,6 +4,7 @@ import {hover} from "./classes/Pathing.js";
 import {currentLevel} from "./classes/Global.js";
 import { winLevel, loseLevel } from "./classes/Controller.js";
 import {updateToolTips} from "./classes/Controller.js";
+import {playSelect} from "./classes/Sounds.js";
 
 function updateRender(){
     if(unlocked && !masterLock) {
@@ -41,8 +42,8 @@ function updateRender(){
             getLock("inputHandler");
 
             currentLevel.cursor.click();
-
             hover(currentLevel);
+            playSelect();
             updateToolTips();
 
 
