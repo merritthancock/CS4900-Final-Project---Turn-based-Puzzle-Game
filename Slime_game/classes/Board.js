@@ -35,19 +35,35 @@ class Board {
         //Set player's position on the board
         this.tileArray[this.player.position[0]][this.player.position[2]].occupant = this.player;
     }
+    
+    //Select, then expand overlay
+    select(tile){
+            this.selected = tile;
+            console.log("SELECTED: " + this.selected.occupant.name);
+            movementOverlayHelper(this, tile.occupant);
+    }
+    //if selecting the same entity a second time, deselect and wipe overlay
+    deselect() {
+        this.selected = null;
+        wipeOverlay(this);
+    }
 
-    select(entity){
-        //if nothing is selected, go ahead and select, then expand overlay
-        if(this.selected == null){
-            this.selected = entity;
-            console.log(this.selected.name);
-            movementOverlayHelper(this, entity);
+    //returns true if tile exists at these coordinates
+    tileCheck(x, z) {
+        //Ensure tile is within array, first.
+        if(x >= 0 && x < this.tileMap.length && z >= 0 && z < this.tileMap[0].length) {
+            //Ensure tile isn't a void space
+            switch(this.tileMap[x][z]) {
+                case 0:
+                case 1:
+                case 3:
+                case 4:
+                case 8:
+                    return true;
+                default:
+            }
         }
-        //if selecting the same entity a second time, deselect and wipe overlay
-        else if(entity.name == this.selected.name){
-            this.selected = null;
-            wipeOverlay(this);
-        }
+        return false;
     }
 }
 
@@ -57,6 +73,8 @@ class Tile {
         this.position = position;
         this.height = height;
         this.type = type;
+        this.highlighted = false;
+        this.occupant = null;
         /*
         let grass = new THREE.TextureLoader().load( './assets/grass64.jpg' );
         let water = new THREE.TextureLoader().load( './assets/water.jpg' );

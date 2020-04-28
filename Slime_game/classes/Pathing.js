@@ -12,19 +12,19 @@ function aStar(startX, startY, endX, endY, board, entity) {
         console.log("No path exists!");
     }
     else {
-        //Truncate foundPath to be only a length equal to remainingAP or remainingMovement, whichever is shorter
-        let pathLength = Math.min(entity.remainingAP, entity.remainingMovement);
+        //Truncate foundPath to be only a length equal to remainingAP
+        /*let pathLength = entity.remainingAP;
         if(foundPath.length > pathLength) {
             let difference = foundPath.length - pathLength;
             for(let i = 0; i < difference - 1; i++) {
                 foundPath.pop();
             }
-        }
+        }*/
         return foundPath;
     }
 }
 
-//Checks neighboring tiles. To be used by both Flood Fill and A*
+//Checks neighboring tiles for traversability. To be used by both Flood Fill and A*
 function checkNeighbor(entity, sourceTile, destinationTile, isOccupied, endX, endZ){
     let maxHeight = entity.jumpHeight;
     let heightDifference = Math.abs(sourceTile.height - destinationTile.height);
@@ -36,13 +36,13 @@ function checkNeighbor(entity, sourceTile, destinationTile, isOccupied, endX, en
     if(destinationTile == null){
         return false;
     }
-    //Make sure the destination tile is within the movement range
+    //Make sure the destination tile is within the remaining AP
     //(this is taken care of in flood fill, but not in A*)
     //Enemy doesn't do this, because enemy needs to have a destination beyond movement range in mind
     if(!(entity instanceof Enemy)){
         let xDistance = Math.abs(destinationTile.position[0] - entity.position[0]);
         let zDistance = Math.abs(destinationTile.position[2] - entity.position[2]);
-        if(xDistance + zDistance > entity.movementRange){
+        if(xDistance + zDistance > entity.remainingAP){
             return false;
         }
     }
@@ -67,10 +67,9 @@ function checkNeighbor(entity, sourceTile, destinationTile, isOccupied, endX, en
 
 //FLOOD FILL IMPLEMENTATION
 function hover(level){//initiates methods when cursor hovers over entities/tiles
-    var cPos = level.cursor.position;
-    var type = level.board.tileMap[cPos[0]][cPos[2]];
-    var height = level.board.heightMap[cPos[0]][cPos[2]];
-    var pPos = level.player.position;
+    let cPos = level.cursor.position;
+    let type = level.board.tileMap[cPos[0]][cPos[2]];
+    let height = level.board.heightMap[cPos[0]][cPos[2]];
 
     //console.log(cPos);
     //console.log(pPos);
@@ -80,23 +79,46 @@ function hover(level){//initiates methods when cursor hovers over entities/tiles
     console.log("Occupied by: ", occupied(level.board));
 }
 
+//Calls checkneighbor if destination tile exists
+function neighborConfirm(entity, board, sourceX, sourceY, destX, destY, isOccupied, endX, endY) {
+    //if(destX >= 0 && destX < board.tileArray.length && destY >= 0 && destY < board.tileArray[0].length) {
+    if(board.tileCheck(destX, destY)) {
+        let sourceTile = board.tileArray[sourceX][sourceY];
+        let destTile = board.tileArray[destX][destY];
+        return checkNeighbor(entity, sourceTile, destTile, isOccupied, endX, endY);
+    }
+    else {
+        return false;
+    }
+}
+
 function movementOverlay(x, z, range, board, entity){//uses the flood fill algorithm to create overlay of all possible spaces to move
     if(range>=0 && x >= 0 && x < board.overlayMap.length && z >=0 && z < board.overlayMap[x].length){
         //Do not render a normal overlay tile that has an entity in it
         if(board.tileArray[x][z].occupant == null){
             board.overlayMap[x][z].overlay.material.visible = true;
+            board.tileArray[x][z].highlighted = true;
         }
+        //...unless that entity is an absorbable enemy, then highlight in red
+        /*else if(board.tileArray[x][z].occupant instanceof Enemy) {
+            if(board.tileArray[x][z].occupant.absorbCheck()){
+                let overlay = board.overlayMap[x][z].overlay;
+                overlay.material.color.setHex(0xAB4700);
+                overlay.material.visible = true;
+                board.tileArray[x][z].highlighted = true;
+            }
+        }*/
         //recursive call for surrounding spaces
-        if(checkNeighbor(entity, board.tileArray[x][z], board.tileArray[x+1][z], false)){
+        if(neighborConfirm(entity, board, x, z, x+1, z, false)){
             movementOverlay(x+1, z, range-1, board, entity);
         }
-        if(checkNeighbor(entity, board.tileArray[x][z], board.tileArray[x][z+1], false)){
+        if(neighborConfirm(entity, board, x, z, x, z+1, false)){
             movementOverlay(x, z+1, range-1, board, entity);
         }
-        if(checkNeighbor(entity, board.tileArray[x][z], board.tileArray[x-1][z], false)){
+        if(neighborConfirm(entity, board, x, z, x-1, z, false)){
             movementOverlay(x-1, z, range-1, board, entity);
         }
-        if(checkNeighbor(entity, board.tileArray[x][z], board.tileArray[x][z-1], false)){
+        if(neighborConfirm(entity, board, x, z, x, z-1, false)){
             movementOverlay(x, z-1, range-1, board, entity);
         }
     }
@@ -106,25 +128,29 @@ function movementOverlayHelper(board, entity){
     let entityPos = entity.position;//for player only
     //This if/else statement is meant to allow the overlay to work on entities that have no AP
     //at the moment. It otherwise shows the player's remaining movement.
-    let range;
-    if(entity.movementRange <= entity.remainingAP || entity.remainingAP <= 0) {
-        range = entity.movementRange;
+    let range = 0;
+    if(entity.remainingAP == 0) {
+        range = entity.ap;
     }
     else {
         range = entity.remainingAP;
     }
+
     movementOverlay(entityPos[0], entityPos[2], range, board, entity);
     
     //Highlight enemies in range (player only)
     if(entity.name == "player") {
         let enemies = currentLevel.enemies;
         for(let i = 0; i < enemies.length; i++) {
-            let xDistance = Math.abs(enemies[i].position[0] - entityPos[0]);
-            let zDistance = Math.abs(enemies[i].position[2] - entityPos[2]);
-            if(xDistance + zDistance <= range) {
+            let x = enemies[i].position[0];
+            let z = enemies[i].position[2];
+            let xDistance = Math.abs(x - entityPos[0]);
+            let zDistance = Math.abs(z - entityPos[2]);
+            if(xDistance + zDistance <= range && enemies[i].absorbCheck()) {
                 let overlay = board.overlayMap[enemies[i].position[0]][enemies[i].position[2]].overlay;
                 overlay.material.color.setHex(0xAB4700);
                 overlay.material.visible = true;
+                board.tileArray[x][z].highlighted = true;
             }
         }
     }
@@ -167,8 +193,9 @@ function wipeOverlay(board){
         for(let c = 0; c < board.tileArray[r].length; c++){
             board.overlayMap[r][c].overlay.material.visible = false;
             board.overlayMap[r][c].overlay.material.color.setHex(0x0047AB);
+            board.tileArray[r][c].highlighted = false;
         }
     }
 }
 
-export {hover, checkNeighbor, aStar, wipeOverlay, movementOverlayHelper};
+export {hover, checkNeighbor, neighborConfirm, aStar, wipeOverlay, movementOverlayHelper, occupied};

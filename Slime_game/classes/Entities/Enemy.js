@@ -26,7 +26,6 @@ class Enemy extends Entity {
         console.log(this.path);
 
         this.absorbable = true;
-
     }
 
     //Checks if the player is within sight range
@@ -36,10 +35,21 @@ class Enemy extends Entity {
         if(xDistance + yDistance <= this.visionRange) {
             return true;
         }
-        else {
-            return false;
-        }
+        return false;
     }
+
+    //Checks of player is next to this enemy
+    nextToPlayer() {
+        let xDistance = Math.abs(currentLevel.player.position[0] - this.position[0]);
+        let yDistance = Math.abs(currentLevel.player.position[2] - this.position[2]);
+
+        //If they're one tile away, they're adjacent
+        if (xDistance + yDistance == 1) {
+            return true;
+        }
+        return false;
+    }
+
     //Checks if the player is within this enemy's attack range
     withinARange() {
         let xDistance = Math.abs(currentLevel.player.position[0] - this.position[0]);
@@ -47,28 +57,15 @@ class Enemy extends Entity {
         if((xDistance <= this.attackRange &&  yDistance == 0) || (yDistance <= this.attackRange && xDistance == 0)){
             return true;
         }
-        else{
-            return false;
-        }
+        return false;
     }
 
-    moveEnemy(route, moves) {
+    async moveEnemy(route, moves) {
         //Move along the route for the number of moves allowed
         for(let i = 1; i < route.length && moves > 0; i++) {
 
             //Rotate unit
-            if(this.position[0] < route[i].tile.position[0]) {
-                this.model.rotation.y = degToRad(90);
-            }
-            else if (this.position[0] > route[i].tile.position[0]) {
-                this.model.rotation.y = degToRad(270);
-            }
-            else if (this.position[2] < route[i].tile.position[2]) {
-                this.model.rotation.y = degToRad(0);
-            }
-            else if (this.position[2] > route[i].tile.position[2]) {
-                this.model.rotation.y = degToRad(180);
-            }
+            await this.rotateEntity(route[i]);
 
             //Move unit
             currentLevel.board.tileArray[this.position[0]][this.position[2]].occupant = null;
@@ -85,11 +82,6 @@ class Enemy extends Entity {
 
         //Move along the route for the number of moves allowed
         this.moveEnemy(route, moves);
-
-        //if made it to node, advance the node
-        if(this.position[0] == pos[0] && this.position[2] == pos[2]){
-            this.path.advance();
-        }
     }
 
     //Moves the enemy in the direction of the player
@@ -117,6 +109,14 @@ class Enemy extends Entity {
     attack(damage){
         //Play attack animation
         currentLevel.player.takeDamage(damage);
+    }
+
+    //Check if player can currently absorb this enemy
+    absorbCheck() {
+        if(currentLevel.player.mass >= this.mass && this.absorbable) {
+            return true;
+        }
+        return false;
     }
     
     //set custom attack power for enemy type

@@ -12,6 +12,7 @@
     <script src="./libraries/GLTFLoader.js"></script>
     <script src="./libraries/OrbitControls.js"></script>
     <script type="module" src="./libraries/yuka-master/src/yuka.js"></script>
+    <script type="module" src="./libraries/tween.js"></script>
     <script type="module" src="./classes/Entities/Entity.js"></script>
     <script type="module" src="./classes/Entities/Cursor.js"></script>
     <script type="module" src="./classes/Entities/Enemy.js"></script>
@@ -24,6 +25,7 @@
     <script type="module" src="./libraries/heap.js"></script>
     <script type="module" src="./classes/Pathing.js"></script>
     <script type="module" src="./classes/Camera.js"></script>
+    <script type="module" src="./classes/Sounds.js"></script>
     <script type="module" src="./Semaphore.js"></script>
     <script type="module" src="./KeyboardInput.js"></script>
     <script type="module" src="./RenderTasks.js"></script>
@@ -38,8 +40,30 @@
         </audio>
         -->
         <button class="level-btn" id="start">Test Level</button>
+        <button class="level-btn" id="Level1">Level 1</button>
         <button class="level-btn" id="Level2">Level 2</button>
         <button class="level-btn" id="Level3">Level 3</button>
+
+        <div class="gameInfo" id="gameInfo">
+            <table style="widows: 100%;">
+                <tr>
+                    <td>To move the cursor use the W A S D keys</td>
+                </tr>
+                <tr>
+                    <td>To select an entity hover over the entity and press enter</td>
+                </tr>
+                <tr>
+                    <td>To confirm a movement press enter</td>
+                </tr>
+                <tr>
+                    <td>To pan the camera right click and drag the screen</td>
+                </tr>
+                <tr>
+                    <td>To rotate the camera left click and drag the screen</td>
+                </tr>
+                
+            </table>
+        </div>
     </div>
 
     <!-- loading screen url: https://codepen.io/dev_loop/pen/NmYmRP -->
@@ -59,13 +83,22 @@
     <div class="outerGame" id="outerGame">
         <canvas id="game"></canvas>
 
-        <div class="gameInfo" id="gameInfo">
-            <button>click me</button>
-        </div>
-
         <div class="winLevel" id="winLevel">
-            <label id="endText">You Win!</label>
-            <button class="divBtn" id="menuBtn">Main Menu</button>
+            <label id="winText">You Win!</label>
+            <button class="loseBtn" id="menuBtn" style="right:30px">Main Menu</button>
+            <button class="loseBtn" id="nextLevel" style="left:30px">Next Level</button>
+        </div>
+        <div class="loseLevel" id="loseLevel">
+            <label id="loseText">You Lose!</label>
+            <table>
+                <tr>
+                    <button class="loseBtn" id="loseBtn" style="right:20px">Play Again</button>
+                </tr>
+                <tr>
+                    <button class="loseBtn" id="loseMenuBtn" style="left:20px">Main Menu</button>
+                </tr>
+            </table>
+            
         </div>
 
         <div class="toolTip" id="toolTip">
@@ -100,11 +133,11 @@
             <table>
                 <tr>
                     <td rowspan="3">
-                        <div id="rightPic">
-                            <img style="width:75px;height:75px;"" src="./assets/grass.jpg" >
+                        <div>
+                            <img id="rightPic" style="width:75px;height:75px;"" src="./assets/grass.jpg" >
                         </div>
                     </td>
-                    <td>Type: <label id="type">Terrain</label></td>
+                    <td>Occupant: <label id="type">Terrain</label></td>
                 </tr>
                 <tr>
                     <td>Height: <label id="terrainHeight">1</label></td>
@@ -114,18 +147,13 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td>Ability: <label id="rightAbility">None</label></td>
+                    <td><label id="rightMass" style="opacity:0">Mass: None</label></td>
                 </tr>
             </table>
         </div>
-
-
-
-
-
-
-
     </div>
-    
+
+
+    <audio src="assets/sounds/drop_004.ogg" type="audio/mpeg"></audio>
 </body>
 </html>
