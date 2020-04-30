@@ -1,7 +1,3 @@
-
-
-
-
 let selectSound = document.querySelector("#select");
 selectSound.volume = 0.2;
 
@@ -22,15 +18,24 @@ cursorSound.volume = 0.1;
 
 
 
+function playSelect(){
+    selectSound.play();
+}
 
+function playAttack(){
+    attackSound.play();
+}
+
+function playMove(){
+    moveSound.play();
+}
+
+function playDeath(){
+    deathSound.play();
+}
 
 function playCursor(){
     cursorSound.play();
 }
 
-
-function playSelect(){
-    selectSound.play();
-}
-
-export {playSelect, playCursor};
+export {playSelect, playAttack, playMove, playDeath, playCursor};
