@@ -30,6 +30,10 @@ function playMove(){
     moveSound.play();
 }
 
+function playAbsorb(){
+    absorbSound.play();
+}
+
 function playDeath(){
     deathSound.play();
 }
@@ -38,4 +42,4 @@ function playCursor(){
     cursorSound.play();
 }
 
-export {playSelect, playAttack, playMove, playDeath, playCursor};
+export {playSelect, playAttack, playMove, playAbsorb, playDeath, playCursor};

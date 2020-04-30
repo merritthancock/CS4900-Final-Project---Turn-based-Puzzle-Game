@@ -5,6 +5,7 @@ import {aStar} from "../Pathing.js";
 import {NormState, SpikeState} from "./PlayerAbilities.js";
 import { StateMachine } from "../../libraries/yuka-master/src/yuka.js";
 import {moveAnimate} from "../Animation.js";
+import {playMove, playAbsorb, playDeath} from "../Sounds.js";
 
 //Players inherit from Entity
 class Player extends Entity {
@@ -58,6 +59,7 @@ class Player extends Entity {
             this.stateMachine.changeTo('SPIKE');
 
         }
+        playAbsorb();//sounds absorption sound
     }
 
     /*async movePlayer(destination){
@@ -104,11 +106,11 @@ class Player extends Entity {
             this.moveEntity(route[i].tile.position[0], route[i].tile.height + 1, route[i].tile.position[2]);
             currentLevel.board.tileArray[this.position[0]][this.position[2]].occupant = this;
 
-            await sleep(400);
+            playMove();//plays sound when player moves
+            await sleep(500);//was 400
         }
         if(tile.occupant.name != "player" && tile.occupant.absorbCheck()) {
             this.absorb(tile.occupant);
-
         }
 
         passTurn(currentLevel);
@@ -126,8 +128,10 @@ class Player extends Entity {
     takeDamage(damage){
         this.mass -= damage;
         console.log("Damage Taken: ", damage, "Player Health: ", this.mass);
+
         if(this.mass <= 0){
             console.log("PLAYER IS DEAD");
+            playDeath();
             //death animation
             //death screen
             console.log("You died!");
@@ -147,7 +151,6 @@ class Player extends Entity {
                 
                }
             }
-
         }
     }
 }
