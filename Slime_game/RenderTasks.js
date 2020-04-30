@@ -14,7 +14,6 @@ function updateRender(){
             currentLevel.cursor.moveCursor("forward");
             currentLevel.cursor.cursorHeight(currentLevel.board.tileArray[currentLevel.cursor.position[0]][currentLevel.cursor.position[2]].height + .6);
             hover(currentLevel);
-            playCursor();
             updateToolTips();
         }
         if(keyStatus["aKey"]){
@@ -22,7 +21,6 @@ function updateRender(){
             currentLevel.cursor.moveCursor("left");
             currentLevel.cursor.cursorHeight(currentLevel.board.tileArray[currentLevel.cursor.position[0]][currentLevel.cursor.position[2]].height + .6);
             hover(currentLevel);
-            playCursor();
             updateToolTips();
 
         }
@@ -31,7 +29,6 @@ function updateRender(){
             currentLevel.cursor.moveCursor("backward");
             currentLevel.cursor.cursorHeight(currentLevel.board.tileArray[currentLevel.cursor.position[0]][currentLevel.cursor.position[2]].height + .6);
             hover(currentLevel);
-            playCursor();
             updateToolTips();
         }
         if(keyStatus["dKey"]){
@@ -39,12 +36,10 @@ function updateRender(){
             currentLevel.cursor.moveCursor("right");
             currentLevel.cursor.cursorHeight(currentLevel.board.tileArray[currentLevel.cursor.position[0]][currentLevel.cursor.position[2]].height + .6);
             hover(currentLevel);
-            playCursor();
             updateToolTips();
         }
         if(keyStatus["enter"]){
             getLock("inputHandler");
-
             currentLevel.cursor.click();
             hover(currentLevel);
             playSelect();

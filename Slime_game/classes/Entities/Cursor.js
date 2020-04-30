@@ -2,6 +2,7 @@ import {Entity} from "./Entity.js";
 import {currentLevel} from "../Global.js";
 import { Player } from "./Player.js";
 import { passTurn } from "../TurnManager.js";
+import { playCursor } from "../Sounds.js";
 
 //The Cursor is an object that will contain unique methods allowing player interaction
 class Cursor extends Entity {
@@ -129,6 +130,7 @@ class Cursor extends Entity {
 
         this.model.position.set(this.position[0], this.position[1], this.position[2]);
         console.log(this.position);
+        playCursor();//plays cursor sound
     }
 
     cursorHeight(height){
