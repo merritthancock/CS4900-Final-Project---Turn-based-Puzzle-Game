@@ -2,19 +2,35 @@
 
 
 
-let selectSound = document.querySelector('audio');
+let selectSound = document.querySelector("#select");
 selectSound.volume = 0.2;
-//const track = audioContext.createMediaElementSource(audioElement);
-//selectSound.load();
+
+let attackSound = document.querySelector("#slimeAttack");
+attackSound.volume = 0.2;
+
+let moveSound = document.querySelector("#slimeMove");
+moveSound.volume = 0.2;
+
+let absorbSound = document.querySelector("#slimeAbsorb");
+absorbSound.volume = 0.2;
+
+let deathSound = document.querySelector("#deathSound");
+deathSound.volume = 0.2;
+
+let cursorSound = document.querySelector("#cursorSound");
+cursorSound.volume = 0.1;
 
 
 
 
 
+function playCursor(){
+    cursorSound.play();
+}
 
 
 function playSelect(){
     selectSound.play();
 }
 
-export {playSelect};
+export {playSelect, playCursor};

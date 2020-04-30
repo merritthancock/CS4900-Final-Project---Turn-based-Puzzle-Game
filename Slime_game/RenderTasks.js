@@ -4,7 +4,7 @@ import {hover} from "./classes/Pathing.js";
 import {currentLevel} from "./classes/Global.js";
 import { winLevel, loseLevel } from "./classes/Controller.js";
 import {updateToolTips} from "./classes/Controller.js";
-import {playSelect} from "./classes/Sounds.js";
+import {playSelect, playCursor} from "./classes/Sounds.js";
 
 function updateRender(){
     if(unlocked && !masterLock) {
@@ -14,6 +14,7 @@ function updateRender(){
             currentLevel.cursor.moveCursor("forward");
             currentLevel.cursor.cursorHeight(currentLevel.board.tileArray[currentLevel.cursor.position[0]][currentLevel.cursor.position[2]].height + .6);
             hover(currentLevel);
+            playCursor();
             updateToolTips();
         }
         if(keyStatus["aKey"]){
@@ -21,6 +22,7 @@ function updateRender(){
             currentLevel.cursor.moveCursor("left");
             currentLevel.cursor.cursorHeight(currentLevel.board.tileArray[currentLevel.cursor.position[0]][currentLevel.cursor.position[2]].height + .6);
             hover(currentLevel);
+            playCursor();
             updateToolTips();
 
         }
@@ -29,6 +31,7 @@ function updateRender(){
             currentLevel.cursor.moveCursor("backward");
             currentLevel.cursor.cursorHeight(currentLevel.board.tileArray[currentLevel.cursor.position[0]][currentLevel.cursor.position[2]].height + .6);
             hover(currentLevel);
+            playCursor();
             updateToolTips();
         }
         if(keyStatus["dKey"]){
@@ -36,6 +39,7 @@ function updateRender(){
             currentLevel.cursor.moveCursor("right");
             currentLevel.cursor.cursorHeight(currentLevel.board.tileArray[currentLevel.cursor.position[0]][currentLevel.cursor.position[2]].height + .6);
             hover(currentLevel);
+            playCursor();
             updateToolTips();
         }
         if(keyStatus["enter"]){
