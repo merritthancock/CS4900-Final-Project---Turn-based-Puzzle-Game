@@ -59,7 +59,8 @@ class RetractState extends State {
 
 class HaltState extends State {//Only when PinpodSp is absorbed or dead. Does nothing
     enter(enemy){
-
+        //resetting health in the even the player used spike attack on pinpod
+        enemy.mass = 1;
     }
     execute(enemy){
 
