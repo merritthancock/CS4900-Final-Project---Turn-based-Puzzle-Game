@@ -54,7 +54,7 @@ class Player extends Entity {
             currentLevel.board.tileArray[enemy.position[0]][enemy.position[2]].occupant = null;
             //Move player to enemy position
             this.movePlayer(currentLevel.board.tileArray[enemy.position[0]][enemy.position[2]]);
-            console.log(currentLevel.enemies);
+            //console.log(currentLevel.enemies);
         }
         else{
             currentLevel.enemies.splice(index,1);
