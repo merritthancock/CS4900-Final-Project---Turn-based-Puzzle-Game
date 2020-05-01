@@ -18,6 +18,7 @@ class SpawnState extends State { //PINBEAST IS ONLY VULNERABLE DURING THIS STATE
         if(enemy.babies <= 4){
             let x = Math.floor(Math.random() * enemy.spawnRange + 1);
             let z = Math.floor(Math.random() * enemy.spawnRange + 1);
+            //spawns a pinpod every turn in a quadrant surrounding the pinbeast
             switch(enemy.babies){
                 case 0:
                     ePos = [enemy.position[0] + x, 1, enemy.position[2] + z];
@@ -39,7 +40,6 @@ class SpawnState extends State { //PINBEAST IS ONLY VULNERABLE DURING THIS STATE
 
             }
         }
-        console.log(enemy.babies);
         let i = enemy.babies - 1;
         currentLevel.enemies[i].position = ePos;
         currentLevel.enemies[i].model.visible = true;
@@ -52,7 +52,6 @@ class SpawnState extends State { //PINBEAST IS ONLY VULNERABLE DURING THIS STATE
         currentLevel.enemies[i].living = 'ALIVE';
 
         if(enemy.babies == 4){
-            console.log('CHANGING TO ACTION');
             enemy.stateMachine.changeTo(ACTION);
         }
        
