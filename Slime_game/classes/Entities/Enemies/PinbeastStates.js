@@ -56,7 +56,7 @@ class ActionState extends State {
         console.log(currentLevel.respawnable);
         let actual = 0;
         for(let i = 0; i < currentLevel.enemies.length; i++){
-           if(currentLevel.enemies[i].type == 'PINPOD'){
+           if(currentLevel.enemies[i].type == 'PINPODSP' && currentLevel.enemies[i].living == 'ALIVE'){
                actual++;
            } 
         }
@@ -130,6 +130,9 @@ class ChargeState extends State {//charges in direction of player
             //enemy.moveEPath();
            // enemy.moveToPlayer(1);
        // }
+        if(enemy.nextToPlayer()){
+            enemy.attack(2);
+        }
         enemy.stateMachine.changeTo(SPAWN);
     }
 
