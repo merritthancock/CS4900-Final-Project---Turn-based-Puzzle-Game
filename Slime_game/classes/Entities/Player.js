@@ -48,12 +48,23 @@ class Player extends Entity {
         let index = currentLevel.enemies.indexOf(enemy);
         //remove enemy from board
         enemy.model.visible = false;
-        currentLevel.enemies.splice(index,1);
-        currentLevel.board.tileArray[enemy.position[0]][enemy.position[2]].occupant = null;
-        //Move player to enemy position
-        this.movePlayer(currentLevel.board.tileArray[enemy.position[0]][enemy.position[2]]);
+        if(enemy.type == 'PINPODSP'){
+            enemy.living = 'DEAD';
+            currentLevel.board.tileArray[enemy.position[0]][enemy.position[2]].occupant = null;
+            //Move player to enemy position
+            this.movePlayer(currentLevel.board.tileArray[enemy.position[0]][enemy.position[2]]);
+            console.log(currentLevel.enemies);
+        }
+        else{
+            currentLevel.enemies.splice(index,1);
+            currentLevel.board.tileArray[enemy.position[0]][enemy.position[2]].occupant = null;
+            //Move player to enemy position
+            this.movePlayer(currentLevel.board.tileArray[enemy.position[0]][enemy.position[2]]);
+        }
         
-        if(enemy.type == 'PINPOD'){
+        
+        
+        if(enemy.type == 'PINPOD' || enemy.type == 'PINPODSP'){
             this.abilityUses = 3; //three spike uses
             this.stateMachine.changeTo('SPIKE');
 
