@@ -16,7 +16,8 @@ deathSound.volume = 0.2;
 let cursorSound = document.querySelector("#cursorSound");
 cursorSound.volume = 0.1;
 
-
+let enemySound = document.querySelector("#enemySound");
+enemySound.volume = 0.1;
 
 function playSelect(){
     selectSound.play();
@@ -42,4 +43,8 @@ function playCursor(){
     cursorSound.play();
 }
 
-export {playSelect, playAttack, playMove, playAbsorb, playDeath, playCursor};
+function playEnemy(){
+    enemySound.play();
+}
+
+export {playSelect, playAttack, playMove, playAbsorb, playDeath, playCursor, playEnemy};
