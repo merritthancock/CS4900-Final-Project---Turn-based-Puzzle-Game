@@ -48,7 +48,7 @@ let abilityTypeTip = document.querySelector("#ability");
 //Right Tips Variables
 let rightPic = document.querySelector("#topRightTip");
 let rightType = document.querySelector("#type");
-let rightHeight = document.querySelector("#terrainHeight");
+let rightModular = document.querySelector("#rightModular");
 let rightName = document.querySelector("#entityName");
 let rightMass = document.querySelector("#rightMass");
 
@@ -322,21 +322,18 @@ function setupLevel(){
 
 function updateToolTips(){
     //Update left tool tip
-    //let lvlObject = currentLevel.getUIData();
+    let playerState = currentLevel.player.current;
     jumpHeightTip.innerHTML = currentLevel.player.jumpHeight.toString();
-    //movementRangeTip.innerHTML = currentLevel.player.movementRange.toString();
+
     massTip.innerHTML = currentLevel.player.mass.toString();
-    if(currentLevel.player.abilities.length = 1){
+    if(playerState = "undefined"){
         abilityTypeTip.innerHTML = "None";
     }
     else{
-        //abilityTypeTip.innerHTML = currentLevel.player.abilities[0].toString();
-        abilityTypeTip.innerHTML = "Yes";
+        abilityTypeTip.innerHTML = playerState;
     }
 
     //Update top right tool tip
-
-
     let selectTile = currentLevel.getUIData().selectedTile;
     let cursTile = currentLevel.getUIData().cursorTile;/*
     let playTile = currentLevel.getUIData().playerTile;*/
@@ -353,8 +350,15 @@ function updateToolTips(){
             case "player":
                 rightName.innerHTML = "Player";
                 document.getElementById("rightPic").src = "./assets/slime.jpg";
+                if(playerState = "undefined"){
+                    rightModular.innerHTML = "Ability: None";
+                }
+                else{
+                    rightModular.innerHTML = "Ability: " + playerState;
+                }
                 break;
             default:
+                rightModular.innerHTML = "Ability: " + cursTile.occupant.abilities.toString();
                 rightName.innerHTML = cursTile.occupant.type;
                 document.getElementById("rightPic").src = "./assets/skull.jpg";
                 break;
@@ -392,8 +396,9 @@ function updateToolTips(){
                 document.getElementById("rightPic").src = "./assets/yellow.jpg";
                 break;
         }
+        rightModular.innerHTML = "Height: " + currentLevel.getUIData().cursorTile.height.toString();
     }
-    rightHeight.innerHTML = currentLevel.getUIData().cursorTile.height.toString();
+    
 }
 
 function winLevel(){
