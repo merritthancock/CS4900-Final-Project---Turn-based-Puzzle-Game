@@ -50,6 +50,7 @@ class Player extends Entity {
         enemy.model.visible = false;
         if(enemy.type == 'PINPODSP'){
             enemy.living = 'DEAD';
+            enemy.stateMachine.changeTo('HALT');
             currentLevel.board.tileArray[enemy.position[0]][enemy.position[2]].occupant = null;
             //Move player to enemy position
             this.movePlayer(currentLevel.board.tileArray[enemy.position[0]][enemy.position[2]]);

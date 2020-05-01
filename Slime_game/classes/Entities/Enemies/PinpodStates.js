@@ -2,6 +2,7 @@ import { State } from "../../../libraries/yuka-master/src/yuka.js";
 
 const EXTEND = 'EXTEND';
 const RETRACT = 'RETRACT';
+const HALT = 'HALT';
 
 class ExtendState extends State {
     enter(enemy){
@@ -53,5 +54,18 @@ class RetractState extends State {
     exit(enemy){
 
     }
+
 }
-export {ExtendState, RetractState}
+
+class HaltState extends State {//Only when PinpodSp is absorbed or dead. Does nothing
+    enter(enemy){
+
+    }
+    execute(enemy){
+
+    }
+    exit(enemy){
+    
+    }
+}
+export {ExtendState, RetractState, HaltState}

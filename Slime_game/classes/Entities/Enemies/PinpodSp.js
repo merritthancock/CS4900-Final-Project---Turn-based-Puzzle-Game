@@ -1,6 +1,6 @@
 import { StateMachine } from "../../../libraries/yuka-master/src/yuka.js";
 import { Enemy } from "../Enemy.js";
-import { ExtendState, RetractState} from "./PinpodStates.js";
+import { ExtendState, RetractState, HaltState} from "./PinpodStates.js";
 
 //The Enemy is an object that will contain unique methods allowing player interaction
 class PinpodSp extends Enemy {
@@ -19,6 +19,7 @@ class PinpodSp extends Enemy {
         this.stateMachine = new StateMachine(this);
         this.stateMachine.add('EXTEND', new ExtendState());
         this.stateMachine.add('RETRACT', new RetractState());
+        this.stateMachine.add('HALT', new HaltState());
         this.stateMachine.changeTo('RETRACT');
 
         //attack power dealt by spikes
