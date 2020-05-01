@@ -29,7 +29,10 @@ let cursorSelectSound = document.querySelector("#cursorSelect");
 cursorSelectSound.volume = 0.1;
 
 let winSound = document.querySelector("#winSound");
-winSound.volume = 0.1;
+winSound.volume = 0.2;
+
+let loseSound = document.querySelector("#loseSound");
+loseSound.volume = 0.2;
 
 function playSelect(){
     selectSound.play();
@@ -71,9 +74,13 @@ function playCursorSelect(){
     cursorSelectSound.play();
 }
 
-function playWin(){{
+function playWin(){
     winSound.play();
-}}
+}
+
+function playLose(){
+    loseSound.play();
+}
 
 
-export {playSelect, playAttack, playMove, playAbsorb, playDeath, playCursor, playEnemy, playStart, playDamage, playCursorSelect, playWin};
+export {playSelect, playAttack, playMove, playAbsorb, playDeath, playCursor, playEnemy, playStart, playDamage, playCursorSelect, playWin, playLose};

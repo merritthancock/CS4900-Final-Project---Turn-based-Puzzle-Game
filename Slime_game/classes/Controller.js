@@ -13,7 +13,7 @@ import { NavNode } from "../libraries/yuka-master/src/yuka.js";
 import {occupied} from "./Pathing.js";
 import {getLock, releaseLock} from "../Semaphore.js";
 import {TWEEN} from "../libraries/tween.js";
-import {playStart, playSelect, playWin} from "./Sounds.js";
+import {playStart, playSelect, playWin, playLose} from "./Sounds.js";
 
 // declare variables
 let windowWidth;
@@ -410,6 +410,7 @@ function winLevel(){
 }
 
 function loseLevel() {
+    playLose();
     loseScreen.style['pointer-events'] = 'auto';
     loseScreen.style.display = "block";
     loseScreen.style['opacity'] = '0.8';
