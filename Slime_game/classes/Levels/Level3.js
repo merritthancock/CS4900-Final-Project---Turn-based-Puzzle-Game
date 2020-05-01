@@ -53,7 +53,7 @@ function buildLevel3() {
 
     //Create Player
     let pPos = [8, 1, 14];
-    let player = new Player(pPos, "player", 1);
+    let player = new Player(pPos, "player", 5);
 
     //Create Cursor
     let cPos = [8, 1.6, 14];
@@ -65,7 +65,7 @@ function buildLevel3() {
     let pinpod1 = new PinpodSp(enemyPos, "pinpod1", 1, 4);
 
     enemyPos = [5,1,7];
-    let pinpod2 = new PinpodSp(enemyPos, "pinpod3", 1, 3);
+    let pinpod2 = new PinpodSp(enemyPos, "pinpod2", 1, 3);
 
     enemyPos = [13,1,6];
     let pinpod3 = new PinpodSp(enemyPos, "pinpod3", 1, 2);
