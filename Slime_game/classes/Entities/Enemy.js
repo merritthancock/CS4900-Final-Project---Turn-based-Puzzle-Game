@@ -2,6 +2,7 @@ import {currentLevel, degToRad} from "../Global.js";
 import {Entity} from "./Entity.js";
 import {Path} from "../../libraries/yuka-master/src/yuka.js";
 import {aStar} from "../Pathing.js";
+import { playDamage } from "../Sounds.js";
 
 //The Enemy is an object that will contain unique methods allowing player interaction
 class Enemy extends Entity {
@@ -109,6 +110,7 @@ class Enemy extends Entity {
     attack(damage){
         //Play attack animation
         currentLevel.player.takeDamage(damage);
+        playDamage();
     }
 
     //Check if player can currently absorb this enemy
@@ -142,6 +144,7 @@ class Enemy extends Entity {
             return 'DEAD'; //to determine removal
         }
         else{
+            playDamage();
             return 'ALIVE';
         }
     }

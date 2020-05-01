@@ -42,7 +42,6 @@ function updateRender(){
             getLock("inputHandler");
             currentLevel.cursor.click();
             hover(currentLevel);
-            playSelect();
             updateToolTips();
 
 

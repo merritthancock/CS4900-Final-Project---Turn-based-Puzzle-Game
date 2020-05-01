@@ -19,6 +19,18 @@ cursorSound.volume = 0.1;
 let enemySound = document.querySelector("#enemySound");
 enemySound.volume = 0.1;
 
+let startSound = document.querySelector("#gameStart");
+startSound.volume = 0.1;
+
+let damageSound = document.querySelector("#damage");
+damageSound.volume = 0.1;
+
+let cursorSelectSound = document.querySelector("#cursorSelect");
+cursorSelectSound.volume = 0.1;
+
+let winSound = document.querySelector("#winSound");
+winSound.volume = 0.1;
+
 function playSelect(){
     selectSound.play();
 }
@@ -47,4 +59,21 @@ function playEnemy(){
     enemySound.play();
 }
 
-export {playSelect, playAttack, playMove, playAbsorb, playDeath, playCursor, playEnemy};
+function playStart(){
+    startSound.play();
+}
+
+function playDamage(){
+    damageSound.play();
+}
+
+function playCursorSelect(){
+    cursorSelectSound.play();
+}
+
+function playWin(){{
+    winSound.play();
+}}
+
+
+export {playSelect, playAttack, playMove, playAbsorb, playDeath, playCursor, playEnemy, playStart, playDamage, playCursorSelect, playWin};

@@ -13,6 +13,7 @@ import { NavNode } from "../libraries/yuka-master/src/yuka.js";
 import {occupied} from "./Pathing.js";
 import {getLock, releaseLock} from "../Semaphore.js";
 import {TWEEN} from "../libraries/tween.js";
+import {playStart, playSelect, playWin} from "./Sounds.js";
 
 // declare variables
 let windowWidth;
@@ -58,6 +59,7 @@ windowHeight = window.innerHeight;
 
 
 menuBtn.onclick = function(){
+    playSelect();
     winScreen.style.display = "none";
     winScreen.style['pointer-events'] = 'none';
     loadingScreen.style.display = "block";
@@ -69,6 +71,7 @@ menuBtn.onclick = function(){
 };
 
 loseMenuBtn.onclick = function(){//go back to menu
+    playSelect();
     loseScreen.style.display = "none";
     loseScreen.style['pointer-events'] = 'none';
     loadingScreen.style.display = "block";
@@ -80,6 +83,7 @@ loseMenuBtn.onclick = function(){//go back to menu
 };
 
 loseBtn.onclick = function(){//replay
+    playSelect();
     loseScreen.style.display = "none";
     loseScreen.style['pointer-events'] = 'none';
     loadingScreen.style.display = "block";
@@ -127,33 +131,41 @@ function start(){
   
     //Test Level
     startButton.onclick = function(){
+        playSelect();
         console.log("Test Level");
         replayTracker = 0;
         changeLevel(buildTestLevel());
         buildLevel();
+        playStart();
     };
     //Level 1
     level1Button.onclick = function(){
+        playSelect();
         console.log("Level 1");
         replayTracker = 1;
         loseScreen.style.display = "none";
         changeLevel(buildLevel1());
         buildLevel();
+        playStart();
     };
     //Level 2
     level2Button.onclick = function(){
+        playSelect();
         console.log("Level 2");
         replayTracker = 2;
         changeLevel(buildLevel2());
         buildLevel(); 
+        playStart();
     };
 
     //Level 3
     level3Button.onclick = function(){
+        playSelect();
         console.log("Level 3");
         replayTracker = 3;
         changeLevel(buildLevel3());
         buildLevel();
+        playStart();
     };
 }
 
@@ -382,10 +394,10 @@ function updateToolTips(){
         }
     }
     rightHeight.innerHTML = currentLevel.getUIData().cursorTile.height.toString();
-    
 }
 
 function winLevel(){
+    playWin();
     winScreen.style['pointer-events'] = 'auto';
     winScreen.style['opacity'] = '0.8';
     toolTips.style.display = "none";
