@@ -21,12 +21,17 @@ let windowHeight;
 let camera;
 let cameraControls;
 let renderer;
+let scene = new THREE.Scene();
+//HTML variables
 let canvas = document.querySelector("#game");
 let menu = document.getElementById("menu");
+let loadingScreen = document.getElementById("loading-screen");
 let winScreen = document.querySelector("#winLevel");
 let loseScreen = document.querySelector("#loseLevel");
 let toolTips = document.querySelector("#toolTip");
 let rightTips = document.querySelector("#topRightTip");
+let replayTracker;
+//Buttons
 let startButton = document.getElementById("start");
 let level1Button = document.getElementById("Level1");
 let level2Button = document.getElementById("Level2");
@@ -35,9 +40,6 @@ let menuBtn = document.querySelector("#menuBtn");
 let loseBtn = document.querySelector("#loseBtn");
 let loseMenuBtn = document.querySelector("#loseMenuBtn");
 let nextLevel = document.querySelector("#nextLevel");
-let scene = new THREE.Scene();
-let loadingScreen = document.getElementById("loading-screen");
-let replayTracker;
 
 //Tool Tips Variables
 let leftPic = document.querySelector("#playerPic");
@@ -45,7 +47,7 @@ let massTip = document.querySelector("#mass");
 let jumpHeightTip = document.querySelector("#jumpHeight");
 let movementRangeTip = document.querySelector("#movementRange");
 let abilityTypeTip = document.querySelector("#ability");
-//Right Tips Variables
+//Right Tip Variables
 let rightPic = document.querySelector("#topRightTip");
 let rightType = document.querySelector("#type");
 let rightModular = document.querySelector("#rightModular");
@@ -57,7 +59,7 @@ let rightMass = document.querySelector("#rightMass");
 windowWidth = window.innerWidth;
 windowHeight = window.innerHeight;
 
-
+//Returns user to menu
 menuBtn.onclick = function(){
     playSelect();
     winScreen.style.display = "none";
@@ -70,6 +72,7 @@ menuBtn.onclick = function(){
     menu.style.display = "block";
 };
 
+//Returns user to menu
 loseMenuBtn.onclick = function(){//go back to menu
     playSelect();
     loseScreen.style.display = "none";
@@ -82,6 +85,7 @@ loseMenuBtn.onclick = function(){//go back to menu
     loseScreen.style.display = "none";
 };
 
+//Replays the current level
 loseBtn.onclick = function(){//replay
     playSelect();
     loseScreen.style.display = "none";
@@ -113,6 +117,7 @@ loseBtn.onclick = function(){//replay
     }
 }
 
+//Loads the next level
 nextLevel.onclick = function(){//next level
     winScreen.style.display = "none";
     loseScreen.style['pointer-events'] = 'none';
@@ -120,7 +125,7 @@ nextLevel.onclick = function(){//next level
     loseBtn.click();
 }
 
-
+//Level selection system
 function start(){
     loadingScreen.style.display = "none";
     canvas.style.display = "none";
@@ -196,7 +201,6 @@ function setupTasks(){
     //Adds event listeners to document
     document.addEventListener('keyup', doKeyUp, false);
     document.addEventListener('keydown', doKeyDown, false);
-    //----------------------------------------------------------------
 }
 
 //Level loading logic-----------------------------------------------------
@@ -276,20 +280,6 @@ function loadBoard(scene, level) {
 
     //Set up the skybox (TODO: MAKE SKYBOX A PARAM IN LEVEL)
     scene.background = level.sky;
-    //let skyboxGeometry = new THREE.CubeGeometry(100, 100, 100);
-    //let skyboxMaterial = new THREE.MeshBasicMaterial({  map: sky, side: THREE.BackSide });
-    //let skybox = resourceTracker.track(new THREE.Mesh(skyboxGeometry, skyboxMaterial));
-    //scene.add(skybox);
-
-    /*COMMENTED OUT BECAUSE OF NEW LOADING MECHANICS
-    //add player to the scene
-    scene.add(level.player.mesh);
-    //add cursor to the scene
-    scene.add(level.cursor.mesh);
-    //add enemy to the scene
-    for(let i = 0; i < enemies.length; i++){
-        scene.add(level.enemies[i].mesh);
-    }*/
 }
 
 function loadLevel(scene, level){
@@ -322,7 +312,13 @@ function setupLevel(){
 
 function updateToolTips(){
     //Update left tool tip
-    let playerState = currentLevel.player.current;
+    
+    
+    //------------------------------
+    let playerState = currentLevel.player.stateMachine.current;
+    //------------------------------
+
+
     jumpHeightTip.innerHTML = currentLevel.player.jumpHeight.toString();
 
     massTip.innerHTML = currentLevel.player.mass.toString();
@@ -350,21 +346,20 @@ function updateToolTips(){
             case "player":
                 rightName.innerHTML = "Player";
                 document.getElementById("rightPic").src = "./assets/slime.jpg";
-                if(playerState = "undefined"){
+                /*if(playerState = "undefined"){
                     rightModular.innerHTML = "Ability: None";
                 }
                 else{
                     rightModular.innerHTML = "Ability: " + playerState;
-                }
+                }*/
+                rightModular.innerHTML = "Ability: " + playerState;
                 break;
             default:
-                rightModular.innerHTML = "Ability: " + cursTile.occupant.abilities.toString();
+                rightModular.innerHTML = "Ability: " + cursTile.occupant.stateMachine.current;
                 rightName.innerHTML = cursTile.occupant.type;
                 document.getElementById("rightPic").src = "./assets/skull.jpg";
                 break;
-
         }
-        
     }
     else{    
         rightMass.style.display = "none";
@@ -398,7 +393,6 @@ function updateToolTips(){
         }
         rightModular.innerHTML = "Height: " + currentLevel.getUIData().cursorTile.height.toString();
     }
-    
 }
 
 function winLevel(){
