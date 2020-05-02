@@ -2,6 +2,7 @@ import {Level} from "../Level.js";
 import { Milcap } from "../Entities/Enemies/Milcap.js";
 import {Verm} from "../Entities/Enemies/Verm.js"
 import {Pinpod} from "../Entities/Enemies/Pinpod.js";
+import {PinpodSp} from "../Entities/Enemies/PinpodSp.js";
 import {Pinbeast} from "../Entities/Enemies/Pinbeast.js";
 import {Player} from "../Entities/Player.js";
 import {Cursor} from "../Entities/Cursor.js";
@@ -30,29 +31,29 @@ function buildLevel3() {
     ];
 
     let heightMap = [
-        [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
-        [4, 4, 0, 0, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4],
-        [4, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4],
-        [4, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 4, 4],
-        [4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4],
-        [4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4],
-        [4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4],
-        [4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4],
-        [4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4],//mid
-        [4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4],
-        [4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4],
-        [4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4],
-        [4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4],
-        [4, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 4],
-        [4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4],
-        [4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4],
-        [4, 4, 4, 0, 0, 0, 0, 4, 4, 4, 0, 0, 0, 0, 0, 4, 4],
-        [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]  
+        [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+        [3, 3, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3],
+        [3, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+        [3, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 3, 3],
+        [3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+        [3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+        [3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+        [3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+        [3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],//mid
+        [3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+        [3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3],
+        [3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+        [3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+        [3, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 3],
+        [3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3],
+        [3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3],
+        [3, 3, 3, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 3, 3],
+        [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]  
     ];
 
     //Create Player
     let pPos = [8, 1, 14];
-    let player = new Player(pPos, "player", 1);
+    let player = new Player(pPos, "player", 5);
 
     //Create Cursor
     let cPos = [8, 1.6, 14];
@@ -61,16 +62,16 @@ function buildLevel3() {
     let enemies = [];
 
     let enemyPos = [6, 1, 11];
-    let pinpod1 = new Pinpod(enemyPos, "pinpod1", 1, 4);
+    let pinpod1 = new PinpodSp(enemyPos, "pinpod1", 1, 4);
 
     enemyPos = [5,1,7];
-    let pinpod2 = new Pinpod(enemyPos, "pinpod3", 1, 3);
+    let pinpod2 = new PinpodSp(enemyPos, "pinpod2", 1, 3);
 
     enemyPos = [13,1,6];
-    let pinpod3 = new Pinpod(enemyPos, "pinpod3", 1, 2);
+    let pinpod3 = new PinpodSp(enemyPos, "pinpod3", 1, 2);
 
     enemyPos = [11,1,10];
-    let pinpod4 = new Pinpod(enemyPos, "pinpod4", 1, 5);
+    let pinpod4 = new PinpodSp(enemyPos, "pinpod4", 1, 5);
 
     enemyPos = [8,1,5];
     let boss = new Pinbeast(enemyPos, "Pinbeast", 20, 1);

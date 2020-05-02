@@ -3,6 +3,7 @@ import {Entity} from "./Entity.js";
 import {Path} from "../../libraries/yuka-master/src/yuka.js";
 import {aStar} from "../Pathing.js";
 import {sleep} from "../Global.js";
+import { playDamage } from "../Sounds.js";
 
 //The Enemy is an object that will contain unique methods allowing player interaction
 class Enemy extends Entity {
@@ -12,7 +13,7 @@ class Enemy extends Entity {
         //Set starting mass
         this.mass = startingMass;
         //Set abilities to an empty set for starters
-        this.abilities = {};
+        this.abilities = "NONE";
         //Set the priority of the enemy
         this.priority = startPriority;
         //Set the enemy's range of vision for seeing the player
@@ -122,6 +123,7 @@ class Enemy extends Entity {
     attack(damage){
         //Play attack animation
         currentLevel.player.takeDamage(damage);
+        playDamage();
     }
 
     //Check if player can currently absorb this enemy
@@ -155,6 +157,7 @@ class Enemy extends Entity {
             return 'DEAD'; //to determine removal
         }
         else{
+            playDamage();
             return 'ALIVE';
         }
     }

@@ -4,6 +4,8 @@ import { currentLevel, sleep, degToRad } from "../Global.js";
 import {aStar} from "../Pathing.js";
 import {NormState, SpikeState} from "./PlayerAbilities.js";
 import { StateMachine } from "../../libraries/yuka-master/src/yuka.js";
+import {moveAnimate} from "../Animation.js";
+import {playMove, playAbsorb, playDeath} from "../Sounds.js";
 
 //Players inherit from Entity
 class Player extends Entity {
@@ -47,16 +49,29 @@ class Player extends Entity {
         let index = currentLevel.enemies.indexOf(enemy);
         //remove enemy from board
         enemy.model.visible = false;
-        currentLevel.enemies.splice(index,1);
-        currentLevel.board.tileArray[enemy.position[0]][enemy.position[2]].occupant = null;
-        //Move player to enemy position
-        this.movePlayer(currentLevel.board.tileArray[enemy.position[0]][enemy.position[2]]);
+        if(enemy.type == 'PINPODSP'){
+            enemy.living = 'DEAD';
+            enemy.stateMachine.changeTo('HALT');
+            currentLevel.board.tileArray[enemy.position[0]][enemy.position[2]].occupant = null;
+            //Move player to enemy position
+            this.movePlayer(currentLevel.board.tileArray[enemy.position[0]][enemy.position[2]]);
+            //console.log(currentLevel.enemies);
+        }
+        else{
+            currentLevel.enemies.splice(index,1);
+            currentLevel.board.tileArray[enemy.position[0]][enemy.position[2]].occupant = null;
+            //Move player to enemy position
+            this.movePlayer(currentLevel.board.tileArray[enemy.position[0]][enemy.position[2]]);
+        }
         
-        if(enemy.type == 'PINPOD'){
+        
+        
+        if(enemy.type == 'PINPOD' || enemy.type == 'PINPODSP'){
             this.abilityUses = 3; //three spike uses
             this.stateMachine.changeTo('SPIKE');
 
         }
+        playAbsorb();//sounds absorption sound
     }
 
     /*async movePlayer(destination){
@@ -113,6 +128,9 @@ class Player extends Entity {
             await sleep(500);
             this.mixer.stopAllAction();
             idleAction.play();
+
+            playMove();//plays sound when player moves
+            await sleep(500);//was 400
         }
         if(tile.occupant.name != "player" && tile.occupant.absorbCheck()) {
             this.absorb(tile.occupant);
@@ -133,8 +151,10 @@ class Player extends Entity {
     takeDamage(damage){
         this.mass -= damage;
         console.log("Damage Taken: ", damage, "Player Health: ", this.mass);
+
         if(this.mass <= 0){
             console.log("PLAYER IS DEAD");
+            playDeath();
             //death animation
             //death screen
             console.log("You died!");
@@ -154,7 +174,6 @@ class Player extends Entity {
                 
                }
             }
-
         }
     }
 }

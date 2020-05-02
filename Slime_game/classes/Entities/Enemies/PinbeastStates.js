@@ -13,23 +13,48 @@ class SpawnState extends State { //PINBEAST IS ONLY VULNERABLE DURING THIS STATE
     }
 
     execute(enemy){
-        if(enemy.babies < 4){
+        let ePos;
+        let current = 0;
+        if(enemy.babies <= 4){
             let x = Math.floor(Math.random() * enemy.spawnRange + 1);
             let z = Math.floor(Math.random() * enemy.spawnRange + 1);
-            let ePos = [enemy.position[0] + x, 1, enemy.position[2] + z];
-            // let pinpod = new Pinpod(ePos, enemy.childID.toString(), 1, 2);
-            //currentLevel.enemies.push(pinpod);
-            //currentLevel.board.tileArray[ePos[0]][ePos[2]].occupant = pinpod;
-            enemy.childID++;
-            // console.log(pinpod.position);
-            enemy.stateMachine.changeTo(ACTION);
-            currentLevel.respawnable[enemy.babies].position = [enemy.position[0] + x, 1, enemy.position[2] + z];
-            currentLevel.respawnable[enemy.babies].model = 'visible';
-            enemy.babies++;
+            //spawns a pinpod every turn in a quadrant surrounding the pinbeast
+            switch(enemy.babies){
+                case 0:
+                    ePos = [enemy.position[0] + x, 1, enemy.position[2] + z];
+                    enemy.babies++;
+                    break;
+                case 1:
+                    ePos = [enemy.position[0] - x, 1, enemy.position[2] - z];
+                    enemy.babies++;
+                    break;
+                case 2:
+                    ePos = [enemy.position[0] + x, 1, enemy.position[2] - z];
+                    enemy.babies++;
+                    break;
+
+                case 3:
+                    ePos = [enemy.position[0] - x, 1, enemy.position[2] + z];
+                    enemy.babies++;
+                    break;
+
+            }
         }
-        else{
+        let i = enemy.babies - 1;
+        currentLevel.enemies[i].position = ePos;
+        currentLevel.enemies[i].model.visible = true;
+        currentLevel.enemies[i].model.position.x = currentLevel.enemies[i].position[0];
+        currentLevel.enemies[i].model.position.y = currentLevel.enemies[i].position[1];
+        currentLevel.enemies[i].model.position.z = currentLevel.enemies[i].position[2];
+        console.log(currentLevel.enemies[i].position);
+        currentLevel.board.tileArray[currentLevel.enemies[i].position[0]][currentLevel.enemies[i].position[2]].occupant = currentLevel.enemies[i];
+        currentLevel.enemies[i].stateMachine.changeTo('RETRACT');
+        currentLevel.enemies[i].living = 'ALIVE';
+
+        if(enemy.babies == 4){
             enemy.stateMachine.changeTo(ACTION);
         }
+       
     }
 
     exit(enemy){
@@ -53,15 +78,16 @@ class ActionState extends State {
     execute(enemy){
         //checks how many pinpods remain on level
         //enemy.babies = 0;
-        console.log(currentLevel.respawnable);
+        //console.log(currentLevel.respawnable);
         let actual = 0;
         for(let i = 0; i < currentLevel.enemies.length; i++){
-           if(currentLevel.enemies[i].type == 'PINPOD'){
+           if(currentLevel.enemies[i].type == 'PINPODSP' && currentLevel.enemies[i].living == 'ALIVE'){
                actual++;
            } 
         }
-        console.log(actual);
+        //console.log(actual);
         if(actual == 0){
+            enemy.babies = 0;
             enemy.stateMachine.changeTo(CHARGE);
         }
         else if (actual != enemy.babies){//resetting attack charge with each absorb
@@ -88,18 +114,6 @@ class ActionState extends State {
 
 class AOEState extends State {
     enter(enemy){
-        //attack animation HERE
-        //uses AOE attack
-       // for(let i = 0; i < currentLevel.enemies.length; i++){
-         //   if(currentLevel.enemies[i].type != 'PINBEAST' || currentLevel.enemies[i].type != 'PINPOD'){
-           //     let status = currentLevel.enemies[i].takeDamage(enemy.attackPower);
-             //   if (status == 'DEAD'){
-               //     currentLevel.enemies[i].model.visible = false;
-                 //   currentLevel.board.tileArray[currentLevel.enemies[i].position[0]][currentLevel.enemies[i].position[2]].occupant = null;
-                   // currentLevel.enemies.splice(i,1);
-               //}
-           // }
-       // }
         console.log("MASSIVE DAMAGE TAKEN");
         enemy.attack(enemy.attackPower);
         enemy.stateMachine.changeTo(ACTION);
@@ -118,23 +132,16 @@ class AOEState extends State {
 
 class ChargeState extends State {//charges in direction of player
     enter(enemy){
-       //Some tooltip to show the player to watch out
-       //enemy.path.add([11, 1, 10]);
-       //console.log(currentLevel.player.position);
-       //console.log(enemy.path.current());
     }
 
     execute(enemy){
-       enemy.moveToPlayer(10);
-        //while(enemy.position != currentLevel.player.position){
-            //enemy.moveEPath();
-           // enemy.moveToPlayer(1);
-       // }
+        enemy.moveToPlayer(10);
+        currentLevel.player.takeDamage(1);
         enemy.stateMachine.changeTo(SPAWN);
     }
 
     exit(enemy){
-        enemy.path.clear();
+        //enemy.path.clear();
     }
 }
 
