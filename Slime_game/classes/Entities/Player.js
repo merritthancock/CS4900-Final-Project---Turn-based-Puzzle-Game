@@ -4,7 +4,6 @@ import { currentLevel, sleep, degToRad } from "../Global.js";
 import {aStar} from "../Pathing.js";
 import {NormState, SpikeState} from "./PlayerAbilities.js";
 import { StateMachine } from "../../libraries/yuka-master/src/yuka.js";
-import {moveAnimate} from "../Animation.js";
 
 //Players inherit from Entity
 class Player extends Entity {
@@ -94,21 +93,29 @@ class Player extends Entity {
         //Get route from A*
         let route = aStar(this.position[0], this.position[2], 
             tile.position[0], tile.position[2], currentLevel.board, currentLevel.player);
+
+        let idle = THREE.AnimationClip.findByName( this.animations, 'idle' );
+        let move = THREE.AnimationClip.findByName( this.animations, 'move' );
+        let idleAction = this.mixer.clipAction( idle );
+        let moveAction = this.mixer.clipAction( move );
         //Move along route given
         for(let i = 1; i < route.length && this.decrementAP() >= 0; i++) {
             await this.rotateEntity(route[i]);
 
             //Move unit
             //moveAnimate(this);
+            this.mixer.stopAllAction();
+            moveAction.play();
+            await sleep(200);
             currentLevel.board.tileArray[this.position[0]][this.position[2]].occupant = null;
             this.moveEntity(route[i].tile.position[0], route[i].tile.height + 1, route[i].tile.position[2]);
             currentLevel.board.tileArray[this.position[0]][this.position[2]].occupant = this;
-
-            await sleep(400);
+            await sleep(500);
+            this.mixer.stopAllAction();
+            idleAction.play();
         }
         if(tile.occupant.name != "player" && tile.occupant.absorbCheck()) {
             this.absorb(tile.occupant);
-
         }
 
         passTurn(currentLevel);

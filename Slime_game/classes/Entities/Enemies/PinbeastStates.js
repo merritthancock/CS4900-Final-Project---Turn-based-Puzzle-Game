@@ -17,11 +17,11 @@ class SpawnState extends State { //PINBEAST IS ONLY VULNERABLE DURING THIS STATE
             let x = Math.floor(Math.random() * enemy.spawnRange + 1);
             let z = Math.floor(Math.random() * enemy.spawnRange + 1);
             let ePos = [enemy.position[0] + x, 1, enemy.position[2] + z];
-           // let pinpod = new Pinpod(ePos, enemy.childID.toString(), 1, 2);
+            // let pinpod = new Pinpod(ePos, enemy.childID.toString(), 1, 2);
             //currentLevel.enemies.push(pinpod);
             //currentLevel.board.tileArray[ePos[0]][ePos[2]].occupant = pinpod;
             enemy.childID++;
-           // console.log(pinpod.position);
+            // console.log(pinpod.position);
             enemy.stateMachine.changeTo(ACTION);
             currentLevel.respawnable[enemy.babies].position = [enemy.position[0] + x, 1, enemy.position[2] + z];
             currentLevel.respawnable[enemy.babies].model = 'visible';

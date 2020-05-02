@@ -2,6 +2,7 @@ import {currentLevel, degToRad} from "../Global.js";
 import {Entity} from "./Entity.js";
 import {Path} from "../../libraries/yuka-master/src/yuka.js";
 import {aStar} from "../Pathing.js";
+import {sleep} from "../Global.js";
 
 //The Enemy is an object that will contain unique methods allowing player interaction
 class Enemy extends Entity {
@@ -64,13 +65,25 @@ class Enemy extends Entity {
         //Move along the route for the number of moves allowed
         for(let i = 1; i < route.length && moves > 0; i++) {
 
+            let idle = THREE.AnimationClip.findByName( this.animations, 'idle' );
+            let move = THREE.AnimationClip.findByName( this.animations, 'move' );
+            let idleAction = this.mixer.clipAction( idle );
+            let moveAction = this.mixer.clipAction( move );
+
             //Rotate unit
             await this.rotateEntity(route[i]);
 
             //Move unit
+            this.mixer.stopAllAction();
+            moveAction.play();
+            await sleep(200);
             currentLevel.board.tileArray[this.position[0]][this.position[2]].occupant = null;
             this.moveEntity(route[i].tile.position[0], route[i].tile.height + 1, route[i].tile.position[2]);
             currentLevel.board.tileArray[this.position[0]][this.position[2]].occupant = this;
+            await sleep(500);
+            this.mixer.stopAllAction();
+            idleAction.play();
+
             moves--;
         }
     }

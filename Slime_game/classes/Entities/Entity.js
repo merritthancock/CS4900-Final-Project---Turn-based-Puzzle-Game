@@ -25,7 +25,7 @@ class Entity extends GameEntity {
     //TODO: Play animations to move along path rather than jumping to set location.
     moveEntity(x, y, z) {
         let tween = new TWEEN.Tween(this.model.position);
-        tween.to({ x: x, y: y, z: z }, 100);
+        tween.to({ x: x, y: y, z: z }, 500);
         tween.start();
         this.position[0] = x;
         this.position[1] = y;
