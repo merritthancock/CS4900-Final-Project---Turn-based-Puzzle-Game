@@ -6,8 +6,6 @@ import {resourceTracker, buildTestLevel} from "./LevelManager.js";
 import {buildLevel1} from "./Levels/Level1.js";
 import {buildLevel2} from "./Levels/Level2.js";
 import {buildLevel3} from "./Levels/Level3.js";
-//import {scene2} from "./LevelManager.js";
-//import {testLevel2} from "./LevelManager.js";
 import {currentLevel, changeLevel} from "./Global.js";
 import { NavNode } from "../libraries/yuka-master/src/yuka.js";
 import {occupied} from "./Pathing.js";
@@ -312,16 +310,14 @@ function setupLevel(){
 
 function updateToolTips(){
     //Update left tool tip
-    
-    
-    //------------------------------
-    let playerState = currentLevel.player.stateMachine.current;
-    //------------------------------
-
-
+    //Jump Height for player
     jumpHeightTip.innerHTML = currentLevel.player.jumpHeight.toString();
-
+    //Mass of player
     massTip.innerHTML = currentLevel.player.mass.toString();
+    //Ability of player
+    //------------------------------Work in progress---------------------
+    let playerState = currentLevel.player.stateMachine.currentState.type;
+    //-------------------------------------------------------------------
     if(playerState = "undefined"){
         abilityTypeTip.innerHTML = "None";
     }
@@ -361,6 +357,7 @@ function updateToolTips(){
                 break;
         }
     }
+    //if the tile is empty display the tile info
     else{    
         rightMass.style.display = "none";
         rightType.innerHTML = "None";
@@ -391,6 +388,7 @@ function updateToolTips(){
                 document.getElementById("rightPic").src = "./assets/yellow.jpg";
                 break;
         }
+        //Height of the tile
         rightModular.innerHTML = "Height: " + currentLevel.getUIData().cursorTile.height.toString();
     }
 }

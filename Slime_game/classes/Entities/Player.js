@@ -69,7 +69,6 @@ class Player extends Entity {
         if(enemy.type == 'PINPOD' || enemy.type == 'PINPODSP'){
             this.abilityUses = 3; //three spike uses
             this.stateMachine.changeTo('SPIKE');
-
         }
         playAbsorb();//sounds absorption sound
     }
