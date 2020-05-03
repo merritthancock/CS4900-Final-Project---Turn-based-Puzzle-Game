@@ -74,9 +74,9 @@ function hover(level){//initiates methods when cursor hovers over entities/tiles
     //console.log(cPos);
     //console.log(pPos);
 
-    console.log("Type: ", typeList(type));
-    console.log("Height: ", height);
-    console.log("Occupied by: ", occupied(level.board));
+    //console.log("Type: ", typeList(type));
+    //console.log("Height: ", height);
+    //console.log("Occupied by: ", occupied(level.board));
 }
 
 //Calls checkneighbor if destination tile exists

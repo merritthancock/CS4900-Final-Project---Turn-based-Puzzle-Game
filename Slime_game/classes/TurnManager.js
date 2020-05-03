@@ -2,6 +2,7 @@ import { getMasterLock, releaseMasterLock} from "../Semaphore.js";
 import { PriorityQueue } from "../libraries/yuka-master/src/yuka.js";
 import { sleep } from "./Global.js";
 import { loseLevel, winLevel } from "./Controller.js";
+import { playEnemy } from "./Sounds.js";
 
 let turnCount = 0;
 let isPlayerTurn = true;
@@ -25,6 +26,7 @@ async function passTurn(currentLevel) {
             currentEnemy.resetAP();
             while(currentEnemy.decrementAP() != null) {
                 currentEnemy.update();
+                playEnemy();
                 await sleep(100);
             }
         }
