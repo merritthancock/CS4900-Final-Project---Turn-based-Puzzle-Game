@@ -8,7 +8,7 @@ class PinpodSp extends Enemy {
         //Call entity constructor
         super(position, id, startingMass, startPriority, 1);
 
-        //Set URL (PLACEHOLDER UNTIL PINPOD MODEL DONE)
+        //Set URL
         this.url = "PinPod.glb";
         
         //the Pinpod's ability which will be passed to the player upon absorption

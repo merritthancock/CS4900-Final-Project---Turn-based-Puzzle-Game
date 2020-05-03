@@ -4,7 +4,6 @@ import { currentLevel, sleep, degToRad } from "../Global.js";
 import {aStar} from "../Pathing.js";
 import {NormState, SpikeState} from "./PlayerAbilities.js";
 import { StateMachine } from "../../libraries/yuka-master/src/yuka.js";
-import {moveAnimate} from "../Animation.js";
 import {playMove, playAbsorb, playDeath} from "../Sounds.js";
 
 //Players inherit from Entity

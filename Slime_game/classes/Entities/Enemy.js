@@ -13,7 +13,7 @@ class Enemy extends Entity {
         //Set starting mass
         this.mass = startingMass;
         //Set abilities to an empty set for starters
-        this.abilities = "NONE";
+        this.ability = "NONE";
         //Set the priority of the enemy
         this.priority = startPriority;
         //Set the enemy's range of vision for seeing the player

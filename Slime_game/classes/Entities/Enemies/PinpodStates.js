@@ -5,11 +5,18 @@ const RETRACT = 'RETRACT';
 const HALT = 'HALT';
 
 class ExtendState extends State {
+
     enter(enemy){
         //change model to spike version
-        enemy.absorbable = false;
-        if(enemy.seesPlayer()){
-            enemy.attack(enemy.attackPower);
+        if(enemy.animations != null) {
+            let extend = THREE.AnimationClip.findByName( enemy.animations, 'active' );
+            let extendAction = enemy.mixer.clipAction( extend );
+            enemy.mixer.stopAllAction();
+            extendAction.play();
+            enemy.absorbable = false;
+            if(enemy.seesPlayer()){
+                enemy.attack(enemy.attackPower);
+            }
         }
     }
 
@@ -38,7 +45,13 @@ class ExtendState extends State {
 
 class RetractState extends State {
     enter(enemy){
-       //change model to non-spike version 
+        //change model to non-spike version
+        if(enemy.animations != null) {
+            let retract = THREE.AnimationClip.findByName( enemy.animations, 'idle' );
+            let retractAction = enemy.mixer.clipAction( retract );
+            enemy.mixer.stopAllAction();
+            retractAction.play();
+        }
     }
 
     execute(enemy){
@@ -66,7 +79,8 @@ class HaltState extends State {//Only when PinpodSp is absorbed or dead. Does no
 
     }
     exit(enemy){
-    
+        //resetting health again in the event player used spike attack while pinpod was dead
+        enemy.mass = 1;
     }
 }
 export {ExtendState, RetractState, HaltState}
