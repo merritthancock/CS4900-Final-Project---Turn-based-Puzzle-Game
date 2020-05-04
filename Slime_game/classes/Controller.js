@@ -6,8 +6,6 @@ import {resourceTracker, buildTestLevel} from "./LevelManager.js";
 import {buildLevel1} from "./Levels/Level1.js";
 import {buildLevel2} from "./Levels/Level2.js";
 import {buildLevel3} from "./Levels/Level3.js";
-//import {scene2} from "./LevelManager.js";
-//import {testLevel2} from "./LevelManager.js";
 import {currentLevel, changeLevel} from "./Global.js";
 import { NavNode } from "../libraries/yuka-master/src/yuka.js";
 import {occupied} from "./Pathing.js";
@@ -21,12 +19,18 @@ let windowHeight;
 let camera;
 let cameraControls;
 let renderer;
+let scene = new THREE.Scene();
+//HTML variables
 let canvas = document.querySelector("#game");
 let menu = document.getElementById("menu");
+let loadingScreen = document.getElementById("loading-screen");
 let winScreen = document.querySelector("#winLevel");
 let loseScreen = document.querySelector("#loseLevel");
+let finalScreen = document.querySelector("#finalWin");
 let toolTips = document.querySelector("#toolTip");
 let rightTips = document.querySelector("#topRightTip");
+let replayTracker;
+//Buttons
 let startButton = document.getElementById("start");
 let level1Button = document.getElementById("Level1");
 let level2Button = document.getElementById("Level2");
@@ -34,10 +38,8 @@ let level3Button = document.getElementById("Level3");
 let menuBtn = document.querySelector("#menuBtn");
 let loseBtn = document.querySelector("#loseBtn");
 let loseMenuBtn = document.querySelector("#loseMenuBtn");
+let finalBtn = document.querySelector("#finalBtn");
 let nextLevel = document.querySelector("#nextLevel");
-let scene = new THREE.Scene();
-let loadingScreen = document.getElementById("loading-screen");
-let replayTracker;
 
 //Tool Tips Variables
 let leftPic = document.querySelector("#playerPic");
@@ -45,7 +47,7 @@ let massTip = document.querySelector("#mass");
 let jumpHeightTip = document.querySelector("#jumpHeight");
 let movementRangeTip = document.querySelector("#movementRange");
 let abilityTypeTip = document.querySelector("#ability");
-//Right Tips Variables
+//Right Tip Variables
 let rightPic = document.querySelector("#topRightTip");
 let rightType = document.querySelector("#type");
 let rightModular = document.querySelector("#rightModular");
@@ -57,7 +59,7 @@ let rightMass = document.querySelector("#rightMass");
 windowWidth = window.innerWidth;
 windowHeight = window.innerHeight;
 
-
+//Returns user to menu
 menuBtn.onclick = function(){
     playSelect();
     winScreen.style.display = "none";
@@ -70,6 +72,12 @@ menuBtn.onclick = function(){
     menu.style.display = "block";
 };
 
+finalBtn.onclick = function(){//clicked after winning level 3
+    finalScreen.style.display = "none";
+    menuBtn.click();
+};
+
+//Returns user to menu
 loseMenuBtn.onclick = function(){//go back to menu
     playSelect();
     loseScreen.style.display = "none";
@@ -82,6 +90,7 @@ loseMenuBtn.onclick = function(){//go back to menu
     loseScreen.style.display = "none";
 };
 
+//Replays the current level
 loseBtn.onclick = function(){//replay
     playSelect();
     loseScreen.style.display = "none";
@@ -113,6 +122,7 @@ loseBtn.onclick = function(){//replay
     }
 }
 
+//Loads the next level
 nextLevel.onclick = function(){//next level
     winScreen.style.display = "none";
     loseScreen.style['pointer-events'] = 'none';
@@ -120,7 +130,7 @@ nextLevel.onclick = function(){//next level
     loseBtn.click();
 }
 
-
+//Level selection system
 function start(){
     loadingScreen.style.display = "none";
     canvas.style.display = "none";
@@ -196,7 +206,6 @@ function setupTasks(){
     //Adds event listeners to document
     document.addEventListener('keyup', doKeyUp, false);
     document.addEventListener('keydown', doKeyDown, false);
-    //----------------------------------------------------------------
 }
 
 //Level loading logic-----------------------------------------------------
@@ -335,20 +344,6 @@ function loadBoard(scene, level) {
 
     //Set up the skybox (TODO: MAKE SKYBOX A PARAM IN LEVEL)
     scene.background = level.sky;
-    //let skyboxGeometry = new THREE.CubeGeometry(100, 100, 100);
-    //let skyboxMaterial = new THREE.MeshBasicMaterial({  map: sky, side: THREE.BackSide });
-    //let skybox = resourceTracker.track(new THREE.Mesh(skyboxGeometry, skyboxMaterial));
-    //scene.add(skybox);
-
-    /*COMMENTED OUT BECAUSE OF NEW LOADING MECHANICS
-    //add player to the scene
-    scene.add(level.player.mesh);
-    //add cursor to the scene
-    scene.add(level.cursor.mesh);
-    //add enemy to the scene
-    for(let i = 0; i < enemies.length; i++){
-        scene.add(level.enemies[i].mesh);
-    }*/
 }
 
 function loadLevel(scene, level){
@@ -381,10 +376,14 @@ function setupLevel(){
 
 function updateToolTips(){
     //Update left tool tip
-    let playerState = currentLevel.player.current;
+    //Jump Height for player
     jumpHeightTip.innerHTML = currentLevel.player.jumpHeight.toString();
-
+    //Mass of player
     massTip.innerHTML = currentLevel.player.mass.toString();
+    //Ability of player
+    //------------------------------Work in progress---------------------
+    let playerState = currentLevel.player.stateMachine.currentState.type;
+    //-------------------------------------------------------------------
     if(playerState = "undefined"){
         abilityTypeTip.innerHTML = currentLevel.player.ability;
     }
@@ -410,21 +409,22 @@ function updateToolTips(){
                 rightName.innerHTML = "Player";
                 document.getElementById("rightPic").src = "./assets/slime.jpg";
                 if(playerState = "undefined"){
-                    rightModular.innerHTML = "Ability: " + cursTile.occupant.ability;
+                    rightModular.innerHTML = "Ability: " + currentLevel.player.ability;
                 }
                 else{
                     rightModular.innerHTML = "Ability: " + playerState;
                 }
+                //rightModular.innerHTML = "Ability: " + playerState;
                 break;
             default:
+
                 rightModular.innerHTML = "Ability: " + cursTile.occupant.ability.toString();
                 rightName.innerHTML = cursTile.occupant.type;
                 document.getElementById("rightPic").src = "./assets/skull.jpg";
                 break;
-
         }
-        
     }
+    //if the tile is empty display the tile info
     else{    
         rightMass.style.display = "none";
         rightType.innerHTML = "None";
@@ -455,15 +455,24 @@ function updateToolTips(){
                 document.getElementById("rightPic").src = "./assets/yellow.jpg";
                 break;
         }
+        //Height of the tile
         rightModular.innerHTML = "Height: " + currentLevel.getUIData().cursorTile.height.toString();
     }
-    
 }
 
 function winLevel(){
     playWin();
+    winScreen.style.display = "block";
     winScreen.style['pointer-events'] = 'auto';
     winScreen.style['opacity'] = '0.8';
+    toolTips.style.display = "none";
+    rightTips.style.display = "none";
+}
+
+function finalWin(){
+    playWin();
+    finalScreen.style['pointer-events'] = 'auto';
+    finalScreen.style['opacity'] = '0.8';
     toolTips.style.display = "none";
     rightTips.style.display = "none";
 }
@@ -503,4 +512,6 @@ export {camera};
 export {cameraControls};
 export {winLevel};
 export {loseLevel};
+export {finalWin}
 export {updateToolTips};
+export {replayTracker}

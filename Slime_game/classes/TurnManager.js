@@ -1,7 +1,7 @@
 import { getMasterLock, releaseMasterLock} from "../Semaphore.js";
 import { PriorityQueue } from "../libraries/yuka-master/src/yuka.js";
 import { sleep } from "./Global.js";
-import { loseLevel, winLevel } from "./Controller.js";
+import { loseLevel, winLevel, replayTracker, finalWin } from "./Controller.js";
 import { playEnemy } from "./Sounds.js";
 
 let turnCount = 0;
@@ -39,6 +39,19 @@ async function passTurn(currentLevel) {
         if(currentLevel.getUIData().playerTile.type == 8){//win game
             winLevel();
         }
+        if(replayTracker == 3){//checks for beating level 3
+            let eneArray = currentLevel.enemies;
+            let i;
+            let checker = true;
+            for(i = 0; i < eneArray.length; i++){
+                if(eneArray[i].type == "PINBEAST"){
+                    checker = false;
+                } 
+            }
+            if(checker == true){
+                finalWin();
+            }
+        }
 
         passTurn(currentLevel);
     }
@@ -55,6 +68,19 @@ async function passTurn(currentLevel) {
         }
         if(currentLevel.getUIData().playerTile.type == 8){//win game
             winLevel();
+        }
+        if(replayTracker == 3){//checks for beating level 3
+            let eneArray = currentLevel.enemies;
+            let i;
+            let checker = true;
+            for(i = 0; i < eneArray.length; i++){
+                if(eneArray[i].type == "PINBEAST"){
+                    checker = false;
+                } 
+            }
+            if(checker == true){
+                finalWin();
+            }
         }
     }
 }
