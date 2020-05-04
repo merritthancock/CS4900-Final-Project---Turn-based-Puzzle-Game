@@ -33,6 +33,18 @@ class PatrolState extends State {
 class FleeState extends State {
     enter(enemy){
         //alert animation
+        let selectAnimation = THREE.AnimationClip.findByName( enemy.animations, 'alert' );
+        let selectAction = enemy.mixer.clipAction( selectAnimation );
+        selectAction.setLoop(THREE.LoopOnce);
+        enemy.mixer.stopAllAction();
+        selectAction.play();
+        enemy.mixer.addEventListener( 'finished', function callBack( e ) { 
+            let idle = THREE.AnimationClip.findByName( enemy.animations, 'idle' );
+            let idleAction = enemy.mixer.clipAction( idle );
+            enemy.mixer.stopAllAction();
+            idleAction.play();
+            enemy.mixer.removeEventListener(callBack)
+        } );
         console.log('EEK!');
         enemy.ap = 3;
     }

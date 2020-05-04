@@ -327,7 +327,7 @@ function updateToolTips(){
 
     massTip.innerHTML = currentLevel.player.mass.toString();
     if(playerState = "undefined"){
-        abilityTypeTip.innerHTML = "None";
+        abilityTypeTip.innerHTML = currentLevel.player.ability;
     }
     else{
         abilityTypeTip.innerHTML = playerState;
@@ -351,7 +351,7 @@ function updateToolTips(){
                 rightName.innerHTML = "Player";
                 document.getElementById("rightPic").src = "./assets/slime.jpg";
                 if(playerState = "undefined"){
-                    rightModular.innerHTML = "Ability: None";
+                    rightModular.innerHTML = "Ability: " + cursTile.occupant.ability;
                 }
                 else{
                     rightModular.innerHTML = "Ability: " + playerState;

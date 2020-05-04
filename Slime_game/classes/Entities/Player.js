@@ -18,7 +18,7 @@ class Player extends Entity {
         //Set starting mass and size values
         this.mass = startingMass;
         //Set abilities to an empty set for starters
-        this.abilities = {};
+        this.ability = 'NONE';
         //Set default jump height to 1
         this.jumpHeight = 1;
         this.ap = 2;
@@ -63,11 +63,10 @@ class Player extends Entity {
             this.movePlayer(currentLevel.board.tileArray[enemy.position[0]][enemy.position[2]]);
         }
         
-        
-        
         if(enemy.type == 'PINPOD' || enemy.type == 'PINPODSP'){
             this.abilityUses = 3; //three spike uses
             this.stateMachine.changeTo('SPIKE');
+            this.ability = 'SPIKE';
 
         }
         //Move enemy to "graveyard space"
