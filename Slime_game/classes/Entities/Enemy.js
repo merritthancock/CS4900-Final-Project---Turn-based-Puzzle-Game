@@ -77,11 +77,11 @@ class Enemy extends Entity {
             //Move unit
             this.mixer.stopAllAction();
             moveAction.play();
-            await sleep(200);
+            await sleep(160);
             currentLevel.board.tileArray[this.position[0]][this.position[2]].occupant = null;
             this.moveEntity(route[i].tile.position[0], route[i].tile.height + 1, route[i].tile.position[2]);
             currentLevel.board.tileArray[this.position[0]][this.position[2]].occupant = this;
-            await sleep(500);
+            await sleep(400);
             this.mixer.stopAllAction();
             idleAction.play();
 
