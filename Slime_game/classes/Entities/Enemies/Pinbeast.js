@@ -8,8 +8,9 @@ class Pinbeast extends Enemy {
         //Call entity constructor
         super(position, id, startingMass, startPriority, 1);
 
-        //Set URL (PLACEHOLDER UNTIL PINBEAST MODEL DONE)
-        this.url = "MilcapSoldier.glb";
+        //Set URL
+        this.url = "Pinbeast2.glb";
+        this.modelMultiplier = 2;
         
         this.ability = 'NONE';
         //Default trigger radius in all directions
@@ -27,7 +28,7 @@ class Pinbeast extends Enemy {
         //Pinbeast AP per turn
         this.ap = 1;
         //Pinbeast spawn range
-        this.spawnRange = 6;
+        this.spawnRange = 4;
         //number of currently living pinpod children in the level (decrements and increments accordingly)
         this.babies = 0;
         //incremented value which becomes the ID of each spawned pinpod

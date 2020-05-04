@@ -5,6 +5,7 @@
     <title>Slime Game</title>
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
+    <link rel="shortcut icon" href="#" />
 </head>
 <body>
 
@@ -50,16 +51,25 @@
                     <td>To move the cursor use the W A S D keys</td>
                 </tr>
                 <tr>
-                    <td>To select an entity hover over the entity and press enter</td>
+                    <td>To select the player or an enemy, hover over it with the cursor and press Enter</td>
                 </tr>
                 <tr>
-                    <td>To confirm a movement press enter</td>
+                    <td>To confirm a movement press Enter over any blue space</td>
                 </tr>
                 <tr>
-                    <td>To pan the camera right click and drag the screen</td>
+                    <td>Right click to pan camera, left click to rotate, and middle mouse to zoom in or out.</td>
                 </tr>
                 <tr>
-                    <td>To rotate the camera left click and drag the screen</td>
+                    <td>You can absorb an enemy with lower or equal mass to your own by moving over it when in range.</td>
+                </tr>
+                <tr>
+                    <td>Careful: Some enemies may attack you when they get next to you. Try to bait them to get close to you to avoid their attacks.</td>
+                </tr>
+                <tr>
+                    <td>You will gain abilities from absorbing some enemies. Press space to use them.</td>
+                </tr>
+                <tr>
+                    <td>Open your browser console to see details such as damage, ability uses, and more.</td>
                 </tr>
                 
             </table>
@@ -87,6 +97,10 @@
             <label id="winText">You Win!</label>
             <button class="loseBtn" id="menuBtn" style="right:30px">Main Menu</button>
             <button class="loseBtn" id="nextLevel" style="left:30px">Next Level</button>
+        </div>
+        <div class="winLevel" id="finalWin" style="width:700px">
+            <label>Congratulations! You have completed the game!</label>
+            <button class="loseBtn" id="finalBtn" style="right:40%">Main Menu</button>
         </div>
         <div class="loseLevel" id="loseLevel">
             <label id="loseText">You Lose!</label>
@@ -140,7 +154,7 @@
                     <td>Occupant: <label id="type">Terrain</label></td>
                 </tr>
                 <tr>
-                    <td>Height: <label id="terrainHeight">1</label></td>
+                    <td><label id="rightModular">1</label></td>
                 </tr>
                 <tr>
                     <td>Name: <label id="entityName">Grass</label></td>
@@ -153,7 +167,17 @@
         </div>
     </div>
 
-
-    <audio src="assets/sounds/drop_004.ogg" type="audio/mpeg"></audio>
+    <audio id="slimeAttack" src="assets/sounds/slime_attack.mp3" type="audio/mpeg"></audio>
+    <audio id="slimeMove" src="assets/sounds/slime_movement.mp3" type="audio/mpeg"></audio>
+    <audio id="slimeAbsorb" src="assets/sounds/absorb.mp3" type="audio/mpeg"></audio>
+    <audio id="deathSound" src="assets/sounds/death_sound.mp3" type="audio/mpeg"></audio>
+    <audio id="cursorSound" src="assets/sounds/cursor_move.mp3" type="audio/mpeg"></audio>
+    <audio id="enemySound" src="assets/sounds/enemy_move.mp3" type="audio/mpeg"></audio>
+    <audio id="gameStart" src="assets/sounds/game_start.mp3" type="audio/mpeg"></audio>
+    <audio id="select" src="assets/sounds/play_select.mp3" type="audio/mpeg"></audio>
+    <audio id="damage" src="assets/sounds/damage_sound.mp3" type="audio/mpeg"></audio>
+    <audio id="cursorSelect" src="assets/sounds/cursor_select.mp3" type="audio/mpeg"></audio>
+    <audio id="winSound" src="assets/sounds/win_sound.mp3" type="audio/mpeg"></audio>
+    <audio id="loseSound" src="assets/sounds/lose_sound.mp3" type="audio/mpeg"></audio>
 </body>
 </html>

@@ -2,6 +2,7 @@ import {Entity} from "./Entity.js";
 import {currentLevel} from "../Global.js";
 import { Player } from "./Player.js";
 import { passTurn } from "../TurnManager.js";
+import { playCursor, playCursorSelect } from "../Sounds.js";
 
 //The Cursor is an object that will contain unique methods allowing player interaction
 class Cursor extends Entity {
@@ -21,6 +22,20 @@ class Cursor extends Entity {
             }
             //If tile does hold an object, select that object and check what it is
             else {
+                //play select animation
+                let selectAnimation = THREE.AnimationClip.findByName( currentLevel.cursor.animations, 'select' );
+                let selectAction = currentLevel.cursor.mixer.clipAction( selectAnimation );
+                selectAction.setLoop(THREE.LoopOnce);
+                currentLevel.cursor.mixer.stopAllAction();
+                selectAction.play();
+                currentLevel.cursor.mixer.addEventListener( 'finished', function callBack( e ) { 
+                    let idle = THREE.AnimationClip.findByName( currentLevel.cursor.animations, 'idle' );
+                    let idleAction = currentLevel.cursor.mixer.clipAction( idle );
+                    currentLevel.cursor.mixer.stopAllAction();
+                    idleAction.play();
+                    currentLevel.cursor.mixer.removeEventListener(callBack)
+                 } );
+
                 currentLevel.board.select(tile);
                 //If occupant is the player, change active function to playerSelState
                 if(tile.occupant.name == "player") {
@@ -128,7 +143,10 @@ class Cursor extends Entity {
         }
 
         this.model.position.set(this.position[0], this.position[1], this.position[2]);
+        
         console.log(this.position);
+        playCursor();//plays cursor sound
+
     }
 
     cursorHeight(height){
@@ -143,6 +161,7 @@ class Cursor extends Entity {
         let cursorY = this.position[2];
         let tile = currentLevel.board.tileArray[cursorX][cursorY];
         this.activeState(cursorX, cursorY, tile);
+        playCursorSelect();
     }
 
     /*

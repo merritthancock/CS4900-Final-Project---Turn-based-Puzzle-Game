@@ -6,13 +6,12 @@ import {resourceTracker, buildTestLevel} from "./LevelManager.js";
 import {buildLevel1} from "./Levels/Level1.js";
 import {buildLevel2} from "./Levels/Level2.js";
 import {buildLevel3} from "./Levels/Level3.js";
-//import {scene2} from "./LevelManager.js";
-//import {testLevel2} from "./LevelManager.js";
 import {currentLevel, changeLevel} from "./Global.js";
 import { NavNode } from "../libraries/yuka-master/src/yuka.js";
 import {occupied} from "./Pathing.js";
 import {getLock, releaseLock} from "../Semaphore.js";
 import {TWEEN} from "../libraries/tween.js";
+import {playStart, playSelect, playWin, playLose} from "./Sounds.js";
 
 // declare variables
 let windowWidth;
@@ -20,12 +19,18 @@ let windowHeight;
 let camera;
 let cameraControls;
 let renderer;
+let scene = new THREE.Scene();
+//HTML variables
 let canvas = document.querySelector("#game");
 let menu = document.getElementById("menu");
+let loadingScreen = document.getElementById("loading-screen");
 let winScreen = document.querySelector("#winLevel");
 let loseScreen = document.querySelector("#loseLevel");
+let finalScreen = document.querySelector("#finalWin");
 let toolTips = document.querySelector("#toolTip");
 let rightTips = document.querySelector("#topRightTip");
+let replayTracker;
+//Buttons
 let startButton = document.getElementById("start");
 let level1Button = document.getElementById("Level1");
 let level2Button = document.getElementById("Level2");
@@ -33,10 +38,8 @@ let level3Button = document.getElementById("Level3");
 let menuBtn = document.querySelector("#menuBtn");
 let loseBtn = document.querySelector("#loseBtn");
 let loseMenuBtn = document.querySelector("#loseMenuBtn");
+let finalBtn = document.querySelector("#finalBtn");
 let nextLevel = document.querySelector("#nextLevel");
-let scene = new THREE.Scene();
-let loadingScreen = document.getElementById("loading-screen");
-let replayTracker;
 
 //Tool Tips Variables
 let leftPic = document.querySelector("#playerPic");
@@ -44,10 +47,10 @@ let massTip = document.querySelector("#mass");
 let jumpHeightTip = document.querySelector("#jumpHeight");
 let movementRangeTip = document.querySelector("#movementRange");
 let abilityTypeTip = document.querySelector("#ability");
-//Right Tips Variables
+//Right Tip Variables
 let rightPic = document.querySelector("#topRightTip");
 let rightType = document.querySelector("#type");
-let rightHeight = document.querySelector("#terrainHeight");
+let rightModular = document.querySelector("#rightModular");
 let rightName = document.querySelector("#entityName");
 let rightMass = document.querySelector("#rightMass");
 
@@ -56,8 +59,9 @@ let rightMass = document.querySelector("#rightMass");
 windowWidth = window.innerWidth;
 windowHeight = window.innerHeight;
 
-
+//Returns user to menu
 menuBtn.onclick = function(){
+    playSelect();
     winScreen.style.display = "none";
     winScreen.style['pointer-events'] = 'none';
     loadingScreen.style.display = "block";
@@ -68,7 +72,14 @@ menuBtn.onclick = function(){
     menu.style.display = "block";
 };
 
+finalBtn.onclick = function(){//clicked after winning level 3
+    finalScreen.style.display = "none";
+    menuBtn.click();
+};
+
+//Returns user to menu
 loseMenuBtn.onclick = function(){//go back to menu
+    playSelect();
     loseScreen.style.display = "none";
     loseScreen.style['pointer-events'] = 'none';
     loadingScreen.style.display = "block";
@@ -79,7 +90,9 @@ loseMenuBtn.onclick = function(){//go back to menu
     loseScreen.style.display = "none";
 };
 
+//Replays the current level
 loseBtn.onclick = function(){//replay
+    playSelect();
     loseScreen.style.display = "none";
     loseScreen.style['pointer-events'] = 'none';
     loadingScreen.style.display = "block";
@@ -109,6 +122,7 @@ loseBtn.onclick = function(){//replay
     }
 }
 
+//Loads the next level
 nextLevel.onclick = function(){//next level
     winScreen.style.display = "none";
     loseScreen.style['pointer-events'] = 'none';
@@ -116,7 +130,7 @@ nextLevel.onclick = function(){//next level
     loseBtn.click();
 }
 
-
+//Level selection system
 function start(){
     loadingScreen.style.display = "none";
     canvas.style.display = "none";
@@ -127,33 +141,41 @@ function start(){
   
     //Test Level
     startButton.onclick = function(){
+        playSelect();
         console.log("Test Level");
         replayTracker = 0;
         changeLevel(buildTestLevel());
         buildLevel();
+        playStart();
     };
     //Level 1
     level1Button.onclick = function(){
+        playSelect();
         console.log("Level 1");
         replayTracker = 1;
         loseScreen.style.display = "none";
         changeLevel(buildLevel1());
         buildLevel();
+        playStart();
     };
     //Level 2
     level2Button.onclick = function(){
+        playSelect();
         console.log("Level 2");
         replayTracker = 2;
         changeLevel(buildLevel2());
         buildLevel(); 
+        playStart();
     };
 
     //Level 3
     level3Button.onclick = function(){
+        playSelect();
         console.log("Level 3");
         replayTracker = 3;
         changeLevel(buildLevel3());
         buildLevel();
+        playStart();
     };
 }
 
@@ -184,7 +206,6 @@ function setupTasks(){
     //Adds event listeners to document
     document.addEventListener('keyup', doKeyUp, false);
     document.addEventListener('keydown', doKeyDown, false);
-    //----------------------------------------------------------------
 }
 
 //Level loading logic-----------------------------------------------------
@@ -213,7 +234,7 @@ function loadModel(entity, loader) {
             let xPos = entity.position[0];
             let yPos = entity.position[1];
             let zPos = entity.position[2];
-            gltf.scene.scale.set(.5, .5, .5);
+            gltf.scene.scale.set(.5 * entity.modelMultiplier, .5 * entity.modelMultiplier, .5 * entity.modelMultiplier);
             gltf.scene.position.set(xPos, yPos, zPos);
             entity.model = gltf.scene;
             entity.mixer = new THREE.AnimationMixer(gltf.scene);
@@ -221,6 +242,65 @@ function loadModel(entity, loader) {
             entity.animations = clips;
             let clip = THREE.AnimationClip.findByName( clips, 'idle' );
             let action = entity.mixer.clipAction( clip );
+            action.play();
+
+        },
+        // called while loading is progressing
+        function ( xhr ) {
+            console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+        }
+    );
+}
+
+function loadPlayerModels(entity, loader) {
+    loader.load(
+        // resource URL
+        entity.url,
+        // called when the resource is loaded
+        
+        function ( gltf ) {
+            scene.add(resourceTracker.track(gltf.scene));
+            //Set positional data
+            let xPos = entity.position[0];
+            let yPos = entity.position[1];
+            let zPos = entity.position[2];
+            gltf.scene.scale.set(.5 * entity.modelMultiplier, .5 * entity.modelMultiplier, .5 * entity.modelMultiplier);
+            gltf.scene.position.set(xPos, yPos, zPos);
+            entity.model = gltf.scene;
+            entity.mixer = new THREE.AnimationMixer(gltf.scene);
+            let clips = gltf.animations;
+            entity.animations = clips;
+            let clip = THREE.AnimationClip.findByName( clips, 'idle' );
+            let action = entity.mixer.clipAction( clip );
+            action.play();
+
+        },
+        // called while loading is progressing
+        function ( xhr ) {
+            console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+        }
+    );
+
+    loader.load(
+        // resource URL
+        entity.spikeUrl,
+        // called when the resource is loaded
+        
+        function ( gltf ) {
+            scene.add(resourceTracker.track(gltf.scene));
+            //Set positional data
+            let xPos = entity.position[0];
+            let yPos = entity.position[1];
+            let zPos = entity.position[2];
+            gltf.scene.scale.set(.5 * entity.modelMultiplier, .5 * entity.modelMultiplier, .5 * entity.modelMultiplier);
+            gltf.scene.position.set(xPos, yPos, zPos);
+            entity.spikeModel = gltf.scene;
+            entity.spikeModel.visible = false;
+            entity.spikeMixer = new THREE.AnimationMixer(gltf.scene);
+            let clips = gltf.animations;
+            entity.spikeAnimations = clips;
+            let clip = THREE.AnimationClip.findByName( clips, 'idle' );
+            let action = entity.spikeMixer.clipAction( clip );
             action.play();
 
         },
@@ -264,20 +344,6 @@ function loadBoard(scene, level) {
 
     //Set up the skybox (TODO: MAKE SKYBOX A PARAM IN LEVEL)
     scene.background = level.sky;
-    //let skyboxGeometry = new THREE.CubeGeometry(100, 100, 100);
-    //let skyboxMaterial = new THREE.MeshBasicMaterial({  map: sky, side: THREE.BackSide });
-    //let skybox = resourceTracker.track(new THREE.Mesh(skyboxGeometry, skyboxMaterial));
-    //scene.add(skybox);
-
-    /*COMMENTED OUT BECAUSE OF NEW LOADING MECHANICS
-    //add player to the scene
-    scene.add(level.player.mesh);
-    //add cursor to the scene
-    scene.add(level.cursor.mesh);
-    //add enemy to the scene
-    for(let i = 0; i < enemies.length; i++){
-        scene.add(level.enemies[i].mesh);
-    }*/
 }
 
 function loadLevel(scene, level){
@@ -287,8 +353,8 @@ function loadLevel(scene, level){
     for(let i = 0; i < level.enemies.length; i++) {
         loadModel(level.enemies[i], loader);
     }
-    //Load player model
-    loadModel(level.player, loader);
+    //Load player models
+    loadPlayerModels(level.player, loader);
     //Load cursor model
     loadModel(level.cursor, loader);
     //Load textures
@@ -310,21 +376,22 @@ function setupLevel(){
 
 function updateToolTips(){
     //Update left tool tip
-    //let lvlObject = currentLevel.getUIData();
+    //Jump Height for player
     jumpHeightTip.innerHTML = currentLevel.player.jumpHeight.toString();
-    //movementRangeTip.innerHTML = currentLevel.player.movementRange.toString();
+    //Mass of player
     massTip.innerHTML = currentLevel.player.mass.toString();
-    if(currentLevel.player.abilities.length = 1){
-        abilityTypeTip.innerHTML = "None";
+    //Ability of player
+    //------------------------------Work in progress---------------------
+    let playerState = currentLevel.player.stateMachine.currentState.type;
+    //-------------------------------------------------------------------
+    if(playerState = "undefined"){
+        abilityTypeTip.innerHTML = currentLevel.player.ability;
     }
     else{
-        //abilityTypeTip.innerHTML = currentLevel.player.abilities[0].toString();
-        abilityTypeTip.innerHTML = "Yes";
+        abilityTypeTip.innerHTML = playerState;
     }
 
     //Update top right tool tip
-
-
     let selectTile = currentLevel.getUIData().selectedTile;
     let cursTile = currentLevel.getUIData().cursorTile;/*
     let playTile = currentLevel.getUIData().playerTile;*/
@@ -341,15 +408,23 @@ function updateToolTips(){
             case "player":
                 rightName.innerHTML = "Player";
                 document.getElementById("rightPic").src = "./assets/slime.jpg";
+                if(playerState = "undefined"){
+                    rightModular.innerHTML = "Ability: " + currentLevel.player.ability;
+                }
+                else{
+                    rightModular.innerHTML = "Ability: " + playerState;
+                }
+                //rightModular.innerHTML = "Ability: " + playerState;
                 break;
             default:
+
+                rightModular.innerHTML = "Ability: " + cursTile.occupant.ability.toString();
                 rightName.innerHTML = cursTile.occupant.type;
                 document.getElementById("rightPic").src = "./assets/skull.jpg";
                 break;
-
         }
-        
     }
+    //if the tile is empty display the tile info
     else{    
         rightMass.style.display = "none";
         rightType.innerHTML = "None";
@@ -380,19 +455,30 @@ function updateToolTips(){
                 document.getElementById("rightPic").src = "./assets/yellow.jpg";
                 break;
         }
+        //Height of the tile
+        rightModular.innerHTML = "Height: " + currentLevel.getUIData().cursorTile.height.toString();
     }
-    rightHeight.innerHTML = currentLevel.getUIData().cursorTile.height.toString();
-    
 }
 
 function winLevel(){
+    playWin();
+    winScreen.style.display = "block";
     winScreen.style['pointer-events'] = 'auto';
     winScreen.style['opacity'] = '0.8';
     toolTips.style.display = "none";
     rightTips.style.display = "none";
 }
 
+function finalWin(){
+    playWin();
+    finalScreen.style['pointer-events'] = 'auto';
+    finalScreen.style['opacity'] = '0.8';
+    toolTips.style.display = "none";
+    rightTips.style.display = "none";
+}
+
 function loseLevel() {
+    playLose();
     loseScreen.style['pointer-events'] = 'auto';
     loseScreen.style.display = "block";
     loseScreen.style['opacity'] = '0.8';
@@ -404,14 +490,17 @@ function animate() {
     requestAnimationFrame(animate);
     renderer.render(scene, camera);
     if(currentLevel.player.mixer) {
-        currentLevel.player.mixer.update(.025);
+        currentLevel.player.mixer.update(.03125);
+    }
+    if(currentLevel.player.spikeMixer) {
+        currentLevel.player.spikeMixer.update(.03125);
     }
     if(currentLevel.cursor.mixer) {
-        currentLevel.cursor.mixer.update(.025);
+        currentLevel.cursor.mixer.update(.03125);
     }
     for(let i = 0; i < currentLevel.enemies.length; i++) {
         if(currentLevel.enemies[i].mixer) {
-            currentLevel.enemies[i].mixer.update(.025);
+            currentLevel.enemies[i].mixer.update(.03125);
         }
     }
     TWEEN.update();
@@ -423,4 +512,6 @@ export {camera};
 export {cameraControls};
 export {winLevel};
 export {loseLevel};
+export {finalWin}
 export {updateToolTips};
+export {replayTracker}
