@@ -27,4 +27,5 @@ function releaseMasterLock() {
     masterLock = false;
 }
 
-export {unlocked, getLock, releaseLock, masterLock, getMasterLock, releaseMasterLock};
+export {unlocked, getLock, releaseLock, masterLock, getMasterLock,
+    releaseMasterLock};

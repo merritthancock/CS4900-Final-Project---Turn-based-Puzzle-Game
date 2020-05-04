@@ -25,9 +25,18 @@ class Entity extends GameEntity {
         */
     }
 
-    //Function moves player to a given position. Only call after validation.
-    //TODO: Play animations to move along path rather than jumping to set location.
+    //Function moves entity to a given position. Only call after validation.
+    //If entity is the player, also move spike model.
     moveEntity(x, y, z) {
+        if(this.name == "player") {
+            let spikeTween = new TWEEN.Tween(this.spikeModel.position);
+            spikeTween.to({ x: x, y: y, z: z }, 400);
+            spikeTween.start();
+            this.position[0] = x;
+            this.position[1] = y;
+            this.position[2] = z;
+        }
+
         let tween = new TWEEN.Tween(this.model.position);
         tween.to({ x: x, y: y, z: z }, 400);
         tween.start();
@@ -69,9 +78,11 @@ class Entity extends GameEntity {
         for(let j = 0; j < 10 && this.model.rotation.y != degToRad(rotationGoal); j++) {
             if(Math.abs(rotationTotal) >= 3.1415926535) {
                 this.model.rotation.y -= rotationIncrement;
+                this.spikeModel.rotation.y -= rotationIncrement;
             }
             else {
                 this.model.rotation.y += rotationIncrement;
+                this.spikeModel.rotation.y += rotationIncrement;
             }
             await sleep(1);
         }
