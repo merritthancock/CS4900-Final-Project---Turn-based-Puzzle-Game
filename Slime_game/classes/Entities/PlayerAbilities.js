@@ -44,6 +44,13 @@ class SpikeState extends State{
             console.log('USING PLAYER SPIKE');
             player.abilityUses--;
             console.log("Spike Uses Remaining: ", player.abilityUses);
+            if(player.abilityUses <= 0) {
+                player.ability = 'NONE';
+                //change model back to normal
+                player.model.visible = true;
+                player.spikeModel.visible = false;
+                player.stateMachine.changeTo("NORMAL");
+            }
         }
     }
     exit(player){
