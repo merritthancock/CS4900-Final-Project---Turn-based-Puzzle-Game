@@ -26,6 +26,7 @@ let menu = document.getElementById("menu");
 let loadingScreen = document.getElementById("loading-screen");
 let winScreen = document.querySelector("#winLevel");
 let loseScreen = document.querySelector("#loseLevel");
+let finalScreen = document.querySelector("#finalWin");
 let toolTips = document.querySelector("#toolTip");
 let rightTips = document.querySelector("#topRightTip");
 let replayTracker;
@@ -37,6 +38,7 @@ let level3Button = document.getElementById("Level3");
 let menuBtn = document.querySelector("#menuBtn");
 let loseBtn = document.querySelector("#loseBtn");
 let loseMenuBtn = document.querySelector("#loseMenuBtn");
+let finalBtn = document.querySelector("#finalBtn");
 let nextLevel = document.querySelector("#nextLevel");
 
 //Tool Tips Variables
@@ -68,6 +70,11 @@ menuBtn.onclick = function(){
     resourceTracker.dispose();
     loadingScreen.style.display = "none";
     menu.style.display = "block";
+};
+
+finalBtn.onclick = function(){//clicked after winning level 3
+    finalScreen.style.display = "none";
+    menuBtn.click();
 };
 
 //Returns user to menu
@@ -401,6 +408,14 @@ function winLevel(){
     rightTips.style.display = "none";
 }
 
+function finalWin(){
+    playWin();
+    finalScreen.style['pointer-events'] = 'auto';
+    finalScreen.style['opacity'] = '0.8';
+    toolTips.style.display = "none";
+    rightTips.style.display = "none";
+}
+
 function loseLevel() {
     playLose();
     loseScreen.style['pointer-events'] = 'auto';
@@ -433,4 +448,6 @@ export {camera};
 export {cameraControls};
 export {winLevel};
 export {loseLevel};
+export {finalWin}
 export {updateToolTips};
+export {replayTracker}
