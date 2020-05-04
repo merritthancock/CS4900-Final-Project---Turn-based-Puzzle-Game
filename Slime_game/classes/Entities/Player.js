@@ -67,7 +67,6 @@ class Player extends Entity {
             this.abilityUses = 3; //three spike uses
             this.stateMachine.changeTo('SPIKE');
             this.ability = 'SPIKE';
-
         }
         //Move enemy to "graveyard space"
         enemy.position[0] = -100;
