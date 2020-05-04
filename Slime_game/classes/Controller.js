@@ -409,11 +409,12 @@ function updateToolTips(){
                 rightName.innerHTML = "Player";
                 document.getElementById("rightPic").src = "./assets/slime.jpg";
                 if(playerState = "undefined"){
+                    rightModular.innerHTML = "Ability: " + currentLevel.player.ability;
                 }
                 else{
                     rightModular.innerHTML = "Ability: " + playerState;
                 }
-                rightModular.innerHTML = "Ability: " + playerState;
+                //rightModular.innerHTML = "Ability: " + playerState;
                 break;
             default:
 
