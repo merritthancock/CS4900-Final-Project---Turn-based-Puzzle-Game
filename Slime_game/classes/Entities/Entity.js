@@ -13,6 +13,10 @@ class Entity extends GameEntity {
         this.ap = 0;
         //AP remaining for turn.
         this.remainingAP = 0;
+        this.model = null;
+        this.modelMultiplier = 1;
+        this.animations = null;
+        this.mixer = null;
         //Build mesh from provided geometry and material, can add to scene in rest of code
         //this.mesh = THREE.Mesh(model, texture);
         /*
@@ -25,7 +29,7 @@ class Entity extends GameEntity {
     //TODO: Play animations to move along path rather than jumping to set location.
     moveEntity(x, y, z) {
         let tween = new TWEEN.Tween(this.model.position);
-        tween.to({ x: x, y: y, z: z }, 100);
+        tween.to({ x: x, y: y, z: z }, 500);
         tween.start();
         this.position[0] = x;
         this.position[1] = y;

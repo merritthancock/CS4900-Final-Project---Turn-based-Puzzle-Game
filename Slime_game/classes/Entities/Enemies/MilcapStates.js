@@ -35,6 +35,18 @@ class PursueState extends State{
 
     enter(enemy) {
         //alert animation
+        let selectAnimation = THREE.AnimationClip.findByName( enemy.animations, 'alert' );
+        let selectAction = enemy.mixer.clipAction( selectAnimation );
+        selectAction.setLoop(THREE.LoopOnce);
+        enemy.mixer.stopAllAction();
+        selectAction.play();
+        enemy.mixer.addEventListener( 'finished', function callBack( e ) { 
+            let idle = THREE.AnimationClip.findByName( enemy.animations, 'idle' );
+            let idleAction = enemy.mixer.clipAction( idle );
+            enemy.mixer.stopAllAction();
+            idleAction.play();
+            enemy.mixer.removeEventListener(callBack)
+        } );
         console.log("Now chasing player!");
         enemy.moveToPlayer(1);
 
@@ -64,6 +76,18 @@ class AttackState extends State{
 
     enter(enemy) {
         //attack animation
+        let selectAnimation = THREE.AnimationClip.findByName( enemy.animations, 'attack' );
+        let selectAction = enemy.mixer.clipAction( selectAnimation );
+        selectAction.setLoop(THREE.LoopOnce);
+        enemy.mixer.stopAllAction();
+        selectAction.play();
+        enemy.mixer.addEventListener( 'finished', function callBack( e ) { 
+            let idle = THREE.AnimationClip.findByName( enemy.animations, 'idle' );
+            let idleAction = enemy.mixer.clipAction( idle );
+            enemy.mixer.stopAllAction();
+            idleAction.play();
+            enemy.mixer.removeEventListener(callBack)
+        } );
         console.log("FIRST ATTACK");
         enemy.attack(enemy.attackPower);
     }

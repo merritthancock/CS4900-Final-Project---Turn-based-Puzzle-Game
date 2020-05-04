@@ -227,7 +227,7 @@ function loadModel(entity, loader) {
             let xPos = entity.position[0];
             let yPos = entity.position[1];
             let zPos = entity.position[2];
-            gltf.scene.scale.set(.5, .5, .5);
+            gltf.scene.scale.set(.5 * entity.modelMultiplier, .5 * entity.modelMultiplier, .5 * entity.modelMultiplier);
             gltf.scene.position.set(xPos, yPos, zPos);
             entity.model = gltf.scene;
             entity.mixer = new THREE.AnimationMixer(gltf.scene);
@@ -319,7 +319,7 @@ function updateToolTips(){
     let playerState = currentLevel.player.stateMachine.currentState.type;
     //-------------------------------------------------------------------
     if(playerState = "undefined"){
-        abilityTypeTip.innerHTML = "None";
+        abilityTypeTip.innerHTML = currentLevel.player.ability;
     }
     else{
         abilityTypeTip.innerHTML = playerState;
@@ -342,16 +342,16 @@ function updateToolTips(){
             case "player":
                 rightName.innerHTML = "Player";
                 document.getElementById("rightPic").src = "./assets/slime.jpg";
-                /*if(playerState = "undefined"){
-                    rightModular.innerHTML = "Ability: None";
+                if(playerState = "undefined"){
                 }
                 else{
                     rightModular.innerHTML = "Ability: " + playerState;
-                }*/
+                }
                 rightModular.innerHTML = "Ability: " + playerState;
                 break;
             default:
-                rightModular.innerHTML = "Ability: " + cursTile.occupant.stateMachine.current;
+
+                rightModular.innerHTML = "Ability: " + cursTile.occupant.ability.toString();
                 rightName.innerHTML = cursTile.occupant.type;
                 document.getElementById("rightPic").src = "./assets/skull.jpg";
                 break;

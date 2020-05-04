@@ -4,7 +4,6 @@ import { currentLevel, sleep, degToRad } from "../Global.js";
 import {aStar} from "../Pathing.js";
 import {NormState, SpikeState} from "./PlayerAbilities.js";
 import { StateMachine } from "../../libraries/yuka-master/src/yuka.js";
-import {moveAnimate} from "../Animation.js";
 import {playMove, playAbsorb, playDeath} from "../Sounds.js";
 
 //Players inherit from Entity
@@ -19,7 +18,7 @@ class Player extends Entity {
         //Set starting mass and size values
         this.mass = startingMass;
         //Set abilities to an empty set for starters
-        this.abilities = {};
+        this.ability = 'NONE';
         //Set default jump height to 1
         this.jumpHeight = 1;
         this.ap = 2;
@@ -64,12 +63,15 @@ class Player extends Entity {
             this.movePlayer(currentLevel.board.tileArray[enemy.position[0]][enemy.position[2]]);
         }
         
-        
-        
         if(enemy.type == 'PINPOD' || enemy.type == 'PINPODSP'){
             this.abilityUses = 3; //three spike uses
             this.stateMachine.changeTo('SPIKE');
+            this.ability = 'SPIKE';
         }
+        //Move enemy to "graveyard space"
+        enemy.position[0] = -100;
+        enemy.position[1] = 0;
+        enemy.position[2] = -100;
         playAbsorb();//sounds absorption sound
     }
 
@@ -107,15 +109,26 @@ class Player extends Entity {
         //Get route from A*
         let route = aStar(this.position[0], this.position[2], 
             tile.position[0], tile.position[2], currentLevel.board, currentLevel.player);
+
+        let idle = THREE.AnimationClip.findByName( this.animations, 'idle' );
+        let move = THREE.AnimationClip.findByName( this.animations, 'move' );
+        let idleAction = this.mixer.clipAction( idle );
+        let moveAction = this.mixer.clipAction( move );
         //Move along route given
         for(let i = 1; i < route.length && this.decrementAP() >= 0; i++) {
             await this.rotateEntity(route[i]);
 
             //Move unit
             //moveAnimate(this);
+            this.mixer.stopAllAction();
+            moveAction.play();
+            await sleep(200);
             currentLevel.board.tileArray[this.position[0]][this.position[2]].occupant = null;
             this.moveEntity(route[i].tile.position[0], route[i].tile.height + 1, route[i].tile.position[2]);
             currentLevel.board.tileArray[this.position[0]][this.position[2]].occupant = this;
+            await sleep(500);
+            this.mixer.stopAllAction();
+            idleAction.play();
 
             playMove();//plays sound when player moves
             await sleep(500);//was 400

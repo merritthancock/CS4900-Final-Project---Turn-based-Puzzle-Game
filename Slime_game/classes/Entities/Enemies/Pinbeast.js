@@ -8,8 +8,9 @@ class Pinbeast extends Enemy {
         //Call entity constructor
         super(position, id, startingMass, startPriority, 1);
 
-        //Set URL (PLACEHOLDER UNTIL PINBEAST MODEL DONE)
-        this.url = "MilcapSoldier.glb";
+        //Set URL
+        this.url = "Pinbeast2.glb";
+        this.modelMultiplier = 2;
         
         this.ability = 'NONE';
         //Default trigger radius in all directions
