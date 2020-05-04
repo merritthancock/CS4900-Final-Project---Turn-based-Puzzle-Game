@@ -14,6 +14,7 @@ class Player extends Entity {
 
         //Set URL
         this.url = "SlimeMain.glb";
+        this.spikeUrl = "SlimePinpod.glb";
 
         //Set starting mass and size values
         this.mass = startingMass;
@@ -64,6 +65,10 @@ class Player extends Entity {
         }
         
         if(enemy.type == 'PINPOD' || enemy.type == 'PINPODSP'){
+            //Swap models
+            this.model.visible = false;
+            this.spikeModel.visible = true;
+            //Add spike ability
             this.abilityUses = 3; //three spike uses
             this.stateMachine.changeTo('SPIKE');
             this.ability = 'SPIKE';
@@ -110,10 +115,16 @@ class Player extends Entity {
         let route = aStar(this.position[0], this.position[2], 
             tile.position[0], tile.position[2], currentLevel.board, currentLevel.player);
 
+        //Original player animations
         let idle = THREE.AnimationClip.findByName( this.animations, 'idle' );
         let move = THREE.AnimationClip.findByName( this.animations, 'move' );
         let idleAction = this.mixer.clipAction( idle );
         let moveAction = this.mixer.clipAction( move );
+        //Spike form player animations
+        let idle2 = THREE.AnimationClip.findByName( this.spikeAnimations, 'idle' );
+        let move2 = THREE.AnimationClip.findByName( this.spikeAnimations, 'move' );
+        let idleAction2 = this.spikeMixer.clipAction( idle2 );
+        let moveAction2 = this.spikeMixer.clipAction( move2 );
         //Move along route given
         for(let i = 1; i < route.length && this.decrementAP() >= 0; i++) {
             await this.rotateEntity(route[i]);
@@ -121,14 +132,18 @@ class Player extends Entity {
             //Move unit
             //moveAnimate(this);
             this.mixer.stopAllAction();
+            this.spikeMixer.stopAllAction();
             moveAction.play();
+            moveAction2.play();
             await sleep(160);
             currentLevel.board.tileArray[this.position[0]][this.position[2]].occupant = null;
             this.moveEntity(route[i].tile.position[0], route[i].tile.height + 1, route[i].tile.position[2]);
             currentLevel.board.tileArray[this.position[0]][this.position[2]].occupant = this;
             await sleep(400);
             this.mixer.stopAllAction();
+            this.spikeMixer.stopAllAction();
             idleAction.play();
+            idleAction2.play();
 
             playMove();//plays sound when player moves
             await sleep(400);//was 400

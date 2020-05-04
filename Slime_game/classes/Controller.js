@@ -252,6 +252,65 @@ function loadModel(entity, loader) {
     );
 }
 
+function loadPlayerModels(entity, loader) {
+    loader.load(
+        // resource URL
+        entity.url,
+        // called when the resource is loaded
+        
+        function ( gltf ) {
+            scene.add(resourceTracker.track(gltf.scene));
+            //Set positional data
+            let xPos = entity.position[0];
+            let yPos = entity.position[1];
+            let zPos = entity.position[2];
+            gltf.scene.scale.set(.5 * entity.modelMultiplier, .5 * entity.modelMultiplier, .5 * entity.modelMultiplier);
+            gltf.scene.position.set(xPos, yPos, zPos);
+            entity.model = gltf.scene;
+            entity.mixer = new THREE.AnimationMixer(gltf.scene);
+            let clips = gltf.animations;
+            entity.animations = clips;
+            let clip = THREE.AnimationClip.findByName( clips, 'idle' );
+            let action = entity.mixer.clipAction( clip );
+            action.play();
+
+        },
+        // called while loading is progressing
+        function ( xhr ) {
+            console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+        }
+    );
+
+    loader.load(
+        // resource URL
+        entity.spikeUrl,
+        // called when the resource is loaded
+        
+        function ( gltf ) {
+            scene.add(resourceTracker.track(gltf.scene));
+            //Set positional data
+            let xPos = entity.position[0];
+            let yPos = entity.position[1];
+            let zPos = entity.position[2];
+            gltf.scene.scale.set(.5 * entity.modelMultiplier, .5 * entity.modelMultiplier, .5 * entity.modelMultiplier);
+            gltf.scene.position.set(xPos, yPos, zPos);
+            entity.spikeModel = gltf.scene;
+            entity.spikeModel.visible = false;
+            entity.spikeMixer = new THREE.AnimationMixer(gltf.scene);
+            let clips = gltf.animations;
+            entity.spikeAnimations = clips;
+            let clip = THREE.AnimationClip.findByName( clips, 'idle' );
+            let action = entity.spikeMixer.clipAction( clip );
+            action.play();
+
+        },
+        // called while loading is progressing
+        function ( xhr ) {
+            console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+        }
+    );
+}
+
 function loadTextures(level) {
     let textureLoadingManager = new THREE.LoadingManager();
     getLock("Loader");
@@ -294,8 +353,8 @@ function loadLevel(scene, level){
     for(let i = 0; i < level.enemies.length; i++) {
         loadModel(level.enemies[i], loader);
     }
-    //Load player model
-    loadModel(level.player, loader);
+    //Load player models
+    loadPlayerModels(level.player, loader);
     //Load cursor model
     loadModel(level.cursor, loader);
     //Load textures
@@ -431,6 +490,9 @@ function animate() {
     renderer.render(scene, camera);
     if(currentLevel.player.mixer) {
         currentLevel.player.mixer.update(.03125);
+    }
+    if(currentLevel.player.spikeMixer) {
+        currentLevel.player.spikeMixer.update(.03125);
     }
     if(currentLevel.cursor.mixer) {
         currentLevel.cursor.mixer.update(.03125);
