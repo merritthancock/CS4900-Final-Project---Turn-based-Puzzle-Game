@@ -403,6 +403,7 @@ function updateToolTips(){
 
 function winLevel(){
     playWin();
+    winScreen.style.display = "block";
     winScreen.style['pointer-events'] = 'auto';
     winScreen.style['opacity'] = '0.8';
     toolTips.style.display = "none";
