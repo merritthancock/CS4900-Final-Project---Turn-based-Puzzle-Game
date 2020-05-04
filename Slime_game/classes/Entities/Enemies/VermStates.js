@@ -43,7 +43,7 @@ class FleeState extends State {
             let idleAction = enemy.mixer.clipAction( idle );
             enemy.mixer.stopAllAction();
             idleAction.play();
-            enemy.mixer.removeEventListener(callBack)
+            enemy.mixer.removeEventListener(callBack);
         } );
         console.log('EEK!');
         enemy.ap = 3;

@@ -67,7 +67,6 @@ class Player extends Entity {
             this.abilityUses = 3; //three spike uses
             this.stateMachine.changeTo('SPIKE');
             this.ability = 'SPIKE';
-
         }
         //Move enemy to "graveyard space"
         enemy.position[0] = -100;
@@ -123,16 +122,16 @@ class Player extends Entity {
             //moveAnimate(this);
             this.mixer.stopAllAction();
             moveAction.play();
-            await sleep(200);
+            await sleep(160);
             currentLevel.board.tileArray[this.position[0]][this.position[2]].occupant = null;
             this.moveEntity(route[i].tile.position[0], route[i].tile.height + 1, route[i].tile.position[2]);
             currentLevel.board.tileArray[this.position[0]][this.position[2]].occupant = this;
-            await sleep(500);
+            await sleep(400);
             this.mixer.stopAllAction();
             idleAction.play();
 
             playMove();//plays sound when player moves
-            await sleep(500);//was 400
+            await sleep(400);//was 400
         }
         if(tile.occupant.name != "player" && tile.occupant.absorbCheck()) {
             this.absorb(tile.occupant);
