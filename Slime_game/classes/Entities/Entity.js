@@ -14,6 +14,7 @@ class Entity extends GameEntity {
         //AP remaining for turn.
         this.remainingAP = 0;
         this.model = null;
+        this.modelMultiplier = 1;
         this.animations = null;
         this.mixer = null;
         //Build mesh from provided geometry and material, can add to scene in rest of code

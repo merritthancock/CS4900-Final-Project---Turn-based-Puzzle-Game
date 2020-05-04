@@ -10,6 +10,7 @@ class Pinpod extends Enemy {
 
         //Set URL
         this.url = "PinPod.glb";
+        this.modelMultiplier = 0.75;
         
         //the Pinpod's ability which will be passed to the player upon absorption
         this.ability = 'SPIKE';

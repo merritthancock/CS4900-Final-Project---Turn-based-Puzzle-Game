@@ -70,6 +70,10 @@ class Player extends Entity {
             this.stateMachine.changeTo('SPIKE');
 
         }
+        //Move enemy to "graveyard space"
+        enemy.position[0] = -100;
+        enemy.position[1] = 0;
+        enemy.position[2] = -100;
         playAbsorb();//sounds absorption sound
     }
 

@@ -12,6 +12,7 @@ class Verm extends Enemy {
         
         //Verm URL
         this.url = "Verm.glb";
+        this.modelMultiplier = 0.5;
 
         //Default trigger radius in all directions
         this.radius = [7,3,7];

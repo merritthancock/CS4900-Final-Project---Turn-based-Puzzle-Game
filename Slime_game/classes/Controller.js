@@ -225,7 +225,7 @@ function loadModel(entity, loader) {
             let xPos = entity.position[0];
             let yPos = entity.position[1];
             let zPos = entity.position[2];
-            gltf.scene.scale.set(.5, .5, .5);
+            gltf.scene.scale.set(.5 * entity.modelMultiplier, .5 * entity.modelMultiplier, .5 * entity.modelMultiplier);
             gltf.scene.position.set(xPos, yPos, zPos);
             entity.model = gltf.scene;
             entity.mixer = new THREE.AnimationMixer(gltf.scene);
@@ -358,7 +358,7 @@ function updateToolTips(){
                 }
                 break;
             default:
-                rightModular.innerHTML = "Ability: " + cursTile.occupant.abilities.toString();
+                rightModular.innerHTML = "Ability: " + cursTile.occupant.ability.toString();
                 rightName.innerHTML = cursTile.occupant.type;
                 document.getElementById("rightPic").src = "./assets/skull.jpg";
                 break;
