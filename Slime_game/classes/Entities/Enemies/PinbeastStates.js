@@ -9,15 +9,50 @@ const CHARGE = 'CHARGE';
 
 class SpawnState extends State { //PINBEAST IS ONLY VULNERABLE DURING THIS STATE
     enter(enemy){
-       //alerted animation
+        let selectAnimation = THREE.AnimationClip.findByName( enemy.animations, 'alert' );
+        let selectAction = enemy.mixer.clipAction( selectAnimation );
+        selectAction.setLoop(THREE.LoopOnce);
+        enemy.mixer.stopAllAction();
+        selectAction.play();
+        enemy.mixer.addEventListener( 'finished', function callBack( e ) { 
+            let idle = THREE.AnimationClip.findByName( enemy.animations, 'idle' );
+            let idleAction = enemy.mixer.clipAction( idle );
+            enemy.mixer.stopAllAction();
+            idleAction.play();
+            enemy.mixer.removeEventListener(callBack)
+        } );
     }
 
     execute(enemy){
         let ePos;
         let current = 0;
         if(enemy.babies <= 4){
-            let x = Math.floor(Math.random() * enemy.spawnRange + 1);
-            let z = Math.floor(Math.random() * enemy.spawnRange + 1);
+            let x = 0;
+            let z = 0;
+            //reroll spawn point until it lands on a valid point
+            while(true) {
+                x = Math.floor(Math.random() * enemy.spawnRange + 1);
+                z = Math.floor(Math.random() * enemy.spawnRange + 1);
+                if(currentLevel.board.tileCheck(x, z)) {
+                    if(currentLevel.board.tileArray[x][z].occupant == null
+                        && currentLevel.board.heightMap[x][z] <= 2) {
+                            break;
+                        } 
+                }
+            }
+            //play spawn animation
+            let selectAnimation = THREE.AnimationClip.findByName( enemy.animations, 'spawn' );
+            let selectAction = enemy.mixer.clipAction( selectAnimation );
+            selectAction.setLoop(THREE.LoopOnce);
+            enemy.mixer.stopAllAction();
+            selectAction.play();
+            enemy.mixer.addEventListener( 'finished', function callBack( e ) { 
+                let idle = THREE.AnimationClip.findByName( enemy.animations, 'idle' );
+                let idleAction = enemy.mixer.clipAction( idle );
+                enemy.mixer.stopAllAction();
+                idleAction.play();
+                enemy.mixer.removeEventListener(callBack)
+            } );
             //spawns a pinpod every turn in a quadrant surrounding the pinbeast
             switch(enemy.babies){
                 case 0:
@@ -115,12 +150,25 @@ class ActionState extends State {
 class AOEState extends State {
     enter(enemy){
         console.log("MASSIVE DAMAGE TAKEN");
+
+        let selectAnimation = THREE.AnimationClip.findByName( enemy.animations, 'roar' );
+        let selectAction = enemy.mixer.clipAction( selectAnimation );
+        selectAction.setLoop(THREE.LoopOnce);
+        enemy.mixer.stopAllAction();
+        selectAction.play();
+        enemy.mixer.addEventListener( 'finished', function callBack( e ) { 
+            let idle = THREE.AnimationClip.findByName( enemy.animations, 'idle' );
+            let idleAction = enemy.mixer.clipAction( idle );
+            enemy.mixer.stopAllAction();
+            idleAction.play();
+            enemy.mixer.removeEventListener(callBack)
+        } );
+
         enemy.attack(enemy.attackPower);
         enemy.stateMachine.changeTo(ACTION);
     }
 
     execute(enemy){
-        
         
     }
 

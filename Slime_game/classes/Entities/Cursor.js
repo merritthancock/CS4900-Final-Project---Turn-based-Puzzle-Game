@@ -22,6 +22,20 @@ class Cursor extends Entity {
             }
             //If tile does hold an object, select that object and check what it is
             else {
+                //play select animation
+                let selectAnimation = THREE.AnimationClip.findByName( currentLevel.cursor.animations, 'select' );
+                let selectAction = currentLevel.cursor.mixer.clipAction( selectAnimation );
+                selectAction.setLoop(THREE.LoopOnce);
+                currentLevel.cursor.mixer.stopAllAction();
+                selectAction.play();
+                currentLevel.cursor.mixer.addEventListener( 'finished', function callBack( e ) { 
+                    let idle = THREE.AnimationClip.findByName( currentLevel.cursor.animations, 'idle' );
+                    let idleAction = currentLevel.cursor.mixer.clipAction( idle );
+                    currentLevel.cursor.mixer.stopAllAction();
+                    idleAction.play();
+                    currentLevel.cursor.mixer.removeEventListener(callBack)
+                 } );
+
                 currentLevel.board.select(tile);
                 //If occupant is the player, change active function to playerSelState
                 if(tile.occupant.name == "player") {
