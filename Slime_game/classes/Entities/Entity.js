@@ -78,11 +78,15 @@ class Entity extends GameEntity {
         for(let j = 0; j < 10 && this.model.rotation.y != degToRad(rotationGoal); j++) {
             if(Math.abs(rotationTotal) >= 3.1415926535) {
                 this.model.rotation.y -= rotationIncrement;
-                this.spikeModel.rotation.y -= rotationIncrement;
+                if(this.name == "player") {
+                    this.spikeModel.rotation.y -= rotationIncrement;
+                }
             }
             else {
                 this.model.rotation.y += rotationIncrement;
-                this.spikeModel.rotation.y += rotationIncrement;
+                if(this.name == "player") {
+                    this.spikeModel.rotation.y += rotationIncrement;
+                }
             }
             await sleep(1);
         }
