@@ -35,7 +35,7 @@ class SpawnState extends State { //PINBEAST IS ONLY VULNERABLE DURING THIS STATE
                 z = Math.floor(Math.random() * enemy.spawnRange + 1);
                 if(currentLevel.board.tileCheck(x, z)) {
                     if(currentLevel.board.tileArray[x][z].occupant == null
-                        && currentLevel.board.heightMap[x][z] <= 2) {
+                        && currentLevel.board.heightMap[x][z] < 2) {
                             break;
                         } 
                 }
