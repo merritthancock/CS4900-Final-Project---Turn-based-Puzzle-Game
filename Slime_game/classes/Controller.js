@@ -422,14 +422,14 @@ function animate() {
     requestAnimationFrame(animate);
     renderer.render(scene, camera);
     if(currentLevel.player.mixer) {
-        currentLevel.player.mixer.update(.025);
+        currentLevel.player.mixer.update(.03125);
     }
     if(currentLevel.cursor.mixer) {
-        currentLevel.cursor.mixer.update(.025);
+        currentLevel.cursor.mixer.update(.03125);
     }
     for(let i = 0; i < currentLevel.enemies.length; i++) {
         if(currentLevel.enemies[i].mixer) {
-            currentLevel.enemies[i].mixer.update(.025);
+            currentLevel.enemies[i].mixer.update(.03125);
         }
     }
     TWEEN.update();
