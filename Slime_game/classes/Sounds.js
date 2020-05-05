@@ -1,3 +1,5 @@
+//Most of the sounds effects come from zapsplat.com
+
 let selectSound = document.querySelector("#select");
 selectSound.volume = 0.2;
 
@@ -81,6 +83,5 @@ function playWin(){
 function playLose(){
     loseSound.play();
 }
-
 
 export {playSelect, playAttack, playMove, playAbsorb, playDeath, playCursor, playEnemy, playStart, playDamage, playCursorSelect, playWin, playLose};
