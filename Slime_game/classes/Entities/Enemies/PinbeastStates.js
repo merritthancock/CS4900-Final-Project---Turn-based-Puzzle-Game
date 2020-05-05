@@ -22,7 +22,6 @@ class SpawnState extends State { //PINBEAST IS ONLY VULNERABLE DURING THIS STATE
             enemy.mixer.removeEventListener(callBack)
         } );
     }
-
     execute(enemy){
         let ePos;
         let current = 0;
@@ -72,7 +71,6 @@ class SpawnState extends State { //PINBEAST IS ONLY VULNERABLE DURING THIS STATE
                     ePos = [enemy.position[0] - x, 1, enemy.position[2] + z];
                     enemy.babies++;
                     break;
-
             }
         }
         let i = enemy.babies - 1;
@@ -85,15 +83,11 @@ class SpawnState extends State { //PINBEAST IS ONLY VULNERABLE DURING THIS STATE
         currentLevel.board.tileArray[currentLevel.enemies[i].position[0]][currentLevel.enemies[i].position[2]].occupant = currentLevel.enemies[i];
         currentLevel.enemies[i].stateMachine.changeTo('RETRACT');
         currentLevel.enemies[i].living = 'ALIVE';
-
         if(enemy.babies == 4){
             enemy.stateMachine.changeTo(ACTION);
         }
-       
     }
-
-    exit(enemy){
-        
+    exit(enemy){ 
     }
 }
 
@@ -103,13 +97,9 @@ class ActionState extends State {
         let x = Math.floor(Math.random() * enemy.spawnRange + 1);
         let z = Math.floor(Math.random() * enemy.spawnRange + 1);
         enemy.path.add([x, 1, z]);
-        
-        enemy.attackCharge = 3;
-        
+        enemy.attackCharge = 3;  
         enemy.babies = 4;
-        
     }
-
     execute(enemy){
         //checks how many pinpods remain on level
         //enemy.babies = 0;
@@ -130,7 +120,6 @@ class ActionState extends State {
             enemy.attackCharge += 3;
             enemy.babies = actual;
         }
-
         else{
             console.log(enemy.attackCharge, " turns until attack!");
             enemy.attackCharge--;
@@ -138,19 +127,14 @@ class ActionState extends State {
                 enemy.stateMachine.changeTo(AOE);
             }
          }
-        
-
     }
-
-    exit(enemy){
-        
+    exit(enemy){   
     }
 }
 
 class AOEState extends State {
     enter(enemy){
         console.log("MASSIVE DAMAGE TAKEN");
-
         let selectAnimation = THREE.AnimationClip.findByName( enemy.animations, 'roar' );
         let selectAction = enemy.mixer.clipAction( selectAnimation );
         selectAction.setLoop(THREE.LoopOnce);
@@ -163,35 +147,26 @@ class AOEState extends State {
             idleAction.play();
             enemy.mixer.removeEventListener(callBack)
         } );
-
         enemy.attack(enemy.attackPower);
         enemy.stateMachine.changeTo(ACTION);
     }
-
-    execute(enemy){
-        
+    execute(enemy){   
     }
-
-    exit(enemy){
-        
+    exit(enemy){    
     }
-
 }
 
 class ChargeState extends State {//charges in direction of player
     enter(enemy){
     }
-
     execute(enemy){
         enemy.moveToPlayer(10);
         currentLevel.player.takeDamage(1);
         enemy.stateMachine.changeTo(SPAWN);
     }
-
     exit(enemy){
         //enemy.path.clear();
     }
 }
-
 
 export {SpawnState, ActionState, AOEState, ChargeState};

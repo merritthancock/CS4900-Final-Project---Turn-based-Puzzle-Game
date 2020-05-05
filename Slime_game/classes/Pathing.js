@@ -6,20 +6,11 @@ function aStar(startX, startY, endX, endY, board, entity) {
     let finder = new AStarFinder();
     //Get path
     let foundPath = finder.findPath(startX, startY, endX, endY, board, entity);
-    //console.log(entity.id);
-    //console.log(foundPath);
     if(foundPath.length == 0){
         console.log("No path exists!");
     }
     else {
         //Truncate foundPath to be only a length equal to remainingAP
-        /*let pathLength = entity.remainingAP;
-        if(foundPath.length > pathLength) {
-            let difference = foundPath.length - pathLength;
-            for(let i = 0; i < difference - 1; i++) {
-                foundPath.pop();
-            }
-        }*/
         return foundPath;
     }
 }
@@ -70,18 +61,10 @@ function hover(level){//initiates methods when cursor hovers over entities/tiles
     let cPos = level.cursor.position;
     let type = level.board.tileMap[cPos[0]][cPos[2]];
     let height = level.board.heightMap[cPos[0]][cPos[2]];
-
-    //console.log(cPos);
-    //console.log(pPos);
-
-    //console.log("Type: ", typeList(type));
-    //console.log("Height: ", height);
-    //console.log("Occupied by: ", occupied(level.board));
 }
 
 //Calls checkneighbor if destination tile exists
 function neighborConfirm(entity, board, sourceX, sourceY, destX, destY, isOccupied, endX, endY) {
-    //if(destX >= 0 && destX < board.tileArray.length && destY >= 0 && destY < board.tileArray[0].length) {
     if(board.tileCheck(destX, destY)) {
         let sourceTile = board.tileArray[sourceX][sourceY];
         let destTile = board.tileArray[destX][destY];
@@ -100,14 +83,6 @@ function movementOverlay(x, z, range, board, entity){//uses the flood fill algor
             board.tileArray[x][z].highlighted = true;
         }
         //...unless that entity is an absorbable enemy, then highlight in red
-        /*else if(board.tileArray[x][z].occupant instanceof Enemy) {
-            if(board.tileArray[x][z].occupant.absorbCheck()){
-                let overlay = board.overlayMap[x][z].overlay;
-                overlay.material.color.setHex(0xAB4700);
-                overlay.material.visible = true;
-                board.tileArray[x][z].highlighted = true;
-            }
-        }*/
         //recursive call for surrounding spaces
         if(neighborConfirm(entity, board, x, z, x+1, z, false)){
             movementOverlay(x+1, z, range-1, board, entity);
@@ -135,7 +110,6 @@ function movementOverlayHelper(board, entity){
     else {
         range = entity.remainingAP;
     }
-
     movementOverlay(entityPos[0], entityPos[2], range, board, entity);
     
     //Highlight enemies in range (player only)

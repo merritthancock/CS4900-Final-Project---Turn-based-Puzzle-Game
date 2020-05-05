@@ -81,9 +81,7 @@ function buildLevel3() {
     enemies.push(pinpod3);
     enemies.push(pinpod4);
     enemies.push(boss);
-
     let level3 = new Level(heightMap, tileMap, enemies, player, cursor);
-
     return level3;
 }
 

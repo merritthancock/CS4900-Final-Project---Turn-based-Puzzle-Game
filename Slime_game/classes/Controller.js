@@ -66,12 +66,12 @@ menuBtn.onclick = function(){
     winScreen.style['pointer-events'] = 'none';
     loadingScreen.style.display = "block";
     canvas.style.display = "none";
-
     resourceTracker.dispose();
     loadingScreen.style.display = "none";
     menu.style.display = "block";
 };
 
+//Final win screen
 finalBtn.onclick = function(){//clicked after winning level 3
     finalScreen.style.display = "none";
     menuBtn.click();
@@ -103,7 +103,7 @@ loseBtn.onclick = function(){//replay
     toolTips.style.display = "none";
     rightTips.style.display = "none";
     rightTips.style['opacity'] = '0.8';
-    switch(replayTracker){
+    switch(replayTracker){//Allows for playing levels back to back
         case 0:
             startButton.click();
             break;
@@ -194,7 +194,6 @@ function setupTasks(){
     renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
     renderer.setSize(windowWidth, windowHeight);
     document.body.appendChild(renderer.domElement);
-    //gameScreen.appendChild(renderer.domElement);
 
     //set listener for window resizing. Allows resizing of game.
     window.addEventListener('resize', () => {
@@ -227,7 +226,6 @@ function loadModel(entity, loader) {
         // resource URL
         entity.url,
         // called when the resource is loaded
-        
         function ( gltf ) {
             scene.add(resourceTracker.track(gltf.scene));
             //Set positional data
@@ -243,7 +241,6 @@ function loadModel(entity, loader) {
             let clip = THREE.AnimationClip.findByName( clips, 'idle' );
             let action = entity.mixer.clipAction( clip );
             action.play();
-
         },
         // called while loading is progressing
         function ( xhr ) {
@@ -257,7 +254,6 @@ function loadPlayerModels(entity, loader) {
         // resource URL
         entity.url,
         // called when the resource is loaded
-        
         function ( gltf ) {
             scene.add(resourceTracker.track(gltf.scene));
             //Set positional data
@@ -273,7 +269,6 @@ function loadPlayerModels(entity, loader) {
             let clip = THREE.AnimationClip.findByName( clips, 'idle' );
             let action = entity.mixer.clipAction( clip );
             action.play();
-
         },
         // called while loading is progressing
         function ( xhr ) {
@@ -285,7 +280,6 @@ function loadPlayerModels(entity, loader) {
         // resource URL
         entity.spikeUrl,
         // called when the resource is loaded
-        
         function ( gltf ) {
             scene.add(resourceTracker.track(gltf.scene));
             //Set positional data
@@ -302,7 +296,6 @@ function loadPlayerModels(entity, loader) {
             let clip = THREE.AnimationClip.findByName( clips, 'idle' );
             let action = entity.spikeMixer.clipAction( clip );
             action.play();
-
         },
         // called while loading is progressing
         function ( xhr ) {
@@ -323,7 +316,6 @@ function loadTextures(level) {
     level.board.textures[0] = resourceTracker.track(textureLoader.load( './assets/grass.jpg' ));
     level.board.textures[2] = resourceTracker.track(textureLoader.load( './assets/mountain.jpg' ));
     level.board.textures[3] = resourceTracker.track(textureLoader.load( './assets/cave.jpg' ));
-
     //TODO: SET SKY URL IN LEVEL CONSTRUCTOR
     level.sky = resourceTracker.track(textureLoader.load( './assets/Slimegamesky.jpg' ));
 }
@@ -337,18 +329,15 @@ function loadBoard(scene, level) {
             }
         }
     }
-
     // create lighting and add to scene 
     let light = resourceTracker.track(new THREE.AmbientLight( 0xe0e0e0 )); // soft white light
     scene.add(light);
-
     //Set up the skybox (TODO: MAKE SKYBOX A PARAM IN LEVEL)
     scene.background = level.sky;
 }
 
 function loadLevel(scene, level){
     let loader = new THREE.GLTFLoader(loadingManager).setPath( './assets/GLTFModels/' );
-
     //Load enemy models
     for(let i = 0; i < level.enemies.length; i++) {
         loadModel(level.enemies[i], loader);
@@ -381,9 +370,7 @@ function updateToolTips(){
     //Mass of player
     massTip.innerHTML = currentLevel.player.mass.toString();
     //Ability of player
-    //------------------------------Work in progress---------------------
     let playerState = currentLevel.player.stateMachine.currentState.type;
-    //-------------------------------------------------------------------
     if(playerState = "undefined"){
         abilityTypeTip.innerHTML = currentLevel.player.ability;
     }
@@ -392,10 +379,7 @@ function updateToolTips(){
     }
 
     //Update top right tool tip
-    let selectTile = currentLevel.getUIData().selectedTile;
-    let cursTile = currentLevel.getUIData().cursorTile;/*
-    let playTile = currentLevel.getUIData().playerTile;*/
-
+    let cursTile = currentLevel.getUIData().cursorTile;
     let tileOccupant = occupied(currentLevel.board);
     if(tileOccupant != "None"){
         rightType.innerHTML = "Entity"
@@ -460,7 +444,7 @@ function updateToolTips(){
     }
 }
 
-function winLevel(){
+function winLevel(){//Called for non boss levels
     playWin();
     winScreen.style.display = "block";
     winScreen.style['pointer-events'] = 'auto';
@@ -469,7 +453,7 @@ function winLevel(){
     rightTips.style.display = "none";
 }
 
-function finalWin(){
+function finalWin(){//Called for boss level
     playWin();
     finalScreen.style['pointer-events'] = 'auto';
     finalScreen.style['opacity'] = '0.8';
@@ -477,7 +461,7 @@ function finalWin(){
     rightTips.style.display = "none";
 }
 
-function loseLevel() {
+function loseLevel() {//Called for losing levels
     playLose();
     loseScreen.style['pointer-events'] = 'auto';
     loseScreen.style.display = "block";

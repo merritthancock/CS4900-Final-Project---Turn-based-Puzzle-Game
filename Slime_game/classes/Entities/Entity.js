@@ -17,12 +17,6 @@ class Entity extends GameEntity {
         this.modelMultiplier = 1;
         this.animations = null;
         this.mixer = null;
-        //Build mesh from provided geometry and material, can add to scene in rest of code
-        //this.mesh = THREE.Mesh(model, texture);
-        /*
-        this.mesh = new THREE.Mesh(model,
-                    new THREE.MeshBasicMaterial({ map: texture }));
-        */
     }
 
     //Function moves entity to a given position. Only call after validation.
@@ -36,14 +30,12 @@ class Entity extends GameEntity {
             this.position[1] = y;
             this.position[2] = z;
         }
-
         let tween = new TWEEN.Tween(this.model.position);
         tween.to({ x: x, y: y, z: z }, 400);
         tween.start();
         this.position[0] = x;
         this.position[1] = y;
         this.position[2] = z;
-        //this.model.position.set(x,y,z);
     }
 
     //Helper method to rotate the entity slowly over time (WIP)

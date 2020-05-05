@@ -35,13 +35,11 @@ class Pinbeast extends Enemy {
         this.childID = 1;
         //numbner of turns before pinbeast uses AOE attack
         this.attackCharge = 3;
-        
-
         this.type = 'PINBEAST';
     }
-
     update(){//calls a single step in the state
         this.stateMachine.update();
     }
 }
+
 export {Pinbeast};

@@ -8,7 +8,6 @@
     <link rel="shortcut icon" href="#" />
 </head>
 <body>
-
     <script src='./libraries/three.js'></script>
     <script src="./libraries/GLTFLoader.js"></script>
     <script src="./libraries/OrbitControls.js"></script>
@@ -34,17 +33,10 @@
 
     <div class="menu" id = "menu">
         <h2 class="title">Slime's Revenge Super Ultra Arcade Remix Hyper Gold Collectors Edition</h2>
-        <!--
-        <audio id="titleAudio">
-            <source src="./assets/sounds/2017-08-20_-_Pirate_Dance_-_David_Fesliyan.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-        -->
         <button class="level-btn" id="start">Test Level</button>
         <button class="level-btn" id="Level1">Level 1</button>
         <button class="level-btn" id="Level2">Level 2</button>
         <button class="level-btn" id="Level3">Level 3</button>
-
         <div class="gameInfo" id="gameInfo">
             <table style="widows: 100%;">
                 <tr>
@@ -70,8 +62,7 @@
                 </tr>
                 <tr>
                     <td>Open your browser console to see details such as damage, ability uses, and more.</td>
-                </tr>
-                
+                </tr> 
             </table>
         </div>
     </div>
@@ -92,7 +83,6 @@
     <!-- where the game is-->
     <div class="outerGame" id="outerGame">
         <canvas id="game"></canvas>
-
         <div class="winLevel" id="winLevel">
             <label id="winText">You Win!</label>
             <button class="loseBtn" id="menuBtn" style="right:30px">Main Menu</button>
@@ -112,9 +102,7 @@
                     <button class="loseBtn" id="loseMenuBtn" style="left:20px">Main Menu</button>
                 </tr>
             </table>
-            
         </div>
-
         <div class="toolTip" id="toolTip">
             <table>
                 <tr>
@@ -142,7 +130,6 @@
                 </tr>
             </table>
         </div>
-
         <div class="topRightTip" id="topRightTip">
             <table>
                 <tr>
@@ -167,6 +154,7 @@
         </div>
     </div>
 
+    <!-- Most of the sounds came from zapsplat.com -->
     <audio id="slimeAttack" src="assets/sounds/slime_attack.mp3" type="audio/mpeg"></audio>
     <audio id="slimeMove" src="assets/sounds/slime_movement.mp3" type="audio/mpeg"></audio>
     <audio id="slimeAbsorb" src="assets/sounds/absorb.mp3" type="audio/mpeg"></audio>

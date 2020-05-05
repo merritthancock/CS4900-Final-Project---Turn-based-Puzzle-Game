@@ -6,14 +6,12 @@ var keyStatus = {
     "aKey" : false,
     "sKey" : false,
     "dKey" : false,
-
     "space" : false,
     "enter" : false
 }
 
 function doKeyDown(event) {
     var code = event.keyCode;
-
     switch(code) {
         //Cases for WASD keys
         case 87: //w
@@ -28,7 +26,6 @@ function doKeyDown(event) {
         case 68: //d
             keyStatus["dKey"] = true;
             break;
-
         //Case for Spacebar and enter
         case 32: //space
             keyStatus["space"] = true;
@@ -41,15 +38,14 @@ function doKeyDown(event) {
             keyStatus["mKey"] = true;
             break;
         
-        case 71: //g key for testing win screen
+        /*case 71: //g key for testing win screen
             keyStatus["gKey"] = true;
-            break;
+            break;*/
     }
 }
 
 function doKeyUp(event) {
 	var code = event.keyCode;
-
 	switch(code) {
         //Cases for WASD keys
         case 87: //w
@@ -68,27 +64,23 @@ function doKeyUp(event) {
             keyStatus["dKey"] = false;
             releaseLock("inputHandler");
             break;
-
         //Case for Spacebar and enter
         case 32: //space
             keyStatus["space"] = false;
             releaseLock("inputHandler");
             break;
-
         case 13: //enter
             keyStatus["enter"] = false;
             releaseLock("inputHandler");
             break;
-        
         case 77: //m key for testing enemy pathing
             keyStatus["mKey"] = false;
             releaseLock("inputHandler");
             break;
-
-        case 71: //g key for testing win screen
+        /*case 71: //g key for testing win screen
             keyStatus["gKey"] = false;
             releaseLock("inputHandler");
-            break;
+            break;*/
     }
 }
 
