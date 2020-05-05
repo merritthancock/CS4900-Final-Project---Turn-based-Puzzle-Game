@@ -113,12 +113,8 @@ function buildLevel2() {
     milcap2.path.loop = true;
 
     enemies.push(milcap2);
-
-
     let level1 = new Level(heightMap, tileMap, enemies, player, cursor);
-
     return level1;
-    
 }
 
 export {buildLevel2};
