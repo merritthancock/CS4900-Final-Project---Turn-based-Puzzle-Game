@@ -26,7 +26,6 @@ class Enemy extends Entity {
         //Give the enemy a path to patrol (loop must be set to true if path is cyclical)
         this.path = new Path();
         console.log(this.path);
-
         this.absorbable = true;
     }
 
@@ -44,7 +43,6 @@ class Enemy extends Entity {
     nextToPlayer() {
         let xDistance = Math.abs(currentLevel.player.position[0] - this.position[0]);
         let yDistance = Math.abs(currentLevel.player.position[2] - this.position[2]);
-
         //If they're one tile away, they're adjacent
         if (xDistance + yDistance == 1) {
             return true;
@@ -65,15 +63,12 @@ class Enemy extends Entity {
     async moveEnemy(route, moves) {
         //Move along the route for the number of moves allowed
         for(let i = 1; i < route.length && moves > 0; i++) {
-
             let idle = THREE.AnimationClip.findByName( this.animations, 'idle' );
             let move = THREE.AnimationClip.findByName( this.animations, 'move' );
             let idleAction = this.mixer.clipAction( idle );
             let moveAction = this.mixer.clipAction( move );
-
             //Rotate unit
             await this.rotateEntity(route[i]);
-
             //Move unit
             this.mixer.stopAllAction();
             moveAction.play();
@@ -84,7 +79,6 @@ class Enemy extends Entity {
             await sleep(400);
             this.mixer.stopAllAction();
             idleAction.play();
-
             moves--;
         }
     }
@@ -102,7 +96,6 @@ class Enemy extends Entity {
     moveToPlayer(moves){
         let pos = currentLevel.player.position;
         let route = aStar(this.position[0], this.position[2], pos[0], pos[2], currentLevel.board, this);
-
         this.moveEnemy(route, moves);
     }
 

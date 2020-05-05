@@ -55,7 +55,6 @@ class Player extends Entity {
             currentLevel.board.tileArray[enemy.position[0]][enemy.position[2]].occupant = null;
             //Move player to enemy position
             this.movePlayer(currentLevel.board.tileArray[enemy.position[0]][enemy.position[2]]);
-            //console.log(currentLevel.enemies);
         }
         else{
             currentLevel.enemies.splice(index,1);
@@ -80,41 +79,10 @@ class Player extends Entity {
         playAbsorb();//sounds absorption sound
     }
 
-    /*async movePlayer(destination){
-        //Get route from A*
-        let route = aStar(this.position[0], this.position[2], 
-            destination[0], destination[2], currentLevel.board, currentLevel.player);
-        //Move along route given
-        for(let i = 1; i < route.length && this.decrementAP() >= 0; i++) {
-            //Rotate unit
-            if(this.position[0] < route[i].tile.position[0]) {
-                await this.rotateEntity(90);
-            }
-            else if (this.position[0] > route[i].tile.position[0]) {
-                await this.rotateEntity(270);
-            }
-            else if (this.position[2] < route[i].tile.position[2]) {
-                await this.rotateEntity(0);
-            }
-            else if (this.position[2] > route[i].tile.position[2]) {
-                await this.rotateEntity(180);
-            }
-
-            //Move unit
-            currentLevel.board.tileArray[this.position[0]][this.position[2]].occupant = null;
-            this.moveEntity(route[i].tile.position[0], route[i].tile.height + 1, route[i].tile.position[2]);
-            currentLevel.board.tileArray[this.position[0]][this.position[2]].occupant = this;
-
-            await sleep(100);
-        }
-        passTurn(currentLevel);
-    }*/
-
     async movePlayer(tile) {
         //Get route from A*
         let route = aStar(this.position[0], this.position[2], 
             tile.position[0], tile.position[2], currentLevel.board, currentLevel.player);
-
         //Original player animations
         let idle = THREE.AnimationClip.findByName( this.animations, 'idle' );
         let move = THREE.AnimationClip.findByName( this.animations, 'move' );
@@ -128,9 +96,7 @@ class Player extends Entity {
         //Move along route given
         for(let i = 1; i < route.length && this.decrementAP() >= 0; i++) {
             await this.rotateEntity(route[i]);
-
             //Move unit
-            //moveAnimate(this);
             this.mixer.stopAllAction();
             this.spikeMixer.stopAllAction();
             moveAction.play();
@@ -144,14 +110,12 @@ class Player extends Entity {
             this.spikeMixer.stopAllAction();
             idleAction.play();
             idleAction2.play();
-
             playMove();//plays sound when player moves
             await sleep(400);//was 400
         }
         if(tile.occupant.name != "player" && tile.occupant.absorbCheck()) {
             this.absorb(tile.occupant);
         }
-
         passTurn(currentLevel);
     }
 
@@ -187,7 +151,6 @@ class Player extends Entity {
                 currentLevel.enemies[i].model.visible = false;
                 currentLevel.board.tileArray[currentLevel.enemies[i].position[0]][currentLevel.enemies[i].position[2]].occupant = null;
                 currentLevel.enemies.splice(i,1);
-                
                }
             }
         }

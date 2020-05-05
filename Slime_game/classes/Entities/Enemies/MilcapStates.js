@@ -6,7 +6,6 @@ const PURSUE = 'PURSUE';
 const ATTACK = 'ATTACK';
 
 class PatrolState extends State{
-
     enter(enemy) {
         console.log("Now patrolling!");
         //can be used to play an animation of some sort
@@ -26,13 +25,10 @@ class PatrolState extends State{
 
     exit(enemy){
         //some sort of alert to the player?
-       
     }
-
 }
 
 class PursueState extends State{
-
     enter(enemy) {
         //alert animation
         let selectAnimation = THREE.AnimationClip.findByName( enemy.animations, 'alert' );
@@ -49,31 +45,22 @@ class PursueState extends State{
         } );
         console.log("Now chasing player!");
         enemy.moveToPlayer(1);
-
     }
-
     execute(enemy){
         if(!enemy.seesPlayer()) {
             enemy.stateMachine.changeTo(PATROL);
         }
-
         enemy.moveToPlayer(1);
-        
         if(enemy.withinARange()) {
             enemy.moveToPlayer();
             enemy.stateMachine.changeTo(ATTACK);
-        }
-        
+        }       
     }
-
     exit(enemy){
-
     }
-
 }
 
 class AttackState extends State{
-
     enter(enemy) {
         //attack animation
         let selectAnimation = THREE.AnimationClip.findByName( enemy.animations, 'attack' );
@@ -102,9 +89,7 @@ class AttackState extends State{
             enemy.attack(enemy.attackPower);
         }
     }
-
-    exit(enemy) {
-        
+    exit(enemy) {       
     }
 }
 
