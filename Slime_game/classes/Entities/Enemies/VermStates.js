@@ -8,7 +8,6 @@ class PatrolState extends State {
     enter(enemy){
         enemy.ap = 2;
     }
-
     execute(enemy){
         if(enemy.seesPlayer()){
             enemy.stateMachine.changeTo(FLEE);
@@ -20,13 +19,10 @@ class PatrolState extends State {
             if(enemy.position[0] == pos[0] && enemy.position[2] == pos[2]){
                 enemy.path.advance();
             }
-
             enemy.moveEPath(1);
         }
     }
-
     exit(enemy){
-
     }
 }
 
@@ -48,7 +44,6 @@ class FleeState extends State {
         console.log('EEK!');
         enemy.ap = 3;
     }
-
     execute(enemy){
         if(enemy.position[0] == enemy.nestLocation[0] && enemy.position[2] == enemy.nestLocation[2]){
             console.log("REACHED NEST");
@@ -58,11 +53,8 @@ class FleeState extends State {
             enemy.fleeToNest(1);
         }
     }
-    
-    exit(enemy){
-        
+    exit(enemy){  
     }
-
 }
 
 class HideState extends State {
@@ -72,10 +64,7 @@ class HideState extends State {
         enemy.absorbable = false;
         enemy.model.visible = false;
         enemy.ap = 1;
-        
-
     }
-
     execute(enemy){
         if(enemy.hideCount > 1){
             enemy.hideCount--;
@@ -87,7 +76,6 @@ class HideState extends State {
             enemy.stateMachine.changeTo(PATROL);
         }
     }
-
     exit(enemy){
         enemy.model.visible = true;
         enemy.absorbable = true;

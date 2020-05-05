@@ -14,7 +14,6 @@ function sleep(ms) {
 
 function degToRad(degrees) {
     let radians = degrees * 3.1415 / 180.0;
-
     return radians;
 }
 

@@ -5,7 +5,6 @@ const RETRACT = 'RETRACT';
 const HALT = 'HALT';
 
 class ExtendState extends State {
-
     enter(enemy){
         //change model to spike version
         if(enemy.animations != null) {
@@ -19,7 +18,6 @@ class ExtendState extends State {
             }
         }
     }
-
     execute(enemy){
         //gives three turns in spike form
         enemy.turnCount++;
@@ -34,7 +32,6 @@ class ExtendState extends State {
             enemy.attack(enemy.attackPower);
         }
     }
-
     exit(enemy){
         if(enemy.seesPlayer()){
             enemy.attack(enemy.attackPower);
@@ -63,11 +60,8 @@ class RetractState extends State {
             enemy.stateMachine.changeTo(EXTEND);
         }
     }
-
     exit(enemy){
-
     }
-
 }
 
 class HaltState extends State {//Only when PinpodSp is absorbed or dead. Does nothing
@@ -76,11 +70,11 @@ class HaltState extends State {//Only when PinpodSp is absorbed or dead. Does no
         enemy.mass = 1;
     }
     execute(enemy){
-
     }
     exit(enemy){
         //resetting health again in the event player used spike attack while pinpod was dead
         enemy.mass = 1;
     }
 }
+
 export {ExtendState, RetractState, HaltState}

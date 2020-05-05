@@ -29,14 +29,12 @@ class PinpodSp extends Enemy {
         this.ap = 1;
         //Turn counter for changing states
         this.turnCount = 0;
-
         this.type = 'PINPODSP';
-
         this.living = 'ALIVE';
     }
-
     update(){//calls a single step in the state
         this.stateMachine.update();
     }
 }
+
 export {PinpodSp};

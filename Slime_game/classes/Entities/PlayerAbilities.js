@@ -54,7 +54,6 @@ class SpikeState extends State{
         }
     }
     exit(player){
-
     }
 }
 

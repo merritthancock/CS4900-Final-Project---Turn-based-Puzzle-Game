@@ -2,7 +2,6 @@ import{Board} from"./Board.js";
 
 class Level{
     constructor(heightMap, terrainMap, enemies, player, cursor){
-
         //Call a Board constructor using heightMap, terrainMap, enemies, and player
         this.board = new Board(terrainMap, heightMap, player, enemies, cursor);
         //Set enemies array
@@ -11,7 +10,6 @@ class Level{
         this.player = player;
         //Sets cursor
         this.cursor = cursor;
-
         this.respawnable = enemies;
     }
 

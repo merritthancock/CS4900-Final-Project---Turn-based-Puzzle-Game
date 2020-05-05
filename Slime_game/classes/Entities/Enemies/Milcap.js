@@ -15,18 +15,15 @@ class Milcap extends Enemy {
         this.radius = [7,3,7];
 
         this.stateMachine = new StateMachine(this);
-
         this.stateMachine.add('PATROL', new PatrolState());
         this.stateMachine.add('PURSUE', new PursueState());
         this.stateMachine.add('ATTACK', new AttackState());
-        
         this.stateMachine.changeTo('PATROL');
         
         //updates default attack power with new attack power
         this.setAttackPower(0.5);
         //Milcaps have 2 AP per turn
         this.ap = 2;
-
         this.type = 'MILCAP';
     }
 
