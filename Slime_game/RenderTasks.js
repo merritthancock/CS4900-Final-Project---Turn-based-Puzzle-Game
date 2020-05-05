@@ -1,10 +1,8 @@
 import {unlocked, getLock, masterLock} from "./Semaphore.js";
 import {keyStatus} from "./KeyboardInput.js";
 import {hover} from "./classes/Pathing.js";
-import {currentLevel} from "./classes/Global.js";
-import { winLevel, loseLevel } from "./classes/Controller.js";
+import {currentLevel} from "./classes/Global.js"; 
 import {updateToolTips} from "./classes/Controller.js";
-import {playSelect, playCursor} from "./classes/Sounds.js";
 
 function updateRender(){
     if(unlocked && !masterLock) {
@@ -22,7 +20,6 @@ function updateRender(){
             currentLevel.cursor.cursorHeight(currentLevel.board.tileArray[currentLevel.cursor.position[0]][currentLevel.cursor.position[2]].height + .6);
             hover(currentLevel);
             updateToolTips();
-
         }
         if(keyStatus["sKey"]){
             getLock("inputHandler");
@@ -43,8 +40,6 @@ function updateRender(){
             currentLevel.cursor.click();
             hover(currentLevel);
             updateToolTips();
-
-
         }
         if(keyStatus["space"]){
             getLock("inputHandler");
@@ -54,10 +49,10 @@ function updateRender(){
             getLock("inputHandler");
             currentLevel.enemies[0].update();
         }
-        if(keyStatus["gKey"]){//win level
+        /*if(keyStatus["gKey"]){//win level
             getLock("inputHandler");
             winLevel();
-        }
+        }*/
     } 
 }
 
