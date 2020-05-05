@@ -80,7 +80,6 @@ body{
     box-shadow: 0 .2em gray; 
     cursor: pointer;
 	width: 150px;
-	/*margin: 0 auto; */
 	display: block;
 	position: absolute;
 	bottom:   50px;
@@ -152,7 +151,6 @@ body{
 	max-height: 250px;
 	max-width: 400px;
 	font-size: 17px;
-	
 	color: white;
 	border-color: white;
 	background-color: rgb(84, 78, 78);
@@ -173,7 +171,6 @@ body{
 	max-height: 250px;
 	max-width: 400px;
 	font-size: 17px;
-	
 	color: white;
 	border-color: white;
 	background-color: rgb(84, 78, 78);
@@ -208,8 +205,6 @@ body{
 }
 
 .container .box--container .box {
-	/* background: #fff; */
-	/* overflow: hidden; */
 	position: relative;
 }
 
@@ -226,7 +221,6 @@ body{
 
 .container .box--container .box .circle--1 {
 	animation: circle--1 ease 1200ms infinite;
-	/* animation: rotate 1s ease infinite; */
 }
 
 .container .box--container .box .circle--2 {
