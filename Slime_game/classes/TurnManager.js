@@ -25,7 +25,6 @@ async function passTurn(currentLevel) {
             let currentEnemy = enemyPriorityQueue.pop();
             currentEnemy.resetAP();
             while(currentEnemy.decrementAP() != null) {
-                //gross spinlock to allow alert animations to finish
                 currentEnemy.update();
                 playEnemy();
                 await sleep(100);
