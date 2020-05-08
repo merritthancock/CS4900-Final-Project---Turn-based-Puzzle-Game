@@ -27,7 +27,7 @@ async function passTurn(currentLevel) {
             while(currentEnemy.decrementAP() != null) {
                 currentEnemy.update();
                 playEnemy();
-                await sleep(100);
+                await sleep(700);
             }
         }
 
