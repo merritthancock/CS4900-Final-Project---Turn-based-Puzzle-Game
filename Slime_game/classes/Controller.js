@@ -236,7 +236,7 @@ function loadModel(entity, loader) {
             gltf.scene.position.set(xPos, yPos, zPos);
             entity.model = gltf.scene;
             entity.mixer = new THREE.AnimationMixer(gltf.scene);
-            let clips = gltf.animations;
+            let clips = resourceTracker.track(gltf.animations);
             entity.animations = clips;
             let clip = THREE.AnimationClip.findByName( clips, 'idle' );
             let action = entity.mixer.clipAction( clip );
@@ -264,7 +264,7 @@ function loadPlayerModels(entity, loader) {
             gltf.scene.position.set(xPos, yPos, zPos);
             entity.model = gltf.scene;
             entity.mixer = new THREE.AnimationMixer(gltf.scene);
-            let clips = gltf.animations;
+            let clips = resourceTracker.track(gltf.animations);
             entity.animations = clips;
             let clip = THREE.AnimationClip.findByName( clips, 'idle' );
             let action = entity.mixer.clipAction( clip );
@@ -291,7 +291,7 @@ function loadPlayerModels(entity, loader) {
             entity.spikeModel = gltf.scene;
             entity.spikeModel.visible = false;
             entity.spikeMixer = new THREE.AnimationMixer(gltf.scene);
-            let clips = gltf.animations;
+            let clips = resourceTracker.track(gltf.animations);
             entity.spikeAnimations = clips;
             let clip = THREE.AnimationClip.findByName( clips, 'idle' );
             let action = entity.spikeMixer.clipAction( clip );
