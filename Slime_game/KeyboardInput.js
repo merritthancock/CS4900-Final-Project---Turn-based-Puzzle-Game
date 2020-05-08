@@ -37,8 +37,8 @@ function doKeyDown(event) {
         case 77: //m key (For testing enemy pathing)
             keyStatus["mKey"] = true;
             break;
-        
-        /*case 71: //g key for testing win screen
+        /*
+        case 71: //g key for testing win screen
             keyStatus["gKey"] = true;
             break;*/
     }
