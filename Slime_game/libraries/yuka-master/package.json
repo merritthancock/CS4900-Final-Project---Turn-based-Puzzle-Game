@@ -53,7 +53,7 @@
     "jsdom": "15.2.1",
     "jsdom-global": "3.0.2",
     "mocha": "6.2.2",
-    "node-fetch": "2.6.0",
+    "node-fetch": "2.6.1",
     "nyc": "14.1.1",
     "rollup": "1.26.3",
     "serve": "11.2.0",
